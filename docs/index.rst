@@ -9,3 +9,8 @@ Welcome
 #######
 
 tbd
+
+
+// to commit to gh-pages as well run this command
+git config --add remote.origin.push +refs/heads/master:refs/heads/gh-pages
+git config --add remote.origin.push +refs/heads/master:refs/heads/master

@@ -1,67 +1,98 @@
 /*!
- * @author:		Angelo Dini
- * @copyright:	http://www.divio.ch under the BSD Licence
- * @requires:	Classy, jQuery
+ * @author      Angelo Dini
+ * @version     1.0 Beta 1
+ * @copyright	Distributed under the BSD License.
+ * @requires:	jQuery, class.js
  */
 
-//##################################################
-// #CL EXTENSION#
+// insuring namespace is defined
 var Cl = window.Cl || {};
-(function($){
-	// Version 1.0 (Beta 3)
-	Cl.Lightbox = Class.$extend({
 
-		/**
-		 ** OPTIONS
-		 */
+// cl.lightbox
+(function($){
+	'use strict';
+
+	Cl.Lightbox = new Class({
+
+		// options can be overwritten by passing an object as the second argument
+		// on instantiation: new Cl.Lightbox(container, { group: true });
 		options: {
-			'prefix': 'cl_', // defines prefix for events and classes.
-			'group': false, // enables grouping of elements and navigation through the collection.
-			'cycle': true, // when true, enables previous and next methods to jump to beginning or end of the collection.
-			'modal': true, // if false the dimmer is not shown and interaction with the rest of the page is still possible
-			'modalClickable': true, // enables the click event on the dimmer to hide the lightbox
-			'modalClosable': true, // disables all frontend close events, API calls can still be triggered
-			'forceLoad': true, // shows preloader until content is fully loaded (iframes)
-			'transition': 'linear', // transition effect for animations
-			'duration': 500, // duration time for showing element
-			'speed': 300, // used whenever an animation sets place
-			'fixed': true, // fixes the lightbox positioning to viewport
-			'responsive': true, // enables responsive calculations if window is resized
-			'autoScale': true, // scales width and height of content el to 100%
-			'scrolling': false, // determin if overflowing content is shown (width scrolling) or hidden
+			// defines prefix for css and events
+			'prefix': 'cl_',
+			// sets animation transition effect
+			'transition': 'linear',
+			// sets animation transition time
+			'duration': 500,
+			// sets the lightbox visibility speed
+			'speed': 300,
+
+			// if true, groups matched elements inside one lightbox
+			'group': false,
+			// if true, enables infinite page sliding for groups
+			'cycle': true,
+			// if true, shows the dimmer
+			'modal': true,
+			// if true, allowes the dimmer to be closed on click
+			'modalClickable': true,
+			// if true, disabled all close events, the lightbox can only be closed on spedific call of instance.close()
+			'modalClosable': true,
+
+			// if true, enables responsive behaviours
+			'responsive': true,
+			// if true, uses fixed positioning calculations instead of css attributes
+			'fixed': true,
+			// if true, scales content el width and height to 100%
+			'autoScale': true,
+			// if true, hides overflowing content
+			'scrolling': false,
+
+			// if true, shows preloader until content is fully loaded (iframes)
+			'forceLoad': true,
+			// TODO force type: forces a specific type to be loaded ('ajax', 'images')
+			// see _extract method for more options
+			'forceType': '',
 			'ajax': false, // forces ajax loading
-			// update for v1.1
-			// 'enableSlideshow': false,
-			// 'slideshow': {
-			// 	'autoplay': false, // enables timer which calls the next method after a specific amount of time.
-			//  'speed': 5000
-			//},
-			'styles': {}, // these styles will be added before the content calculations ar applied
+
+			// these styles will be added before the content calculations ar applied
+			'styles': {},
 			'dimensions': {
-				'initialWidth': 50, // initial width for loader
-				'initialHeight': 50, // initial height for loader
-				'bound': 50, // window bound for responsiveness
-				'offset': 20, // offset which is added outside of the content element which is not calculated
-				'width': null, // force content width
-				'height': null // force content height
+				// initial width for loader
+				'initialWidth': 50,
+				// initial height for loader
+				'initialHeight': 50,
+				// window outer bound if responsive is true
+				'bound': 50,
+				// padding which is added to the content element
+				'offset': 20,
+				// force content width
+				'width': null,
+				// force content height
+				'height': null
 			},
-			// if you want no keys set 'keys': null
+			// if true, enables key mechanics
 			'enableKeys': true,
 			'keys': {
-				'close': [27, 99], // enables "esc" and "c" keys
-				'next': [39, 110], // enables "arrow-right" and "n" keys
-				'previous': [37, 112] // enables "arrow-left" and "p" keys
+				// sets "esc" and "c" keys
+				'close': [27, 99],
+				// sets "arrow-right" and "n" keys
+				'next': [39, 110],
+				// sets "arrow-left" and "p" keys
+				'previous': [37, 112]
 			},
 			'lang': {
+				// added to close button
 				'close': 'Close lightbox',
-				'errorMessage': '<p><strong>The requested element could not be loaded.</strong><br />' +
-					'Plase <a href="/contact/">contact</a> us if this error occurs again.</p>',
+				// added to error content
+				'errorMessage': '<p><strong>The requested element could not be loaded.</strong><br />Plase try again.</p>',
+				// added to next button
 				'next': 'Next',
+				// added to previous button
 				'previous': 'Previous',
-				'status': 'Slide {current} of {total}.',
-				'state': 'Play:Pause'
+				// status text which is shown underneath the content
+				'status': 'Slide {current} of {total}.'
 			},
 			// callbacks
+			// TODO TEST AND CHECK NAMES
 			'callbacks': {
 				'open': function () {},
 				'load': function () {},
@@ -72,9 +103,7 @@ var Cl = window.Cl || {};
 			}
 		},
 
-		/**
-		 ** CONSTRUCTOR & BUILDER
-		 */
+		// private method constructor
 		initialize: function (triggers, options) {
 			var that = this;
 
@@ -92,7 +121,8 @@ var Cl = window.Cl || {};
 			});
 		},
 
-		build: function () {
+		_build: function () {
+			// TODO use _fireEvent
 			this._triggerAPI('setup');
 
 			// insure that this instant is loaded so setup is not called twice
@@ -118,14 +148,13 @@ var Cl = window.Cl || {};
 			this.body.append(this.instance);
 		},
 
-		/**
-		 ** PUBLIC API
-		 */
+		// public api method, can be called using instance.open($(el));
+		// opens provided jQuery element inside the lightbox
 		open: function (el) {
 			// set correct loader state
-			loader = (this.isOpen) ? false : true;
+			var loader = (this.isOpen) ? false : true;
 			// check if there is already an instance available
-			if(!this.isLoaded) this.build();
+			if(!this.isLoaded) this._build();
 			this._triggerAPI('open', 'open', this);
 
 			this._show(loader);
@@ -135,6 +164,7 @@ var Cl = window.Cl || {};
 			this.isOpen = true;
 		},
 
+		// public api method, can be called using instance.close();
 		close: function () {
 			this._triggerAPI('close', 'close', this);
 
@@ -656,7 +686,7 @@ var Cl = window.Cl || {};
 
 		_tplControls: function (prefix) {
 			return  '<p class="'+prefix+'lb-close">' +
-					'   <a href="#close">'+this.options.lang.close+'</a>' +
+					'   <a href="#">'+this.options.lang.close+'</a>' +
 					'</p>' +
 					'<p class="'+prefix+'lb-navigation">' +
 					'   <a class="'+prefix+'lb-next" href="#next">'+this.options.lang.next+'</a>' +
