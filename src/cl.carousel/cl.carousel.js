@@ -7,14 +7,13 @@
 //##################################################
 // #CL EXTENSION#
 (function($){
-	// Version 1.0
-	Cl.Carousel = Class.$extend({
+// Version 1.1.0
+	Cl.Carousel = new Class({
 
 		options: {
 			'index': 0, // initial page to load
-			'autoplay': false, // animates at startup, if true a button for play/pause has to be defined
+			'timeout': null, // timeout for autoplay, if 0 or null autoplay is ignored
 			'duration': 500, // duration for animation
-			'timeout': 5000, // timeout for autoplay
 			'move': 'single', // either "single" to move one element or "auto" to move the whole slider
 			'momentum': true, // allow scrolling over the left and right border
 			'cls': {
@@ -66,7 +65,7 @@
 			});
 
 			// start autoplay
-			if(this.options.autoplay) this._autoplay();
+			if(this.options.timeout) this._autoplay();
 
 			// add swipe event
 			if(typeof($.fn.swipe) === "function" && (Cl.Utils.mobile() || Cl.Utils.tablet())) this._swipe();
@@ -126,7 +125,7 @@
 
 		move: function (index) {
 			// set new index if neccessary
-			this.index = index || this.index;
+			this.index = (index !== undefined) ? index : this.index;
 
 			var width = $(this.elements[0]).outerWidth(true);
 			var viewBound = Math.ceil(this.wrapper.outerWidth(true) / width);
@@ -151,6 +150,12 @@
 				this.triggerRight.addClass(this.options.cls.disabled);
 			} else {
 				this.triggerRight.removeClass(this.options.cls.disabled);
+			}
+
+			// check if we should siable the arrows
+			if(viewBound >= this.bound) {
+				this.triggerLeft.addClass(this.options.cls.disabled);
+				this.triggerRight.addClass(this.options.cls.disabled);
 			}
 		},
 
