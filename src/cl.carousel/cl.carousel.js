@@ -95,7 +95,7 @@
 			if(event) clearInterval(this.timer);
 
 			var width = $(this.elements[0]).outerWidth(true);
-			var viewBound = Math.ceil(this.wrapper.outerWidth(true) / width);
+			var viewBound = Math.ceil(this.wrapper.width() / width);
 
 			// cancel if bound is reached and momentum is false
 			if(this.index <= 0 && !this.options.momentum) return false;
