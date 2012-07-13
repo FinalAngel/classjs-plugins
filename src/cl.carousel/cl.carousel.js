@@ -23,18 +23,19 @@
 				'rightTrigger': '.trigger-right a',
 				'wrapper': '.wrapper',
 				'viewport': '.viewport',
-				'elements': 'article'
+				'elements': 'article',
+				'navigation': 'nav a'
 			}
 		},
 
 		initialize: function (container, options) {
-			var that = this;
-
 			this.container = $(container);
 			this.options = $.extend(true, {}, this.options, options);
+
 			this.wrapper = this.container.find(this.options.cls.wrapper);
 			this.viewport = this.wrapper.find(this.options.cls.viewport);
 			this.elements = this.viewport.find(this.options.cls.elements);
+			this.navigation = this.container.find(this.options.cls.navigation);
 
 			this.index = this.options.index;
 			this.bound = this.elements.length;
@@ -44,6 +45,15 @@
 			this.triggerRight = this.container.find(this.options.cls.rightTrigger);
 
 			this._setup();
+		},
+
+		_setup: function () {
+			var that = this;
+
+			// calculate container height
+			this.wrapper.css('height', this.viewport.height());
+			// calculate viewport width
+			this.viewport.css('width', this.elements.length * this.elements.outerWidth(true));
 
 			// cancel if bound is bigger then containing items
 			if(this.bound < Math.ceil(this.wrapper.outerWidth(true) / $(this.elements[0]).outerWidth(true))) {
@@ -64,6 +74,12 @@
 				that.moveRight.call(that, e);
 			});
 
+			// bind navigation
+			this.navigation.bind('click', function (e) {
+				e.preventDefault();
+				that.move(that.navigation.index($(this)));
+			});
+
 			// start autoplay
 			if(this.options.timeout) this._autoplay();
 
@@ -72,13 +88,6 @@
 
 			// init first
 			this.move();
-		},
-
-		_setup: function () {
-			// calculate container height
-			this.wrapper.css('height', this.viewport.height());
-			// calculate viewport width
-			this.viewport.css('width', this.elements.length * this.elements.outerWidth(true));
 		},
 
 		moveLeft: function (event) {
@@ -103,11 +112,11 @@
 		},
 
 		moveRight: function (event) {
-			// cance timeout when clicking
+			// cancel timeout when clicking
 			if(event) clearInterval(this.timer);
 
 			var width = $(this.elements[0]).outerWidth(true);
-			var viewBound = Math.ceil(this.wrapper.outerWidth(true) / width);
+			var viewBound = Math.ceil(this.wrapper.width() / width);
 
 			// cancel if bound is reached and momentum is false
 			if(viewBound + this.index >= this.bound && !this.options.momentum) return false;
@@ -128,7 +137,7 @@
 			this.index = (index !== undefined) ? index : this.index;
 
 			var width = $(this.elements[0]).outerWidth(true);
-			var viewBound = Math.ceil(this.wrapper.outerWidth(true) / width);
+			var viewBound = Math.ceil(this.wrapper.width() / width);
 			var moveBound = (this.options.move === 'single') ? 1 : viewBound;
 			var position = -(width * (this.index * moveBound));
 
@@ -136,6 +145,10 @@
 			this.viewport.stop().animate({
 				'left': position
 			}, this.options.duration);
+
+			// change active navigation
+			this.navigation.removeClass(this.options.cls.active);
+			this.navigation.eq(this.index).addClass(this.options.cls.active);
 
 			// add appropriate classes to left trigger
 			if(this.index <= 0) {
@@ -152,7 +165,7 @@
 				this.triggerRight.removeClass(this.options.cls.disabled);
 			}
 
-			// check if we should siable the arrows
+			// check if we should disable the arrows
 			if(viewBound >= this.bound) {
 				this.triggerLeft.addClass(this.options.cls.disabled);
 				this.triggerRight.addClass(this.options.cls.disabled);
