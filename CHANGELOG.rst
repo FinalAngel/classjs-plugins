@@ -4,17 +4,24 @@ classjs-plugins
 
 --------
 
+Cl.Accordion
+===========
+
+
+
+--------
+
 Cl.Carousel
 ===========
 
 Version 1.2.0
 -------------
 - fixed an issue with the carousel incorrectly calculating number of items
-- added option `navigation`
+- added option ``navigation``
 
 Version 1.1.0
 -------------
-- removed redundant option `autoplay`, the carousel now starts if timeout is set and not 0
+- removed redundant option ``autoplay``; the carousel now starts if timeout is greater than 0
 
 --------
 
