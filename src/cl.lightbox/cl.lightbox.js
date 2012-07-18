@@ -2,20 +2,21 @@
  * @author      Angelo Dini
  * @version     1.0 Beta 1
  * @copyright	Distributed under the BSD License.
- * @requires:	jQuery, class.js
+ * @requires:	class.js, jQuery
  */
 
 // insuring namespace is defined
 var Cl = window.Cl || {};
 
-// cl.lightbox
+// new Cl.Lightbox(triggers, options);
 (function($){
 	'use strict';
 
 	Cl.Lightbox = new Class({
 
-		// options can be overwritten by passing an object as the second argument
-		// on instantiation: new Cl.Lightbox(container, { group: true });
+		/*
+		 * options and constructor
+		 */
 		options: {
 			// defines prefix for css and events
 			'prefix': 'cl_',
@@ -48,13 +49,12 @@ var Cl = window.Cl || {};
 
 			// if true, shows preloader until content is fully loaded (iframes)
 			'forceLoad': true,
-			// TODO force type: forces a specific type to be loaded ('ajax', 'images')
-			// see _extract method for more options
+			// see "_extract" method for more options
 			'forceType': '',
-			'ajax': false, // forces ajax loading
 
-			// these styles will be added before the content calculations ar applied
+			// the styles object will be added before preloading is applied
 			'styles': {},
+			// forcing dimensions before preloading is applied
 			'dimensions': {
 				// initial width for loader
 				'initialWidth': 50,
@@ -69,9 +69,9 @@ var Cl = window.Cl || {};
 				// force content height
 				'height': null
 			},
-			// if true, enables key mechanics
-			'enableKeys': true,
 			'keys': {
+				// if true, enables key mechanics
+				'enabled': true,
 				// sets "esc" and "c" keys
 				'close': [27, 99],
 				// sets "arrow-right" and "n" keys
@@ -103,7 +103,6 @@ var Cl = window.Cl || {};
 			}
 		},
 
-		// private method constructor
 		initialize: function (triggers, options) {
 			var that = this;
 
@@ -121,41 +120,16 @@ var Cl = window.Cl || {};
 			});
 		},
 
-		_build: function () {
-			// TODO use _fireEvent
-			this._triggerAPI('setup');
-
-			// insure that this instant is loaded so setup is not called twice
-			this.isLoaded = true;
-
-			// setup template
-			var template = this._tpl(this.options.prefix);
-				template = template.replace('{controls}', this._tplControls(this.options.prefix));
-
-			// save current instance
-			this.instance = $(template);
-			this.frame = this.instance.filter('.'+this.options.prefix+'lightbox');
-			this.dimmer = this.instance.filter('.'+this.options.prefix+'lightbox-dim');
-			this.content = this.instance.find('.'+this.options.prefix+'lb-content');
-			this.loader = this.instance.find('.'+this.options.prefix+'lb-loader');
-			this.loadingBay = this.instance.find('.'+this.options.prefix+'lightbox-bay');
-			this.controls = this.instance.find('.'+this.options.prefix+'lb-controls');
-
-			// attach styles from options to content
-			this.content.css(this.options.styles);
-
-			// attach frame to the dom
-			this.body.append(this.instance);
-		},
-
-		// public api method, can be called using instance.open($(el));
-		// opens provided jQuery element inside the lightbox
+		/*
+		 * public methods
+		 */
 		open: function (el) {
+			this._fireEvent('open', 'open', this);
+
 			// set correct loader state
 			var loader = (this.isOpen) ? false : true;
 			// check if there is already an instance available
 			if(!this.isLoaded) this._build();
-			this._triggerAPI('open', 'open', this);
 
 			this._show(loader);
 			this._preload(el);
@@ -164,9 +138,8 @@ var Cl = window.Cl || {};
 			this.isOpen = true;
 		},
 
-		// public api method, can be called using instance.close();
 		close: function () {
-			this._triggerAPI('close', 'close', this);
+			this._fireEvent('close', 'close', this);
 
 			this._hide();
 			this._unload();
@@ -176,13 +149,13 @@ var Cl = window.Cl || {};
 		},
 
 		resize: function (width, height) {
-			this._triggerAPI('resize', 'resize', this);
+			this._fireEvent('resize', 'resize', this);
 
 			this._resize('animate', width, height);
 		},
 
 		destroy: function () {
-			this._triggerAPI('destroy');
+			this._fireEvent('destroy');
 
 			this.triggers.unbind('click');
 			this.instance.remove();
@@ -222,11 +195,38 @@ var Cl = window.Cl || {};
 			return this.element || null;
 		},
 
-		/**
-		 ** PRIVATE METHODS
+		/*
+		 * private methods
 		 */
+		_build: function () {
+			this._fireEvent('setup');
+
+			// insure that this instant is loaded so setup is not called twice
+			this.isLoaded = true;
+
+			// setup template
+			var template = this._tpl(this.options.prefix);
+				template = template.replace('{controls}', this._tplControls(this.options.prefix));
+			var prefix = this.options.prefix;
+
+			// save current instance
+			this.instance = $(template);
+			this.frame = this.instance.filter('.'+prefix+'lightbox');
+			this.dimmer = this.instance.filter('.'+prefix+'lightbox-dim');
+			this.content = this.instance.find('.'+prefix+'lb-content');
+			this.loader = this.instance.find('.'+prefix+'lb-loader');
+			this.loadingBay = this.instance.find('.'+prefix+'lightbox-bay');
+			this.controls = this.instance.find('.'+prefix+'lb-controls');
+
+			// attach styles from options to content
+			this.content.css(this.options.styles);
+
+			// attach frame to the dom
+			this.body.append(this.instance);
+		},
+
 		_preload: function (el) {
-			this._triggerAPI('load', 'load', this);
+			this._fireEvent('load', 'load', this);
 
 			// define global helper variables
 			this.element = this.getElement();
@@ -236,7 +236,7 @@ var Cl = window.Cl || {};
 			// define local helper variables
 			var source = $(el);
 			var url = source.attr('href');
-			var type = this._extract(url);
+			var type = this.options.forceType || this._extract(url);
 
 			// helper variables
 			var that = this;
@@ -260,9 +260,6 @@ var Cl = window.Cl || {};
 				this.index = this.collection.index(source);
 				this.bound = this.collection.length;
 			}
-
-			// forces ajax
-			if(this.options.ajax) type = 'ajax';
 
 			// create the element
 			switch(type) {
@@ -358,9 +355,10 @@ var Cl = window.Cl || {};
 		},
 
 		_complete: function (el) {
-			var that = this;
 			// trigger api chain
-			this._triggerAPI('complete', 'complete', this);
+			this._fireEvent('complete', 'complete', this);
+
+			var that = this;
 			// load element and show
 			this.content.append(el.css('visibility', 'visible').hide().fadeIn(this.options.duration));
 			// hide loader depending on content
@@ -385,7 +383,7 @@ var Cl = window.Cl || {};
 		},
 
 		_unload: function () {
-			this._triggerAPI('unload', 'unload', this);
+			this._fireEvent('unload', 'unload', this);
 			// reattaches the loader to the html content
 			this.content.html(this.loader);
 			// rremove element
@@ -507,7 +505,7 @@ var Cl = window.Cl || {};
 			});
 
 			// enable key navigation
-			if(this.options.enableKeys) {
+			if(this.options.keys.enabled) {
 				$(document).bind('keydown', function (e) {
 					if(($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keys.close) >= 0) && that.options.modalClosable) that.close();
 					if($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keys.next) >= 0) that.next();
@@ -535,7 +533,7 @@ var Cl = window.Cl || {};
 			$(document).unbind('keydown');
 		},
 
-		_triggerAPI: function (event, callback, scope) {
+		_fireEvent: function (event, callback, scope) {
 			// triggered events: setup, open, load, complete, close, unload, resize, destroy
 			$.event.trigger(this.options.prefix + event);
 			if(callback) this.options.callbacks[callback](scope || this);
@@ -557,7 +555,7 @@ var Cl = window.Cl || {};
 			if(!this.collection) textOffset = 0;
 
 			// TODO: first width and than height - maybe there is a better solution to do it together
-			// TODO: we need to add some resstriction, image should never go out of canvas
+			// TODO: we need to add some resstriction, image should never span out of document window
 			// width boundry calculations
 			if(windowWidth <= width + this.options.dimensions.bound) {
 				width = originalWidth - (width - windowWidth + this.options.dimensions.bound);
@@ -598,9 +596,6 @@ var Cl = window.Cl || {};
 			return $(this._tplError(this.options.prefix)).html(message);
 		},
 
-		/**
-		 ** PRIVATE CONTROL METHODS
-		 */
 		_showControls: function () {
 			var close = this.controls.find('.'+this.options.prefix+'lb-close');
 			// show close only if modalClosable is true
@@ -632,9 +627,6 @@ var Cl = window.Cl || {};
 				content.hide();
 		},
 
-		/**
-		 ** PRIVATE DIMMER METHODS
-		 */
 		_showDim: function () {
 			($.browser.msie && $.browser.version < 8) ? this.dimmer.show() : this.dimmer.fadeIn();
 
@@ -669,14 +661,11 @@ var Cl = window.Cl || {};
 			}
 		},
 
-		/**
-		 ** TEMPLATES
-		 */
 		_tpl: function (prefix) {
 			return  '<div class="'+prefix+'lightbox" style="display:none;">' +
 					'	<div class="'+prefix+'lb-inner">' +
 					'		<section class="'+prefix+'lb-content">{content}</section>' +
-					'		<section class="'+prefix+'lb-description">{description}</section>' +
+					//'		<section class="'+prefix+'lb-description">{description}</section>' +
 					'		<section class="'+prefix+'lb-controls">{controls}</section>' +
 					'	</div>' +
 					'   <div class="'+prefix+'lightbox-bay"></div>' +

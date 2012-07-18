@@ -4,22 +4,29 @@
 <meta charset="utf-8" />
 <title>class.js - lightbox</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<!-- global files -->
 	<link rel="stylesheet" href="/examples/_static/styles.css" />
+	<script src="/examples/_static/jquery.min.js"></script>
+	<script src="/examples/_static/class.min.js"></script>
 
-	<!-- required styles -->
+	<!-- required files -->
 	<link rel="stylesheet" href="/examples/cl.lightbox/styles.css" />
+	<script src="/src/cl.lightbox/cl.lightbox.js"></script>
 </head>
 <body class="no-js">
 
 <!-- required html -->
-<div id="blah">blah</div>
+<h1>Class based Lightbox</h1>
+
+<p><a href="/examples/" class="lightbox">click me</a></p>
 
 <!-- required javascript -->
-<script src="/examples/_static/jquery.min.js"></script>
-<script src="/examples/_static/class.min.js"></script>
-<script src="/src/cl.lightbox/cl.lightbox.js"></script>
 <script>
+jQuery(document).ready(function ($) {
+	// create a new lightbox bound to the "lightbox" css class
+	new Cl.Lightbox('.lightbox', {});
 
+});
 </script>
 
 </body>

@@ -1,14 +1,18 @@
 /*!
- * @author:		Angelo Dini
- * @copyright:	http://www.divio.ch under the BSD Licence
- * @requires:	Classy, jQuery, Cl.Utils
+ * @author      Angelo Dini
+ * @version     1.0 Beta 1
+ * @copyright	Distributed under the BSD License.
+ * @requires:	class.js, jQuery
  */
 
-//##################################################
-// #CL EXTENSION#
+// insuring namespace is defined
+var Cl = window.Cl || {};
+
+// new Cl.Carousel(container, options);
 (function($){
-	// Version 1.0
-	Cl.Carousel = Class.$extend({
+	'use strict';
+
+	Cl.Carousel = new Class({
 
 		options: {
 			'index': 0, // initial page to load
