@@ -1,13 +1,16 @@
 /*!
- * @author:		Angelo Dini
- * @copyright:	http://www.divio.ch under the BSD Licence
- * @requires:	Classy, jQuery
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ * @version     1.0.1
  */
 
-//##################################################
-// #CL EXTENSION#
+// insure namespace is defined
+var Cl = window.Cl || {};
+
 (function($){
-	// Version 1.0.1
+	'use strict';
+
+	// creating class
 	Cl.Accordion = new Class({
 
 		options: {
@@ -97,4 +100,5 @@
 		}
 
 	});
+
 })(jQuery);

@@ -1,13 +1,16 @@
 /*!
- * @author:		Angelo Dini
- * @copyright:	http://www.divio.ch under the BSD Licence
- * @requires:	Classy, jQuery, Cl.Utils
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ * @version     1.2.1
  */
 
-//##################################################
-// #CL EXTENSION#
+// insure namespace is defined
+var Cl = window.Cl || {};
+
 (function($){
-// Version 1.2.0
+	'use strict';
+
+	// creating class
 	Cl.Carousel = new Class({
 
 		options: {
@@ -204,4 +207,5 @@
 		}
 
 	});
+
 })(jQuery);
