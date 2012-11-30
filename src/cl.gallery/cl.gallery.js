@@ -15,7 +15,7 @@ var Cl = window.Cl || {};
 			'index': 0, // initial image to show
 			'duration': 500, // duration for animation
 			'timeout': 5000, // if set, the gallery will start moving automatically
-			'direction': 'right', // direction to move by default (left, right)
+			'direction': 'right', // direction to move by default (left, right, random)
 			'animation': 'fade', // animation type (fade, slide)
 			'cls': { // these selectors are all relative to the container
 				'active': 'active', // class that will be used for active thumbnails
@@ -86,6 +86,9 @@ var Cl = window.Cl || {};
 				this.timer = setInterval(function () {
 					if (that.options.direction === 'left') {
 						that.moveLeft('left');
+					} else if (that.options.direction === 'random') {
+						var rand = Math.floor(Math.random()*that.elements.length);
+						that.move(rand);
 					} else {
 						that.moveRight('right');
 					}
@@ -126,6 +129,8 @@ var Cl = window.Cl || {};
 		_animateSlide: function(indexNext, indexPrev, direction) {
 			var width = parseInt($(this.wrapper).outerWidth(true));
 			var dir = 'right';
+			var prev = $(this.elements[indexPrev]);
+			var next = $(this.elements[indexNext]);
 
 			if (this.elements.length > 2) {
 				if (indexNext < indexPrev) {
@@ -138,34 +143,38 @@ var Cl = window.Cl || {};
 			}
 
 			if (dir === 'left') {
-				$(this.elements[indexPrev]).css({ left: 'auto', right: 0 });
-				$(this.elements[indexNext]).css({ left: -width, right: 'auto' }).show();
-				$(this.elements[indexPrev]).stop(true).animate(
-					{ right: -width },
-					this.options.duration,
-					function() {
-						$(this).hide().css({ left: 0, right: 0 });
-					}
-				);
-				$(this.elements[indexNext]).stop(true).animate(
-					{ left: 0 },
-					this.options.duration,
-					function() {
-						$(this).css({ left: 0, right: 0 });
-					}
-				);
-			} else {
-				$(this.elements[indexPrev]).css({ left: 0, right: 'auto' });
-				$(this.elements[indexNext]).css({ left: 'auto', right: -width }).show();
-				$(this.elements[indexPrev]).stop(true).animate(
-					{ left: -width },
+				prev.css('width', width);
+				next.css('width', width);
+				prev.css('marginLeft', 0);
+				next.css('marginLeft', -width).show();
+				prev.stop(true).animate(
+					{ marginLeft: width },
 					this.options.duration,
 					function() {
 						$(this).removeAttr('style').hide();
 					}
 				);
-				$(this.elements[indexNext]).stop(true).animate(
-					{ right: 0 },
+				next.stop(true).animate(
+					{ marginLeft: 0 },
+					this.options.duration,
+					function() {
+						$(this).removeAttr('style').show();
+					}
+				);
+			} else {
+				prev.css('width', width);
+				next.css('width', width);
+				prev.css('marginLeft', 0);
+				next.css('marginLeft', width).show();
+				prev.stop(true).animate(
+					{ marginLeft: -width },
+					this.options.duration,
+					function() {
+						$(this).removeAttr('style').hide();
+					}
+				);
+				next.stop(true).animate(
+					{ marginLeft: 0 },
 					this.options.duration,
 					function() {
 						$(this).removeAttr('style').show();
