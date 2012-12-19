@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.0
+ * @version     1.0.1
  */
 
 // ensure namespace is defined
@@ -205,7 +205,7 @@ var Cl = window.Cl || {};
 			// define local helper variables
 			var source = $(el);
 			var url = source.attr('href');
-			var type = this._extract(url);
+			var type = this.type = this._extract(url);
 
 			// helper variables
 			var that = this;
@@ -318,7 +318,7 @@ var Cl = window.Cl || {};
 			if(this.height >= 9999) this.height = 320;
 
 			// resize viewport to element dimensions
-			if(!(el.prop('tagName') === 'IFRAME' && this.options.forceLoad)) this.resize(this.width, this.height);
+			if(!(el.attr('tagName') === 'IFRAME' && this.options.forceLoad)) this.resize(this.width, this.height);
 
 			// render element
 			setTimeout(function () {
@@ -527,18 +527,17 @@ var Cl = window.Cl || {};
 			// disable textOffset if grouping is enabled
 			if(!this.collection) textOffset = 0;
 
-			// TODO: first width and than height - maybe there is a better solution to do it together
-			// TODO: we need to add some resstriction, image should never go out of canvas
 			// width boundry calculations
 			if(windowWidth <= width + this.options.dimensions.bound) {
 				width = originalWidth - (width - windowWidth + this.options.dimensions.bound);
 				// aspect ratio
-				height = Math.floor(height * width / originalWidth);
+				if(this.type === 'image') height = Math.floor(height * width / originalWidth);
 				// height boundry calculations
-			} else if(windowHeight <= height + this.options.dimensions.bound + textOffset) {
+			}
+			if(windowHeight <= height + this.options.dimensions.bound + textOffset) {
 				height = originalHeight - (height - windowHeight + this.options.dimensions.bound) - textOffset;
 				// aspect ratio
-				width = Math.floor(width * height / originalHeight);
+				if(this.type === 'image') width = Math.floor(width * height / originalHeight);
 			}
 
 			// animate to element content dimensions
