@@ -1,98 +1,66 @@
 /*!
- * @author      Angelo Dini
- * @version     1.0 Beta 1
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @requires:	class.js, jQuery
+ * @version     1.0
  */
 
-// insuring namespace is defined
+// ensure namespace is defined
 var Cl = window.Cl || {};
 
-// new Cl.Lightbox(triggers, options);
 (function($){
 	'use strict';
 
+	// creating class
 	Cl.Lightbox = new Class({
 
-		/*
-		 * options and constructor
-		 */
 		options: {
-			// defines prefix for css and events
-			'prefix': 'cl_',
-			// sets animation transition effect
-			'transition': 'linear',
-			// sets animation transition time
-			'duration': 500,
-			// sets the lightbox visibility speed
-			'speed': 300,
-
-			// if true, groups matched elements inside one lightbox
-			'group': false,
-			// if true, enables infinite page sliding for groups
-			'cycle': true,
-			// if true, shows the dimmer
-			'modal': true,
-			// if true, allowes the dimmer to be closed on click
-			'modalClickable': true,
-			// if true, disabled all close events, the lightbox can only be closed on spedific call of instance.close()
-			'modalClosable': true,
-
-			// if true, enables responsive behaviours
-			'responsive': true,
-			// if true, uses fixed positioning calculations instead of css attributes
-			'fixed': true,
-			// if true, scales content el width and height to 100%
-			'autoScale': true,
-			// if true, hides overflowing content
-			'scrolling': false,
-
-			// if true, shows preloader until content is fully loaded (iframes)
-			'forceLoad': true,
-			// see "_extract" method for more options
-			'forceType': '',
-
-			// the styles object will be added before preloading is applied
-			'styles': {},
-			// forcing dimensions before preloading is applied
+			'prefix': 'cl_', // defines prefix for events and classes.
+			'group': false, // enables grouping of elements and navigation through the collection.
+			'cycle': true, // when true, enables previous and next methods to jump to beginning or end of the collection.
+			'modal': true, // if false the dimmer is not shown and interaction with the rest of the page is still possible
+			'modalClickable': true, // enables the click event on the dimmer to hide the lightbox
+			'modalClosable': true, // disables all frontend close events, API calls can still be triggered
+			'forceLoad': true, // shows preloader until content is fully loaded (iframes)
+			'transition': 'linear', // transition effect for animations
+			'duration': 500, // duration time for showing element
+			'speed': 300, // used whenever an animation sets place
+			'fixed': true, // fixes the lightbox positioning to viewport
+			'responsive': true, // enables responsive calculations if window is resized
+			'autoScale': true, // scales width and height of content el to 100%
+			'scrolling': false, // determin if overflowing content is shown (width scrolling) or hidden
+			'ajax': false, // forces ajax loading
+			// update for v1.1
+			// 'enableSlideshow': false,
+			// 'slideshow': {
+			// 	'autoplay': false, // enables timer which calls the next method after a specific amount of time.
+			//  'speed': 5000
+			//},
+			'styles': {}, // these styles will be added before the content calculations ar applied
 			'dimensions': {
-				// initial width for loader
-				'initialWidth': 50,
-				// initial height for loader
-				'initialHeight': 50,
-				// window outer bound if responsive is true
-				'bound': 50,
-				// padding which is added to the content element
-				'offset': 20,
-				// force content width
-				'width': null,
-				// force content height
-				'height': null
+				'initialWidth': 50, // initial width for loader
+				'initialHeight': 50, // initial height for loader
+				'bound': 50, // window bound for responsiveness
+				'offset': 20, // offset which is added outside of the content element which is not calculated
+				'width': null, // force content width
+				'height': null // force content height
 			},
+			// if you want no keys set 'keys': null
+			'enableKeys': true,
 			'keys': {
-				// if true, enables key mechanics
-				'enabled': true,
-				// sets "esc" and "c" keys
-				'close': [27, 99],
-				// sets "arrow-right" and "n" keys
-				'next': [39, 110],
-				// sets "arrow-left" and "p" keys
-				'previous': [37, 112]
+				'close': [27, 99], // enables "esc" and "c" keys
+				'next': [39, 110], // enables "arrow-right" and "n" keys
+				'previous': [37, 112] // enables "arrow-left" and "p" keys
 			},
 			'lang': {
-				// added to close button
 				'close': 'Close lightbox',
-				// added to error content
-				'errorMessage': '<p><strong>The requested element could not be loaded.</strong><br />Plase try again.</p>',
-				// added to next button
+				'errorMessage': '<p><strong>The requested element could not be loaded.</strong><br />' +
+					'Plase <a href="/contact/">contact</a> us if this error occurs again.</p>',
 				'next': 'Next',
-				// added to previous button
 				'previous': 'Previous',
-				// status text which is shown underneath the content
-				'status': 'Slide {current} of {total}.'
+				'status': 'Slide {current} of {total}.',
+				'state': 'Play:Pause'
 			},
 			// callbacks
-			// TODO TEST AND CHECK NAMES
 			'callbacks': {
 				'open': function () {},
 				'load': function () {},
@@ -120,16 +88,44 @@ var Cl = window.Cl || {};
 			});
 		},
 
-		/*
-		 * public methods
+		build: function () {
+			this._triggerAPI('setup');
+
+			// insure that this instant is loaded so setup is not called twice
+			this.isLoaded = true;
+
+			// setup template
+			var template = this._tpl(this.options.prefix);
+			template = template.replace('{controls}', this._tplControls(this.options.prefix));
+
+			// save current instance
+			this.instance = $(template);
+			this.frame = this.instance.filter('.'+this.options.prefix+'lightbox');
+			this.dimmer = this.instance.filter('.'+this.options.prefix+'lightbox-dim');
+			this.content = this.instance.find('.'+this.options.prefix+'lb-content');
+			this.loader = this.instance.find('.'+this.options.prefix+'lb-loader');
+			this.loadingBay = this.instance.find('.'+this.options.prefix+'lightbox-bay');
+			this.controls = this.instance.find('.'+this.options.prefix+'lb-controls');
+
+			// attach styles from options to content
+			this.content.css(this.options.styles);
+
+			// attach frame to the dom
+			this.body.append(this.instance);
+		},
+
+		/**
+		 ** PUBLIC API
 		 */
 		open: function (el) {
-			this._fireEvent('open', 'open', this);
+			// handle instance open call
+			if(el === undefined) el = this.triggers.first();
 
 			// set correct loader state
 			var loader = (this.isOpen) ? false : true;
 			// check if there is already an instance available
-			if(!this.isLoaded) this._build();
+			if(!this.isLoaded) this.build();
+			this._triggerAPI('open', 'open', this);
 
 			this._show(loader);
 			this._preload(el);
@@ -139,7 +135,7 @@ var Cl = window.Cl || {};
 		},
 
 		close: function () {
-			this._fireEvent('close', 'close', this);
+			this._triggerAPI('close', 'close', this);
 
 			this._hide();
 			this._unload();
@@ -149,13 +145,13 @@ var Cl = window.Cl || {};
 		},
 
 		resize: function (width, height) {
-			this._fireEvent('resize', 'resize', this);
+			this._triggerAPI('resize', 'resize', this);
 
 			this._resize('animate', width, height);
 		},
 
 		destroy: function () {
-			this._fireEvent('destroy');
+			this._triggerAPI('destroy');
 
 			this.triggers.unbind('click');
 			this.instance.remove();
@@ -195,38 +191,11 @@ var Cl = window.Cl || {};
 			return this.element || null;
 		},
 
-		/*
-		 * private methods
+		/**
+		 ** PRIVATE METHODS
 		 */
-		_build: function () {
-			this._fireEvent('setup');
-
-			// insure that this instant is loaded so setup is not called twice
-			this.isLoaded = true;
-
-			// setup template
-			var template = this._tpl(this.options.prefix);
-				template = template.replace('{controls}', this._tplControls(this.options.prefix));
-			var prefix = this.options.prefix;
-
-			// save current instance
-			this.instance = $(template);
-			this.frame = this.instance.filter('.'+prefix+'lightbox');
-			this.dimmer = this.instance.filter('.'+prefix+'lightbox-dim');
-			this.content = this.instance.find('.'+prefix+'lb-content');
-			this.loader = this.instance.find('.'+prefix+'lb-loader');
-			this.loadingBay = this.instance.find('.'+prefix+'lightbox-bay');
-			this.controls = this.instance.find('.'+prefix+'lb-controls');
-
-			// attach styles from options to content
-			this.content.css(this.options.styles);
-
-			// attach frame to the dom
-			this.body.append(this.instance);
-		},
-
 		_preload: function (el) {
-			this._fireEvent('load', 'load', this);
+			this._triggerAPI('load', 'load', this);
 
 			// define global helper variables
 			this.element = this.getElement();
@@ -236,7 +205,7 @@ var Cl = window.Cl || {};
 			// define local helper variables
 			var source = $(el);
 			var url = source.attr('href');
-			var type = this.options.forceType || this._extract(url);
+			var type = this._extract(url);
 
 			// helper variables
 			var that = this;
@@ -255,40 +224,43 @@ var Cl = window.Cl || {};
 			this.height = (extractHeight) ? extractHeight[2] : source.data('height') || this.options.dimensions.height;
 
 			// generate collection if group is enabled and a group is provided
-			if(this.options.group) {
+			if(this.options.group && this.triggers.length > 1) {
 				this.collection = this.triggers;
 				this.index = this.collection.index(source);
 				this.bound = this.collection.length;
 			}
 
+			// forces ajax
+			if(this.options.ajax) type = 'ajax';
+
 			// create the element
 			switch(type) {
 				case 'image':
-						// we need to add date gettime to prevent caching in ie7
-						this.element = $(new Image()).attr({ 'src': url + '?' + new Date().getTime(), 'alt': source.attr('title') });
-						preload();
+					// we need to add date gettime to prevent caching in ie7
+					this.element = $(new Image()).attr({ 'src': url + '?' + new Date().getTime(), 'alt': source.attr('title') });
+					preload();
 					break;
 				case 'youtube':
-						var id = url.match(this.extractors.youtube)[2];
-						this.element = iframe(connectors.youtube.replace('{id}', id));
-						this._load(that.element);
+					var id = url.match(this.extractors.youtube)[2];
+					this.element = iframe(connectors.youtube.replace('{id}', id));
+					this._load(that.element);
 					break;
 				case 'flash':
-						this.element = $(connectors.flash.replace('{url}', source.attr('href')));
-						this.loadingBay.append(this.element);
-						this._load(that.element);
+					this.element = $(connectors.flash.replace('{url}', source.attr('href')));
+					this.loadingBay.append(this.element);
+					this._load(that.element);
 					break;
 				case 'ajax':
-						ajax(url);
+					ajax(url);
 					break;
 				case 'inline':
-						this.element = $(url).clone(true, true);
-						this.loadingBay.append(this.element);
-						(this.element.length) ? this._load(this.element) : error();
+					this.element = $(url).clone(true, true);
+					this.loadingBay.append(this.element);
+					(this.element.length) ? this._load(this.element) : error();
 					break;
 				default:
-						this.element = iframe(url);
-						this._load(that.element);
+					this.element = iframe(url);
+					this._load(that.element);
 			}
 
 			// preload element and pass to _load
@@ -296,8 +268,8 @@ var Cl = window.Cl || {};
 				that.element.load(function () {
 					that._load(that.element);
 				}).error(function () {
-					error();
-				});
+						error();
+					});
 			}
 			// loading content through ajax
 			function ajax() {
@@ -355,10 +327,9 @@ var Cl = window.Cl || {};
 		},
 
 		_complete: function (el) {
-			// trigger api chain
-			this._fireEvent('complete', 'complete', this);
-
 			var that = this;
+			// trigger api chain
+			this._triggerAPI('complete', 'complete', this);
 			// load element and show
 			this.content.append(el.css('visibility', 'visible').hide().fadeIn(this.options.duration));
 			// hide loader depending on content
@@ -383,7 +354,7 @@ var Cl = window.Cl || {};
 		},
 
 		_unload: function () {
-			this._fireEvent('unload', 'unload', this);
+			this._triggerAPI('unload', 'unload', this);
 			// reattaches the loader to the html content
 			this.content.html(this.loader);
 			// rremove element
@@ -417,7 +388,7 @@ var Cl = window.Cl || {};
 			this.extractors = {
 				'images': /(\.(gif|png|jpe?g|bmp|ico)((#|\?|\&).*)?)$/i,
 				'youtube': /(youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([\w'-]+))$/i,
-				'flash': /(\.(swf|flv)((#|\?|\&).*)?)$/i,
+				'flash': /(\.(swf)((#|\?|\&).*)?)$/i,
 				'ajax': /(\.(htm?l|txt)((#|\?|\&).*)?)$/i,
 				'inline': /(#[\w'-]+?)$/i
 			};
@@ -505,12 +476,14 @@ var Cl = window.Cl || {};
 			});
 
 			// enable key navigation
-			if(this.options.keys.enabled) {
+			if(this.options.enableKeys) {
 				$(document).bind('keydown', function (e) {
 					if(($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keys.close) >= 0) && that.options.modalClosable) that.close();
 					if($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keys.next) >= 0) that.next();
 					if($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keys.previous) >= 0) that.previous();
 				});
+			} else {
+				$('.' + this.options.prefix + 'lb-navigation').hide();
 			}
 		},
 
@@ -533,7 +506,7 @@ var Cl = window.Cl || {};
 			$(document).unbind('keydown');
 		},
 
-		_fireEvent: function (event, callback, scope) {
+		_triggerAPI: function (event, callback, scope) {
 			// triggered events: setup, open, load, complete, close, unload, resize, destroy
 			$.event.trigger(this.options.prefix + event);
 			if(callback) this.options.callbacks[callback](scope || this);
@@ -555,13 +528,13 @@ var Cl = window.Cl || {};
 			if(!this.collection) textOffset = 0;
 
 			// TODO: first width and than height - maybe there is a better solution to do it together
-			// TODO: we need to add some resstriction, image should never span out of document window
+			// TODO: we need to add some resstriction, image should never go out of canvas
 			// width boundry calculations
 			if(windowWidth <= width + this.options.dimensions.bound) {
 				width = originalWidth - (width - windowWidth + this.options.dimensions.bound);
 				// aspect ratio
 				height = Math.floor(height * width / originalWidth);
-			// height boundry calculations
+				// height boundry calculations
 			} else if(windowHeight <= height + this.options.dimensions.bound + textOffset) {
 				height = originalHeight - (height - windowHeight + this.options.dimensions.bound) - textOffset;
 				// aspect ratio
@@ -575,7 +548,7 @@ var Cl = window.Cl || {};
 			}, this.options.speed, this.options.transition);
 
 
-            var offset = this.options.dimensions.offset / 2;
+			var offset = this.options.dimensions.offset / 2;
 			var left = (windowWidth - width) / 2 - offset;
 			var top = (windowHeight - height) / 2 + this.window.scrollTop() - offset - textOffset / 2;
 
@@ -596,6 +569,9 @@ var Cl = window.Cl || {};
 			return $(this._tplError(this.options.prefix)).html(message);
 		},
 
+		/**
+		 ** PRIVATE CONTROL METHODS
+		 */
 		_showControls: function () {
 			var close = this.controls.find('.'+this.options.prefix+'lb-close');
 			// show close only if modalClosable is true
@@ -608,8 +584,8 @@ var Cl = window.Cl || {};
 			var content = this.controls.find('.'+this.options.prefix+'lb-text');
 			var status = content.find('.'+this.options.prefix+'lb-status');
 			var text = this.options.lang.status;
-				text = text.replace('{current}', this.index+1);
-				text = text.replace('{total}', this.bound);
+			text = text.replace('{current}', this.index+1);
+			text = text.replace('{total}', this.bound);
 
 			// set status
 			status.text(text);
@@ -620,13 +596,16 @@ var Cl = window.Cl || {};
 
 		_hideControls: function () {
 			var close = this.controls.find('.'+this.options.prefix+'lb-close');
-				close.hide();
+			close.hide();
 
 			var content = this.controls.find('.'+this.options.prefix+'lb-text');
-				content.data('height', content.outerHeight(true));
-				content.hide();
+			content.data('height', content.outerHeight(true));
+			content.hide();
 		},
 
+		/**
+		 ** PRIVATE DIMMER METHODS
+		 */
 		_showDim: function () {
 			($.browser.msie && $.browser.version < 8) ? this.dimmer.show() : this.dimmer.fadeIn();
 
@@ -661,32 +640,35 @@ var Cl = window.Cl || {};
 			}
 		},
 
+		/**
+		 ** TEMPLATES
+		 */
 		_tpl: function (prefix) {
 			return  '<div class="'+prefix+'lightbox" style="display:none;">' +
-					'	<div class="'+prefix+'lb-inner">' +
-					'		<section class="'+prefix+'lb-content">{content}</section>' +
-					//'		<section class="'+prefix+'lb-description">{description}</section>' +
-					'		<section class="'+prefix+'lb-controls">{controls}</section>' +
-					'	</div>' +
-					'   <div class="'+prefix+'lightbox-bay"></div>' +
-					'</div>' +
-					'<div class="'+prefix+'lightbox-dim"></div>';
+				'	<div class="'+prefix+'lb-inner">' +
+				'		<section class="'+prefix+'lb-content">{content}</section>' +
+				'		<section class="'+prefix+'lb-description">{description}</section>' +
+				'		<section class="'+prefix+'lb-controls">{controls}</section>' +
+				'	</div>' +
+				'   <div class="'+prefix+'lightbox-bay"></div>' +
+				'</div>' +
+				'<div class="'+prefix+'lightbox-dim"></div>';
 		},
 
 		_tplControls: function (prefix) {
 			return  '<p class="'+prefix+'lb-close">' +
-					'   <a href="#">'+this.options.lang.close+'</a>' +
-					'</p>' +
-					'<p class="'+prefix+'lb-navigation">' +
-					'   <a class="'+prefix+'lb-next" href="#next">'+this.options.lang.next+'</a>' +
-					'   <a class="'+prefix+'lb-previous" href="#previous">'+this.options.lang.previous+'</a>' +
-					'</p>' +
-					'<div class="'+prefix+'lb-text">' +
-					'   <a class="'+prefix+'lb-next" href="#next">'+this.options.lang.next+'</a>' +
-					'   <a class="'+prefix+'lb-previous" href="#previous">'+this.options.lang.previous+'</a>' +
-					'   <span class="'+prefix+'lb-status">'+this.options.lang.status+'</span>' +
-					'   <span class="'+prefix+'lb-caption">&nbsp;</span>' +
-					'</div>';
+				'   <a href="#close">'+this.options.lang.close+'</a>' +
+				'</p>' +
+				'<p class="'+prefix+'lb-navigation">' +
+				'   <a class="'+prefix+'lb-next" href="#next">'+this.options.lang.next+'</a>' +
+				'   <a class="'+prefix+'lb-previous" href="#previous">'+this.options.lang.previous+'</a>' +
+				'</p>' +
+				'<div class="'+prefix+'lb-text">' +
+				'   <a class="'+prefix+'lb-next" href="#next">'+this.options.lang.next+'</a>' +
+				'   <a class="'+prefix+'lb-previous" href="#previous">'+this.options.lang.previous+'</a>' +
+				'   <span class="'+prefix+'lb-status">'+this.options.lang.status+'</span>' +
+				'   <span class="'+prefix+'lb-caption">&nbsp;</span>' +
+				'</div>';
 		},
 
 		_tplLoader: function (prefix) {
