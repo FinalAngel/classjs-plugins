@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.1
+ * @version     1.0.2
  */
 
 // ensure namespace is defined
@@ -103,6 +103,7 @@ var Cl = window.Cl || {};
 			this.frame = this.instance.filter('.'+this.options.prefix+'lightbox');
 			this.dimmer = this.instance.filter('.'+this.options.prefix+'lightbox-dim');
 			this.content = this.instance.find('.'+this.options.prefix+'lb-content');
+			this.description = this.instance.find('.'+this.options.prefix+'lb-description');
 			this.loader = this.instance.find('.'+this.options.prefix+'lb-loader');
 			this.loadingBay = this.instance.find('.'+this.options.prefix+'lightbox-bay');
 			this.controls = this.instance.find('.'+this.options.prefix+'lb-controls');
@@ -203,7 +204,7 @@ var Cl = window.Cl || {};
 			this.height = null;
 
 			// define local helper variables
-			var source = $(el);
+			var source = this.source = $(el);
 			var url = source.attr('href');
 			var type = this.type = this._extract(url);
 
@@ -266,6 +267,10 @@ var Cl = window.Cl || {};
 			// preload element and pass to _load
 			function preload() {
 				that.element.load(function () {
+					// check if element has dimensions
+					that.width = this.width;
+					that.height = this.height;
+
 					that._load(that.element);
 				}).error(function () {
 						error();
@@ -332,6 +337,8 @@ var Cl = window.Cl || {};
 			this._triggerAPI('complete', 'complete', this);
 			// load element and show
 			this.content.append(el.css('visibility', 'visible').hide().fadeIn(this.options.duration));
+			// add description and show if given
+			if(this.source.attr('title')) this.description.html(this.source.attr('title')).slideDown(200);
 			// hide loader depending on content
 			var loader = that.content.find('.'+that.options.prefix+'lb-loader');
 			var iframe = this.content.find('iframe');
@@ -379,6 +386,8 @@ var Cl = window.Cl || {};
 			if(this.options.modal) this._hideDim();
 			// hide instance frame
 			this.frame.hide();
+			// hide description
+			this.description.hide().html('&nbsp;');
 			// hide controls
 			this._hideControls();
 		},
@@ -646,7 +655,7 @@ var Cl = window.Cl || {};
 			return  '<div class="'+prefix+'lightbox" style="display:none;">' +
 				'	<div class="'+prefix+'lb-inner">' +
 				'		<section class="'+prefix+'lb-content">{content}</section>' +
-				'		<section class="'+prefix+'lb-description">{description}</section>' +
+				'		<section class="'+prefix+'lb-description">&nbsp;</section>' +
 				'		<section class="'+prefix+'lb-controls">{controls}</section>' +
 				'	</div>' +
 				'   <div class="'+prefix+'lightbox-bay"></div>' +
@@ -666,7 +675,6 @@ var Cl = window.Cl || {};
 				'   <a class="'+prefix+'lb-next" href="#next">'+this.options.lang.next+'</a>' +
 				'   <a class="'+prefix+'lb-previous" href="#previous">'+this.options.lang.previous+'</a>' +
 				'   <span class="'+prefix+'lb-status">'+this.options.lang.status+'</span>' +
-				'   <span class="'+prefix+'lb-caption">&nbsp;</span>' +
 				'</div>';
 		},
 
