@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.2.1
+ * @version     1.2.2
  */
 
 // ensure namespace is defined
@@ -53,10 +53,10 @@ var Cl = window.Cl || {};
 		_setup: function () {
 			var that = this;
 
-			// calculate container height
-			this.wrapper.css('height', this.viewport.height());
 			// calculate viewport width
 			this.viewport.css('width', this.elements.length * this.elements.outerWidth(true));
+			// calculate container height
+			this.wrapper.css('height', this.viewport.height());
 
 			// cancel if bound is bigger then containing items
 			if(this.bound < Math.ceil(this.wrapper.outerWidth(true) / $(this.elements[0]).outerWidth(true))) {
