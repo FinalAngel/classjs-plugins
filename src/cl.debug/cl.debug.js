@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.0
+ * @version     1.1.1
  */
 
 // ensure namespace is defined
@@ -14,7 +14,6 @@ var Cl = window.Cl || {};
 	Cl.Debug = {
 
 		options: {
-			// NOTE: use url hash #show to show debug again after closing
 			'closed': 'false',
 			'collapsed': 'true'
 		},
@@ -112,9 +111,8 @@ var Cl = window.Cl || {};
 		},
 
 		elements: function () {
-			// links
-			this.modules.links.call(this);
 			// modifiers
+			this.modules.responsive.call(this);
 			this.modules.editable.call(this);
 			this.modules.designmode.call(this);
 			this.modules.resizeable.call(this);
@@ -122,6 +120,8 @@ var Cl = window.Cl || {};
 			this.modules.firebug.call(this);
 			this.modules.grid.call(this);
 			this.modules.advanced.call(this);
+			// links
+			this.modules.links.call(this);
 		},
 
 		modules: {
@@ -139,6 +139,13 @@ var Cl = window.Cl || {};
 				});
 				// attach links to body
 				this.body.append(template);
+			},
+
+			'responsive': function () {
+				var name = 'Responsive Mode';
+				var script = "javascript:void((function()%7Bvar%20d%3Ddocument%3Bd.write(%27%3C!DOCTYPE%20html%3E%3Chtml%3E%3Chead%3E%3Cmeta%20charset%3D%22UTF-8%22%3E%3Ctitle%3E%27%2Bd.title%2B%27%20-%20Responsive%20test%3C/title%3E%3Clink%20rel%3D%22stylesheet%22%20href%3D%22http://responsive.victorcoulon.fr/assets/css/app.css%22%3E%3Cscript%20src%3D%22http://responsive.victorcoulon.fr/assets/js/app.min.js%22%3E%3C/script%3E%3C/head%3E%3Cbody%3E%3Cheader%3E%3Cdiv%20class%3D%22close%22%3E%3Ca%20href%3D%22%23%22%3E%C3%97%3C/a%3E%3C/div%3E%3Cdiv%20id%3D%22size%22%3E%3C/div%3E%3Cdiv%20class%3D%22keyboard%22%3E%3Ca%20href%3D%22%23%22%3EI%3C/a%3E%3C/div%3E%3Cdiv%20class%3D%22cssrefresh%22%3E%3Ca%20href%3D%22%23%22%3EI%3C/a%3E%3C/div%3E%3Cdiv%20id%3D%22devices%22%3E%3Ca%20href%3D%22%23%22%20class%3D%22tablet-portrait%22%3E%3Cspan%3ETablet%20Portrait%3C/span%3E%3C/a%3E%3Ca%20href%3D%22%23%22%20class%3D%22tablet-landscape%22%3E%3Cspan%3ETablet%20Landscape%3C/span%3E%3C/a%3E%3Ca%20href%3D%22%23%22%20class%3D%22smartphone-landscape%22%3E%3Cspan%3EiPhone%20Landscape%3C/span%3E%3C/a%3E%3Ca%20href%3D%22%23%22%20class%3D%22smartphone-portrait%22%3E%3Cspan%3EiPhone%20Portrait%3C/span%3E%3C/a%3E%3Ca%20href%3D%22%23%22%20class%3D%22auto%20active%22%3E%3Cspan%3EAuto%3C/span%3E%3C/a%3E%3C/div%3E%3C/header%3E%3Csection%3E%3Cdiv%20id%3D%22wrapper%22%3E%3Ciframe%20src%3D%22%27%2Bd.URL%2B%27%22%20onLoad%3D%22resbook.changeUrl(this.contentWindow.location,this.contentDocument.title)%3B%22%3E%3C/iframe%3E%3Cspan%20class%3D%22keyboard-bg%22%3E%3C/span%3E%3C/div%3E%3C/section%3E%3C/body%3E%3C/html%3E%27)%7D)())%3B";
+				// use helper to do the magic
+				this.helper_bookmarklet(name, script);
 			},
 
 			'editable': function () {
