@@ -1,3 +1,4 @@
+========================================
 classjs-plugins - class.js based plugins
 ========================================
 
@@ -9,7 +10,7 @@ whenever possible.
 
 
 Documentation
--------------
+=============
 
 Go to `http://classjs-plugins.rtfd.org` for a full documentation.
 
@@ -20,7 +21,7 @@ Testet in Chrome, Fierfox 4+, Internet Explorer 7+ and Opera.
 
 
 License
--------
+=======
 
 Distributed under the BSD Licence.
 
