@@ -2,6 +2,9 @@
 classjs-plugins
 ===============
 
+Please consult the changelogs in the src/ folder for specific informations.
+
+
 Cl.Accordion
 ============
 
@@ -31,7 +34,13 @@ Cl.Forms
 Cl.Lightbox
 ===========
 
+1.1.0
+-----
+- Change enableKeys to keys and keys to keyCodes
+- Internal API refactor (_triggerAPI)
 
+1.0.1
+-----
 
 
 Cl.Tabs
