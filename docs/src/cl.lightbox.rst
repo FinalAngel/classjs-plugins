@@ -37,40 +37,31 @@ Options are set on initializing the lightbox::
     ``requires modal`` allows the dimmer to be closed onclick.
 
 .. js:data:: modalClosable: true
-    ``requires modal`` disables alls close events, lightbox can be only closed using the API.
+    ``requires modalClickable`` disables all close events, lightbox can be only closed using the API.
 
-.. js:data:: modalClosable: true
-    ``requires modal`` disables alls close events, lightbox can be only closed using the API.
+.. js:data:: forceLoad: false
+    if enabled, insures that iframes are fully loaded before display.
 
-.. js:data:: forceLoad: true
-    shows preloader until content is fully loaded (specifically when loading iframes).
+.. js:data:: easing: 'linear'
+    jquery easing effect for all animations.
 
-.. js:data:: transition: 'linear'
-    jquery transition effect for all animations.
-
-.. js:data:: duration: 500
-    jquery duration time for all animations.
+.. js:data:: duration: 300
+    duration until the lightbox is fully expanded.
 
 .. js:data:: speed: 300
-    defines the speed of which the content is shown besides the regular animations.
+    speed for all regular animations.
 
 .. js:data:: fixed: true
-    sets position to fixed or uses absolute positioning with automated top calculations.
+    sets the lightbox always inside the viewport of the user even when scrolling.
 
 .. js:data:: responsive: true
     enables responsive behaviour of the lightbox.
 
-.. js:data:: autoScale: true
-    sets the width and height to 100% for the inner html so images can be scaled.
-
-.. js:data:: scrolling: false
-    enables the inner html to be scrollable, this might be set to true if using inline html.
-
 .. js:data:: ajax: false
-    forces ajax loading??????????????.
+    ajax loads the provided url and tries to inject the html into the lightbox. It does not create an iframe in order to maintain the css style.
 
 .. js:data:: controls: true
-    enables controllable elements.
+    ``requires group``enables controllable elements when a collection is active.
 
 .. js:data:: styles: {}
     adds jquery style css object to gallery content element.
