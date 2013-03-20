@@ -1,13 +1,13 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:300,700);
+/* @import url(https://fonts.googleapis.com/css?family=Lato:300,700); */
 
 body { color:#777; font:14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight:300; margin:0; background:#f4f4f4 url('img/bg.png'); }
 
-h1, h2, h3, h4, h5, h6 { color:#222; margin:0 0 20px; }
+h1, h2, h3, h4, h5, h6 { color:#222; margin:0 0 10px; }
 p, ul, ol, table, pre, dl { margin:0 0 20px; }
 h1, h2, h3 { line-height:1.1; }
 
-h1 { font-size:28px; font-weight:300; }
+h1 { font-size:28px; font-weight:300; margin:0 0 20px; }
 h2 { color:#393939; }
 h3, h4, h5, h6 { color:#494949; }
 
@@ -18,6 +18,9 @@ blockquote { font-style:italic; padding:0 0 0 20px; margin:0; border-left:1px so
 code, pre { font-family:Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal, serif;
 	color:#333; font-size:12px; }
 pre { padding:8px 15px; border-radius:5px; border:1px solid #e5e5e5; background: #f8f8f8; }
+
+a code { color:#39c; }
+a:hover code { color:#000; }
 
 table { width:100%; border-collapse:collapse; }
 th, td { text-align:left; padding:5px 0; border-bottom:1px solid #e5e5e5; }
@@ -33,21 +36,32 @@ hr { height:1px; margin:0 0 20px;
 	border:0; background:#e5e5e5; }
 
 /* HELPERS */
+.clear { clear: both; display: block; overflow: hidden; }
 .nospace { margin:0; }
 .align-right { text-align:right; }
 .spacer { height:15px; margin:0; overflow:hidden; }
-.imgbox { float:left; padding:5px; margin:0 20px 20px 0; line-height:0; width:125px;
-	border-radius:3px; box-shadow: 0 0 1px #ccc; background:#fff; }
-.imgbox:hover { background:#39c; -webkit-transition:background 500ms; }
 
 /* CUSTOM */
 header { background:#0f3e62; margin:0 0 30px; clear:both; overflow:hidden; }
 header h1 { display:block; color:#fff; text-shadow:0 1px 0 #000;
-	width:500px; padding:20px 0 25px; margin:0 auto; position:relative; left:-8px; }
-section { width:500px; margin:0 auto; }
+	width:500px; padding:30px 0 35px; margin:0 auto; position:relative; left:-8px; }
+section { width:500px; padding-bottom:20px; margin:0 auto; }
+footer { background:#2f3236; }
+footer p { font-size:12px; color:#bfbfbf; text-align:center; padding:10px 0; margin:0; }
 
 .logo { font-size:28px; font-weight:300; padding:0 8px 4px; margin-right:8px; color:#666; border-radius:3px;
 	text-shadow:0 1px 0 #eee; background:#fff; }
 .logo .dot { color:#39c; }
 .logo .ext { color:#000; }
 .logo:hover { text-shadow:0 1px 0 #fff; background:#f5f5f5; }
+
+.col-two { float:left; width:50%; }
+
+.box { float:left; padding:5px; margin:0 10px 10px 0; line-height:0; width:105px;
+	border-radius:3px; box-shadow: 0 0 1px #ccc; background:#fff; }
+.box span { display:block; line-height:12px; padding:5px 2px 2px; }
+.box .strong { color:#444; }
+.box:hover { background:#39c; -webkit-transition:background 500ms; }
+.box:hover span { color:#fff; }
+
+.linklist a { display:inline-block; width:150px; }
