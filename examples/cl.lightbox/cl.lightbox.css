@@ -2,41 +2,72 @@
 /*
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.0
  */
 .cl-lightbox {
   position: absolute;
-  z-index: 99999; }
+  z-index: 99999;
+}
 
 .cl-lightbox-bay {
   position: absolute;
+  z-index: 1;
   left: -9999em;
   top: -99999em;
   width: 9999em;
-  height: 9999em; }
+  height: 9999em;
+}
+
+.cl-lightbox-inner {
+  position: relative;
+  z-index: 100;
+}
 
 .cl-lightbox-loader {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  z-index: 102;
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background: no-repeat center center; }
+  background: no-repeat center center;
+}
+
+.cl-lightbox-content {
+  position: relative;
+  z-index: 101;
+  overflow: hidden;
+}
+
+.cl-lightbox-content img {
+  max-width: 100%;
+}
+
+.cl-lightbox-content iframe {
+  width: 100%;
+  height: 100%;
+}
 
 .cl-lightbox-description {
-  display: none; }
+  display: none;
+}
+
+.cl-lightbox-navigation a {
+  display: none;
+}
+
+.cl-lightbox-controls {
+  overflow: hidden;
+}
 
 .cl-lightbox-dim {
+  display: none;
   position: absolute;
   z-index: 99990;
-  top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
+  top: 0;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+}
 
 .cl-lightbox {
   background-color: black;
@@ -45,103 +76,120 @@
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
-  border-radius: 5px; }
+  border-radius: 5px;
+}
 
 .cl-lightbox-loader {
-  background-image: url("../static/img/loader.gif"); }
+  background-image: url("../static/img/loader.gif");
+}
 
 .cl-lightbox-inner {
-  padding: 10px; }
+  padding: 10px;
+}
 
 .cl-lightbox-content {
-  background: white; }
+  background: white;
+}
 
 .cl-lightbox-error {
+  text-align: center;
   width: 350px;
-  text-align: center; }
-  .cl-lightbox-error p {
-    padding: 15px 0; }
+}
+.cl-lightbox-error p {
+  padding: 15px 0;
+}
 
 .cl-lightbox-dim {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
   opacity: 0.7;
-  background: black; }
+  background: black;
+}
 
 .cl-lightbox-description {
   font-size: 12px;
   line-height: 15px;
   padding: 5px 10px;
   border-bottom: 1px solid #cccccc;
-  background: white; }
+  background: white;
+}
 
 .cl-lightbox-controls {
   font-size: 12px;
   line-height: 15px;
-  color: #999999;
+  background: white;
+}
+.cl-lightbox-controls p {
+  padding: 0;
+  margin: 0;
+}
+.cl-lightbox-controls .cl-lightbox-close {
+  position: absolute;
+  right: -12px;
+  top: -12px;
+  z-index: 105;
+}
+.cl-lightbox-controls .cl-lightbox-close a {
+  float: right;
+  width: 30px;
+  height: 30px;
+  text-indent: -119988px;
   overflow: hidden;
-  background: white; }
-  .cl-lightbox-controls p {
-    padding: 0;
-    margin: 0; }
-  .cl-lightbox-controls .cl-lightbox-close {
-    position: absolute;
-    right: -12px;
-    top: -12px; }
-    .cl-lightbox-controls .cl-lightbox-close a {
-      float: right;
-      width: 30px;
-      height: 30px;
-      text-indent: -119988px;
-      overflow: hidden;
-      text-align: left;
-      background: url("../static/img/icon-close.png") no-repeat left top; }
-      .cl-lightbox-controls .cl-lightbox-close a:hover {
-        background-position: left -30px; }
-  .cl-lightbox-controls .cl-lightbox-navigation a {
-    display: none;
-    position: absolute;
-    top: 43%;
-    color: white;
-    padding: 5px 10px;
-    background-color: black;
-    background: rgba(0, 0, 0, 0.5); }
-    .cl-lightbox-controls .cl-lightbox-navigation a:hover {
-      background: black; }
-  .cl-lightbox-controls .cl-lightbox-navigation .cl-lightbox-previous {
-    left: 10px;
-    -webkit-border-radius: 0 3px 3px 0;
-    -moz-border-radius: 0 3px 3px 0;
-    -ms-border-radius: 0 3px 3px 0;
-    -o-border-radius: 0 3px 3px 0;
-    border-radius: 0 3px 3px 0; }
-  .cl-lightbox-controls .cl-lightbox-navigation .cl-lightbox-next {
-    right: 10px;
-    -webkit-border-radius: 3px 0 0 3px;
-    -moz-border-radius: 3px 0 0 3px;
-    -ms-border-radius: 3px 0 0 3px;
-    -o-border-radius: 3px 0 0 3px;
-    border-radius: 3px 0 0 3px; }
-  .cl-lightbox-controls .cl-lightbox-text {
-    float: right;
-    padding: 5px 10px;
-    clear: both;
-    overflow: hidden; }
-    .cl-lightbox-controls .cl-lightbox-text a {
-      float: left;
-      color: #999999; }
-    .cl-lightbox-controls .cl-lightbox-text .cl-lightbox-status {
-      float: left;
-      color: #999999;
-      margin: 0 10px 0 0; }
-    .cl-lightbox-controls .cl-lightbox-text .cl-lightbox-previous {
-      margin: 0; }
-      .cl-lightbox-controls .cl-lightbox-text .cl-lightbox-previous:hover {
-        background-position: left -15px; }
-    .cl-lightbox-controls .cl-lightbox-text .cl-lightbox-next {
-      margin: 0 0 0 10px; }
-      .cl-lightbox-controls .cl-lightbox-text .cl-lightbox-next:hover {
-        background-position: right -15px; }
-
-.ie7 .cl-lightbox-controls {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-  opacity: 0.8; }
+  text-align: left;
+  background: url("../static/img/icon-close.png") no-repeat left top;
+}
+.cl-lightbox-controls .cl-lightbox-close a:hover {
+  background-position: left -30px;
+}
+.cl-lightbox-controls .cl-lightbox-navigation a {
+  position: absolute;
+  top: 43%;
+  z-index: 105;
+  color: white;
+  padding: 5px 10px;
+  background-color: black;
+  background: rgba(0, 0, 0, 0.6);
+}
+.cl-lightbox-controls .cl-lightbox-navigation a:hover {
+  background: black;
+}
+.cl-lightbox-controls .cl-lightbox-navigation .cl-lightbox-previous {
+  left: 10px;
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  -ms-border-radius: 0 3px 3px 0;
+  -o-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+}
+.cl-lightbox-controls .cl-lightbox-navigation .cl-lightbox-next {
+  right: 10px;
+  -webkit-border-radius: 3px 0 0 3px;
+  -moz-border-radius: 3px 0 0 3px;
+  -ms-border-radius: 3px 0 0 3px;
+  -o-border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
+}
+.cl-lightbox-controls .cl-lightbox-text {
+  float: right;
+  padding: 5px 10px;
+  clear: both;
+  overflow: hidden;
+}
+.cl-lightbox-controls .cl-lightbox-text a {
+  float: left;
+}
+.cl-lightbox-controls .cl-lightbox-text .cl-lightbox-status {
+  float: left;
+  margin: 0 10px 0 0;
+}
+.cl-lightbox-controls .cl-lightbox-text .cl-lightbox-previous {
+  margin: 0;
+}
+.cl-lightbox-controls .cl-lightbox-text .cl-lightbox-previous:hover {
+  background-position: left -15px;
+}
+.cl-lightbox-controls .cl-lightbox-text .cl-lightbox-next {
+  margin: 0 0 0 10px;
+}
+.cl-lightbox-controls .cl-lightbox-text .cl-lightbox-next:hover {
+  background-position: right -15px;
+}

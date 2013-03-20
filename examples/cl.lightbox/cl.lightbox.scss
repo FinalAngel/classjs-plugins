@@ -2,7 +2,6 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.0
  */
 
 // sass imports
@@ -11,47 +10,55 @@
 
 // variables
 $lightbox-font-size: 12px;
-$lightbox-font-color: #999;
 $lightbox-line-height: 15px;
-$lightbox-background: #000;
+$lightbox-padding: 10px;
+$lightbox-alpha: 0.6;
+$lightbox-dim-alpha: 0.7;
+$lightbox-bg: #000;
+$lightbox-dim: #000;
 $lightbox-content: #fff;
 
 // required styles
 .cl-lightbox { position:absolute; z-index:99999; }
-.cl-lightbox-bay { position:absolute; left:-9999em; top:-99999em; width:9999em; height:9999em; }
-.cl-lightbox-loader { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; background:no-repeat center center; }
+.cl-lightbox-bay { position:absolute; z-index:1; left:-9999em; top:-99999em; width:9999em; height:9999em; }
+.cl-lightbox-inner { position:relative; z-index:100; }
+.cl-lightbox-loader { position:absolute; z-index:102; left:0; top:0; width:100%; height:100%; background:no-repeat center center; }
+.cl-lightbox-content { position:relative; z-index:101; overflow:hidden; }
+.cl-lightbox-content img { max-width:100%; }
+.cl-lightbox-content iframe { width:100%; height:100%; }
 .cl-lightbox-description { display:none; }
-.cl-lightbox-dim { position:absolute; z-index:99990; top:0; right:0; bottom:0; left:0; width:100%; height:100%; }
+.cl-lightbox-navigation a { display:none; }
+.cl-lightbox-controls { overflow:hidden; }
+.cl-lightbox-dim { display:none; position:absolute; z-index:99990; left:0; top:0; width:100%; height:100%; }
 
 // custom styles
-.cl-lightbox { background-color:$lightbox-background; background:rgba(0, 0, 0, 0.6); @include border-radius(5px); }
+.cl-lightbox { background-color:$lightbox-bg; background:rgba($lightbox-bg, $lightbox-alpha); @include border-radius(5px); }
 .cl-lightbox-loader { background-image:url('../static/img/loader.gif'); }
-.cl-lightbox-inner { padding:10px; }
+.cl-lightbox-inner { padding:$lightbox-padding; }
 .cl-lightbox-content { background:$lightbox-content; }
-.cl-lightbox-error { width:350px; text-align:center; p { padding:15px 0; } }
-.cl-lightbox-dim { @include opacity(0.7); background:$lightbox-background; }
+.cl-lightbox-error { text-align:center; width:350px; p { padding:15px 0; } }
+.cl-lightbox-dim { @include opacity($lightbox-dim-alpha); background:$lightbox-dim; }
 
 // description
 .cl-lightbox-description { font-size:$lightbox-font-size; line-height:$lightbox-line-height;
-	padding:5px 10px; border-bottom:1px solid #ccc; background:$lightbox-content; }
+	padding:5px 10px; border-bottom:1px solid lighten($lightbox-bg, 80%); background:$lightbox-content; }
 
 // controls
 .cl-lightbox-controls {
-	font-size:$lightbox-font-size; line-height:$lightbox-line-height; color:$lightbox-font-color; overflow:hidden;
-	background:$lightbox-content;
+	font-size:$lightbox-font-size; line-height:$lightbox-line-height; background:$lightbox-content;
 
 	p { padding:0; margin:0; }
 
-	.cl-lightbox-close { position:absolute; right:-12px; top:-12px;
+	.cl-lightbox-close { position:absolute; right:-12px; top:-12px; z-index:105;
 		a { float:right; width:30px; height:30px; @include hide-text();
 			background:url('../static/img/icon-close.png') no-repeat left top;
 			&:hover { background-position:left -30px; } }
 	}
 
 	.cl-lightbox-navigation {
-		a { display:none; position:absolute; top:43%; color:white; padding:5px 10px;
-			background-color:$lightbox-background; background:rgba(0, 0, 0, 0.5);
-			&:hover { background:$lightbox-background; } }
+		a { position:absolute; top:43%; z-index:105; color:white; padding:5px 10px;
+			background-color:$lightbox-bg; background:rgba($lightbox-bg, $lightbox-alpha);
+			&:hover { background:$lightbox-bg; } }
 
 		.cl-lightbox-previous { left:10px; @include border-radius(0 3px 3px 0); }
 		.cl-lightbox-next { right:10px; @include border-radius(3px 0 0 3px); }
@@ -60,13 +67,11 @@ $lightbox-content: #fff;
 	.cl-lightbox-text {
 		float:right; padding:5px 10px; clear:both; overflow:hidden;
 
-		a { float:left; color:$lightbox-font-color; }
-		.cl-lightbox-status { float:left; color:$lightbox-font-color; margin:0 10px 0 0; }
+		a { float:left; }
+		.cl-lightbox-status { float:left; margin:0 10px 0 0; }
 		.cl-lightbox-previous { margin:0;
 			&:hover { background-position:left -15px; } }
 		.cl-lightbox-next { margin:0 0 0 10px;
 			&:hover { background-position:right -15px; } }
 	}
-
 }
-.ie7 .cl-lightbox-controls { @include opacity(0.8); }
