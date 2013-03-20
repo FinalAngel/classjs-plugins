@@ -13,6 +13,14 @@ var Cl = window.Cl || {};
 	// creating class
 	Cl.Lightbox = new Class({
 
+		/*
+			TODO 1.1.1
+			- when cycle is enabled, remove next and prev (or disable) when reaching bound
+
+			TODO 1.2
+			- add slideshow, play and pause options
+		 */
+
 		options: {
 			'prefix': 'cl',
 			'group': true,
@@ -20,14 +28,12 @@ var Cl = window.Cl || {};
 			'modal': true,
 			'modalClickable': true,
 			'modalClosable': true,
-			'forceLoad': true,
-			'transition': 'linear',
-			'duration': 500,
+			'forceLoad': false,
+			'easing': 'linear',
+			'duration': 300,
 			'speed': 300,
 			'fixed': true,
 			'responsive': true,
-			'autoScale': true,
-			'scrolling': false,
 			'ajax': false,
 			'controls': true,
 			'styles': {},
@@ -51,8 +57,7 @@ var Cl = window.Cl || {};
 					'Plase contact us if this error occurs again.</p>',
 				'next': 'Next',
 				'previous': 'Previous',
-				'status': 'Slide {current} of {total}.',
-				'state': 'Play:Pause'
+				'status': 'Slide {current} of {total}.'
 			}
 		},
 
@@ -65,6 +70,7 @@ var Cl = window.Cl || {};
 			this.isLoaded = false;
 			this.isOpen = false;
 			this.callbacks = {};
+			this.dimTimer = function () {};
 
 			// attach initial event on lightbox triggers
 			this.triggers = $(triggers);
@@ -261,14 +267,14 @@ var Cl = window.Cl || {};
 			}
 
 			// forces ajax
-			if(this.options.ajax) this.type = 'ajax';
+			if(this.options.preload) this.type = 'preload';
 
 			// create the element
 			switch(this.type) {
 				case 'image':
 					// we need to add date gettime to prevent caching in ie7
 					this.element = $(new Image()).attr({ 'src': this.url + '?' + new Date().getTime(), 'alt': this.source.attr('title') });
-					preload();
+					load();
 					break;
 				case 'youtube':
 					var id = this.url.match(this.extractors.youtube)[2];
@@ -294,18 +300,19 @@ var Cl = window.Cl || {};
 			}
 
 			// preload element and pass to _load
-			function preload() {
+			function load() {
 				that.element.load(function () {
+					var self = this;
 					// check if element has dimensions
-					that.width = this.width;
-					that.height = this.height;
+					that.width = self.width;
+					that.height = self.height;
 
 					that._load(that.element);
 				}).error(function () {
-						error();
-					});
-			}
-			// loading content through ajax
+					error();
+				});
+		}
+			// loading content through ajax, so style can be maintained
 			function ajax() {
 				$.ajax({
 					'url': that.url,
@@ -359,7 +366,7 @@ var Cl = window.Cl || {};
 			// render element
 			setTimeout(function () {
 				that._complete.call(that, el);
-			}, this.options.speed);
+			}, this.options.duration);
 		},
 
 		_complete: function (el) {
@@ -369,7 +376,7 @@ var Cl = window.Cl || {};
 			var that = this;
 
 			// load element and show
-			this.content.html(el.css('visibility', 'visible').hide().fadeIn(this.options.duration));
+			this.content.html(el.css('visibility', 'visible').hide().fadeIn(this.options.speed));
 
 			// add description and show if given
 			if(this.source.attr('title')) this.description.html(this.source.attr('title')).slideDown(this.options.speed);
@@ -377,9 +384,11 @@ var Cl = window.Cl || {};
 			var iframe = this.content.find('iframe');
 			// hide loader depending on content
 			if(iframe.length && this.options.forceLoad) {
+				iframe.css('visibility', 'hidden');
 				iframe.load(function () {
 					that.loader.hide();
-					that.resize(that.width, that.height);
+					// that.resize(that.width, that.height);
+					iframe.css('visibility', 'visible');
 				});
 			} else {
 				that.loader.hide();
@@ -388,10 +397,6 @@ var Cl = window.Cl || {};
 			}
 			// show controls
 			if(this.options.controls) this._showControls();
-			// set element properties
-			if(this.options.autoScale) el.css({ 'width': '100%', 'height': '100%' });
-			// set scrolling for element
-			this.content.css('overflow', (this.options.scrolling) ? 'auto' : 'hidden');
 
 			// trigger callback
 			this._triggerCallback('complete', this);
@@ -408,17 +413,17 @@ var Cl = window.Cl || {};
 			this._triggerCallback('unload', this);
 		},
 
-		_show: function (loader) {
+		_show: function (state) {
 			// show the dimmer
 			if(this.options.modal) this._showDim();
-			// reset content
+			// resets
 			this.content.html('');
-			// reset lightbox to loader
 			this.loader.show();
+			this.description.hide();
 			// show instance frame
 			this.frame.show();
-			// set correct loader position
-			if(loader) this._resize('css', this.options.dimensions.initialWidth, this.options.dimensions.initialHeight);
+			// set correct state position
+			if(state) this._resize('css', this.options.dimensions.initialWidth, this.options.dimensions.initialHeight);
 			// hide controls
 			this._hideControls();
 		},
@@ -428,10 +433,6 @@ var Cl = window.Cl || {};
 			if(this.options.modal) this._hideDim();
 			// hide instance frame
 			this.frame.hide();
-			// hide description
-			this.description.hide().html('&nbsp;');
-			// hide controls
-			this._hideControls();
 		},
 
 		_extract: function (url) {
@@ -495,6 +496,9 @@ var Cl = window.Cl || {};
 					if(!that.options.modalClosable) return false;
 					that.close.call(that);
 				});
+			} else {
+				// reset the cursor
+				this.dimmer.css('cursor', 'default');
 			}
 
 			if(this.options.controls) {
@@ -519,11 +523,11 @@ var Cl = window.Cl || {};
 				// attach hover event for buttons
 				this.content.bind('mouseenter', function () {
 					if(!that.collection) return false;
-					that.nav.find('a').stop().css('opacity', 1).fadeIn();
+					that.nav.find('a').stop().css('opacity', 1).fadeIn(that.options.speed);
 				});
 				this.frame.bind('mouseleave', function () {
 					if(!that.collection) return false;
-					that.nav.find('a').stop().fadeOut();
+					that.nav.find('a').stop().fadeOut(that.options.speed);
 				});
 			}
 
@@ -582,16 +586,16 @@ var Cl = window.Cl || {};
 			var originalHeight = height;
 			var textOffset = $(this.controls.find('.'+this.options.prefix+'-lightbox-text')).data('height') || 0;
 			// disable textOffset if grouping is enabled
-			if(!this.collection) textOffset = 0;
+			if(!this.collection || !this.options.controls) textOffset = 0;
 
 			// width boundry calculations
-			if(windowWidth <= width + this.options.dimensions.bound) {
+			if(windowWidth <= width + this.options.dimensions.bound && this.options.responsive) {
 				width = originalWidth - (width - windowWidth + this.options.dimensions.bound);
 				// aspect ratio
 				if(this.type === 'image') height = Math.floor(height * width / originalWidth);
 				// height boundry calculations
 			}
-			if(windowHeight <= height + this.options.dimensions.bound + textOffset) {
+			if(windowHeight <= height + this.options.dimensions.bound + textOffset && this.options.responsive) {
 				height = originalHeight - (height - windowHeight + this.options.dimensions.bound) - textOffset;
 				// aspect ratio
 				if(this.type === 'image') width = Math.floor(width * height / originalHeight);
@@ -601,8 +605,7 @@ var Cl = window.Cl || {};
 			this.content.stop()[type]({
 				'width': width,
 				'height': height
-			}, this.options.speed, this.options.transition);
-
+			}, this.options.duration, this.options.easing);
 
 			var offset = this.options.dimensions.offset / 2;
 			var left = (windowWidth - width) / 2 - offset;
@@ -616,7 +619,7 @@ var Cl = window.Cl || {};
 			this.frame.stop()[type]({
 				'left': left,
 				'top': top
-			}, this.options.speed, this.options.transition);
+			}, this.options.duration, this.options.easing);
 		},
 
 		_setError: function (message) {
@@ -648,12 +651,10 @@ var Cl = window.Cl || {};
 		},
 
 		_hideControls: function () {
-			var close = this.controls.find('.'+this.options.prefix+'-lightbox-close');
-				close.hide();
+			this.closeBtn.hide();
 
-			var content = this.controls.find('.'+this.options.prefix+'-lightbox-text');
-				content.data('height', content.outerHeight(true));
-				content.hide();
+			this.text.data('height', this.text.outerHeight(true));
+			this.text.hide();
 		},
 
 		/*
@@ -670,27 +671,30 @@ var Cl = window.Cl || {};
 			($.browser.msie && $.browser.version < 8) ? this.dimmer.hide() : this.dimmer.fadeOut();
 		},
 
-		_resizeDim: function (initial) {
-			// TODO: still needs fixes for IE7
+		_resizeDim: function () {
+			var that = this;
 			var offset = ($.browser.msie) ? ($.browser.version <= 7) ? 21 : 17 : 0;
-			if(!initial) {
-				// before we add the scroll dimensions, insure we do not alter the scrolling dimensions
-				// by itself, otherwise the scrollbars would infinite extend
-				this.dimmer.css({
-					'width': $(window).width(),
-					'height': $(window).height()
-				});
-				this._resizeDim(true);
-			} else {
-				// we need to add the additional scroll dimensions after the dimmer is shown
+
+			// first set the dimmer to 100% when resizing so we avoid jumpint errors
+			this.dimmer.css({
+				'position': 'fixed',
+				'width': '100%',
+				'height': '100%'
+			});
+
+			// than we clear all previous timeouts
+			clearTimeout(this.dimTimer);
+
+			// and last set a timeout to set the correct dimensions
+			this.dimTimer = setTimeout(function () {
 				var scrollHeight = $(document).height() - $(window).height();
-				// TODO: there is a jumping error
 				var scrollWidth = $(document).width() - $(window).width();
-				this.dimmer.css({
+				that.dimmer.css({
+					'position': 'absolute',
 					'width': $(window).width() + scrollWidth - offset,
 					'height': $(window).height() + scrollHeight
 				});
-			}
+			}, 100);
 		},
 
 		/*
