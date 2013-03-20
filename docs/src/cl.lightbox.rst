@@ -90,10 +90,10 @@ Methods can be called using the instance of the Class::
 
 All Methods have appropriate events and callbacks.
 
-.. js:function:: instance.open(elements)
+.. js:function:: instance.open(type)
 
-    :description: opens the lightbox with the provided set of elements.
-    :param jquery elements: a set of elements to be opened.
+    :description: opens the lightbox with the provided link.
+    :param jquery elements: the urls are attached.
     :returns: open callback
 
 
@@ -146,11 +146,11 @@ You can also interact with events, for example::
 
     var lightbox ) bew Cl.Lightbox();
 
-    lightbox.on('cl-open', function (e) {
+    $(document).on('cl-lightbox-open', function (e) {
     	console.log('lightbox is opening');
     });
 
-Events are always triggered **before** the function is excecuted.
+Events are always triggered **before** the function is excecuted and on the document level .
 
 .. js:attribute:: open
     is called when opening the lightbox.
