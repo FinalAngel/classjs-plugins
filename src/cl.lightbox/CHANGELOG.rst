@@ -20,6 +20,7 @@ Cl.Lightbox
 - Remove autoscale option, this can be handeled using css only
 - Remove scrolling option, this can be handeled using css only
 - Removed link from options.lang.errorMessage
+- Added basic accessibility features
 
 1.0.2
 -----

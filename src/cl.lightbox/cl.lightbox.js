@@ -420,6 +420,8 @@ var Cl = window.Cl || {};
 			this.content.html('');
 			this.loader.show();
 			this.description.hide();
+			// handle accessibility
+			this._accessibility(true);
 			// show instance frame
 			this.frame.show();
 			// set correct state position
@@ -431,6 +433,8 @@ var Cl = window.Cl || {};
 		_hide: function () {
 			// hide the dimmer
 			if(this.options.modal) this._hideDim();
+			// handle accessibility
+			this._accessibility(false);
 			// hide instance frame
 			this.frame.hide();
 		},
@@ -628,6 +632,16 @@ var Cl = window.Cl || {};
 			return $(this._tplError(this.options.prefix)).html(message);
 		},
 
+		_accessibility: function (state) {
+			// state true for enable, false for disable
+			if(state) {
+				$('*').attr('tabindex', -1);
+				this.instance.find('a').attr('tabindex', 0);
+			} else {
+				$('*').removeAttr('tabindex');
+			}
+		},
+
 		/*
 		 * PRIVATE CONTROL METHODS
 		 */
@@ -661,19 +675,19 @@ var Cl = window.Cl || {};
 		 * PRIVATE DIMMER METHODS
 		 */
 		_showDim: function () {
-			($.browser.msie && $.browser.version < 8) ? this.dimmer.show() : this.dimmer.fadeIn();
+			($.browser && $.browser.msie && $.browser.version < 8) ? this.dimmer.show() : this.dimmer.fadeIn();
 
 			(this.options.modalClosable) ? this.dimmer.css('cursor', 'pointer') : this.dimmer.css('cursor', 'default');
 		},
 
 		_hideDim: function () {
 			// hide the dimmer, skip the fade transition on ie cause of performance issues
-			($.browser.msie && $.browser.version < 8) ? this.dimmer.hide() : this.dimmer.fadeOut();
+			($.browser && $.browser.msie && $.browser.version < 8) ? this.dimmer.hide() : this.dimmer.fadeOut();
 		},
 
 		_resizeDim: function () {
 			var that = this;
-			var offset = ($.browser.msie) ? ($.browser.version <= 7) ? 21 : 17 : 0;
+			var offset = ($.browser && $.browser.msie && $.browser.version <= 7) ? 21 : 0;
 
 			// first set the dimmer to 100% when resizing so we avoid jumpint errors
 			this.dimmer.css({
