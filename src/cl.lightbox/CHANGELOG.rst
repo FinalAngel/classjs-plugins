@@ -21,9 +21,16 @@ Cl.Lightbox
 - Remove scrolling option, this can be handeled using css only
 - Removed link from options.lang.errorMessage
 
+1.0.2
+-----
+- Added feature to grab the title from an element and add it to a description element
+- Updated width and height calculations to description element
+
 1.0.1
 -----
-
+- Save type into this.type
+- IFRAME tag name did not work
+- Fixed width and height calculations for images
 
 1.0.0
 -----
