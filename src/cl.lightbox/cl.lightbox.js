@@ -82,9 +82,6 @@ var Cl = window.Cl || {};
 		},
 
 		_setup: function () {
-			// trigger event
-			this._triggerEvent('setup');
-
 			// insure that this instant is loaded so setup is not called twice
 			this.isLoaded = true;
 
@@ -117,9 +114,6 @@ var Cl = window.Cl || {};
 
 			// attach frame to the dom
 			this.body.append(this.instance);
-
-			// trigger event
-			this._triggerCallback('setup', this);
 		},
 
 		/*

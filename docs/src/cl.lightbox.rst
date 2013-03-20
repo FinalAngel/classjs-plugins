@@ -182,9 +182,6 @@ Write your own callbacks using the options, for example::
 
 Additional:
 
-.. js:attribute:: setup
-    is called as soon as the instance is being created.
-
 .. js:attribute:: load
     is called when preloading data.
 
