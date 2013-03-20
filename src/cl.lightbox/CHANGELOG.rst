@@ -4,6 +4,7 @@ Cl.Lightbox
 
 1.1.0
 -----
+- Refactor open so anythng can be opened
 - Change "enableKeys" to "keys" and "keys" to "keyCodes"
 - Internal API refactor (_triggerAPI to _triggerEvent and triggerCallback)
 - Changed image loader to be in default tpl
@@ -21,6 +22,8 @@ Cl.Lightbox
 - Remove scrolling option, this can be handeled using css only
 - Removed link from options.lang.errorMessage
 - Added basic accessibility features
+- Fixed fast loading when navigating quickly through a collection
+- Remove youtube autodetect as you can use the embed link directly
 
 1.0.2
 -----

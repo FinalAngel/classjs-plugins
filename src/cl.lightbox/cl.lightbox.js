@@ -12,13 +12,14 @@ var Cl = window.Cl || {};
 
 	// creating class
 	Cl.Lightbox = new Class({
-
 		/*
 			TODO 1.1.1
 			- when cycle is enabled, remove next and prev (or disable) when reaching bound
+			- conflicts when working with .open() and collections
 
 			TODO 1.2
 			- add slideshow, play and pause options
+			- collections refactor (so collections can be added and removed)
 		 */
 
 		options: {
@@ -109,6 +110,7 @@ var Cl = window.Cl || {};
 			this.closeBtn = this.controls.find('.'+this.options.prefix+'-lightbox-close');
 			this.text = this.controls.find('.'+this.options.prefix+'-lightbox-text');
 			this.status = this.controls.find('.'+this.options.prefix+'-lightbox-status');
+			this.timer = function () {};
 
 			// attach styles from options to content
 			this.content.css(this.options.styles);
@@ -127,15 +129,22 @@ var Cl = window.Cl || {};
 			// trigger event
 			this._triggerEvent('open');
 
-			// handle instance open call
-			if(el === undefined) el = this.triggers.first();
-
 			// check if there is already an instance available
 			if(!this.isLoaded) this._setup();
-
-			// determine if the window should be resized to the loader size
 			this._show((this.isOpen) ? false : true);
-			this._preload(el);
+
+			// load given jquery element
+			if(typeof(el) === 'object') {
+				this._preload(el);
+			}
+			// load string element
+			if(typeof(el) === 'string') {
+				this._preload('<a href="' + el + '"></a>');
+			}
+			// load first element of collection
+			if(el === undefined && this.triggers.length) {
+				this._preload(this.triggers.first());
+			}
 
 			this._attachEvents();
 			this.isOpen = true;
@@ -247,7 +256,6 @@ var Cl = window.Cl || {};
 			var that = this;
 
 			var connectors = {
-				'youtube': 'http://www.youtube.com/embed/{id}?rel=0',
 				'flash': '<embed src="{url}" width="100%" height="100%" type="application/x-shockwave-flash" />',
 				'quicktime': ''
 			};
@@ -275,11 +283,6 @@ var Cl = window.Cl || {};
 					// we need to add date gettime to prevent caching in ie7
 					this.element = $(new Image()).attr({ 'src': this.url + '?' + new Date().getTime(), 'alt': this.source.attr('title') });
 					load();
-					break;
-				case 'youtube':
-					var id = this.url.match(this.extractors.youtube)[2];
-					this.element = iframe(connectors.youtube.replace('{id}', id));
-					this._load(that.element);
 					break;
 				case 'flash':
 					this.element = $(connectors.flash.replace('{url}', this.source.attr('href')));
@@ -311,7 +314,8 @@ var Cl = window.Cl || {};
 				}).error(function () {
 					error();
 				});
-		}
+			}
+
 			// loading content through ajax, so style can be maintained
 			function ajax() {
 				$.ajax({
@@ -327,6 +331,7 @@ var Cl = window.Cl || {};
 					}
 				});
 			}
+
 			// setting error and pass to _load
 			function error() {
 				var error = that._setError(that.options.lang.errorMessage);
@@ -363,8 +368,10 @@ var Cl = window.Cl || {};
 			// resize viewport to element dimensions
 			if(!(el.attr('tagName') === 'IFRAME' && this.options.forceLoad)) this.resize(this.width, this.height);
 
+			// insure when fast switching, that the timeout is canceled
+			clearTimeout(this.timer);
 			// render element
-			setTimeout(function () {
+			this.timer = setTimeout(function () {
 				that._complete.call(that, el);
 			}, this.options.duration);
 		},
@@ -443,7 +450,6 @@ var Cl = window.Cl || {};
 			// save regexes for type definition
 			this.extractors = {
 				'images': /(\.(gif|png|jpe?g|bmp|ico)((#|\?|\&).*)?)$/i,
-				'youtube': /(youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([\w'-]+))$/i,
 				'flash': /(\.(swf)((#|\?|\&).*)?)$/i,
 				'ajax': /(\.(htm?l|txt)((#|\?|\&).*)?)$/i,
 				'inline': /(#[\w'-]+?)$/i
@@ -454,8 +460,6 @@ var Cl = window.Cl || {};
 				return 'image';
 			} else if(this.extractors.flash.test(url)) {
 				return 'flash';
-			} else if(this.extractors.youtube.test(url)) {
-				return 'youtube';
 			} else if(this.extractors.ajax.test(url)) {
 				return 'ajax';
 			} else if(this.extractors.inline.test(url)) {
@@ -574,7 +578,7 @@ var Cl = window.Cl || {};
 		},
 
 		_triggerEvent: function (event) {
-			$.event.trigger(this.options.prefix + '.' + event);
+			$.event.trigger(this.options.prefix + '-lightbox-' + event);
 		},
 
 		_resize: function (type, width, height) {
@@ -675,14 +679,14 @@ var Cl = window.Cl || {};
 		 * PRIVATE DIMMER METHODS
 		 */
 		_showDim: function () {
-			($.browser && $.browser.msie && $.browser.version < 8) ? this.dimmer.show() : this.dimmer.fadeIn();
+			($.browser && $.browser.msie && $.browser.version <= 8) ? this.dimmer.show() : this.dimmer.fadeIn();
 
 			(this.options.modalClosable) ? this.dimmer.css('cursor', 'pointer') : this.dimmer.css('cursor', 'default');
 		},
 
 		_hideDim: function () {
 			// hide the dimmer, skip the fade transition on ie cause of performance issues
-			($.browser && $.browser.msie && $.browser.version < 8) ? this.dimmer.hide() : this.dimmer.fadeOut();
+			($.browser && $.browser.msie && $.browser.version <= 8) ? this.dimmer.hide() : this.dimmer.fadeOut();
 		},
 
 		_resizeDim: function () {
