@@ -4,23 +4,23 @@ Cl.Carousel
 
 1.2.2
 -----
-- The width is now calculated before the height
+- fixed an issue where the height got calculated first and than the width
 
 1.2.1
 -----
-- Corrected width calculation
-- Added more comments and namespace
-- Aligned code with other scripts
+- added additional comments
+- changed code setup to be aligned with other classjs-plugins
+- fixed an issue where carousel calculated an incorrect width
 
 1.2.0
 -----
-- Added navigation feature
+- added option ``navigation``
 
 1.1.0
 -----
-- Depricate autoplay in favor of timeout
-- Added correct next and prev bound calculation
+- removed redundant option ``autoplay``; the carousel now starts if timeout is greater than 0
+- fixed an issue with the carousel incorrectly calculating number of items
 
 1.0.0
 -----
-- Initial release
+- initial release
