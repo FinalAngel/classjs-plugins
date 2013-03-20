@@ -207,16 +207,16 @@
 <p>All Methods have appropriate events and callbacks.</p>
 <dl class="function">
 <dt id="instance.open">
-<tt class="descclassname">instance.</tt><tt class="descname">open</tt><big>(</big><em>type</em><big>)</big><a class="headerlink" href="#instance.open" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">instance.</tt><tt class="descname">open</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#instance.open" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body"><p class="first">opens the lightbox with the provided link.</p>
+<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body"><p class="first">opens the lightbox with the provided url or jQuery element.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>elements</strong> (<em>jquery</em>) &#8211; the urls are attached.</li>
+<li><strong>type</strong> (<em>jquery</em>) &#8211; either url or jQuery element.</li>
 </ul>
 </td>
 </tr>
@@ -337,17 +337,26 @@
 </dd></dl>
 
 </div>
-<div class="section" id="events">
-<h3>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="events-and-callbacks">
+<h3>Events and Callbacks<a class="headerlink" href="#events-and-callbacks" title="Permalink to this headline">¶</a></h3>
+<p><strong>Events</strong> are always triggered <strong>before</strong> the function is excecuted and on the document level.</p>
 <p>You can also interact with events, for example:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">lightbox</span> <span class="p">)</span> <span class="nx">bew</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Lightbox</span><span class="p">();</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">lightbox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Lightbox</span><span class="p">();</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;cl-lightbox-open&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;cl-lightbox-open&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;lightbox is opening&#39;</span><span class="p">);</span>
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>Events are always triggered <strong>before</strong> the function is excecuted and on the document level .</p>
+<p><strong>Callbacks</strong> are always triggered <strong>after</strong> the function is excecuted.</p>
+<p>Write your own callbacks using the options, for example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">lightbox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Lightbox</span><span class="p">();</span>
+
+<span class="nx">lightbox</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;lightbox has opened&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
 <dl class="attribute">
 <dt id="open">
 <tt class="descname">open</tt><a class="headerlink" href="#open" title="Permalink to this definition">¶</a></dt>
@@ -374,6 +383,20 @@
 <tt class="descname">destroy</tt><a class="headerlink" href="#destroy" title="Permalink to this definition">¶</a></dt>
 <dt id="is called when the lightbox gets destroyed.">
 <tt class="descclassname">is called when the lightbox gets destroyed.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when the lightbox gets destroyed." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="next">
+<tt class="descname">next</tt><a class="headerlink" href="#next" title="Permalink to this definition">¶</a></dt>
+<dt id="'next': function (self) {}.">
+<tt class="descclassname">'next': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'next': function (self) {}." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="previous">
+<tt class="descname">previous</tt><a class="headerlink" href="#previous" title="Permalink to this definition">¶</a></dt>
+<dt id="'previous': function (self) {}.">
+<tt class="descclassname">'previous': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'previous': function (self) {}." title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p>Additional:</p>
@@ -406,93 +429,7 @@
 <dd></dd></dl>
 
 </div>
-<div class="section" id="callbacks">
-<h3>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h3>
-<p>Write your own callbacks using the options, for example:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">lightbox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Lightbox</span><span class="p">();</span>
-
-<span class="nx">lightbox</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;lightbox has opened&#39;</span><span class="p">);</span>
-<span class="p">};</span>
-</pre></div>
 </div>
-<dl class="attribute">
-<dt>
-<tt class="descname">open</tt></dt>
-<dt id="'open': function (self) {}.">
-<tt class="descclassname">'open': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'open': function (self) {}." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<tt class="descname">close</tt></dt>
-<dt id="'close': function (self) {}.">
-<tt class="descclassname">'close': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'close': function (self) {}." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<tt class="descname">resize</tt></dt>
-<dt id="'resize': function (self) {}.">
-<tt class="descclassname">'resize': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'resize': function (self) {}." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<tt class="descname">destroy</tt></dt>
-<dt id="'destroy': function (self) {}.">
-<tt class="descclassname">'destroy': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'destroy': function (self) {}." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="next">
-<tt class="descname">next</tt><a class="headerlink" href="#next" title="Permalink to this definition">¶</a></dt>
-<dt id="'next': function (self) {}.">
-<tt class="descclassname">'next': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'next': function (self) {}." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="previous">
-<tt class="descname">previous</tt><a class="headerlink" href="#previous" title="Permalink to this definition">¶</a></dt>
-<dt id="'previous': function (self) {}.">
-<tt class="descclassname">'previous': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'previous': function (self) {}." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>Additional:</p>
-<dl class="attribute">
-<dt>
-<tt class="descname">setup</tt></dt>
-<dt id="'setup': function (self) {}.">
-<tt class="descclassname">'setup': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'setup': function (self) {}." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<tt class="descname">load</tt></dt>
-<dt id="'load': function (self) {}.">
-<tt class="descclassname">'load': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'load': function (self) {}." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<tt class="descname">complete</tt></dt>
-<dt id="'complete': function (self) {}.">
-<tt class="descclassname">'complete': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'complete': function (self) {}." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<tt class="descname">unload</tt></dt>
-<dt id="'unload': function (self) {}.">
-<tt class="descclassname">'unload': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'unload': function (self) {}." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>Callbacks are always triggered <strong>after</strong> the function is excecuted.</p>
-</div>
-</div>
-<div class="section" id="demos">
-<h2>Demos<a class="headerlink" href="#demos" title="Permalink to this headline">¶</a></h2>
-<iframe style="width:100%; height:500px;" src="http://www.youtube.com/embed/_EjisXtMy_Y" frameborder="0" allowfullscreen></iframe></div>
 </div>
 
 
@@ -507,11 +444,9 @@
 <li><a class="reference internal" href="#api-reference">API Reference</a><ul>
 <li><a class="reference internal" href="#options">Options</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
-<li><a class="reference internal" href="#events">Events</a></li>
-<li><a class="reference internal" href="#callbacks">Callbacks</a></li>
+<li><a class="reference internal" href="#events-and-callbacks">Events and Callbacks</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#demos">Demos</a></li>
 </ul>
 </li>
 </ul>

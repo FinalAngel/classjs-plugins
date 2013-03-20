@@ -90,10 +90,10 @@ Methods can be called using the instance of the Class::
 
 All Methods have appropriate events and callbacks.
 
-.. js:function:: instance.open(type)
+.. js:function:: instance.open(url)
 
-    :description: opens the lightbox with the provided link.
-    :param jquery elements: the urls are attached.
+    :description: opens the lightbox with the provided url or jQuery element.
+    :param jquery type: either url or jQuery element.
     :returns: open callback
 
 
@@ -139,18 +139,28 @@ All Methods have appropriate events and callbacks.
     :returns: all current elements in the collection
 
 
-Events
-------
+Events and Callbacks
+--------------------
+
+**Events** are always triggered **before** the function is excecuted and on the document level.
 
 You can also interact with events, for example::
 
-    var lightbox ) bew Cl.Lightbox();
+    var lightbox = new Cl.Lightbox();
 
-    $(document).on('cl-lightbox-open', function (e) {
+    $(document).bind('cl-lightbox-open', function (e) {
     	console.log('lightbox is opening');
     });
 
-Events are always triggered **before** the function is excecuted and on the document level .
+**Callbacks** are always triggered **after** the function is excecuted.
+
+Write your own callbacks using the options, for example::
+
+    var lightbox = new Cl.Lightbox();
+
+    lightbox.callbacks.open = function () {
+        console.log('lightbox has opened');
+    };
 
 .. js:attribute:: open
     is called when opening the lightbox.
@@ -163,6 +173,12 @@ Events are always triggered **before** the function is excecuted and on the docu
 
 .. js:attribute:: destroy
     is called when the lightbox gets destroyed.
+
+.. js:attribute:: next
+    'next': function (self) {}.
+
+.. js:attribute:: previous
+    'previous': function (self) {}.
 
 Additional:
 
@@ -177,57 +193,3 @@ Additional:
 
 .. js:attribute:: unload
     is called when data is unloaded.
-
-
-Callbacks
----------
-
-Write your own callbacks using the options, for example::
-
-    var lightbox = new Cl.Lightbox();
-
-    lightbox.callbacks.open = function () {
-        console.log('lightbox has opened');
-    };
-
-.. js:attribute:: open
-    'open': function (self) {}.
-
-.. js:attribute:: close
-    'close': function (self) {}.
-
-.. js:attribute:: resize
-    'resize': function (self) {}.
-
-.. js:attribute:: destroy
-    'destroy': function (self) {}.
-
-.. js:attribute:: next
-    'next': function (self) {}.
-
-.. js:attribute:: previous
-    'previous': function (self) {}.
-
-Additional:
-
-.. js:attribute:: setup
-    'setup': function (self) {}.
-
-.. js:attribute:: load
-    'load': function (self) {}.
-
-.. js:attribute:: complete
-    'complete': function (self) {}.
-
-.. js:attribute:: unload
-    'unload': function (self) {}.
-
-
-Callbacks are always triggered **after** the function is excecuted.
-
-
-Demos
-=====
-
-.. raw:: html
-    :file: demo.html
