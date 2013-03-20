@@ -2,6 +2,16 @@
 Cl.Carousel
 ===========
 
+1.3.0
+-----
+- added ``options.easing``
+- added method ``destroy``
+- changed elements cls from article to .item
+- changed triggerRight to triggers.next and triggerLeft to triggers.previous
+- changed ``moveLeft`` to ``previous``
+- changed ``moveRight`` to ``next``
+- changed interval clear on triggers into their event functions instead of next and previous methods
+
 1.2.2
 -----
 - fixed an issue where the height got calculated first and than the width

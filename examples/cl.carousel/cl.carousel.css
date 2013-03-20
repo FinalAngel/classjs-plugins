@@ -1,0 +1,77 @@
+@charset "utf-8";
+/*
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ */
+.carousel {
+  position: relative;
+  z-index: 100;
+}
+.carousel .wrapper {
+  position: relative;
+  z-index: 100;
+  width: 100%;
+  overflow: hidden;
+}
+.carousel .viewport {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  *zoom: 1;
+  height: auto;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 9999em;
+}
+.carousel .viewport li {
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+.carousel .trigger-next, .carousel .trigger-previous {
+  padding: 0;
+  margin: 0;
+}
+
+.carousel {
+  margin: 0 0 20px;
+}
+.carousel .trigger-next, .carousel .trigger-previous {
+  position: absolute;
+  top: 50%;
+  z-index: 101;
+  font-size: 12px;
+  line-height: 12px;
+  margin-top: -10px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.carousel .trigger-next {
+  right: 0;
+}
+.carousel .trigger-previous {
+  left: 0;
+}
+.carousel .trigger-next a, .carousel .trigger-previous a {
+  float: left;
+  padding: 4px;
+}
+.carousel .trigger-next a:hover, .carousel .trigger-previous a:hover {
+  color: white;
+}
+.carousel .viewport li {
+  width: 105px;
+  padding: 5px;
+  margin-right: 10px;
+  line-height: 0;
+  background: white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 1px #cccccc;
+  -moz-box-shadow: 0 0 1px #cccccc;
+  box-shadow: 0 0 1px #cccccc;
+}

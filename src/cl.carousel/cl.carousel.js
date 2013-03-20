@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.2.2
+ * @version     1.3.0
  */
 
 // ensure namespace is defined
@@ -12,21 +12,26 @@ var Cl = window.Cl || {};
 
 	// creating class
 	Cl.Carousel = new Class({
+		/*
+			TODO 1.3.1
+			- add better swipe implementation
+		 */
 
 		options: {
 			'index': 0, // initial page to load
 			'timeout': null, // timeout for autoplay, if 0 or null autoplay is ignored
+			'easing': 'linear',
 			'duration': 500, // duration for animation
 			'move': 'single', // either "single" to move one element or "auto" to move the whole slider
 			'momentum': true, // allow scrolling over the left and right border
 			'cls': {
 				'active': 'active', // class that will be used for active states
 				'disabled': 'disabled',
-				'leftTrigger': '.trigger-left a',
-				'rightTrigger': '.trigger-right a',
 				'wrapper': '.wrapper',
 				'viewport': '.viewport',
-				'elements': 'article',
+				'elements': '.item',
+				'next': '.trigger-next a',
+				'previous': '.trigger-previous a',
 				'navigation': 'nav a'
 			}
 		},
@@ -43,9 +48,12 @@ var Cl = window.Cl || {};
 			this.index = this.options.index;
 			this.bound = this.elements.length;
 			this.timer = function () {};
+			this.callbacks = {};
 
-			this.triggerLeft = this.container.find(this.options.cls.leftTrigger);
-			this.triggerRight = this.container.find(this.options.cls.rightTrigger);
+			this.triggers = {
+				'next': this.container.find(this.options.cls.next),
+				'previous': this.container.find(this.options.cls.previous)
+			};
 
 			this._setup();
 		},
@@ -60,21 +68,23 @@ var Cl = window.Cl || {};
 
 			// cancel if bound is bigger then containing items
 			if(this.bound < Math.ceil(this.wrapper.outerWidth(true) / $(this.elements[0]).outerWidth(true))) {
-				this.triggerLeft.hide();
-				this.triggerRight.hide();
+				this.triggers.next.hide();
+				this.triggers.previous.hide();
 				return false;
 			}
 
-			// bind event for left triggers
-			this.triggerLeft.bind('click', function (e) {
+			// bind event for next triggers
+			this.triggers.next.bind('click', function (e) {
 				e.preventDefault();
-				that.moveLeft.call(that, e);
+				clearInterval(that.timer);
+				that.next.call(that);
 			});
 
-			// bind event for right triggers
-			this.triggerRight.bind('click', function (e) {
+			// bind event for previous triggers
+			this.triggers.previous.bind('click', function (e) {
 				e.preventDefault();
-				that.moveRight.call(that, e);
+				clearInterval(that.timer);
+				that.previous.call(that);
 			});
 
 			// bind navigation
@@ -93,30 +103,9 @@ var Cl = window.Cl || {};
 			this.move();
 		},
 
-		moveLeft: function (event) {
-			// cance timeout when clicking
-			if(event) clearInterval(this.timer);
-
-			var width = $(this.elements[0]).outerWidth(true);
-			var viewBound = Math.ceil(this.wrapper.width() / width);
-
-			// cancel if bound is reached and momentum is false
-			if(this.index <= 0 && !this.options.momentum) return false;
-			// continue with last slide if momentum is true
-			if(this.index <= 0 && this.options.momentum) {
-				this.index = this.bound - viewBound + 1;
-			}
-
-			// increment settings
-			this.index = this.index - 1;
-
-			// move
-			this.move();
-		},
-
-		moveRight: function (event) {
-			// cancel timeout when clicking
-			if(event) clearInterval(this.timer);
+		next: function () {
+			// trigger event
+			this._triggerEvent('next');
 
 			var width = $(this.elements[0]).outerWidth(true);
 			var viewBound = Math.ceil(this.wrapper.width() / width);
@@ -131,11 +120,41 @@ var Cl = window.Cl || {};
 			// increment settings
 			this.index = this.index + 1;
 
+			// trigger callback
+			this._triggerCallback('next', this);
+
+			// move
+			this.move();
+		},
+
+		previous: function () {
+			// trigger event
+			this._triggerEvent('previous');
+
+			var width = $(this.elements[0]).outerWidth(true);
+			var viewBound = Math.ceil(this.wrapper.width() / width);
+
+			// cancel if bound is reached and momentum is false
+			if(this.index <= 0 && !this.options.momentum) return false;
+			// continue with last slide if momentum is true
+			if(this.index <= 0 && this.options.momentum) {
+				this.index = this.bound - viewBound + 1;
+			}
+
+			// increment settings
+			this.index = this.index - 1;
+
+			// trigger callback
+			this._triggerCallback('previous', this);
+
 			// move
 			this.move();
 		},
 
 		move: function (index) {
+			// trigger event
+			this._triggerEvent('move');
+
 			// set new index if neccessary
 			this.index = (index !== undefined) ? index : this.index;
 
@@ -147,7 +166,7 @@ var Cl = window.Cl || {};
 			// animation settings
 			this.viewport.stop().animate({
 				'left': position
-			}, this.options.duration);
+			}, this.options.duration, this.options.easing);
 
 			// change active navigation
 			this.navigation.removeClass(this.options.cls.active);
@@ -155,31 +174,47 @@ var Cl = window.Cl || {};
 
 			// add appropriate classes to left trigger
 			if(this.index <= 0) {
-				this.triggerLeft.addClass(this.options.cls.disabled);
-				this.triggerRight.removeClass(this.options.cls.disabled);
+				this.triggers.previous.addClass(this.options.cls.disabled);
+				this.triggers.next.removeClass(this.options.cls.disabled);
 			} else {
-				this.triggerLeft.removeClass(this.options.cls.disabled);
+				this.triggers.previous.removeClass(this.options.cls.disabled);
 			}
 			// add appropriate classes to right trigger
 			if(viewBound + this.index >= this.bound) {
-				this.triggerLeft.removeClass(this.options.cls.disabled);
-				this.triggerRight.addClass(this.options.cls.disabled);
+				this.triggers.previous.removeClass(this.options.cls.disabled);
+				this.triggers.next.addClass(this.options.cls.disabled);
 			} else {
-				this.triggerRight.removeClass(this.options.cls.disabled);
+				this.triggers.next.removeClass(this.options.cls.disabled);
 			}
 
 			// check if we should disable the arrows
 			if(viewBound >= this.bound) {
-				this.triggerLeft.addClass(this.options.cls.disabled);
-				this.triggerRight.addClass(this.options.cls.disabled);
+				this.triggers.previous.addClass(this.options.cls.disabled);
+				this.triggers.next.addClass(this.options.cls.disabled);
 			}
+
+			// trigger callback
+			this._triggerCallback('move', this);
+		},
+
+		destroy: function () {
+			this.viewport.removeAttr('css');
+			this.wrapper.removeAttr('css');
+			this.triggers.next.removeAttr('css');
+			this.triggers.previous.removeAttr('css');
+			// remove events
+			this.triggers.next.unbind('click');
+			this.triggers.previous.unbind('click');
+			this.navigation.unbind('click');
+			// remove interval
+			clearInterval(this.timer);
 		},
 
 		_autoplay: function () {
 			var that = this;
 
 			this.timer = setInterval(function () {
-				that.moveRight();
+				that.next();
 			}, this.options.timeout);
 		},
 
@@ -195,15 +230,26 @@ var Cl = window.Cl || {};
 
 			// inverse movement
 			function swipeLeft() {
-				that.moveRight();
+				that.next();
 				// clear timer
 				clearInterval(that.timer);
 			}
 			function swipeRight() {
-				that.moveLeft();
+				that.previous();
 				// clear timer
 				clearInterval(that.timer);
 			}
+		},
+
+		_triggerCallback: function (fn, scope) {
+			// cancel if there is no callback found
+			if(this.callbacks[fn] === undefined) return false;
+			// excecute fallback
+			this.callbacks[fn](scope);
+		},
+
+		_triggerEvent: function (event) {
+			$.event.trigger(this.options.prefix + '-carousel-' + event);
 		}
 
 	});
