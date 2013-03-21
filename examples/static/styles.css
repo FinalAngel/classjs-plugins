@@ -10,6 +10,7 @@ h1, h2, h3 { line-height:1.1; }
 h1 { font-size:28px; font-weight:300; margin:0 0 20px; }
 h2 { color:#393939; }
 h3, h4, h5, h6 { color:#494949; }
+h4 { margin:0 0 5px; }
 
 a { color:#39c; font-weight:400; text-decoration:none; }
 a:hover { color:#000; }
@@ -67,6 +68,10 @@ footer p { font-size:12px; color:#bfbfbf; text-align:center; padding:10px 0; mar
 .box:hover span { color:#fff; }
 
 .linklist a { display:inline-block; width:150px; }
+
+form fieldset { padding:10px 10px 0; margin:0 0 10px; background:#fff; border:1px solid #e5e5e5; border-radius:3px; }
+form ol { list-style-type:none; padding:0; margin:0;}
+form ol li { padding:0; margin:0 0 10px; }
 
 /* RESPONSIVE */
 header h1, section .inner { padding-left:20px; padding-right:20px; }
