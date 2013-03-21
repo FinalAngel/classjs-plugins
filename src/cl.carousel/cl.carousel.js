@@ -178,9 +178,9 @@ var Cl = window.Cl || {};
 			this.navigation.eq(this.index).addClass(this.options.cls.active);
 
 			// add appropriate classes to left trigger
-			//if(this.index <= 0 || viewBound >= this.bound) previous.addClass(this.options.cls.disabled);
+			if(this.index <= 0 && !this.options.momentum) this.triggers.previous.addClass(this.options.cls.disabled);
 			// add appropriate classes to right trigger
-			//if(viewBound + this.index >= this.bound || viewBound >= this.bound) next.addClass(this.options.cls.disabled);
+			if(this.index >= this.realBound - 1 && !this.options.momentum) this.triggers.next.addClass(this.options.cls.disabled);
 
 			// trigger callback
 			this._triggerCallback('move', this);
@@ -225,7 +225,7 @@ var Cl = window.Cl || {};
 			if(this.options.move === 'auto') this.width = width * viewBound;
 
 			if(index < 0) index = (this.options.momentum) ? bound - 1 : 0;
-			if(index >= bound) index = (this.options.momentum) ? 0 : bound;
+			if(index >= bound) index = (this.options.momentum) ? 0 : bound - 1;
 
 			return this.index = index;
 		},

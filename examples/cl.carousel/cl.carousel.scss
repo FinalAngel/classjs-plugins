@@ -23,6 +23,8 @@ $carousel-line-height: 12px;
 	.viewport li { float:left; padding:0; margin:0; }
 
 	.trigger-next, .trigger-previous { padding:0; margin:0; }
+
+	.disabled { display:none !important; }
 }
 
 // custom styles

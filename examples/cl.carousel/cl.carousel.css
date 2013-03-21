@@ -34,6 +34,9 @@
   padding: 0;
   margin: 0;
 }
+.carousel .disabled {
+  display: none !important;
+}
 
 .carousel {
   margin: 0 0 20px;
