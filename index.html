@@ -124,10 +124,16 @@
 		</table>
 
 		<div class="spacer"></div>
+		<div class="spacer"></div>
 
 		<h3>General Help</h3>
 
-		<p>Each example project has its own scss file and its compiled css. Navigate to the folder and compile using <code>compass watch .</code></p>
+		<p>Each example project has a SASS (Compass) file and the compiled css.
+			Navigate to the examples/cl.{plugin} folder and compile using <code>compass watch .</code></p>
+		<p>The documentation is generated using sphinx. Navigate to the docs folder and compile using <code>make html</code></p>
+		<p>To auto-commit to the gh-pages branch using git push, excecute the following two lines in the terminal inside the repository:<br />
+			<code class="nowrap">git config --add remote.origin.push +refs/heads/master:refs/heads/gh-pages</code><br />
+			<code class="nowrap">git config --add remote.origin.push +refs/heads/master:refs/heads/master</code></p>
 	</div>
 </section>
 
