@@ -161,6 +161,9 @@ var Cl = window.Cl || {};
 			// check if we should autoplay
 			this.play();
 
+			// cancel autoplay if momentum is true and autoplay activated
+			if(!this.options.momentum && this.index >= (this.realBound - 1)) this.stop();
+
 			// animation settings
 			this.viewport.stop().animate({
 				'left': -(this.width * this.index)
