@@ -405,6 +405,9 @@ var Cl = window.Cl || {};
 			// show controls
 			if(this.options.controls) this._showControls();
 
+			// reset accessibility
+			this.content.find('a').attr('tabindex', 0);
+
 			// trigger callback
 			this._triggerCallback('complete', this);
 		},
@@ -639,10 +642,10 @@ var Cl = window.Cl || {};
 		_accessibility: function (state) {
 			// state true for enable, false for disable
 			if(state) {
-				$('*').attr('tabindex', -1);
-				this.instance.find('a').attr('tabindex', 0);
+				$('a, input, textarea, select').attr('tabindex', -1);
+				this.instance.find('a').attr('tabindex', 1);
 			} else {
-				$('*').removeAttr('tabindex');
+				$('a, input, textarea, select').removeAttr('tabindex');
 			}
 		},
 
