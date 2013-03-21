@@ -1,0 +1,39 @@
+@charset "utf-8";
+/*!
+ * @author      Aleš Kocjančič - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ */
+
+// sass imports
+@import "compass/css3";
+@import "compass/utilities";
+
+// variables
+$gallery-font-size: 12px;
+$gallery-line-height: 12px;
+
+// required styles
+.gallery {
+	.wrapper { position:relative; margin:0; overflow:hidden; }
+	.viewport {
+		position: absolute; top: 0; right: 0; left: 0; list-style-type:none; padding:0; margin:0;
+
+		li { display: block; display: none; position: absolute; top: 0; right: 0; left: 0; }
+		li img { display: block; max-width: 100%; margin: 0 auto;  }
+		li.active { display: block; }
+	}
+
+	.trigger-next, .trigger-previous { position:absolute; top:50%; z-index:101; margin:0;
+		font-size:$gallery-font-size; line-height:$gallery-line-height;
+		margin-top:-10px; background:rgba(black, 0.6); }
+	.trigger-next { right:0; }
+	.trigger-previous { left:0; }
+	.trigger-next a, .trigger-previous a { float:left; padding:4px;
+		&:hover { color:white;} }
+
+	nav { text-align:center; padding-top:15px; }
+	nav a { font-size:11px; line-height:11px; padding:3px 6px 4px 6px;
+		@include inline-block(); @include border-radius(10px); border:1px solid #e5e5e5; background:#fff; }
+	nav a:hover { background:#f9f9f9; }
+	nav .active { color:#fff !important; border-color:#39c !important; background:#39c !important; }
+}

@@ -1,20 +1,27 @@
 /*!
- * @author      Divio AG
+ * @author      Aleš Kocjančič - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.0
+ * @version     1.0.1
  */
 
-// insure namespace is defined
+// ensure namespace is defined
 var Cl = window.Cl || {};
 
 (function($){
+	'use strict';
 
+	// creating class
 	Cl.Gallery = new Class({
+		/*
+			TODO 1.1.0
+			-
+		 */
 
 		options: {
 			'index': 0, // initial image to show
-			'duration': 500, // duration for animation
 			'timeout': 5000, // if set, the gallery will start moving automatically
+			'easing': 'linear',
+			'duration': 300, // duration for animation
 			'direction': 'right', // direction to move by default (left, right, random)
 			'animation': 'fade', // animation type (fade, slide)
 			'cls': { // these selectors are all relative to the container
@@ -22,27 +29,34 @@ var Cl = window.Cl || {};
 				'wrapper': '.wrapper', // viewport wrapper
 				'viewport': '.viewport', // item container
 				'navigation': 'nav', // navigation triggers container
-				'leftTrigger': '.trigger-left a', // left trigger
-				'rightTrigger': '.trigger-right a' // right trigger
+				'next': '.trigger-next a', // right trigger
+				'previous': '.trigger-previous a' // left trigger
 			}
 		},
 
 		initialize: function (container, options) {
-			var that = this;
-
 			this.container = $(container);
 			this.options = $.extend(true, {}, this.options, options);
+
 			this.wrapper = this.container.find(this.options.cls.wrapper);
 			this.viewport = this.container.find(this.options.cls.viewport);
 			this.elements = this.container.find(this.options.cls.viewport).children();
 			this.navigation = this.container.find(this.options.cls.navigation).children();
-			this.leftTrigger = this.container.find(this.options.cls.leftTrigger);
-			this.rightTrigger = this.container.find(this.options.cls.rightTrigger);
+
+			this.triggers = {
+				'next': this.container.find(this.options.cls.next),
+				'previous': this.container.find(this.options.cls.previous)
+			};
 
 			this.index = this.options.index;
 			this.timer = function () {};
 
-			if (this.elements.length > 0) this._setup();
+			var that = this;
+			// this fixes chromes jQuery(window).load issue
+			jQuery(window).load(function () {
+				if(that.elements.length > 0) that._setup();
+			});
+
 		},
 
 		_setup: function () {
@@ -66,14 +80,14 @@ var Cl = window.Cl || {};
 				that.move(that.navigation.index(this));
 			});
 
-			// bind left and right triggers
-			this.leftTrigger.bind('click', function(e) {
+			// bind next and previous triggers
+			this.triggers.next.bind('click', function(e) {
 				e.preventDefault();
-				that.moveLeft('left', true);
+				that.next('right', true);
 			});
-			this.rightTrigger.bind('click', function(e) {
+			this.triggers.previous.bind('click', function(e) {
 				e.preventDefault();
-				that.moveRight('right', true);
+				that.previous('left', true);
 			});
 
 			// start autoplay
@@ -85,30 +99,31 @@ var Cl = window.Cl || {};
 			if (this.options.timeout) {
 				this.timer = setInterval(function () {
 					if (that.options.direction === 'left') {
-						that.moveLeft('left');
+						that.previous('left');
 					} else if (that.options.direction === 'random') {
 						var rand = Math.floor(Math.random()*that.elements.length);
 						that.move(rand);
 					} else {
-						that.moveRight('right');
+						that.next('right');
 					}
 				}, this.options.timeout);
 			}
 		},
 
-		moveRight: function (direction, clearTimer) {
+		next: function (direction, clearTimer) {
 			if (clearTimer) clearInterval(this.timer);
 			var next = this.index + 1 < this.elements.length ? this.index + 1 : 0;
 			this.move(next, direction);
 		},
 
-		moveLeft: function (direction, clearTimer) {
+		previous: function (direction, clearTimer) {
 			if (clearTimer) clearInterval(this.timer);
 			var next = this.index - 1 >= 0 ? this.index - 1 : this.elements.length - 1;
 			this.move(next, direction);
 		},
 
 		move: function (index, direction) {
+			if(direction === undefined) direction = 'right';
 			this.navigation.removeClass(this.options.cls.active);
 			$(this.navigation[index]).addClass(this.options.cls.active);
 			if (index != this.index) {
