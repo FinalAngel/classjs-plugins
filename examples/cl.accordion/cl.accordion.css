@@ -1,0 +1,31 @@
+@charset "utf-8";
+/*
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ */
+.accordion .trigger {
+  font-size: 14px;
+  color: #39c;
+  cursor: pointer;
+  padding: 8px 12px;
+  margin: 0;
+  border-bottom: 1px solid #e5e5e5;
+  background: white;
+}
+.accordion .trigger a {
+  display: block;
+  background: no-repeat right center;
+}
+.accordion .container {
+  background: white;
+}
+.accordion .container-padding {
+  padding: 12px 12px 8px;
+  border-bottom: 1px solid #3399cc;
+}
+.accordion .expanded a {
+  background-image: url("../static/img/arrow-up.png");
+}
+.accordion .collapsed a {
+  background-image: url("../static/img/arrow-down.png");
+}
