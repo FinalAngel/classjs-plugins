@@ -34,7 +34,7 @@ $lightbox-content: #fff;
 // custom styles
 .cl-lightbox { background-color:$lightbox-bg; background:rgba($lightbox-bg, $lightbox-alpha); @include border-radius(5px); }
 .cl-lightbox-loader { background-image:url('../static/img/loader.gif'); }
-.cl-lightbox-inner { padding:$lightbox-padding; }
+.cl-lightbox-inner { padding:$lightbox-padding; } // DO NOT ADD ANY PADDING HERE
 .cl-lightbox-content { background:$lightbox-content; }
 .cl-lightbox-error { text-align:center; width:350px; p { padding:15px 0; } }
 .cl-lightbox-dim { @include opacity($lightbox-dim-alpha); background:$lightbox-dim; }
