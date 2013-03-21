@@ -19,7 +19,7 @@ $carousel-line-height: 12px;
 	.wrapper { position:relative; z-index:100; width:100%; overflow:hidden; }
 
 	.viewport { position:absolute; left:0; top:0; @include clearfix(); height:auto;
-		list-style-type:none; padding:0; margin:0; }
+		list-style-type:none; padding:0; margin:0; width:9999em; }
 	.viewport li { float:left; padding:0; margin:0; }
 
 	.trigger-next, .trigger-previous { padding:0; margin:0; }
@@ -34,15 +34,17 @@ $carousel-line-height: 12px;
 		margin-top:-10px; background:rgba(black, 0.6); }
 	.trigger-next { right:0; }
 	.trigger-previous { left:0; }
-	.trigger-next a, .trigger-previous a { float:left; padding:4px;
+	.trigger-next a, .trigger-previous a { display:none; float:left; padding:4px;
 		&:hover { color:white;} }
 
-	.viewport li { width:105px; padding:5px; margin-right:10px; line-height:0; background:white;
+	.wrapper { min-height:100px; } // only for nojs
+
+	.viewport li { width:105px; text-align:center; padding:5px; margin-right:10px; background:white;
 		@include border-radius(3px); @include box-shadow(0 0 1px #ccc); }
 
-	nav { text-align:center; padding-top:5px; }
-	nav a { font-size:11px; line-height:11px; padding:3px 6px 4px 5px;
-		@include inline-block(); @include border-radius(10px); border:1px solid #e5e5e5; background:#fff; }
+	nav { text-align:center; padding-top:15px; }
+	nav a { font-size:11px; line-height:11px; padding:2px 6px 3px 6px;
+		@include inline-block(); display:none; @include border-radius(10px); border:1px solid #e5e5e5; background:#fff; }
 	nav a:hover { background:#f9f9f9; }
 	nav .active { color:#fff !important; border-color:#39c !important; background:#39c !important; }
 }

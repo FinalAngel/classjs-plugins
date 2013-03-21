@@ -24,8 +24,9 @@ var Cl = window.Cl || {};
 		options: {
 			'index': 0, // initial page to load
 			'timeout': null, // timeout for autoplay, if 0 or null autoplay is ignored
+			'autoplay': false, // if true starts animation again after it has been canceled
 			'easing': 'linear',
-			'duration': 500, // duration for animation
+			'duration': 300, // duration for animation
 			'move': 'auto', // either "single" to move one element or "auto" to move the whole slider
 			'momentum': true, // allow scrolling over the left and right border
 			'cls': {
@@ -84,25 +85,34 @@ var Cl = window.Cl || {};
 			// bind event for next triggers
 			this.triggers.next.bind('click', function (e) {
 				e.preventDefault();
-				clearInterval(that.timer);
+				// determine autoplay status
+				if(!that.options.autoplay) that.options.timeout = null;
 				that.next();
 			});
 
 			// bind event for previous triggers
 			this.triggers.previous.bind('click', function (e) {
 				e.preventDefault();
-				clearInterval(that.timer);
+				// determine autoplay status
+				if(!that.options.autoplay) that.options.timeout = null;
 				that.previous();
 			});
 
 			// bind navigation
 			this.navigation.bind('click', function (e) {
 				e.preventDefault();
+				// determine autoplay status
+				if(!that.options.autoplay) that.options.timeout = null;
 				that.move(that.navigation.index($(this)));
 			});
 
+			// show elements
+			this.navigation.show();
+			this.triggers.next.show();
+			this.triggers.previous.show();
+
 			// start autoplay
-			if(this.options.timeout) this._autoplay();
+			if(this.options.timeout) this.play();
 
 			// add swipe event
 			if(typeof($.fn.swipe) === "function" && (Cl.Utils.mobile() || Cl.Utils.tablet())) this._swipe();
@@ -175,6 +185,9 @@ var Cl = window.Cl || {};
 			// we need to check for undefined as 0 is false
 			this.index = (index !== undefined) ? index : this.index;
 
+			// check if we should autoplay
+			this.play();
+
 			// local vars
 			var next = this.triggers.next;
 			var previous = this.triggers.previous;
@@ -207,6 +220,22 @@ var Cl = window.Cl || {};
 			if(index) this._triggerCallback('move', this);
 		},
 
+		play: function () {
+			var that = this;
+			// stp previous
+			this.stop();
+			// cancel if timeout is still 0
+			if(this.options.timeout <= 0) return false;
+			// start timer
+			this.timer = setInterval(function () {
+				that.next();
+			}, this.options.timeout);
+		},
+
+		stop: function () {
+			clearInterval(this.timer);
+		},
+
 		destroy: function () {
 			this.viewport.removeAttr('css');
 			this.wrapper.removeAttr('css');
@@ -217,15 +246,7 @@ var Cl = window.Cl || {};
 			this.triggers.previous.unbind('click');
 			this.navigation.unbind('click');
 			// remove interval
-			clearInterval(this.timer);
-		},
-
-		_autoplay: function () {
-			var that = this;
-
-			this.timer = setInterval(function () {
-				that.next();
-			}, this.options.timeout);
+			this.stop();
 		},
 
 		// add swipe events for mobile
@@ -240,14 +261,12 @@ var Cl = window.Cl || {};
 
 			// inverse movement
 			function swipeLeft() {
+				that.stop();
 				that.next();
-				// clear timer
-				clearInterval(that.timer);
 			}
 			function swipeRight() {
+				that.stop();
 				that.previous();
-				// clear timer
-				clearInterval(that.timer);
 			}
 		},
 
@@ -259,7 +278,7 @@ var Cl = window.Cl || {};
 		},
 
 		_triggerEvent: function (event) {
-			$.event.trigger(this.options.prefix + '-carousel-' + event);
+			$.event.trigger('carousel-' + event);
 		}
 
 	});

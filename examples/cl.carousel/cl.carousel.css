@@ -23,6 +23,7 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
+  width: 9999em;
 }
 .carousel .viewport li {
   float: left;
@@ -53,17 +54,21 @@
   left: 0;
 }
 .carousel .trigger-next a, .carousel .trigger-previous a {
+  display: none;
   float: left;
   padding: 4px;
 }
 .carousel .trigger-next a:hover, .carousel .trigger-previous a:hover {
   color: white;
 }
+.carousel .wrapper {
+  min-height: 100px;
+}
 .carousel .viewport li {
   width: 105px;
+  text-align: center;
   padding: 5px;
   margin-right: 10px;
-  line-height: 0;
   background: white;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -76,18 +81,19 @@
 }
 .carousel nav {
   text-align: center;
-  padding-top: 5px;
+  padding-top: 15px;
 }
 .carousel nav a {
   font-size: 11px;
   line-height: 11px;
-  padding: 3px 6px 4px 5px;
+  padding: 2px 6px 3px 6px;
   display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
   zoom: 1;
   *display: inline;
+  display: none;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;

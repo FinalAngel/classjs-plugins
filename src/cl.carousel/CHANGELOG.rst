@@ -5,7 +5,9 @@ Cl.Carousel
 1.3.0
 -----
 - added ``options.easing``
+- added ``options.autoplay``
 - added method ``destroy``
+- added methods ``play`` and ``stop``
 - changed elements cls from article to .item
 - changed triggerRight to triggers.next and triggerLeft to triggers.previous
 - changed ``moveLeft`` to ``previous``
