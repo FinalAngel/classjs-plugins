@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>class.js plugins</title>
+	<link rel="icon" href="../static/favicon.png">
+	<link rel="stylesheet" href="../static/styles.css" />
+	<script src="../static/jquery.min.js"></script>
+	<script src="../static/class.min.js"></script>
+
+	<!-- required files -->
+	<script src="../../src/cl.debug/cl.debug.js"></script>
+</head>
+<body>
+
+<header>
+	<h1><a href="../" class="logo">class<span class="dot">.</span><span class="ext">js</span></a> debug</h1>
+</header>
+
+<section>
+	<div class="inner">
+		<h2>Examples</h2>
+
+		<p>Released under the <strong>BSD License</strong>.
+			The latest source can be found on <a href="../../">Github</a>.<br />
+			Check out the <a href="../../docs/_build/html/src/cl.debug">Documentation</a> or
+			<a href="../../src/cl.debug/CHANGELOG.rst">Changelog</a> for detailed information.</p>
+		<p>This plugin is for development only!</p>
+
+		<div class="spacer"></div>
+
+		<h3>Debug</h3>
+		<p>The Cl.Debug button is shown on the lower right corner when initialized.</p>
+		<!-- start: carousel html -->
+
+		<!-- end: carousel html -->
+		<div class="spacer"></div>
+
+		<h3>Options</h3>
+		&raquo; <code>closed: 'false'</code><br />
+		&raquo; <code>collapsed: 'true'</code><br />
+		<div class="spacer"></div>
+
+		<h3>Methods</h3>
+		<p>&raquo; append <code>#show</code> to url for enabling the button when closed.</p>
+		<div class="spacer"></div>
+
+		<h3>Events and Callbacks</h3>
+		<p>&raquo; <code>none</code></p>
+		<div class="spacer"></div>
+</div>
+</section>
+
+<footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
+
+<!-- required javascript -->
+<script>
+var my = {};
+
+jQuery(document).ready(function ($) {
+	// grouped lightbox
+	var debug = my.debug = new Cl.Debug();
+});
+</script>
+
+</body>
+</html>

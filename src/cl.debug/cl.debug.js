@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.2
+ * @version     1.1.3
  */
 
 // ensure namespace is defined
@@ -10,15 +10,15 @@ var Cl = window.Cl || {};
 (function($){
 	'use strict';
 
-	// creating singleton
-	Cl.Debug = {
+	// creating class
+	Cl.Debug = new Class({
 
 		options: {
 			'closed': 'false',
 			'collapsed': 'true'
 		},
 
-		init: function (options) {
+		initialize: function (options) {
 			this.options = $.extend(true, {}, this.options, options);
 
 			// global variables
@@ -247,7 +247,6 @@ var Cl = window.Cl || {};
 			// retrieve storage
 			return localStorage.getItem(attribute);
 		}
-	};
-	// autoinit
-	Cl.Debug.init();
+	});
+
 })(jQuery);
