@@ -78,10 +78,11 @@
 
 		<h3>Events and Callbacks</h3>
 		<p>
-			&raquo; <code>$(document).bind('cl-gallery-open', function...);</code><br />
+			<!--&raquo; <code>$(document).bind('cl-gallery-open', function...);</code><br />
 			&raquo; <code>my.gallery.callbacks.open = function...</code><br />
 			available events and callbacks are:<br /><code>next</code>, <code>previous</code>, <code>move</code><br />
-			check the console for debug information on events.<br />
+			check the console for debug information on events.<br />-->
+			&raquo; <code>none</code>
 		</p>
 		<div class="spacer"></div>
 </div>
@@ -96,30 +97,6 @@ var my = {};
 jQuery(document).ready(function ($) {
 	// grouped lightbox
 	var gallery = my.gallery = new Cl.Gallery('.gallery');
-
-	$('.carousel-opt-timeout').bind('click', function (e) { e.preventDefault();
-		my.gallery.options.timeout = 2000;
-	});
-	$('.carousel-opt-easing').bind('click', function (e) { e.preventDefault();
-		my.gallery.options.easing = 'easeInOutCubic';
-	});
-	$('.carousel-opt-duration').bind('click', function (e) { e.preventDefault();
-		my.gallery.options.duration = 1000;
-	});
-	$('.carousel-opt-direction').bind('click', function (e) { e.preventDefault();
-		my.gallery.options.direction = 'left';
-	});
-	$('.carousel-opt-animation').bind('click', function (e) { e.preventDefault();
-		my.gallery.options.animation = 'slide';
-	});
-
-	// debugging events
-	$(document).bind(
-		'carousel-next ' +
-		'carousel-previous ' +
-		'carousel-move', function (e) {
-		if(console && console.log) console.log('trigger event: ' + e.type);
-	});
 });
 </script>
 
