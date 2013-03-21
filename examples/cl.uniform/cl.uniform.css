@@ -1,0 +1,109 @@
+@charset "utf-8";
+/*
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ */
+input:focus, select:focus, input[type="file"]:focus {
+  outline: 2px dotted blue !important;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  position: relative;
+  top: -9px !important;
+}
+
+.uniform-checkbox *,
+.uniform-radio *,
+.uniform-file * {
+  position: relative;
+  left: 0;
+}
+
+.uniform-checkbox,
+.uniform-radio,
+.uniform-file {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.uniform-checkbox input,
+.uniform-radio input,
+.uniform-file input {
+  position: absolute;
+}
+
+.uniform-radio {
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+  background: red;
+  top: 2px;
+}
+
+.uniform-radio > span {
+  width: 6px;
+  height: 6px;
+  margin: 4px 0 0 4px;
+  float: left;
+  border-radius: 100%;
+  background: #000;
+}
+
+.uniform-checkbox {
+  width: 14px;
+  height: 14px;
+  background: red;
+  top: 2px;
+}
+
+.uniform-checkbox > span {
+  width: 6px;
+  height: 6px;
+  margin: 4px 0 0 4px;
+  float: left;
+  background: #000;
+}
+
+.uniform-file {
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+  background: #f7f7f7;
+  clear: both;
+  overflow: hidden;
+}
+
+.uniform-file-btn {
+  float: right;
+  font-size: 12px;
+  line-height: 12px;
+  padding: 2px 5px;
+  cursor: pointer;
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+  background: #ccc;
+}
+
+.uniform-file-btn:hover {
+  color: #fff;
+  border: 1px solid #666666;
+  background: #666;
+}
+
+.uniform-file-status {
+  float: left;
+  font-size: 13px;
+  line-height: 12px;
+  padding-top: 3px;
+  max-width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.uniform-disabled {
+  opacity: 0.5;
+}
+
+.uniform-focus {
+  outline: 2px dotted blue !important;
+}

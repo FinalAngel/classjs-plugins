@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>class.js plugins</title>
+	<link rel="icon" href="../static/favicon.png">
+	<link rel="stylesheet" href="../static/styles.css" />
+	<script src="../static/jquery.min.js"></script>
+	<script src="../static/class.min.js"></script>
+
+	<!-- required files -->
+	<link rel="stylesheet" href="cl.uniform.css" />
+	<script src="../../src/cl.uniform/cl.uniform.js"></script>
+</head>
+<body>
+
+<header>
+	<h1><a href="../" class="logo">class<span class="dot">.</span><span class="ext">js</span></a> uniform</h1>
+</header>
+
+<section>
+	<div class="inner">
+		<h2>Examples</h2>
+
+		<p>Released under the <strong>BSD License</strong>.
+			The latest source can be found on <a href="../../">Github</a>.<br />
+			Check out the <a href="../../docs/_build/html/src/cl.uniform">Documentation</a> or
+			<a href="../../src/cl.uniform/CHANGELOG.rst">Changelog</a> for detailed information.</p>
+		<p>This plugin has been tested in Firefox, Chrome, Safari and IE7+ and requires class.js 1.0+ and jQuery 1.4+.
+			We also tested under iOS, Android and Windows Phone to insure correct responsive behaviour
+			with full accessible support according to the WCAG 2.0 standards.</p>
+
+		<div class="spacer"></div>
+
+		<h3>Uniform</h3>
+		<!-- start: uniform html -->
+		<form action="." method="post" class="frm">
+			<fieldset>
+				<ol>
+					<li>
+						<h4>Example style</h4>
+						<label><input type="text" class="input-text uniform" /></label>
+					</li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<ol>
+					<li>
+						<h4>File fields</h4>
+						<label><input type="file" class="input-text uniform" /></label><br />
+						<label><input type="file" class="input-text uniform" /> <span style="position:relative; top:-19px;">Select</span></label><br />
+						<input type="file" class="input-text uniform" id="field-file" /> <label for="field-file"><span style="position:relative; top:-19px;">Select</span></label>
+					</li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<ol>
+					<li>
+						<h4>Select fields <span style="color:red;">todo</span></h4>
+						<label><select class="input-select uniform"><option>Select</option></select></label>
+					</li>
+					<li>
+						<h4>Multiple select fields <span style="color:red;">todo</span></h4>
+						<label><select type="multiple" type="text" class="input-select uniform"><option>Multiple Select</option></select></label>
+					</li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<ol>
+					<li>
+						<h4>Radio fields</h4>
+						<label><input type="radio" name="radiogroup1" class="input-radiocheck uniform" /> radiogroup 1</label><br />
+						<label><input type="radio" name="radiogroup1" class="input-radiocheck uniform" /> radiogroup 1</label><br />
+							   <input type="radio" name="radiogroup1" class="input-radiocheck uniform" id="field-radiotest" /> <label for="field-radiotest">radiogroup 1</label>
+					</li>
+					<li>
+						<label><input type="radio" name="radiogroup2" class="input-radiocheck uniform" checked="checked" /> radiogroup 2</label><br />
+						<label><input type="radio" name="radiogroup2" class="input-radiocheck uniform" disabled="disabled" /> radiogroup 2</label><br />
+					</li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<ol>
+					<li>
+						<h4>Checkbox fields</h4>
+						<label><input type="checkbox" name="check1" class="input-radiockeck uniform" /> checkbox 1</label><br />
+						<label><input type="checkbox" name="check2" class="input-radiockeck uniform" /> checkbox 2</label><br />
+							   <input type="checkbox" name="check3" class="input-radiockeck uniform" id="field-checktest" /> <label for="field-checktest">checkbox 3</label>
+					</li>
+					<li>
+						<label><input type="checkbox" name="check4" class="input-radiockeck uniform" checked="checked" /> checkbox 4</label><br />
+						<label><input type="checkbox" name="check5" class="input-radiockeck uniform" disabled="disabled" /> checkbox 5</label>
+					</li>
+				</ol>
+			</fieldset>
+		</form>
+		<!-- end: uniform html -->
+
+		<div class="spacer"></div>
+
+		<h3>Options</h3>
+		<p class="col-two">
+			&raquo; tbd<br />
+		</p>
+		<p class="col-two">
+			<!--&raquo; tbd<br />-->
+		</p>
+		<div class="clear"></div>
+		<div class="spacer"></div>
+
+		<h3>Methods</h3>
+		<p>
+			&raquo; tbd<br />
+		</p>
+		<div class="spacer"></div>
+
+		<h3>Events and Callbacks</h3>
+		<p>
+			&raquo; tbd<br />
+		</p>
+		<div class="spacer"></div>
+</div>
+</section>
+
+<footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
+
+<!-- required javascript -->
+<script>
+var my = {};
+
+jQuery(document).ready(function ($) {
+	// grouped lightbox
+	var uniform = my.uniform = new Cl.Uniform('.uniform');
+
+
+});
+</script>
+
+</body>
+</html>
