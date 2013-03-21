@@ -20,7 +20,7 @@ var Cl = window.Cl || {};
 		options: {
 			'index': null, // first element to show
 			'expanded': false, // show element on initialization
-			'event': 'click', // click or hover
+			'event': 'click', // jquery event
 			'easing': 'linear',
 			'duration': 300, // animation duration
 			'grouping': true, // enables only one item to be opened at a time
@@ -56,9 +56,7 @@ var Cl = window.Cl || {};
 		_setup: function () {
 			var that = this;
 
-			// attach events
 			this.triggers.bind(this.options.event, function (e) {
-				e.preventDefault();
 				that.toggle(that.triggers.index(this));
 			});
 
