@@ -10,7 +10,10 @@ Cl.Carousel
 - changed triggerRight to triggers.next and triggerLeft to triggers.previous
 - changed ``moveLeft`` to ``previous``
 - changed ``moveRight`` to ``next``
+- changed ``move`` method to be more simple
 - changed interval clear on triggers into their event functions instead of next and previous methods
+- fixed an issue when using document.ready
+- fixed an issue when using ``options.move: 'auto'``
 
 1.2.2
 -----

@@ -15,6 +15,10 @@ var Cl = window.Cl || {};
 		/*
 			TODO 1.3.1
 			- add better swipe implementation
+
+			TODO 1.4.0
+			- add items using ajax
+			- generating the navigation on the fly
 		 */
 
 		options: {
@@ -22,7 +26,7 @@ var Cl = window.Cl || {};
 			'timeout': null, // timeout for autoplay, if 0 or null autoplay is ignored
 			'easing': 'linear',
 			'duration': 500, // duration for animation
-			'move': 'single', // either "single" to move one element or "auto" to move the whole slider
+			'move': 'auto', // either "single" to move one element or "auto" to move the whole slider
 			'momentum': true, // allow scrolling over the left and right border
 			'cls': {
 				'active': 'active', // class that will be used for active states
@@ -55,7 +59,11 @@ var Cl = window.Cl || {};
 				'previous': this.container.find(this.options.cls.previous)
 			};
 
-			this._setup();
+			var that = this;
+			// this fixes chromes jQuery(window).load issue
+			jQuery(window).load(function () {
+				that._setup();
+			});
 		},
 
 		_setup: function () {
@@ -77,14 +85,14 @@ var Cl = window.Cl || {};
 			this.triggers.next.bind('click', function (e) {
 				e.preventDefault();
 				clearInterval(that.timer);
-				that.next.call(that);
+				that.next();
 			});
 
 			// bind event for previous triggers
 			this.triggers.previous.bind('click', function (e) {
 				e.preventDefault();
 				clearInterval(that.timer);
-				that.previous.call(that);
+				that.previous();
 			});
 
 			// bind navigation
@@ -109,11 +117,15 @@ var Cl = window.Cl || {};
 
 			var width = $(this.elements[0]).outerWidth(true);
 			var viewBound = Math.ceil(this.wrapper.width() / width);
+			var counter = this.index;
+
+			// add handling for single / auto options
+			if(this.options.move == 'auto') counter = viewBound * this.index;
 
 			// cancel if bound is reached and momentum is false
-			if(viewBound + this.index >= this.bound && !this.options.momentum) return false;
+			if(counter >= this.bound - viewBound && !this.options.momentum) return false;
 			// continue with first slide if momentum is true
-			if(viewBound + this.index >= this.bound && this.options.momentum) {
+			if(counter >= this.bound - viewBound && this.options.momentum) {
 				this.index = -1;
 			}
 
@@ -133,12 +145,16 @@ var Cl = window.Cl || {};
 
 			var width = $(this.elements[0]).outerWidth(true);
 			var viewBound = Math.ceil(this.wrapper.width() / width);
+			var counter = this.bound - viewBound + 1;
+
+			// add handling for single / auto options
+			if(this.options.move == 'auto') counter = viewBound - 1;
 
 			// cancel if bound is reached and momentum is false
 			if(this.index <= 0 && !this.options.momentum) return false;
 			// continue with last slide if momentum is true
 			if(this.index <= 0 && this.options.momentum) {
-				this.index = this.bound - viewBound + 1;
+				this.index = counter;
 			}
 
 			// increment settings
@@ -153,10 +169,16 @@ var Cl = window.Cl || {};
 
 		move: function (index) {
 			// trigger event
-			this._triggerEvent('move');
+			if(index) this._triggerEvent('move');
 
 			// set new index if neccessary
+			// we need to check for undefined as 0 is false
 			this.index = (index !== undefined) ? index : this.index;
+
+			// local vars
+			var next = this.triggers.next;
+			var previous = this.triggers.previous;
+			var nav = this.navigation;
 
 			var width = $(this.elements[0]).outerWidth(true);
 			var viewBound = Math.ceil(this.wrapper.width() / width);
@@ -169,32 +191,20 @@ var Cl = window.Cl || {};
 			}, this.options.duration, this.options.easing);
 
 			// change active navigation
-			this.navigation.removeClass(this.options.cls.active);
-			this.navigation.eq(this.index).addClass(this.options.cls.active);
+			nav.removeClass(this.options.cls.active);
+			nav.eq(this.index).addClass(this.options.cls.active);
+
+			// remove classes
+			next.removeClass(this.options.cls.disabled);
+			previous.removeClass(this.options.cls.disabled);
 
 			// add appropriate classes to left trigger
-			if(this.index <= 0) {
-				this.triggers.previous.addClass(this.options.cls.disabled);
-				this.triggers.next.removeClass(this.options.cls.disabled);
-			} else {
-				this.triggers.previous.removeClass(this.options.cls.disabled);
-			}
+			if(this.index <= 0 || viewBound >= this.bound) previous.addClass(this.options.cls.disabled);
 			// add appropriate classes to right trigger
-			if(viewBound + this.index >= this.bound) {
-				this.triggers.previous.removeClass(this.options.cls.disabled);
-				this.triggers.next.addClass(this.options.cls.disabled);
-			} else {
-				this.triggers.next.removeClass(this.options.cls.disabled);
-			}
-
-			// check if we should disable the arrows
-			if(viewBound >= this.bound) {
-				this.triggers.previous.addClass(this.options.cls.disabled);
-				this.triggers.next.addClass(this.options.cls.disabled);
-			}
+			if(viewBound + this.index >= this.bound || viewBound >= this.bound) next.addClass(this.options.cls.disabled);
 
 			// trigger callback
-			this._triggerCallback('move', this);
+			if(index) this._triggerCallback('move', this);
 		},
 
 		destroy: function () {
