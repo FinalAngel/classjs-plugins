@@ -117,102 +117,74 @@ jQuery(document).ready(function ($) {
 		lightbox.open(this);
 	});
 
-	// disable grouping
 	$('.lightbox-opt-group').bind('click', function (e) { e.preventDefault();
 		grouped.options.group = false;
 		grouped.open();
-		// force reload when closing
 		grouped.callbacks.unload = function () { grouped.options.group = true; };
 	});
-	// disable cycle
 	$('.lightbox-opt-cycle').bind('click', function (e) { e.preventDefault();
 		grouped.options.cycle = false;
 		grouped.open();
-		// force reload when closing
 		grouped.callbacks.unload = function () { grouped.options.cycle = true; };
 	});
-	// disable modal
 	$('.lightbox-opt-modal').bind('click', function (e) { e.preventDefault();
 		lightbox.options.modal = false;
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.modal = true; };
 	});
-	// disable modalClickable
 	$('.lightbox-opt-modalClickable').bind('click', function (e) { e.preventDefault();
 		lightbox.options.modalClickable = false;
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.modalClickable = true; };
 	});
-	// disable modalClosable
 	$('.lightbox-opt-modalClosable').bind('click', function (e) { e.preventDefault();
 		lightbox.options.modalClosable = false;
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.modalClosable = true; };
 	});
-	// enable forceLoad
 	$('.lightbox-opt-forceLoad').bind('click', function (e) { e.preventDefault();
 		lightbox.options.forceLoad = true;
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.forceLoad = false; };
 	});
-	// change easing
 	$('.lightbox-opt-easing').bind('click', function (e) { e.preventDefault();
 		lightbox.options.easing = 'easeInOutCubic';
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.easing = 'linear'; };
 	});
-	// change duration
 	$('.lightbox-opt-duration').bind('click', function (e) { e.preventDefault();
 		lightbox.options.duration = 1000;
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.duration = 300; };
 	});
-	// change speed
 	$('.lightbox-opt-speed').bind('click', function (e) { e.preventDefault();
 		lightbox.options.speed = 0;
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.speed = 300; };
 	});
-	// disable fixed
 	$('.lightbox-opt-fixed').bind('click', function (e) { e.preventDefault();
 		lightbox.options.fixed = false;
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.fixed = true; };
 	});
-	// disable responsive
 	$('.lightbox-opt-responsive').bind('click', function (e) { e.preventDefault();
 		lightbox.options.responsive = false;
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.responsive = true; };
 	});
-	// enable ajax
 	$('.lightbox-opt-ajax').bind('click', function (e) { e.preventDefault();
 		lightbox.options.ajax = true;
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.ajax = false; };
 	});
-	// disable controls
 	$('.lightbox-opt-controls').bind('click', function (e) { e.preventDefault();
 		grouped.options.controls = false;
 		grouped.open(this);
-		// force reload when closing
 		grouped.callbacks.unload = function () { grouped.options.controls = true; };
 	});
-	// disable keys
 	$('.lightbox-opt-keys').bind('click', function (e) { e.preventDefault();
 		lightbox.options.keys = false;
 		lightbox.open(this);
-		// force reload when closing
 		lightbox.callbacks.unload = function () { lightbox.options.keys = true; };
 	});
 
@@ -228,7 +200,6 @@ jQuery(document).ready(function ($) {
 		'cl-lightbox-unload', function (e) {
 		if(console && console.log) console.log('trigger event: ' + e.type);
 	});
-
 });
 </script>
 
