@@ -54,7 +54,7 @@
 				<p class="trigger-next"><a href="#next">next</a></p>
 			</div>
 
-			<nav><a href="#">1</a> <a href="#">2</a> <a href="#">3</a></nav>
+			<nav><a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a> <a href="#">7</a> <a href="#">8</a> <a href="#">9</a> <a href="#">10</a></nav>
 		</div>
 		<!-- start: carousel html -->
 
@@ -70,7 +70,7 @@
 			&raquo; <a href="#" class="carousel-opt-duration"><code>duration: 1000</code></a><br />
 		</p>
 		<p class="col-two">
-			&raquo; <code>move: 'single'</code><br />
+			&raquo; <a href="#" class="carousel-opt-move"><code>move: 'single'</code></a><br />
 			&raquo; <a href="#" class="carousel-opt-momentum"><code>momentum: false</code></a><br />
 			&raquo; <code>cls: {}</code><br />
 		</p>
@@ -84,6 +84,7 @@
 			&raquo; <a href="http://www.django-cms.org" onclick="my.carousel.move(2); return false;"><code>my.carousel.move(index)</code></a><br />
 			&raquo; <a href="http://www.django-cms.org" onclick="my.carousel.play(); return false;"><code>my.carousel.play()</code></a><br />
 			&raquo; <a href="http://www.django-cms.org" onclick="my.carousel.stop(); return false;"><code>my.carousel.stop()</code></a><br />
+			&raquo; <a href="http://www.django-cms.org" onclick="my.carousel.destroy(); return false;"><code>my.carousel.destroy()</code></a><br />
 		</p>
 		<div class="spacer"></div>
 
@@ -120,6 +121,9 @@ jQuery(document).ready(function ($) {
 	});
 	$('.carousel-opt-duration').bind('click', function (e) { e.preventDefault();
 		my.carousel.options.duration = 1000;
+	});
+	$('.carousel-opt-move').bind('click', function (e) { e.preventDefault();
+		my.carousel.options.move = 'single';
 	});
 	$('.carousel-opt-momentum').bind('click', function (e) { e.preventDefault();
 		my.carousel.options.momentum = false;

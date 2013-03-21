@@ -18,7 +18,6 @@ var Cl = window.Cl || {};
 
 			TODO 1.4.0
 			- add items using ajax
-			- generating the navigation on the fly
 		 */
 
 		options: {
@@ -51,7 +50,9 @@ var Cl = window.Cl || {};
 			this.navigation = this.container.find(this.options.cls.navigation);
 
 			this.index = this.options.index;
+			this.active = 0;
 			this.bound = this.elements.length;
+			this.realBound = this._setBound();
 			this.timer = function () {};
 			this.callbacks = {};
 
@@ -125,22 +126,8 @@ var Cl = window.Cl || {};
 			// trigger event
 			this._triggerEvent('next');
 
-			var width = $(this.elements[0]).outerWidth(true);
-			var viewBound = Math.ceil(this.wrapper.width() / width);
-			var counter = this.index;
-
-			// add handling for single / auto options
-			if(this.options.move == 'auto') counter = viewBound * this.index;
-
-			// cancel if bound is reached and momentum is false
-			if(counter >= this.bound - viewBound && !this.options.momentum) return false;
-			// continue with first slide if momentum is true
-			if(counter >= this.bound - viewBound && this.options.momentum) {
-				this.index = -1;
-			}
-
-			// increment settings
-			this.index = this.index + 1;
+			// set index and active
+			this._setIndex(this.index + 1);
 
 			// trigger callback
 			this._triggerCallback('next', this);
@@ -153,22 +140,8 @@ var Cl = window.Cl || {};
 			// trigger event
 			this._triggerEvent('previous');
 
-			var width = $(this.elements[0]).outerWidth(true);
-			var viewBound = Math.ceil(this.wrapper.width() / width);
-			var counter = this.bound - viewBound + 1;
-
-			// add handling for single / auto options
-			if(this.options.move == 'auto') counter = viewBound - 1;
-
-			// cancel if bound is reached and momentum is false
-			if(this.index <= 0 && !this.options.momentum) return false;
-			// continue with last slide if momentum is true
-			if(this.index <= 0 && this.options.momentum) {
-				this.index = counter;
-			}
-
-			// increment settings
-			this.index = this.index - 1;
+			// set index and active
+			this._setIndex(this.index - 1);
 
 			// trigger callback
 			this._triggerCallback('previous', this);
@@ -179,45 +152,38 @@ var Cl = window.Cl || {};
 
 		move: function (index) {
 			// trigger event
-			if(index) this._triggerEvent('move');
+			this._triggerEvent('move');
 
 			// set new index if neccessary
 			// we need to check for undefined as 0 is false
-			this.index = (index !== undefined) ? index : this.index;
+			if(index !== undefined) this._setIndex(index);
 
 			// check if we should autoplay
 			this.play();
 
-			// local vars
-			var next = this.triggers.next;
-			var previous = this.triggers.previous;
-			var nav = this.navigation;
-
-			var width = $(this.elements[0]).outerWidth(true);
-			var viewBound = Math.ceil(this.wrapper.width() / width);
-			var moveBound = (this.options.move === 'single') ? 1 : viewBound;
-			var position = -(width * (this.index * moveBound));
-
 			// animation settings
 			this.viewport.stop().animate({
-				'left': position
+				'left': -(this.width * this.index)
 			}, this.options.duration, this.options.easing);
 
-			// change active navigation
-			nav.removeClass(this.options.cls.active);
-			nav.eq(this.index).addClass(this.options.cls.active);
-
 			// remove classes
-			next.removeClass(this.options.cls.disabled);
-			previous.removeClass(this.options.cls.disabled);
+			this.triggers.next.removeClass(this.options.cls.disabled);
+			this.triggers.previous.removeClass(this.options.cls.disabled);
+
+			// determine how many items to display
+			this.navigation.hide().filter(':lt(' + this.realBound + ')').show();
+
+			// change active navigation
+			this.navigation.removeClass(this.options.cls.active);
+			this.navigation.eq(this.index).addClass(this.options.cls.active);
 
 			// add appropriate classes to left trigger
-			if(this.index <= 0 || viewBound >= this.bound) previous.addClass(this.options.cls.disabled);
+			//if(this.index <= 0 || viewBound >= this.bound) previous.addClass(this.options.cls.disabled);
 			// add appropriate classes to right trigger
-			if(viewBound + this.index >= this.bound || viewBound >= this.bound) next.addClass(this.options.cls.disabled);
+			//if(viewBound + this.index >= this.bound || viewBound >= this.bound) next.addClass(this.options.cls.disabled);
 
 			// trigger callback
-			if(index) this._triggerCallback('move', this);
+			this._triggerCallback('move', this);
 		},
 
 		play: function () {
@@ -247,6 +213,34 @@ var Cl = window.Cl || {};
 			this.navigation.unbind('click');
 			// remove interval
 			this.stop();
+		},
+
+		_setIndex: function (index) {
+			var width = $(this.elements[0]).outerWidth(true);
+			var viewBound = Math.floor(this.wrapper.width() / width);
+			var bound = this._setBound();
+
+			// set correct width
+			this.width = width;
+			if(this.options.move === 'auto') this.width = width * viewBound;
+
+			if(index < 0) index = (this.options.momentum) ? bound - 1 : 0;
+			if(index >= bound) index = (this.options.momentum) ? 0 : bound;
+
+			return this.index = index;
+		},
+
+		_setBound: function () {
+			var width = $(this.elements[0]).outerWidth(true);
+			var viewBound = Math.floor(this.wrapper.width() / width);
+
+			if(this.options.move === 'auto') {
+				this.realBound = Math.ceil(this.bound / viewBound);
+			} else {
+				this.realBound = this.bound;
+			}
+
+			return this.realBound;
 		},
 
 		// add swipe events for mobile
