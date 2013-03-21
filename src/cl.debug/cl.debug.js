@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.1
+ * @version     1.1.2
  */
 
 // ensure namespace is defined
@@ -201,7 +201,7 @@ var Cl = window.Cl || {};
 		helper_enabler: function (name, attr, value, type) {
 			var state = false;
 			var template = '';
-			template += '<li><a href="# class="divio-dt-html"><span>&raquo;</span> <strong style="color:#cb3333;">Enable</strong> ' + name + '</a></li>';
+			template += '<li><a href="#" class="divio-dt-html"><span>&raquo;</span> <strong style="color:#cb3333;">Enable</strong> ' + name + '</a></li>';
 			template = $(template);
 			template.bind('click', function (e) {
 				e.preventDefault();
