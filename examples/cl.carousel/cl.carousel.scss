@@ -19,7 +19,7 @@ $carousel-line-height: 12px;
 	.wrapper { position:relative; z-index:100; width:100%; overflow:hidden; }
 
 	.viewport { position:absolute; left:0; top:0; @include clearfix(); height:auto;
-		list-style-type:none; padding:0; margin:0; width:9999em; }
+		list-style-type:none; padding:0; margin:0; }
 	.viewport li { float:left; padding:0; margin:0; }
 
 	.trigger-next, .trigger-previous { padding:0; margin:0; }
@@ -39,4 +39,10 @@ $carousel-line-height: 12px;
 
 	.viewport li { width:105px; padding:5px; margin-right:10px; line-height:0; background:white;
 		@include border-radius(3px); @include box-shadow(0 0 1px #ccc); }
+
+	nav { text-align:center; padding-top:5px; }
+	nav a { font-size:11px; line-height:11px; padding:3px 6px 4px 5px;
+		@include inline-block(); @include border-radius(10px); border:1px solid #e5e5e5; background:#fff; }
+	nav a:hover { background:#f9f9f9; }
+	nav .active { color:#fff !important; border-color:#39c !important; background:#39c !important; }
 }

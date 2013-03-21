@@ -34,17 +34,27 @@
 
 		<h3>Carousel</h3>
 		<div class="carousel">
-			<p class="trigger-previous"><a href="#previous">previous</a></p>
 			<div class="wrapper">
+				<p class="trigger-previous"><a href="#previous">previous</a></p>
 				<ul class="viewport">
-					<li class="item"><img src="../static/dummy/img-large-001.jpg" alt="" /></li>
-					<li class="item"><img src="../static/dummy/img-large-002.jpg" alt="" /></li>
-					<li class="item"><img src="../static/dummy/img-large-003.jpg" alt="" /></li>
-					<li class="item"><img src="../static/dummy/img-large-004.jpg" alt="" /></li>
-					<li class="item"><img src="../static/dummy/img-large-005.jpg" alt="" /></li>
+					<li class="item"><img src="../static/dummy/first.jpg" alt="" /></li>
+
+					<li class="item"><img src="../static/dummy/img-001.jpg" alt="" /></li>
+					<li class="item"><img src="../static/dummy/img-002.jpg" alt="" /></li>
+					<li class="item"><img src="../static/dummy/img-003.jpg" alt="" /></li>
+					<li class="item"><img src="../static/dummy/img-004.jpg" alt="" /></li>
+					<li class="item"><img src="../static/dummy/img-005.jpg" alt="" /></li>
+
+					<li class="item"><img src="../static/dummy/img-001.jpg" alt="" /></li>
+					<li class="item"><img src="../static/dummy/img-002.jpg" alt="" /></li>
+					<li class="item"><img src="../static/dummy/img-003.jpg" alt="" /></li>
+
+					<li class="item"><img src="../static/dummy/last.jpg" alt="" /></li>
 				</ul>
+				<p class="trigger-next"><a href="#next">next</a></p>
 			</div>
-			<p class="trigger-next"><a href="#next">next</a></p>
+
+			<nav><a href="#">1</a> <a href="#">2</a> <a href="#">3</a></nav>
 		</div>
 		<!-- start: carousel html -->
 
@@ -91,7 +101,7 @@
 <script>
 var my = {};
 
-jQuery(window).load(function () {
+jQuery(document).ready(function ($) {
 	// grouped lightbox
 	var carousel = my.carousel = new Cl.Carousel('.carousel');
 
