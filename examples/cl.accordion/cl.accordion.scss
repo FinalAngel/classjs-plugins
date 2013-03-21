@@ -9,8 +9,8 @@
 @import "compass/utilities";
 
 // variables
-$accordion-font-size: 12px;
-$accordion-line-height: 12px;
+$accordion-font-size: 14px;
+$accordion-line-height: 14px;
 
 // required styles
 .accordion {
@@ -19,7 +19,8 @@ $accordion-line-height: 12px;
 
 // custom styles
 .accordion {
-	.trigger { font-size:14px; color:#39c; cursor:pointer; padding:8px 12px; margin:0;
+	.trigger { font-size:$accordion-font-size; line-height:$accordion-line-height;
+		color:#39c; cursor:pointer; padding:8px 12px; margin:0;
 		border-bottom:1px solid #e5e5e5; background:white; }
 	.trigger a { display:block; background:no-repeat right center; }
 

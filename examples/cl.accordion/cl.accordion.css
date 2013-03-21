@@ -5,6 +5,7 @@
  */
 .accordion .trigger {
   font-size: 14px;
+  line-height: 14px;
   color: #39c;
   cursor: pointer;
   padding: 8px 12px;
