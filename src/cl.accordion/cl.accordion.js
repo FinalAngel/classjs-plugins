@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.1
+ * @version     1.1.0
  */
 
 // insure namespace is defined
@@ -12,15 +12,17 @@ var Cl = window.Cl || {};
 
 	// creating class
 	Cl.Accordion = new Class({
+		/*
+			TODO 1.2.0
+			-
+		 */
 
 		options: {
-			'active': null, // first element to show
+			'index': null, // first element to show
 			'expanded': false, // show element on initialization
 			'event': 'click', // click or hover
-			'fx': 'slide', // toggle, fade or slide
+			'easing': 'linear',
 			'duration': 300, // animation duration
-			'timeout': 300, // used for queuing
-			'transition': 'linear',
 			'grouping': true, // enables only one item to be opened at a time
 			'forceClose': false, // if true closes current element when clicking again
 			'cls': {
@@ -38,6 +40,15 @@ var Cl = window.Cl || {};
 			this.triggers = this.container.find(this.options.cls.trigger);
 			this.containers = this.container.find(this.options.cls.container);
 			this.index = null;
+			this.callbacks = {};
+
+			// we need to set the heights for each element
+			this.containers.each(function (index, item) {
+				$(item).height($(item).outerHeight(true));
+			});
+
+			// cancel if triggers and containers are not even
+			if(this.triggers.length !== this.containers.length) return false;
 
 			this._setup();
 		},
@@ -48,55 +59,91 @@ var Cl = window.Cl || {};
 			// attach events
 			this.triggers.bind(this.options.event, function (e) {
 				e.preventDefault();
-				that.trigger.call(that, that.triggers.index(e.currentTarget));
+				that.toggle(that.triggers.index(this));
 			});
 
 			// hide containers
-			if(!this.options.expanded) this.containers.hide();
+			if(!this.options.expanded) {
+				this.containers.hide();
+			} else {
+				this.triggers.addClass(this.options.cls.expanded);
+			}
 
-			// show first element
-			if(!this.options.active !== null) this.trigger(this.options.active);
+			// show correct index
+			if(this.options.index !== null && !this.options.expanded) this.toggle(this.options.index);
 		},
 
-		trigger: function (index) {
+		toggle: function (index) {
+			// trigger event
+			this._triggerEvent('toggle');
+
 			// cancel if index is the same
 			if(this.index === index && !this.options.forceClose) return false;
+
 			// set global vars
 			this.index = index;
 
-			// set local vars
+			// hide containers if grouping is active
+			if(this.options.grouping) this.hide();
+
+			// redirect to required behaviour
+			(this.containers.eq(index).is(':visible')) ? this.hide(index) : this.show(index);
+
+			// trigger callback
+			this._triggerCallback('toggle', this);
+		},
+
+		show: function (index) {
+			// trigger event
+			this._triggerEvent('show');
+
 			var container = this.containers.eq(index);
 			var trigger = this.triggers.eq(index);
 
-			// hide containers if grouping is active
-			if(this.options.grouping) this._hide(this.containers, this.triggers);
+			// if no index is provided, hide all
+			if(index === undefined) this.containers.slideDown(this.options.duration, this.options.easing);
 
-			// redirect to required behaviour
-			(container.is(':visible')) ? this._hide(container, trigger) : this._show(container, trigger);
-		},
-
-		_hide: function (container, trigger) {
-			// bind event options
-			if(this.options.fx == 'toggle') container.hide();
-			if(this.options.fx == 'slide') container.stop(true, true)
-				.slideUp(this.options.duration, this.options.transition);
-			if(this.options.fx == 'fade') container.stop(true, true)
-				.fadeOut(this.options.duration, this.options.transition);
+			// do animation
+			container.slideDown(this.options.duration, this.options.easing);
 
 			// add and remove classes
-			trigger.addClass(this.options.cls.collapsed).removeClass(this.options.cls.expanded);
-		},
-
-		_show: function (container, trigger) {
-			// bind event options
-			if(this.options.fx == 'toggle') container.show();
-			if(this.options.fx == 'slide') container.stop(true, true)
-				.slideDown(this.options.duration, this.options.transition);
-			if(this.options.fx == 'fade') container.stop(true, true)
-				.fadeIn(this.options.duration, this.options.transition);
-
-			// add and remove classes
+			this.triggers.addClass(this.options.cls.collapsed);
 			trigger.addClass(this.options.cls.expanded).removeClass(this.options.cls.collapsed);
+
+			// trigger callback
+			this._triggerCallback('show', this);
+		},
+
+		hide: function (index) {
+			// trigger event
+			this._triggerEvent('hide');
+
+			var container = this.containers.eq(index);
+			var trigger = this.triggers.eq(index);
+
+			// if no index is provided, hide all
+			if(index === undefined) this.containers.slideUp(this.options.duration, this.options.easing);
+
+			// do animation
+			container.slideUp(this.options.duration, this.options.easing);
+
+			// add and remove classes
+			this.triggers.addClass(this.options.cls.expanded);
+			trigger.addClass(this.options.cls.collapsed).removeClass(this.options.cls.expanded);
+
+			// trigger callback
+			this._triggerCallback('hide', this);
+		},
+
+		_triggerCallback: function (fn, scope) {
+			// cancel if there is no callback found
+			if(this.callbacks[fn] === undefined) return false;
+			// excecute fallback
+			this.callbacks[fn](scope);
+		},
+
+		_triggerEvent: function (event) {
+			$.event.trigger('accordion-' + event);
 		}
 
 	});
