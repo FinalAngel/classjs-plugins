@@ -35,7 +35,7 @@ img { max-width:100%; }
 strong { color:#222; font-weight:400; }
 small { font-size:11px; }
 
-hr { height:1px; margin:0 0 20px;
+hr { height:1px; margin:10px 0;
 	border:0; background:#e5e5e5; }
 
 /* HELPERS */
@@ -54,6 +54,9 @@ section .inner { padding:30px 0 20px; margin:0 auto; }
 footer { background:#2f3236; }
 footer p { font-size:12px; color:#bfbfbf; text-align:center; padding:10px 0; margin:0; }
 
+form fieldset { padding:8px 12px; margin:0 0 10px; background:#fff; border:1px solid #e5e5e5; border-radius:3px; }
+form label { cursor:pointer; font-size:13px; }
+
 .logo { font-size:28px; font-weight:300; padding:0 8px 4px; margin-right:8px; color:#666; border-radius:3px;
 	text-shadow:0 1px 0 #eee; background:#fff; }
 .logo .dot { color:#39c; }
@@ -68,10 +71,6 @@ footer p { font-size:12px; color:#bfbfbf; text-align:center; padding:10px 0; mar
 .box:hover span { color:#fff; }
 
 .linklist a { display:inline-block; width:150px; }
-
-form fieldset { padding:10px 10px 0; margin:0 0 10px; background:#fff; border:1px solid #e5e5e5; border-radius:3px; }
-form ol { list-style-type:none; padding:0; margin:0;}
-form ol li { padding:0; margin:0 0 10px; }
 
 /* RESPONSIVE */
 header h1, section .inner { padding-left:20px; padding-right:20px; }

@@ -14,7 +14,7 @@ var Cl = window.Cl || {};
 	Cl.Uniform = new Class({
 
 		options: {
-			'offset': -40,
+			'offset': -9999,
 			'lang': {
 				'fileBtn': 'Upload',
 				'fileStatus': 'Please select a file...'

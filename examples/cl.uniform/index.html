@@ -36,63 +36,52 @@
 		<!-- start: uniform html -->
 		<form action="." method="post" class="frm">
 			<fieldset>
-				<ol>
-					<li>
-						<h4>Example style</h4>
-						<label><input type="text" class="input-text uniform" /></label>
-					</li>
-				</ol>
+				<h4>Default forms</h4>
+				<div><label>input <input type="text" /></label></div>
+				<hr />
+				<div><label>upload <input type="file" /></label></div>
+				<hr />
+				<div><label><select><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
+				<hr />
+				<div>
+					<label><input type="radio" checked="checked" /> radio</label> &nbsp;&nbsp;&nbsp;
+					<label><input type="checkbox" checked="checked" /> checkbox</label>
+				</div>
+
 			</fieldset>
 			<fieldset>
-				<ol>
-					<li>
-						<h4>File fields</h4>
-						<label><input type="file" class="input-text uniform" /></label><br />
-						<label><input type="file" class="input-text uniform" /> <span style="position:relative; top:-19px;">Select</span></label><br />
-						<input type="file" class="input-text uniform" id="field-file" /> <label for="field-file"><span style="position:relative; top:-19px;">Select</span></label>
-					</li>
-				</ol>
+				<h4>File field</h4>
+				<div><label>upload <input type="file" class="uniform" /></label></div>
+				<div><label>upload <input type="file" class="uniform" /></label></div>
+				<div><label for="field-file">upload</label> <input type="file" class="uniform" id="field-file" /></div>
 			</fieldset>
 			<fieldset>
-				<ol>
-					<li>
-						<h4>Select fields <span style="color:red;">todo</span></h4>
-						<label><select class="input-select uniform"><option>Select</option></select></label>
-					</li>
-					<li>
-						<h4>Multiple select fields <span style="color:red;">todo</span></h4>
-						<label><select type="multiple" type="text" class="input-select uniform"><option>Multiple Select</option></select></label>
-					</li>
-				</ol>
+				<h4>Select field</h4>
+				<div><label><select class="uniform"><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
 			</fieldset>
-			<fieldset>
-				<ol>
-					<li>
-						<h4>Radio fields</h4>
-						<label><input type="radio" name="radiogroup1" class="input-radiocheck uniform" /> radiogroup 1</label><br />
-						<label><input type="radio" name="radiogroup1" class="input-radiocheck uniform" /> radiogroup 1</label><br />
-							   <input type="radio" name="radiogroup1" class="input-radiocheck uniform" id="field-radiotest" /> <label for="field-radiotest">radiogroup 1</label>
-					</li>
-					<li>
-						<label><input type="radio" name="radiogroup2" class="input-radiocheck uniform" checked="checked" /> radiogroup 2</label><br />
-						<label><input type="radio" name="radiogroup2" class="input-radiocheck uniform" disabled="disabled" /> radiogroup 2</label><br />
-					</li>
-				</ol>
-			</fieldset>
-			<fieldset>
-				<ol>
-					<li>
-						<h4>Checkbox fields</h4>
-						<label><input type="checkbox" name="check1" class="input-radiockeck uniform" /> checkbox 1</label><br />
-						<label><input type="checkbox" name="check2" class="input-radiockeck uniform" /> checkbox 2</label><br />
-							   <input type="checkbox" name="check3" class="input-radiockeck uniform" id="field-checktest" /> <label for="field-checktest">checkbox 3</label>
-					</li>
-					<li>
-						<label><input type="checkbox" name="check4" class="input-radiockeck uniform" checked="checked" /> checkbox 4</label><br />
-						<label><input type="checkbox" name="check5" class="input-radiockeck uniform" disabled="disabled" /> checkbox 5</label>
-					</li>
-				</ol>
-			</fieldset>
+			<div class="col-two">
+				<fieldset>
+					<h4>Radio field</h4>
+					<div><label><input type="radio" name="radiogroup1" class="uniform" /> radiogroup 1</label></div>
+					<div><label><input type="radio" name="radiogroup1" class="uniform" /> radiogroup 1</label></div>
+					<div><input type="radio" name="radiogroup1" class="uniform" id="field-radiotest" /> <label for="field-radiotest">radiogroup 1</label></div>
+					<hr />
+					<div><label><input type="radio" name="radiogroup2" class="uniform" checked="checked" /> radiogroup 2</label></div>
+					<div><label><input type="radio" name="radiogroup2" class="uniform" disabled="disabled" /> radiogroup 2</label></div>
+				</fieldset>
+			</div>
+			<div class="col-two col-last">
+				<fieldset>
+					<h4>Checkbox field</h4>
+					<div><label><input type="checkbox" name="check1" class="uniform" /> checkbox 1</label></div>
+					<div><label><input type="checkbox" name="check2" class="uniform" /> checkbox 2</label></div>
+					<div><input type="checkbox" name="check3" class="uniform" id="field-checktest" /> <label for="field-checktest">checkbox 3</label></div>
+					<hr />
+					<div><label><input type="checkbox" name="check4" class="uniform" checked="checked" /> checkbox 4</label></div>
+					<div><label><input type="checkbox" name="check5" class="uniform" disabled="disabled" /> checkbox 5</label></div>
+				</fieldset>
+			</div>
+			<div class="clear"></div>
 		</form>
 		<!-- end: uniform html -->
 

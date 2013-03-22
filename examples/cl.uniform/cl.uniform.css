@@ -3,101 +3,116 @@
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
  */
-input:focus, select:focus, input[type="file"]:focus {
-  outline: 2px dotted blue !important;
-}
-
-input[type="checkbox"], input[type="radio"] {
+.uniform-checkbox, .uniform-radio,
+.uniform-file, .uniform-select {
   position: relative;
-  top: -9px !important;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-.uniform-checkbox *,
-.uniform-radio *,
-.uniform-file * {
+.uniform-checkbox *, .uniform-radio *, .uniform-file *, .uniform-select * {
   position: relative;
   left: 0;
 }
 
-.uniform-checkbox,
-.uniform-radio,
-.uniform-file {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-}
-
-.uniform-checkbox input,
-.uniform-radio input,
-.uniform-file input {
+.uniform-checkbox input, .uniform-radio input, .uniform-file input, .uniform-select select {
   position: absolute;
 }
 
+.uniform-select .uniform-input {
+  z-index: 100;
+}
+
+.uniform-radio, .uniform-checkbox {
+  line-height: 0;
+  width: 12px;
+  height: 12px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+}
+
+.uniform-radio > span, .uniform-checkbox > span {
+  display: block;
+  margin: 3px 0 0 3px;
+  width: 6px;
+  height: 6px;
+  background: #39c;
+}
+
 .uniform-radio {
-  width: 14px;
-  height: 14px;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
   border-radius: 100%;
-  background: red;
-  top: 2px;
 }
 
-.uniform-radio > span {
-  width: 6px;
-  height: 6px;
-  margin: 4px 0 0 4px;
-  float: left;
+.uniform-radio span {
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
   border-radius: 100%;
-  background: #000;
-}
-
-.uniform-checkbox {
-  width: 14px;
-  height: 14px;
-  background: red;
-  top: 2px;
-}
-
-.uniform-checkbox > span {
-  width: 6px;
-  height: 6px;
-  margin: 4px 0 0 4px;
-  float: left;
-  background: #000;
 }
 
 .uniform-file {
-  border-radius: 2px;
-  border: 1px solid #cccccc;
-  background: #f7f7f7;
   clear: both;
   overflow: hidden;
+  border: 1px solid #e5e5e5;
 }
 
 .uniform-file-btn {
   float: right;
-  font-size: 12px;
-  line-height: 12px;
-  padding: 2px 5px;
+  font-size: 11px;
+  line-height: 11px;
   cursor: pointer;
-  border-radius: 2px;
-  border: 1px solid #cccccc;
-  background: #ccc;
+  color: white;
+  padding: 3px 5px 4px;
+  background: #39c;
 }
 
 .uniform-file-btn:hover {
   color: #fff;
-  border: 1px solid #666666;
   background: #666;
 }
 
 .uniform-file-status {
   float: left;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 12px;
-  padding-top: 3px;
+  padding: 4px 0 0 4px;
   max-width: 70%;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.uniform-select {
+  border: 1px solid #e5e5e5;
+}
+
+.uniform-select-status {
+  float: left;
+  font-size: 11px;
+  line-height: 11px;
+  padding: 3px 0 0 4px;
+}
+
+.uniform-select-arrow {
+  float: right;
+  width: 15px;
+  height: 15px;
+  margin: 1px 5px 0 0;
+  background: url("../static/img/arrow-down.png") no-repeat right center;
 }
 
 .uniform-disabled {
@@ -105,5 +120,18 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .uniform-focus {
-  outline: 2px dotted blue !important;
+  outline: 1px solid black;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.uniform-radio:hover, .uniform-checkbox:hover,
+.uniform-file:hover, .uniform-select:hover {
+  border-color: #ccc;
+  -webkit-box-shadow: 0 0 3px #e5e5e5;
+  -moz-box-shadow: 0 0 3px #e5e5e5;
+  box-shadow: 0 0 3px #e5e5e5;
+  -webkit-transition: border, 200ms;
+  -moz-transition: border, 200ms;
+  -o-transition: border, 200ms;
+  transition: border, 200ms;
 }
