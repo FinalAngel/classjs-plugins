@@ -11,6 +11,7 @@
 // variables
 
 // required style
+.uniform { cursor:pointer; }
 .uniform-checkbox, .uniform-radio,
 .uniform-file, .uniform-select { position:relative; @include inline-block(); overflow:hidden; cursor:pointer; }
 .uniform-checkbox *, .uniform-radio *, .uniform-file *, .uniform-select * { position:relative; left:0; }

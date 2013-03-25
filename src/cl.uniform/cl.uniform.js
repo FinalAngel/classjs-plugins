@@ -234,6 +234,9 @@ var Cl = window.Cl || {};
 			// set correct value
 			text.text(field.find('option:selected').text());
 
+			// we need to set a fixed with if field is 100%
+			field.css('width', tpl.outerWidth(true));
+
 			// add common elements
 			this._common(field);
 		},
