@@ -42,11 +42,6 @@ var Cl = window.Cl || {};
 			this.index = null;
 			this.callbacks = {};
 
-			// we need to set the heights for each element
-			this.containers.each(function (index, item) {
-				$(item).height($(item).outerHeight(true));
-			});
-
 			// cancel if triggers and containers are not even
 			if(this.triggers.length !== this.containers.length) return false;
 
@@ -56,15 +51,25 @@ var Cl = window.Cl || {};
 		_setup: function () {
 			var that = this;
 
+			// set initial trigger state
+			this.triggers.addClass(this.options.cls.collapsed);
+
+			// we need to set the heights for each element
+			this.containers.each(function (index, item) {
+				$(item).height($(item).outerHeight(true));
+			});
+
 			this.triggers.bind(this.options.event, function (e) {
+				e.preventDefault();
 				that.toggle(that.triggers.index(this));
 			});
 
-			// hide containers
-			if(!this.options.expanded) {
-				this.containers.hide();
-			} else {
+			// check if containers are expanded
+			if(this.options.expanded) {
+				this.containers.show();
 				this.triggers.addClass(this.options.cls.expanded);
+			} else {
+				this.containers.hide();
 			}
 
 			// show correct index
@@ -78,11 +83,17 @@ var Cl = window.Cl || {};
 			// cancel if index is the same
 			if(this.index === index && !this.options.forceClose) return false;
 
-			// set global vars
+			// set global index
 			this.index = index;
 
 			// hide containers if grouping is active
 			if(this.options.grouping) this.hide();
+
+			// remove all classes
+			if(this.options.grouping) {
+				this.triggers.removeClass(this.options.cls.expanded)
+					.addClass(this.options.cls.collapsed);
+			}
 
 			// redirect to required behaviour
 			(this.containers.eq(index).is(':visible')) ? this.hide(index) : this.show(index);
@@ -105,7 +116,6 @@ var Cl = window.Cl || {};
 			container.slideDown(this.options.duration, this.options.easing);
 
 			// add and remove classes
-			this.triggers.addClass(this.options.cls.collapsed);
 			trigger.addClass(this.options.cls.expanded).removeClass(this.options.cls.collapsed);
 
 			// trigger callback
@@ -126,7 +136,6 @@ var Cl = window.Cl || {};
 			container.slideUp(this.options.duration, this.options.easing);
 
 			// add and remove classes
-			this.triggers.addClass(this.options.cls.expanded);
 			trigger.addClass(this.options.cls.collapsed).removeClass(this.options.cls.expanded);
 
 			// trigger callback
