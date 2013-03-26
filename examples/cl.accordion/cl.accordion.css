@@ -30,3 +30,7 @@
 .accordion .collapsed a {
   background-image: url("../static/img/arrow-down.png");
 }
+.accordion .text {
+  color: #ccc;
+  font-weight: 200;
+}
