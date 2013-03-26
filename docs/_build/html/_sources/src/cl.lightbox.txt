@@ -2,8 +2,6 @@
 cl.lightbox
 ***********
 
-The following methods can be attached to a new class.
-
 
 API Reference
 =============
@@ -22,7 +20,7 @@ Options are set on initializing the lightbox::
     });
 
 .. js:data:: prefix: 'cl'
-    the prefix is attached to :js:data: all internal events and css classes for example cl-lightbox or cl-lightbox.
+    the prefix is attached to all internal events and css classes for example cl-lightbox or cl-lightbox.
 
 .. js:data:: group: true
     allows grouping of matching elements and enables status and navigation.
@@ -84,7 +82,7 @@ Methods
 
 Methods can be called using the instance of the Class::
 
-    var lightbox = new Lightbox();
+    var lightbox = new Cl.Lightbox();
 
     lightbox.open($('.lightbox'));
 
