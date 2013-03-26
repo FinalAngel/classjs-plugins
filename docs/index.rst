@@ -8,10 +8,10 @@
 Welcome
 #######
 
-The classjs-plugins are a set of usefull javascript plugins based on class.js and jquery.
+The classjs-plugins are a set of usefull javascript plugins based on class.js 1.0+ and jquery 1.7+.
 They are easily extendable, follow the W3C and WCAG 2.0 standards and are build for responsive webdesign.
 
-The latest stable version are available on github - https://github.com/finalangel/classjs-plugins
+The latest stable versions are available on github - https://github.com/finalangel/classjs-plugins
 
 
 #######
@@ -19,6 +19,7 @@ Plugins
 #######
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
+    :glob:
 
-    src/cl.lightbox.rst
+    src/*
