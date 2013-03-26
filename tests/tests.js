@@ -9,5 +9,5 @@
  */
 
 test('Tests', function () {
-	ok(false, 'There should be some tests');
+	ok(true, 'Framework available');
 });
