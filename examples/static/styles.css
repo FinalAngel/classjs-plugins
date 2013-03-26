@@ -49,6 +49,8 @@ hr { height:1px; margin:10px 0;
 header { background:#0f3e62; clear:both; overflow:hidden; }
 header h1 { display:block; color:#fff; text-shadow:0 1px 0 #000;
 	padding:30px 0 35px; margin:0 auto; position:relative; left:-8px; }
+header h1 a { color:white; font-weight:300; text-decoration:none !important; }
+header h1 a:hover { color:#f5f5f5; }
 section { background:#f4f4f4 url('img/bg.png'); }
 section .inner { padding:30px 0 20px; margin:0 auto; }
 footer { background:#2f3236; }
@@ -61,7 +63,7 @@ form label { cursor:pointer; font-size:13px; }
 	text-shadow:0 1px 0 #eee; background:#fff; }
 .logo .dot { color:#39c; }
 .logo .ext { color:#000; }
-.logo:hover { text-shadow:0 1px 0 #fff; background:#f5f5f5; }
+.logo:hover { color:#000; text-shadow:0 1px 0 #fff; background:#f5f5f5; }
 
 .box { float:left; padding:5px; margin:0 10px 10px 0; line-height:0; width:105px;
 	border-radius:3px; box-shadow: 0 0 1px #ccc; background:#fff; }
