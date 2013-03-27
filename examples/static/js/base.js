@@ -7,8 +7,15 @@ jQuery(document).ready(function ($) {
 		// calculate size
 		var size = ($(window).height() - $('header').height() - $('footer').height());
 		var style = 'width:100%; height:' + size + 'px; margin:0; border:none; margin:0 0 -5px;';
+		var inner = $('section .inner');
 
-		$('section').html('<iframe src="' + $(this).attr('href') + '" style="' + style + '" frameborder="0"></iframe>');
+		inner.html('<iframe src="' + $(this).attr('href') + '" style="' + style + '" frameborder="0"></iframe>');
+		inner.css('padding', 0);
+		inner.find('iframe').css('overflow', 'hidden');
+
+		inner.find('iframe').load(function () {
+			$(this).contents().find('body').css('overflow-x', 'hidden')
+		});
 
 		// add resizing
 		$(window).on('resize', function () {
