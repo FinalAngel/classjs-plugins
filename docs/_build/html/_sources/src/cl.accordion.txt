@@ -44,7 +44,7 @@ container     '.container'     the container to be expanded and collapsed
 =========     ============     ===========
 
 
-Option ``lang`` setters and getters:
+Option ``lang`` strings:
 
 =========     ============
 Option        Default
