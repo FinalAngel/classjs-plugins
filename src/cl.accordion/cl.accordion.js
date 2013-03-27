@@ -139,22 +139,24 @@ var Cl = window.Cl || {};
 				if(fast) this.containers.show();
 
 				this.containers
-					.attr('aria-expanded', true);
+					.attr('aria-hidden', false);
 
 				this.triggers
 					.addClass(this.options.cls.expanded)
 					.removeClass(this.options.cls.collapsed)
 					.attr('aria-selected', true)
+					.attr('aria-expanded', true)
 						.find('.text').html(this.options.lang.expanded);
 			} else {
 				this.containers.eq(index)
 					.slideDown(this.options.duration, this.options.easing)
-					.attr('aria-expanded', true);
+					.attr('aria-hidden', false);
 
 				this.triggers.eq(index)
 					.addClass(this.options.cls.expanded)
 					.removeClass(this.options.cls.collapsed)
 					.attr('aria-selected', true)
+					.attr('aria-expanded', true)
 						.find('.text').html(this.options.lang.expanded);
 			}
 		},
@@ -165,22 +167,24 @@ var Cl = window.Cl || {};
 				if(fast) this.containers.hide();
 
 				this.containers
-					.attr('aria-expanded', false);
+					.attr('aria-hidden', true);
 
 				this.triggers
 					.addClass(this.options.cls.collapsed)
 					.removeClass(this.options.cls.expanded)
 					.attr('aria-selected', false)
+					.attr('aria-expanded', false)
 						.find('.text').html(this.options.lang.collapsed);
 			} else {
 				this.containers.eq(index)
 					.slideUp(this.options.duration, this.options.easing)
-					.attr('aria-expanded', false);
+					.attr('aria-hidden', true);
 
 				this.triggers.eq(index)
 					.addClass(this.options.cls.collapsed)
 					.removeClass(this.options.cls.expanded)
 					.attr('aria-selected', false)
+					.attr('aria-expanded', false)
 						.find('.text').html(this.options.lang.collapsed);
 			}
 		},
