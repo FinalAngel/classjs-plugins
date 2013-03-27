@@ -14,7 +14,8 @@ var Cl = window.Cl || {};
 	Cl.Accordion = new Class({
 		/*
 			TODO 1.2.0
-			-
+			- add api for additional close elements (or api triggers)?
+			- add fadeIn / fadeOut options
 		 */
 
 		options: {
