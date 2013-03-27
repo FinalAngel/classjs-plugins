@@ -8,8 +8,10 @@ Cl.Accordion
 - added ``option.cls.text``
 - added language display if element is shown or hidden
 - added ``options.disableAnchor``
+- added more WAI-ARIA labels
 - changed event triggers to be combined in ``_fire``
 - changed from jQuery 1.4+ to 1.7+ using ``on`` instead of ``bind``
+- refactored internal expanded/collapsed handling
 
 1.1.0
 -----

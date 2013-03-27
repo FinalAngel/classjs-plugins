@@ -75,17 +75,17 @@ var Cl = window.Cl || {};
 				});
 			}
 
+			// TODO add
+			// - aria-hidden for containers
+			// add aria roles
+			// http://oaa-accessibility.org/example/37/
+			// http://www.w3.org/TR/wai-aria/roles
+
 			// setup initial states
 			if(this.options.expanded) {
-				this.containers.show();
-				this.triggers.addClass(this.options.cls.expanded);
-				this.triggers.find('.text').html(this.options.lang.expanded);
-				this.containers.attr('aria-expanded', true);
+				this._setExpanded(undefined, true);
 			} else {
-				this.containers.hide();
-				this.triggers.addClass(this.options.cls.collapsed);
-				this.triggers.find('.text').html(this.options.lang.collapsed);
-				this.containers.attr('aria-expanded', false);
+				this._setCollapsed(undefined, true);
 			}
 
 			// if index is defined and the elements are not expanded, show provided index
@@ -96,21 +96,10 @@ var Cl = window.Cl || {};
 			// trigger event
 			this._fire('toggle');
 
-			// cancel if index is the same end forceClose disabled
-			if(this.index === index && !this.options.forceClose) return false;
-
+			// cancel if index is the same end forceClose disabled or not provided
+			if(this.index === index && !this.options.forceClose || this.index === undefined) return false;
 			// set global index
 			this.index = index;
-
-			// if grouping is enabled
-			if(this.options.grouping) {
-				// hide all containers
-				this.hide();
-				// reset triggers to initial states
-				this.triggers.removeClass(this.options.cls.expanded)
-					.addClass(this.options.cls.collapsed)
-					.find('.text').html(this.options.lang.collapsed);
-			}
 
 			// redirect to required behaviour
 			(this.containers.eq(index).is(':visible')) ? this.hide(index) : this.show(index);
@@ -123,15 +112,8 @@ var Cl = window.Cl || {};
 			// trigger event
 			this._fire('show');
 
-			// if no index is provided, hide all
-			if(index === undefined) {
-				this.containers.slideDown(this.options.duration, this.options.easing);
-			// otherwise show element
-			} else {
-				this.containers.eq(index).slideDown(this.options.duration, this.options.easing);
-				this.triggers.eq(index).addClass(this.options.cls.expanded).removeClass(this.options.cls.collapsed)
-					.find('.text').html(this.options.lang.expanded);
-			}
+			// if no index is provided, show all
+			this._setExpanded(index);
 
 			// trigger callback
 			this._fire('show', this);
@@ -142,17 +124,65 @@ var Cl = window.Cl || {};
 			this._fire('hide');
 
 			// if no index is provided, hide all
-			if(index === undefined) {
-				this.containers.slideUp(this.options.duration, this.options.easing);
-			// otherwise hide element
-			} else {
-				this.containers.eq(index).slideUp(this.options.duration, this.options.easing);
-				this.triggers.eq(index).addClass(this.options.cls.collapsed).removeClass(this.options.cls.expanded)
-					.find('.text').html(this.options.lang.collapsed);
-			}
+			this._setCollapsed(index);
 
 			// trigger callback
 			this._fire('hide', this);
+		},
+
+		_setExpanded: function (index, fast) {
+			// exception if grouping is enabled
+			if(this.options.grouping && !fast) this.hide();
+
+			if(index === undefined) {
+				if(!fast) this.containers.slideDown(this.options.duration, this.options.easing);
+				if(fast) this.containers.show();
+
+				this.containers
+					.attr('aria-expanded', true);
+
+				this.triggers
+					.addClass(this.options.cls.expanded)
+					.removeClass(this.options.cls.collapsed)
+					.attr('aria-selected', true)
+						.find('.text').html(this.options.lang.expanded);
+			} else {
+				this.containers.eq(index)
+					.slideDown(this.options.duration, this.options.easing)
+					.attr('aria-expanded', true);
+
+				this.triggers.eq(index)
+					.addClass(this.options.cls.expanded)
+					.removeClass(this.options.cls.collapsed)
+					.attr('aria-selected', true)
+						.find('.text').html(this.options.lang.expanded);
+			}
+		},
+
+		_setCollapsed: function (index, fast) {
+			if(index === undefined) {
+				if(!fast) this.containers.slideUp(this.options.duration, this.options.easing);
+				if(fast) this.containers.hide();
+
+				this.containers
+					.attr('aria-expanded', false);
+
+				this.triggers
+					.addClass(this.options.cls.collapsed)
+					.removeClass(this.options.cls.expanded)
+					.attr('aria-selected', false)
+						.find('.text').html(this.options.lang.collapsed);
+			} else {
+				this.containers.eq(index)
+					.slideUp(this.options.duration, this.options.easing)
+					.attr('aria-expanded', false);
+
+				this.triggers.eq(index)
+					.addClass(this.options.cls.collapsed)
+					.removeClass(this.options.cls.expanded)
+					.attr('aria-selected', false)
+						.find('.text').html(this.options.lang.collapsed);
+			}
 		},
 
 		_fire: function (keyword, scope) {
