@@ -4,10 +4,13 @@
  * @copyright	Distributed under the BSD License.
  */
 .accordion .trigger {
-  font-size: 14px;
-  line-height: 14px;
-  color: #39c;
   cursor: pointer;
+}
+
+.accordion .trigger {
+  font-size: 14px;
+  line-height: 18px;
+  color: #39c;
   padding: 8px 12px;
   margin: 0;
   border-bottom: 1px solid #e5e5e5;
