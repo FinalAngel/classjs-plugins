@@ -33,7 +33,8 @@ test('Options', function() {
 	equal(lang.expanded, 'Expanded ', 'expanded is availalbe');
 	equal(lang.collapsed, 'Collapsed ', 'collapsed is availalbe');
 
-	ok(options.length === 8, 'there are 8 options')
+	var length = getLength(accordion.options);
+	ok(length === 10, 'there are ' + length + ' options')
 });
 
 test('Methods', function() {
@@ -42,6 +43,7 @@ test('Methods', function() {
 	$.each(methods, function (index, method) {
 		equal(typeof(accordion[method]), 'function', method + ' is available');
 	});
+	
 	// check method count
 	ok(methods.length === 3, 'there are 3 methods')
 });

@@ -20,3 +20,14 @@ jQuery(document).ready(function ($) {
 		$('body').css('overflow', 'hidden');
 	});
 });
+
+// helper for tests
+var getLength = function (object) {
+	var count = 0;
+
+	for(key in object) {
+		if(object.hasOwnProperty(key)) count++;
+	}
+
+	return count;
+};
