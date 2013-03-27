@@ -1,3 +1,9 @@
+/*!
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ */
+
+// jQuery domain
 jQuery(document).ready(function ($) {
 
 	// iframe function
@@ -28,7 +34,7 @@ jQuery(document).ready(function ($) {
 	});
 });
 
-// helper for tests
+// global domain
 var getLength = function (object) {
 	var count = 0;
 
