@@ -43,7 +43,7 @@ test('Methods', function() {
 	$.each(methods, function (index, method) {
 		equal(typeof(accordion[method]), 'function', method + ' is available');
 	});
-	
+
 	// check method count
 	ok(methods.length === 3, 'there are 3 methods')
 });
