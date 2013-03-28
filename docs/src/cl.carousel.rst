@@ -19,7 +19,7 @@ Options are set on initializing the carousel::
 ==============     ========     ===========
 Option             Default      Description
 ==============     ========     ===========
-index              0            shows selected element[index]/group[index] starting form zero.
+index              null         shows selected element[index]/group[index] starting form zero.
 timeout            null         timeout in ms for autoplay, if ``0`` or ``null`` autoplay is ignored.
 autoplay           false        continues timeout even after manual cancellation.
 easing             'linear'     the jquery easing method for all animations.

@@ -19,7 +19,7 @@ Options are set on initializing the accordion::
 ==============     ========     ===========
 Option             Default      Description
 ==============     ========     ===========
-index              0            shows selected element[index] starting form zero.
+index              null         shows selected element[index] starting form zero.
 expanded           false        initial visibility of all items inside the selector.
 event              'click'      the jquery element of which the accordion will listen to.
 easing             'linear'     the jquery easing method for all animations.
