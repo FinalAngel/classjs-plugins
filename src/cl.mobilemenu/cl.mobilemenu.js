@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.0
+ * @version     1.1.1
  */
 
 // ensure namespace is defined
@@ -43,6 +43,7 @@ var Cl = window.Cl || {};
 			this.visible = false;
 			this.timer = function () {};
 			this.width = null;
+			this.height = this.menu.outerHeight(true);
 			this.callbacks = {};
 
 			this._setup();
@@ -64,7 +65,10 @@ var Cl = window.Cl || {};
 			this.overlay.on('click', function () { that.hide(); });
 
 			// show navigation if focus
-			this.menu.bind('focusin focusout', function (e) {
+			this.menu.on('focusin focusout', function (e) {
+				// cancel if viewport is smaller than expected
+				if($(window).width() >= that.options.bound) return false;
+				// start timer
 				clearTimeout(that.timer);
 				that.timer = setTimeout(function () {
 					(e.type === 'focusin') ? that.show() : that.hide(0)
@@ -72,8 +76,13 @@ var Cl = window.Cl || {};
 			});
 
 			// attach resize event for hiding mobile menu
-			$(window).bind('resize.menu', function () {
+			$(window).on('resize.menu', function () {
 				if(that.visible && $(window).width() >= that.options.bound) that.hide(0);
+				if($(window).width() <= that.options.bound) {
+					that.menu.height(0);
+				} else {
+					that.menu.height('auto');
+				}
 			});
 		},
 
@@ -107,10 +116,13 @@ var Cl = window.Cl || {};
 			}, (speed !== undefined) ? speed : this.options.duration, this.options.easing)
 				.css('width', $(window).width())
 				.css('overflow-x', 'hidden');
+			// figure out the correct height for the menu
+			var height = ($(window).height() > this.body.height()) ? $(window).height() : this.body.height();
+			if(this.height > height) height = this.height;
 			// set correct menu css
 			this.menu.css({
 				'width': this.width,
-				'height': ($(window).height() > this.body.height()) ? $(window).height() : this.body.height(),
+				'height': height + 1, // +5 = address bar fix
 				'top': this.options.offset.top,
 				'left': -this.width + this.options.offset.left
 			});
@@ -155,10 +167,10 @@ var Cl = window.Cl || {};
 				// cancel if there is no callback found
 				if(this.callbacks[keyword] === undefined) return false;
 				// excecute callback
-				this.callbacks[fn](scope);
+				this.callbacks[keyword](scope);
 			} else {
 				// excecute event
-				$.event.trigger('accordion-' + event);
+				$.event.trigger('accordion-' + keyword);
 			}
 		}
 	});

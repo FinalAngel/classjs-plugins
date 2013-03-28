@@ -2,6 +2,12 @@
 Cl.MobileMenu
 =============
 
+1.1.1
+-----
+- changed all ``bind`` events to ``on``
+- fixed an issue with the height calculation
+- fixed an issue with the ``_fire`` method
+
 1.1.0
 -----
 - added WAI-ARIA flags
