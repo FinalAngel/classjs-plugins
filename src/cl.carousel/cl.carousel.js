@@ -18,7 +18,7 @@ var Cl = window.Cl || {};
 		 */
 
 		options: {
-			'index': 0,
+			'index': null,
 			'timeout': null,
 			'autoplay': false,
 			'easing': 'linear',
@@ -46,7 +46,7 @@ var Cl = window.Cl || {};
 			this.elements = this.viewport.find(this.options.cls.elements);
 			this.navigation = this.container.find(this.options.cls.navigation);
 
-			this.index = this.options.index;
+			this.index = 0;
 			this.active = 0;
 			this.bound = this.elements.length;
 			this.realBound = this._setBound();
@@ -114,7 +114,7 @@ var Cl = window.Cl || {};
 			if(this.options.timeout) this.play();
 
 			// init first
-			this.move();
+			this.move(this.options.index || this.index);
 		},
 
 		next: function () {
