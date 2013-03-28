@@ -80,12 +80,6 @@ var Cl = window.Cl || {};
 				});
 			}
 
-			// TODO add
-			// - aria-hidden for containers
-			// add aria roles
-			// http://oaa-accessibility.org/example/37/
-			// http://www.w3.org/TR/wai-aria/roles
-
 			// setup initial states
 			if(this.options.expanded) {
 				this._setExpanded(undefined, true);
