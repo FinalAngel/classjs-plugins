@@ -2,6 +2,16 @@
 Cl.Carousel
 ===========
 
+1.3.1
+-----
+- added missing event and callback triggers for play, stop and destroy
+- added WAI-ARIA labels
+- fixed an issue where ``destroy`` did not remove all types
+- changed internal event handling to one single method ``_fire``
+- changed from ``bind`` to ``on``
+- changed from ``unbind`` to ``off``
+- removed swipe implementation in favor of external solutions
+
 1.3.0
 -----
 - added ``options.easing``

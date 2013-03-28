@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.3.0
+ * @version     1.3.1
  */
 
 // ensure namespace is defined
@@ -13,23 +13,20 @@ var Cl = window.Cl || {};
 	// creating class
 	Cl.Carousel = new Class({
 		/*
-			TODO 1.3.1
-			- add better swipe implementation
-
 			TODO 1.4.0
 			- add items using ajax
 		 */
 
 		options: {
-			'index': 0, // initial page to load
-			'timeout': null, // timeout for autoplay, if 0 or null autoplay is ignored
-			'autoplay': false, // if true starts animation again after it has been canceled
+			'index': 0,
+			'timeout': null,
+			'autoplay': false,
 			'easing': 'linear',
-			'duration': 300, // duration for animation
-			'move': 'auto', // either "single" to move one element or "auto" to move the whole slider
-			'momentum': true, // allow scrolling over the left and right border
+			'duration': 300,
+			'move': 'auto',
+			'momentum': true,
 			'cls': {
-				'active': 'active', // class that will be used for active states
+				'active': 'active',
 				'disabled': 'disabled',
 				'wrapper': '.wrapper',
 				'viewport': '.viewport',
@@ -55,6 +52,7 @@ var Cl = window.Cl || {};
 			this.realBound = this._setBound();
 			this.timer = function () {};
 			this.callbacks = {};
+			this.width = null;
 
 			this.triggers = {
 				'next': this.container.find(this.options.cls.next),
@@ -77,14 +75,14 @@ var Cl = window.Cl || {};
 			this.wrapper.css('height', this.viewport.height());
 
 			// cancel if bound is bigger then containing items
-			if(this.bound < Math.ceil(this.wrapper.outerWidth(true) / $(this.elements[0]).outerWidth(true))) {
+			if(this.bound < Math.ceil(this.wrapper.outerWidth(true) / this.elements.eq(0).outerWidth(true))) {
 				this.triggers.next.hide();
 				this.triggers.previous.hide();
 				return false;
 			}
 
 			// bind event for next triggers
-			this.triggers.next.bind('click', function (e) {
+			this.triggers.next.on('click', function (e) {
 				e.preventDefault();
 				// determine autoplay status
 				if(!that.options.autoplay) that.options.timeout = null;
@@ -92,7 +90,7 @@ var Cl = window.Cl || {};
 			});
 
 			// bind event for previous triggers
-			this.triggers.previous.bind('click', function (e) {
+			this.triggers.previous.on('click', function (e) {
 				e.preventDefault();
 				// determine autoplay status
 				if(!that.options.autoplay) that.options.timeout = null;
@@ -100,7 +98,7 @@ var Cl = window.Cl || {};
 			});
 
 			// bind navigation
-			this.navigation.bind('click', function (e) {
+			this.navigation.on('click', function (e) {
 				e.preventDefault();
 				// determine autoplay status
 				if(!that.options.autoplay) that.options.timeout = null;
@@ -115,22 +113,19 @@ var Cl = window.Cl || {};
 			// start autoplay
 			if(this.options.timeout) this.play();
 
-			// add swipe event
-			if(typeof($.fn.swipe) === "function" && (Cl.Utils.mobile() || Cl.Utils.tablet())) this._swipe();
-
 			// init first
 			this.move();
 		},
 
 		next: function () {
 			// trigger event
-			this._triggerEvent('next');
+			this._fire('next');
 
 			// set index and active
 			this._setIndex(this.index + 1);
 
 			// trigger callback
-			this._triggerCallback('next', this);
+			this._fire('next', this);
 
 			// move
 			this.move();
@@ -138,13 +133,13 @@ var Cl = window.Cl || {};
 
 		previous: function () {
 			// trigger event
-			this._triggerEvent('previous');
+			this._fire('previous');
 
 			// set index and active
 			this._setIndex(this.index - 1);
 
 			// trigger callback
-			this._triggerCallback('previous', this);
+			this._fire('previous', this);
 
 			// move
 			this.move();
@@ -152,7 +147,7 @@ var Cl = window.Cl || {};
 
 		move: function (index) {
 			// trigger event
-			this._triggerEvent('move');
+			this._fire('move');
 
 			// set new index if neccessary
 			// we need to check for undefined as 0 is false
@@ -185,11 +180,17 @@ var Cl = window.Cl || {};
 			// add appropriate classes to right trigger
 			if(this.index >= this.realBound - 1 && !this.options.momentum) this.triggers.next.addClass(this.options.cls.disabled);
 
+			// add aria states to carousel
+			this._accessibility();
+
 			// trigger callback
-			this._triggerCallback('move', this);
+			this._fire('move', this);
 		},
 
 		play: function () {
+			// trigger event
+			this._fire('play');
+
 			var that = this;
 			// stp previous
 			this.stop();
@@ -199,27 +200,45 @@ var Cl = window.Cl || {};
 			this.timer = setInterval(function () {
 				that.next();
 			}, this.options.timeout);
+
+			// trigger event
+			this._fire('stop');
 		},
 
 		stop: function () {
+			// trigger event
+			this._fire('stop');
+
+			// we just need to clear the intervall
 			clearInterval(this.timer);
+
+			// trigger event
+			this._fire('stop');
 		},
 
 		destroy: function () {
-			this.viewport.removeAttr('css');
-			this.wrapper.removeAttr('css');
-			this.triggers.next.removeAttr('css');
-			this.triggers.previous.removeAttr('css');
+			// trigger event
+			this._fire('destroy');
+
+			this.viewport.removeAttr('style');
+			this.wrapper.removeAttr('style');
+			this.triggers.next.removeAttr('style');
+			this.triggers.previous.removeAttr('style');
 			// remove events
-			this.triggers.next.unbind('click');
-			this.triggers.previous.unbind('click');
-			this.navigation.unbind('click');
+			this.triggers.next.off('click');
+			this.triggers.previous.off('click');
+			this.navigation.off('click');
+			// remove labels
+			this.elements.removeAttr('aria-hidden').removeAttr('aria-selected');
 			// remove interval
 			this.stop();
+
+			// trigger event
+			this._fire('destroy');
 		},
 
 		_setIndex: function (index) {
-			var width = $(this.elements[0]).outerWidth(true);
+			var width = this.elements.eq(0).outerWidth(true);
 			var viewBound = Math.floor(this.wrapper.width() / width);
 			var bound = this._setBound();
 
@@ -234,7 +253,7 @@ var Cl = window.Cl || {};
 		},
 
 		_setBound: function () {
-			var width = $(this.elements[0]).outerWidth(true);
+			var width = this.elements.eq(0).outerWidth(true);
 			var viewBound = Math.floor(this.wrapper.width() / width);
 
 			if(this.options.move === 'auto') {
@@ -246,36 +265,35 @@ var Cl = window.Cl || {};
 			return this.realBound;
 		},
 
-		// add swipe events for mobile
-		_swipe: function () {
-			// requires touchSwipe from plugins
+		_accessibility: function () {
 			var that = this;
+			var width = this.elements.eq(0).outerWidth(true);
+			var viewBound = Math.floor(this.wrapper.width() / width);
+			var index = null;
 
-			this.container.swipe({
-				'swipeLeft': swipeLeft,
-				'swipeRight': swipeRight
-			});
+			// if only one item is moved at a time
+			this.elements
+				.attr('aria-hidden', true)
+				.attr('aria-selected', false);
+			this.elements.eq(this.index).attr('aria-selected', true);
 
-			// inverse movement
-			function swipeLeft() {
-				that.stop();
-				that.next();
-			}
-			function swipeRight() {
-				that.stop();
-				that.previous();
+			for(var i = 0; i < viewBound; i++) {
+				index = that.index * viewBound;
+				if(that.options.move === 'single') index = that.index;
+				this.elements.eq(index + i).attr('aria-hidden', false);
 			}
 		},
 
-		_triggerCallback: function (fn, scope) {
-			// cancel if there is no callback found
-			if(this.callbacks[fn] === undefined) return false;
-			// excecute fallback
-			this.callbacks[fn](scope);
-		},
-
-		_triggerEvent: function (event) {
-			$.event.trigger('carousel-' + event);
+		_fire: function (keyword, scope) {
+			if(scope) {
+				// cancel if there is no callback found
+				if(this.callbacks[keyword] === undefined) return false;
+				// excecute callback
+				this.callbacks[keyword](scope);
+			} else {
+				// excecute event
+				$.event.trigger('accordion-' + keyword);
+			}
 		}
 
 	});
