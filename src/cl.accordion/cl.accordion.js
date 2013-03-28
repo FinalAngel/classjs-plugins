@@ -199,10 +199,10 @@ var Cl = window.Cl || {};
 				// cancel if there is no callback found
 				if(this.callbacks[keyword] === undefined) return false;
 				// excecute callback
-				this.callbacks[fn](scope);
+				this.callbacks[keyword](scope);
 			} else {
 				// excecute event
-				$.event.trigger('accordion-' + event);
+				$.event.trigger('accordion-' + keyword);
 			}
 		}
 
