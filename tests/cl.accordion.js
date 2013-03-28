@@ -1,7 +1,6 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.0
  */
 
 /*
@@ -33,8 +32,14 @@ test('Options', function() {
 	equal(lang.expanded, 'Expanded ', 'expanded is availalbe');
 	equal(lang.collapsed, 'Collapsed ', 'collapsed is availalbe');
 
+	var clsLength = getLength(accordion.options.cls);
+	ok(clsLength === 5, 'there are ' + clsLength + ' options');
+
+	var langLength = getLength(accordion.options.lang);
+	ok(langLength === 2, 'there are ' + langLength + ' options');
+
 	var length = getLength(accordion.options);
-	ok(length === 10, 'there are ' + length + ' options')
+	ok(length === 10, 'there are ' + length + ' options');
 });
 
 test('Methods', function() {
