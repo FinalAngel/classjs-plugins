@@ -110,10 +110,10 @@ You can interact with callbacks as follows::
 *Available keywords*:
 
 .. js:data:: toggle
-    is called when toggling the accordion.
+    is called when triggering method ``toggle``.
 
 .. js:data:: open
-    is called when opening the accordion.
+    is called when triggering method ``open``.
 
 .. js:data:: close
-    is called when closing the accordion.
+    is called when triggering method ``close``.
