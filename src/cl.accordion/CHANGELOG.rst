@@ -2,6 +2,10 @@
 Cl.Accordion
 ============
 
+1.1.2
+-----
+- added window.load so contents height can be correctly loaded
+
 1.1.1
 -----
 - added ``options.lang``

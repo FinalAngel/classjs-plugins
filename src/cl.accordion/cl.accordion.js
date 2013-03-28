@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.1
+ * @version     1.1.2
  */
 
 // ensure namespace is defined
@@ -52,7 +52,11 @@ var Cl = window.Cl || {};
 			// cancel if triggers and containers are not even
 			if(this.triggers.length !== this.containers.length) return false;
 
-			this._setup();
+			var that = this;
+			// this fixes chromes jQuery(window).load issue
+			jQuery(window).load(function () {
+				that._setup();
+			});
 		},
 
 		_setup: function () {
