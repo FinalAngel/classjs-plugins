@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<title>class.js plugins</title>
@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="../static/styles.css" />
 	<script src="../static/js/jquery.min.js"></script>
 	<script src="../static/js/class.min.js"></script>
+	<script src="../static/js/base.js"></script>
 
 	<!-- required files -->
 	<link rel="stylesheet" href="cl.carousel.css" />
@@ -15,7 +16,7 @@
 <body>
 
 <header>
-	<h1><a href="../" class="logo">class<span class="dot">.</span><span class="ext">js</span></a> carousel</h1>
+	<h1><a href="../" class="logo">class<span class="dot">.</span><span class="ext">js</span></a> <a href=".">carousel</a></h1>
 </header>
 
 <section>
@@ -23,10 +24,10 @@
 		<h2>Examples</h2>
 
 		<p>Released under the <strong>BSD License</strong>.
-			The latest source can be found on <a href="../../">Github</a>.<br />
-			Check out the <a href="../../docs/_build/html/src/cl.carousel">Documentation</a> or
-			<a href="../../src/cl.carousel/CHANGELOG.rst">Changelog</a> for detailed information.</p>
-		<p>This plugin has been tested in Firefox, Chrome, Safari and IE7+ and requires class.js 1.0+ and jQuery 1.4+.
+			The latest source can be found on <a href="https://github.com/FinalAngel/classjs-plugins">Github</a>.<br />
+			Check out the <a href="https://classjs-plugins.readthedocs.org/en/latest/src/cl.carousel.html" class="iframe">Documentation</a> or
+			<a href="../../src/cl.carousel/CHANGELOG.rst" class="iframe">Changelog</a> for detailed information.</p>
+		<p>This plugin has been tested in Firefox, Chrome, Safari and IE7+ and requires class.js 1.0+ and jQuery 1.7+.
 			We also tested under iOS, Android and Windows Phone to insure correct responsive behaviour
 			with full accessible support according to the WCAG 2.0 standards.</p>
 
@@ -55,6 +56,7 @@
 				<p class="trigger-next"><a href="#next">next</a></p>
 			</div>
 
+			<!-- populate all index entries -->
 			<nav><a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a> <a href="#">7</a> <a href="#">8</a> <a href="#">9</a> <a href="#">10</a></nav>
 		</div>
 		<!-- end: carousel html -->
@@ -90,7 +92,7 @@
 
 		<h3>Events and Callbacks</h3>
 		<p>
-			&raquo; <code>$(document).bind('cl-carousel-open', function...);</code><br />
+			&raquo; <code>$(document).bind('carousel-open', function...);</code><br />
 			&raquo; <code>my.carousel.callbacks.open = function...</code><br />
 			available events and callbacks are:<br /><code>next</code>, <code>previous</code>, <code>move</code><br />
 			check the console for debug information on events.<br />
