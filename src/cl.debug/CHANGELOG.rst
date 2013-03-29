@@ -8,6 +8,7 @@ Cl.Debug
 - added default options for grid
 - changed bookmarklet to accept title
 - changed helpers to be centralized
+- changed form ``bind`` to ``on``
 - removed not required designmode and resizable
 - removed firebug lite from list
 

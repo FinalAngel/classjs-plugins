@@ -82,7 +82,7 @@ var Cl = window.Cl || {};
 			(this.collapsed === 'true') ? this.template.css('width', 110) : this.template.css('width', 180);
 
 			// close event
-			this.template.find('.divio-dt-close').bind('click', function (e) {
+			this.template.find('.divio-dt-close').on('click', function (e) {
 				e.preventDefault();
 
 				that.frame.hide();
@@ -94,7 +94,7 @@ var Cl = window.Cl || {};
 			}
 
 			// hide event
-			this.template.find('.divio-dt-hide').bind('click', function (e) {
+			this.template.find('.divio-dt-hide').on('click', function (e) {
 				e.preventDefault();
 
 				that.template.css('width', 180);
