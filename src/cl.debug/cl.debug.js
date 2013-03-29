@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.3
+ * @version     1.2.0
  */
 
 // ensure namespace is defined
@@ -33,7 +33,7 @@ var Cl = window.Cl || {};
 			this.elements();
 
 			// attach toolbar to document
-			this.load();
+			$('body').append(this.template);
 		},
 
 		setCSS: function () {
@@ -45,7 +45,7 @@ var Cl = window.Cl || {};
 			this.template += '.divio-dt-body ul { list-style-type:none; padding:0; margin:0; }';
 			this.template += '.divio-dt-body ul li { list-style-type:none; padding:0; margin:0; }';
 			this.template += '.divio-dt-body ul li:last-child a { border:none !important; }';
-			this.template += '.divio-dt-body a { display:block; cursor:pointer; color:#616161; padding:1px 8px; border-bottom:1px solid #00aeef; }';
+			this.template += '.divio-dt-body a { display:block; cursor:pointer; color:#616161; font-size:13px; padding:1px 8px; border-bottom:1px solid #00aeef; }';
 			this.template += '.divio-dt-body a span { color:#00aeef; font-weight:bold; font-family:"Verdana"; font-size:10px; }';
 			this.template += '.divio-dt-body a:hover { color:#000; text-decoration:none; background:#fff; }';
 			this.template += '</style>';
@@ -114,10 +114,8 @@ var Cl = window.Cl || {};
 			// modifiers
 			this.modules.responsive.call(this);
 			this.modules.editable.call(this);
-			this.modules.designmode.call(this);
-			this.modules.resizeable.call(this);
+			this.modules.zoom.call(this);
 			// bookmarklets
-			this.modules.firebug.call(this);
 			this.modules.grid.call(this);
 			this.modules.advanced.call(this);
 			// links
@@ -129,9 +127,10 @@ var Cl = window.Cl || {};
 			'links': function () {
 				var template = '';
 				var links = [
-					{ 'name': 'JQuery', 'url': 'http://docs.jquery.com/Main_Page' },
-					{ 'name': 'Compass', 'url': 'http://compass-style.org/index/mixins/' },
-					{ 'name': 'Django Templates', 'url': 'http://docs.djangoproject.com/en/dev/ref/templates/builtins/' }
+					{ 'name': 'jQuery', 'url': 'http://docs.jquery.com/Main_Page' },
+					{ 'name': 'class.js', 'url': 'http://finalangel.github.com/classjs/' },
+					{ 'name': 'compass', 'url': 'http://compass-style.org/index/mixins/' },
+					{ 'name': 'django templates', 'url': 'http://docs.djangoproject.com/en/dev/ref/templates/builtins/' }
 				];
 				// loop through the array
 				$(links).each(function (index, item) {
@@ -142,108 +141,70 @@ var Cl = window.Cl || {};
 			},
 
 			'responsive': function () {
-				var name = 'Responsive Mode';
 				var script = "javascript:void((function()%7Bvar%20d%3Ddocument%3Bd.write(%27%3C!DOCTYPE%20html%3E%3Chtml%3E%3Chead%3E%3Cmeta%20charset%3D%22UTF-8%22%3E%3Ctitle%3E%27%2Bd.title%2B%27%20-%20Responsive%20test%3C/title%3E%3Clink%20rel%3D%22stylesheet%22%20href%3D%22http://responsive.victorcoulon.fr/assets/css/app.css%22%3E%3Cscript%20src%3D%22http://responsive.victorcoulon.fr/assets/js/app.min.js%22%3E%3C/script%3E%3C/head%3E%3Cbody%3E%3Cheader%3E%3Cdiv%20class%3D%22close%22%3E%3Ca%20href%3D%22%23%22%3E%C3%97%3C/a%3E%3C/div%3E%3Cdiv%20id%3D%22size%22%3E%3C/div%3E%3Cdiv%20class%3D%22keyboard%22%3E%3Ca%20href%3D%22%23%22%3EI%3C/a%3E%3C/div%3E%3Cdiv%20class%3D%22cssrefresh%22%3E%3Ca%20href%3D%22%23%22%3EI%3C/a%3E%3C/div%3E%3Cdiv%20id%3D%22devices%22%3E%3Ca%20href%3D%22%23%22%20class%3D%22tablet-portrait%22%3E%3Cspan%3ETablet%20Portrait%3C/span%3E%3C/a%3E%3Ca%20href%3D%22%23%22%20class%3D%22tablet-landscape%22%3E%3Cspan%3ETablet%20Landscape%3C/span%3E%3C/a%3E%3Ca%20href%3D%22%23%22%20class%3D%22smartphone-landscape%22%3E%3Cspan%3EiPhone%20Landscape%3C/span%3E%3C/a%3E%3Ca%20href%3D%22%23%22%20class%3D%22smartphone-portrait%22%3E%3Cspan%3EiPhone%20Portrait%3C/span%3E%3C/a%3E%3Ca%20href%3D%22%23%22%20class%3D%22auto%20active%22%3E%3Cspan%3EAuto%3C/span%3E%3C/a%3E%3C/div%3E%3C/header%3E%3Csection%3E%3Cdiv%20id%3D%22wrapper%22%3E%3Ciframe%20src%3D%22%27%2Bd.URL%2B%27%22%20onLoad%3D%22resbook.changeUrl(this.contentWindow.location,this.contentDocument.title)%3B%22%3E%3C/iframe%3E%3Cspan%20class%3D%22keyboard-bg%22%3E%3C/span%3E%3C/div%3E%3C/section%3E%3C/body%3E%3C/html%3E%27)%7D)())%3B";
 				// use helper to do the magic
-				this.helper_bookmarklet(name, script);
+				this.helper('Load', 'Responsive Mode', script);
 			},
 
 			'editable': function () {
-				var name = 'Edit Mode';
-				var attr = 'contenteditable';
-				var value = [true, false];
-				var type = 'attr';
-				// use helper to do the magic
-				this.helper_enabler(name, attr, value, type);
+				this.helper('Load', 'Edit Mode', false, 'contentEditable', [true, false]);
 			},
 
-			'designmode': function () {
-				var name = 'Design Mode';
-				var attr = 'designMode';
-				var value = ['on', 'off'];
-				var type = 'attr';
-				// use helper to do the magic
-				this.helper_enabler(name, attr, value, type);
-			},
+			'zoom': function () {
+				// reset zoom
+				if(document.body.style.zoom) document.body.style.zoom = '100%';
 
-			'resizeable': function () {
-				var name = 'Resizable';
-				var attr = 'resize';
-				var value = ['both', 'none'];
-				var type = 'css';
-				// use helper to do the magic
-				this.helper_enabler(name, attr, value, type);
-			},
-
-			'firebug': function () {
-				var name = 'Firebug Lite';
-				var script = "javascript:(function(F,i,r,e,b,u,g,L,I,T,E){if(F.getElementById(b))return;E=F[i+'NS']&&F.documentElement.namespaceURI;E=E?F[i+'NS'](E,'script'):F[i]('script');E[r]('id',b);E[r]('src',I+g+T);E[r](b,u);(F[e]('head')[0]||F[e]('body')[0]).appendChild(E);E=new%20Image;E[r]('src',I+L);})(document,'createElement','setAttribute','getElementsByTagName','FirebugLite','4','firebug-lite-debug.js','releases/lite/debug/skin/xp/sprite.png','https://getfirebug.com/','#startOpened');";
-				// use helper to do the magic
-				this.helper_bookmarklet(name, script);
+				var script = "javascript:(function () { if(document.body.style.zoom === undefined) alert('Your browser does not support JavaScript zoom.');if(window.zoomState === 4) { window.zoomState = 0; }if(window.zoomState === 3) { document.body.style.zoom = '160%'; window.zoomState = 4; }if(window.zoomState === 2) { document.body.style.zoom = '140%'; window.zoomState = 3; }if(window.zoomState === 1) { document.body.style.zoom = '120%'; window.zoomState = 2; }if(window.zoomState === 0) { document.body.style.zoom = '100%'; window.zoomState = 1; }if(window.zoomState === undefined) { document.body.style.zoom = '120%'; window.zoomState = 2; } })();";
+				this.helper('Load', 'Browserzoom', script);
 			},
 
 			'grid': function () {
-				var name = 'Grid';
 				var script = "javascript:(function(){document.body.appendChild(document.createElement('script')).src='http://gridder.andreehansson.se/releases/latest/960.gridder.js';})();";
-				// use helper to do the magic
-				this.helper_bookmarklet(name, script);
+				// set bookmarklet defaults
+				window.gOverride = {
+					gColumns: 24,
+					gColor: '#069',
+					gOpacity: 0.2,
+					pEnabled: false
+				};
+				this.helper('Load', 'Grid', script);
 			},
-
+//
 			'advanced': function () {
-				var name = 'More';
 				var script = "javascript:(function(){var%20jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();";
-				// use helper to do the magic
-				this.helper_bookmarklet(name, script);
+				this.helper('Load', 'More', script);
 			}
 
 		},
 
-		helper_enabler: function (name, attr, value, type) {
-			var state = false;
-			var template = '';
-			template += '<li><a href="#" class="divio-dt-html"><span>&raquo;</span> <strong style="color:#cb3333;">Enable</strong> ' + name + '</a></li>';
-			template = $(template);
-			template.bind('click', function (e) {
-				e.preventDefault();
-				if(state === false) {
-					(type === 'attr') ? $('body').attr(attr, value[0]) : $('*').css(attr, value[0]);
-					$(this).find('strong').css('color', '#6f9935').text('Disable');
-					state = true;
-				} else {
-					(type === 'attr') ? $('body').attr(attr, value[1]) : $('*').css(attr, value[1]);
-					$(this).find('strong').css('color', '#cb3333').text('Enable');
-					state = false;
-				}
-			});
-			this.body.append(template);
-		},
+		helper: function (title, name, script, attr, value) {
+			script = script || '#';
+			var row = $('<li><a href="' + script + '"><span>&raquo;</span> <strong>' + title + '</strong> ' + name + '</a></li>');
+				row.on('click', function (e) {if(attr) {
+					e.preventDefault();
+					if($(this).data('active') === true) {
+						$('*').attr(attr, value[1]);
+						$(this).data('active', false).find('strong').css('color', '#cb3333');
+					} else {
+						$('*').attr(attr, value[0]);
+						$(this).data('active', true).find('strong').css('color', '#6f9935');
+					}
 
-
-		helper_bookmarklet: function (name, script) {
-			var template = '';
-			template += '<li><a href="' + script + '"><span>&raquo;</span> <strong>Load</strong> ' + name + '</a></li>';
-			template = $(template);
-			template.bind('click', function () {
-				$(this).css('opacity', 0.5);
-			});
-			this.body.append(template);
-		},
-
-		load: function () {
-			// append elements to body
-			$('body').append(this.template);
+				}});
+			if(attr) row.find('strong').css('color', '#cb3333');
+			this.body.append(row);
 		},
 
 		setStorage: function (attribute, value) {
 			// cancel if this feature is not supported by some browser
-			if($.browser.msie) return false;
+			if(localStorage === undefined) return false;
 			// save storage
 			localStorage.setItem(attribute, value);
 		},
 
 		getStorage: function (attribute) {
 			// cancel if feature is not supported by some browser
-			if($.browser.msie) return false;
+			if(localStorage === undefined) return false;
 			// retrieve storage
 			return localStorage.getItem(attribute);
 		}
