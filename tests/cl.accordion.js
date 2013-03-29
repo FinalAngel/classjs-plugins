@@ -9,7 +9,7 @@
 
 var accordion = new Cl.Accordion();
 
-module("cl.accordion.js");
+module('cl.accordion.js');
 
 test('Options', function() {
 	var options = ['index', 'expanded', 'event', 'easing', 'duration', 'grouping', 'forceClose',

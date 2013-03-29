@@ -9,7 +9,7 @@
 
 var carousel = new Cl.Carousel();
 
-module("cl.carousel.js");
+module('cl.carousel.js');
 
 test('Options', function() {
 	var options = ['index', 'timeout', 'autoplay', 'easing', 'duration', 'move', 'momentum'];
