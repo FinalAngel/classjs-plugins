@@ -154,7 +154,7 @@ var Cl = window.Cl || {};
 				// reset zoom
 				if(document.body.style.zoom) document.body.style.zoom = '100%';
 
-				var script = "javascript:(function () { if(document.body.style.zoom === undefined) alert('Your browser does not support JavaScript zoom.');if(window.zoomState === 4) { window.zoomState = 0; }if(window.zoomState === 3) { document.body.style.zoom = '160%'; window.zoomState = 4; }if(window.zoomState === 2) { document.body.style.zoom = '140%'; window.zoomState = 3; }if(window.zoomState === 1) { document.body.style.zoom = '120%'; window.zoomState = 2; }if(window.zoomState === 0) { document.body.style.zoom = '100%'; window.zoomState = 1; }if(window.zoomState === undefined) { document.body.style.zoom = '120%'; window.zoomState = 2; } })();";
+				var script = "javascript:(function () { if(document.body.style.zoom === undefined) alert('Your browser does not support JavaScript zoom.');if(window.zoomState === 3) { window.zoomState = 0; }if(window.zoomState === 2) { document.body.style.zoom = '140%'; window.zoomState = 3; }if(window.zoomState === 1) { document.body.style.zoom = '120%'; window.zoomState = 2; }if(window.zoomState === 0) { document.body.style.zoom = '100%'; window.zoomState = 1; }if(window.zoomState === undefined) { document.body.style.zoom = '120%'; window.zoomState = 2; } })();";
 				this.helper('Load', 'Browserzoom', script);
 			},
 
