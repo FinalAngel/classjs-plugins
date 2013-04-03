@@ -5,25 +5,24 @@
  */
 .gallery .wrapper {
   position: relative;
-  margin: 0;
+  z-idnex: 1;
   overflow: hidden;
 }
 .gallery .viewport {
   position: absolute;
-  top: 0;
-  right: 0;
   left: 0;
+  top: 0;
+  width: 100%;
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 .gallery .viewport li {
-  display: block;
   display: none;
   position: absolute;
-  top: 0;
-  right: 0;
   left: 0;
+  top: 0;
+  width: 100%;
 }
 .gallery .viewport li img {
   display: block;

@@ -14,15 +14,16 @@ $gallery-line-height: 12px;
 
 // required styles
 .gallery {
-	.wrapper { position:relative; margin:0; overflow:hidden; }
+	.wrapper { position:relative; z-idnex:1; overflow:hidden; }
 	.viewport {
-		position: absolute; top: 0; right: 0; left: 0; list-style-type:none; padding:0; margin:0;
+		position:absolute; left:0; top:0; width:100%; list-style-type:none; padding:0; margin:0;
 
-		li { display: block; display: none; position: absolute; top: 0; right: 0; left: 0; }
-		li img { display: block; max-width: 100%; margin: 0 auto;  }
-		li.active { display: block; }
+		li { display:none; position:absolute; left:0; top:0; width:100%; }
+		li img { display:block; max-width:100%; margin:0 auto;  }
+		li.active { display:block; }
 	}
 
+	// custom styles
 	.trigger-next, .trigger-previous { position:absolute; top:50%; z-index:101; margin:0;
 		font-size:$gallery-font-size; line-height:$gallery-line-height;
 		margin-top:-10px; background:rgba(black, 0.6); }

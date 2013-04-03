@@ -1,7 +1,7 @@
 /*!
  * @author      Aleš Kocjančič - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.1
+ * @version     2.0.0
  */
 
 // ensure namespace is defined
@@ -13,24 +13,26 @@ var Cl = window.Cl || {};
 	// creating class
 	Cl.Gallery = new Class({
 		/*
-			TODO 1.1.0
-			-
+			TODO 2.1.0
+			- add coverflow feature
 		 */
 
 		options: {
-			'index': 0, // initial image to show
+			'index': null, // initial image to show
 			'timeout': 5000, // if set, the gallery will start moving automatically
+			'autoplay': false, // same as carousel
 			'easing': 'linear',
 			'duration': 300, // duration for animation
-			'direction': 'right', // direction to move by default (left, right, random)
-			'animation': 'fade', // animation type (fade, slide)
+			'move': 'next', // direction to move by default (next, previous or random)
+			'engine': 'slide', // animation type (fade, slide)
 			'cls': { // these selectors are all relative to the container
 				'active': 'active', // class that will be used for active thumbnails
 				'wrapper': '.wrapper', // viewport wrapper
 				'viewport': '.viewport', // item container
-				'navigation': 'nav', // navigation triggers container
+				'elements': '.item',
 				'next': '.trigger-next a', // right trigger
-				'previous': '.trigger-previous a' // left trigger
+				'previous': '.trigger-previous a', // left trigger
+				'navigation': 'nav a' // navigation triggers container
 			}
 		},
 
@@ -40,164 +42,232 @@ var Cl = window.Cl || {};
 
 			this.wrapper = this.container.find(this.options.cls.wrapper);
 			this.viewport = this.container.find(this.options.cls.viewport);
-			this.elements = this.container.find(this.options.cls.viewport).children();
-			this.navigation = this.container.find(this.options.cls.navigation).children();
+			this.elements = this.container.find(this.options.cls.elements);
+			this.navigation = this.container.find(this.options.cls.navigation);
 
 			this.triggers = {
 				'next': this.container.find(this.options.cls.next),
 				'previous': this.container.find(this.options.cls.previous)
 			};
 
-			this.index = this.options.index;
+			this.index = null;
+			this.bound = this.elements.length;
+			this.direction = '';
+			this.queue = false;
 			this.timer = function () {};
+			this.callbacks = {};
 
 			var that = this;
 			// this fixes chromes jQuery(window).load issue
 			jQuery(window).load(function () {
 				if(that.elements.length > 0) that._setup();
 			});
-
 		},
 
 		_setup: function () {
 			var that = this;
 
 			// dynamically set height if necessary (only happens on page reload)
-			if (!parseInt(this.wrapper.css('height'))) {
-				this.wrapper.css('height', $(this.elements[0]).outerHeight(true));
-			}
+			this.wrapper.css('height', this.elements.eq(0).outerHeight(true));
 
-			// set initial image
-			this.navigation.removeClass(this.options.cls.active);
-			$(this.navigation[this.options.index]).addClass(this.options.cls.active);
-			this.elements.hide();
-			$(this.elements[this.options.index]).show();
-
-			// bind navigation events
-			this.navigation.bind('click', function(e) {
+			// bind event for next triggers
+			this.triggers.next.on('click', function(e) {
 				e.preventDefault();
-				clearInterval(that.timer);
-				that.move(that.navigation.index(this));
+				// determine autoplay status
+				if(!that.options.autoplay) that.options.timeout = null;
+				that.next();
 			});
 
-			// bind next and previous triggers
-			this.triggers.next.bind('click', function(e) {
+			// bind event for previous triggers
+			this.triggers.previous.on('click', function(e) {
 				e.preventDefault();
-				that.next('right', true);
+				// determine autoplay status
+				if(!that.options.autoplay) that.options.timeout = null;
+				that.previous();
 			});
-			this.triggers.previous.bind('click', function(e) {
+
+			// bind navigation
+			this.navigation.on('click', function (e) {
 				e.preventDefault();
-				that.previous('left', true);
+				// determine autoplay status
+				if(!that.options.autoplay) that.options.timeout = null;
+				that.move(that.navigation.index($(this)), 'random');
 			});
+
+			// show elements
+			this.navigation.show();
+			this.triggers.next.show();
+			this.triggers.previous.show();
 
 			// start autoplay
-			this._autoplay();
+			if(this.options.timeout) this.play();
+
+			// init first
+			this.move(this.options.index || 0, 'setup');
 		},
 
-		_autoplay: function () {
-			var that = this;
-			if (this.options.timeout) {
-				this.timer = setInterval(function () {
-					if (that.options.direction === 'left') {
-						that.previous('left');
-					} else if (that.options.direction === 'random') {
-						var rand = Math.floor(Math.random()*that.elements.length);
-						that.move(rand);
-					} else {
-						that.next('right');
-					}
-				}, this.options.timeout);
-			}
+		next: function () {
+			// trigger event
+			this._fire('next');
+
+			// move
+			this.move(this.index + 1, 'next');
+
+			// trigger callback
+			this._fire('next', this);
 		},
 
-		next: function (direction, clearTimer) {
-			if (clearTimer) clearInterval(this.timer);
-			var next = this.index + 1 < this.elements.length ? this.index + 1 : 0;
-			this.move(next, direction);
-		},
+		previous: function () {
+			// trigger event
+			this._fire('previous');
 
-		previous: function (direction, clearTimer) {
-			if (clearTimer) clearInterval(this.timer);
-			var next = this.index - 1 >= 0 ? this.index - 1 : this.elements.length - 1;
-			this.move(next, direction);
+			// move
+			this.move(this.index - 1, 'previous');
+
+			// trigger callback
+			this._fire('previous', this);
 		},
 
 		move: function (index, direction) {
-			if(direction === undefined) direction = 'right';
+			// cancel if queue
+			if(this.queue) return false;
+
+			// set new height
+			this.wrapper.css('height', this.elements.eq(this.index).outerHeight(true));
+
+			// cancel if index is the same
+			if(index === this.index) return false;
+
+			// set new index
+			this.index = this._setIndex(index);
+
+			// set direction
+			this.direction = direction || this.options.move;
+
+			// rest timer
+			this.play();
+
+			// add accessibility
+			this._accessibility();
+
+			// change active navigation
 			this.navigation.removeClass(this.options.cls.active);
-			$(this.navigation[index]).addClass(this.options.cls.active);
-			if (index != this.index) {
-				if (this.options.animation == 'slide') {
-					this._animateSlide(index, this.index, direction);
-				} else {
-					this._animateFade(index);
-				}
-				this.index = index;
-			}
+			this.navigation.eq(this.index).addClass(this.options.cls.active);
+
+			// start the engine
+			this.engine[this.options.engine].call(this);
 		},
 
-		_animateFade: function(index) {
-			$(this.elements[this.index]).fadeOut(this.options.duration);
-			$(this.elements[index]).stop(true, true).fadeIn(this.options.duration);
+		play: function () {
+			// trigger event
+			this._fire('play');
+
+			var that = this;
+			// stp previous
+			this.stop();
+			// cancel if timeout is still 0
+			if(this.options.timeout <= 0) return false;
+			// start timer
+			this.timer = setInterval(function () {
+				that.next();
+			}, this.options.timeout);
+
+			// trigger event
+			this._fire('stop');
 		},
 
-		_animateSlide: function(indexNext, indexPrev, direction) {
-			var width = parseInt($(this.wrapper).outerWidth(true));
-			var dir = 'right';
-			var prev = $(this.elements[indexPrev]);
-			var next = $(this.elements[indexNext]);
+		stop: function () {
+			// trigger event
+			this._fire('stop');
 
-			if (this.elements.length > 2) {
-				if (indexNext < indexPrev) {
-					if (indexPrev === this.elements.length-1 && indexNext === 0) dir = 'right'; else dir = 'left';
+			// we just need to clear the intervall
+			clearInterval(this.timer);
+
+			// trigger event
+			this._fire('stop');
+		},
+
+		update: function () {
+			// update gallery scripts
+			this.move(this.index);
+		},
+
+		engine: {
+
+			'fade': function () {
+				// add fade animation
+				this.elements.fadeOut(this.options.duration, this.options.transition);
+				this.elements.eq(this.index).fadeIn(this.options.duration, this.options.transition);
+			},
+
+			'slide': function () {
+				// set queue
+				this.queue = true;
+
+				// setup
+				if(this.direction === 'setup') {
+					var el = this.elements.eq(this.index);
+					// we need to set a fixed width and height
+					this.elements.show().css('left', -9999);
+					el.css('left', 0);
+					// we don't need a queue here
+					this.queue = false;
 				} else {
-					if (indexPrev === 0 && indexNext === this.elements.length-1) dir = 'left'; else dir = 'right';
+					// get current element
+					var width = this.viewport.outerWidth();
+					var visible = this.elements.filter(function () {
+						return parseInt($(this).css('left')) === 0;
+					});
+
+					// animate old element
+					visible.animate({
+						'left': (this.direction === 'previous') ? width : -width
+					}, this.options.duration, this.options.transition, function () {
+						// ensure element is out of reach
+						$(this).css('left', -9999);
+					});
+					// animate new element
+					this.elements.eq(this.index).css('left', (this.direction === 'previous') ? -width : width).animate({
+						'left': 0
+					}, this.options.duration, this.options.transition);
 				}
-			} else if (direction === 'left') {
-				dir = 'left';
+
+				var that = this;
+				setTimeout(function () {
+					that.queue = false;
+				}, this.options.duration);
 			}
 
-			if (dir === 'left') {
-				prev.css('width', width);
-				next.css('width', width);
-				prev.css('marginLeft', 0);
-				next.css('marginLeft', -width).show();
-				prev.stop(true).animate(
-					{ marginLeft: width },
-					this.options.duration,
-					function() {
-						$(this).removeAttr('style').hide();
-					}
-				);
-				next.stop(true).animate(
-					{ marginLeft: 0 },
-					this.options.duration,
-					function() {
-						$(this).removeAttr('style').show();
-					}
-				);
+		},
+
+		_setIndex: function (index) {
+			if(index < 0) index = this.bound - 1;
+			if(index >= this.bound) index = 0;
+
+			return index;
+		},
+
+		_accessibility: function () {
+			// if only one item is moved at a time
+			this.elements
+				.attr('aria-hidden', true)
+				.attr('aria-selected', false);
+			this.elements.eq(this.index)
+				.attr('aria-hidden', false)
+				.attr('aria-selected', true);
+		},
+
+		_fire: function (keyword, scope) {
+			if(scope) {
+				// cancel if there is no callback found
+				if(this.callbacks[keyword] === undefined) return false;
+				// excecute callback
+				this.callbacks[keyword](scope);
 			} else {
-				prev.css('width', width);
-				next.css('width', width);
-				prev.css('marginLeft', 0);
-				next.css('marginLeft', width).show();
-				prev.stop(true).animate(
-					{ marginLeft: -width },
-					this.options.duration,
-					function() {
-						$(this).removeAttr('style').hide();
-					}
-				);
-				next.stop(true).animate(
-					{ marginLeft: 0 },
-					this.options.duration,
-					function() {
-						$(this).removeAttr('style').show();
-					}
-				);
+				// excecute event
+				$.event.trigger('accordion-' + keyword);
 			}
 		}
-
 	});
 
 })(jQuery);
