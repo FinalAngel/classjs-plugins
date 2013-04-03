@@ -135,7 +135,10 @@ jQuery(document).ready(function ($) {
 	$(document).bind(
 		'carousel-next ' +
 		'carousel-previous ' +
-		'carousel-move', function (e) {
+		'carousel-move ' +
+		'carousel-play ' +
+		'carousel-stop ' +
+		'carousel-destroy', function (e) {
 		if(console && console.log) console.log('trigger event: ' + e.type);
 	});
 });

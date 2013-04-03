@@ -11,6 +11,8 @@ Cl.Carousel
 - changed internal event handling to one single method ``_fire``
 - changed from ``bind`` to ``on``
 - changed from ``unbind`` to ``off``
+- changed index setter from next and previous to move
+- changed play and pause handling
 - removed swipe implementation in favor of external solutions
 
 1.3.0

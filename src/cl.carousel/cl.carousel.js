@@ -13,8 +13,11 @@ var Cl = window.Cl || {};
 	// creating class
 	Cl.Carousel = new Class({
 		/*
+			TODO 1.3.2
+			- add bound handling if there are less or equal items than viewBound
 			TODO 1.4.0
 			- add items using ajax
+			- add unlimited moving
 		 */
 
 		options: {
@@ -46,8 +49,7 @@ var Cl = window.Cl || {};
 			this.elements = this.viewport.find(this.options.cls.elements);
 			this.navigation = this.container.find(this.options.cls.navigation);
 
-			this.index = 0;
-			this.active = 0;
+			this.index = null;
 			this.bound = this.elements.length;
 			this.realBound = this._setBound();
 			this.timer = function () {};
@@ -114,47 +116,46 @@ var Cl = window.Cl || {};
 			if(this.options.timeout) this.play();
 
 			// init first
-			this.move(this.options.index || this.index);
+			this.move(this.options.index || 0);
 		},
 
 		next: function () {
 			// trigger event
 			this._fire('next');
 
-			// set index and active
-			this._setIndex(this.index + 1);
+			// move
+			this.move(this.index + 1);
 
 			// trigger callback
 			this._fire('next', this);
-
-			// move
-			this.move();
 		},
 
 		previous: function () {
 			// trigger event
 			this._fire('previous');
 
-			// set index and active
-			this._setIndex(this.index - 1);
+			// move
+			this.move(this.index - 1);
 
 			// trigger callback
 			this._fire('previous', this);
-
-			// move
-			this.move();
 		},
 
 		move: function (index) {
 			// trigger event
 			this._fire('move');
 
-			// set new index if neccessary
-			// we need to check for undefined as 0 is false
-			if(index !== undefined) this._setIndex(index);
+			// cancel if index is the same
+			if(index === this.index) return false;
+
+			// set new index
+			this.index = this._setIndex(index);
 
 			// check if we should autoplay
-			this.play();
+			if(!(this.options.timeout <= 0)) {
+				this.stop();
+				this.play();
+			}
 
 			// cancel autoplay if momentum is true and autoplay activated
 			if(!this.options.momentum && this.index >= (this.realBound - 1)) this.stop();
@@ -192,10 +193,6 @@ var Cl = window.Cl || {};
 			this._fire('play');
 
 			var that = this;
-			// stp previous
-			this.stop();
-			// cancel if timeout is still 0
-			if(this.options.timeout <= 0) return false;
 			// start timer
 			this.timer = setInterval(function () {
 				that.next();
@@ -292,7 +289,7 @@ var Cl = window.Cl || {};
 				this.callbacks[keyword](scope);
 			} else {
 				// excecute event
-				$.event.trigger('accordion-' + keyword);
+				$.event.trigger('carousel-' + keyword);
 			}
 		}
 
