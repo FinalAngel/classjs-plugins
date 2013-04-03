@@ -152,10 +152,8 @@ var Cl = window.Cl || {};
 			this.index = this._setIndex(index);
 
 			// check if we should autoplay
-			if(!(this.options.timeout <= 0)) {
-				this.stop();
-				this.play();
-			}
+			if(this.autoplay) this.stop();
+			if(this.options.timeout > 0) this.play();
 
 			// cancel autoplay if momentum is true and autoplay activated
 			if(!this.options.momentum && this.index >= (this.realBound - 1)) this.stop();
@@ -198,6 +196,9 @@ var Cl = window.Cl || {};
 				that.next();
 			}, this.options.timeout);
 
+			// set runner
+			this.autoplay = true;
+
 			// trigger event
 			this._fire('stop');
 		},
@@ -208,6 +209,9 @@ var Cl = window.Cl || {};
 
 			// we just need to clear the intervall
 			clearInterval(this.timer);
+
+			// unset runner
+			this.autoplay = false;
 
 			// trigger event
 			this._fire('stop');

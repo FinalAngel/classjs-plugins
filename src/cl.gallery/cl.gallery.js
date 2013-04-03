@@ -54,6 +54,7 @@ var Cl = window.Cl || {};
 			this.bound = this.elements.length;
 			this.direction = '';
 			this.queue = false;
+			this.autoplay = false;
 			this.timer = function () {};
 			this.callbacks = {};
 
@@ -141,11 +142,12 @@ var Cl = window.Cl || {};
 			// set new index
 			this.index = this._setIndex(index);
 
+			// check if we should autoplay
+			if(this.autoplay) this.stop();
+			if(this.options.timeout > 0) this.play();
+
 			// set direction
 			this.direction = direction || this.options.move;
-
-			// rest timer
-			this.play();
 
 			// add accessibility
 			this._accessibility();
@@ -163,14 +165,13 @@ var Cl = window.Cl || {};
 			this._fire('play');
 
 			var that = this;
-			// stp previous
-			this.stop();
-			// cancel if timeout is still 0
-			if(this.options.timeout <= 0) return false;
 			// start timer
 			this.timer = setInterval(function () {
 				that.next();
 			}, this.options.timeout);
+
+			// set runner
+			this.autoplay = true;
 
 			// trigger event
 			this._fire('stop');
@@ -182,6 +183,9 @@ var Cl = window.Cl || {};
 
 			// we just need to clear the intervall
 			clearInterval(this.timer);
+
+			// unset runner
+			this.autoplay = false;
 
 			// trigger event
 			this._fire('stop');
