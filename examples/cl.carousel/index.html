@@ -81,19 +81,19 @@
 
 		<h3>Methods</h3>
 		<p>
-			&raquo; <a href="http://www.django-cms.org" onclick="my.carousel.next(); return false;"><code>my.carousel.next()</code></a><br />
-			&raquo; <a href="http://www.django-cms.org" onclick="my.carousel.previous(); return false;"><code>my.carousel.previous()</code></a><br />
-			&raquo; <a href="http://www.django-cms.org" onclick="my.carousel.move(2); return false;"><code>my.carousel.move(index)</code></a><br />
-			&raquo; <a href="http://www.django-cms.org" onclick="my.carousel.play(); return false;"><code>my.carousel.play()</code></a><br />
-			&raquo; <a href="http://www.django-cms.org" onclick="my.carousel.stop(); return false;"><code>my.carousel.stop()</code></a><br />
-			&raquo; <a href="http://www.django-cms.org" onclick="my.carousel.destroy(); return false;"><code>my.carousel.destroy()</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.next(); return false;"><code>my.carousel.next()</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.previous(); return false;"><code>my.carousel.previous()</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.move(2); return false;"><code>my.carousel.move(index)</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.play(); return false;"><code>my.carousel.play()</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.stop(); return false;"><code>my.carousel.stop()</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.destroy(); return false;"><code>my.carousel.destroy()</code></a><br />
 		</p>
 		<div class="spacer"></div>
 
 		<h3>Events and Callbacks</h3>
 		<p>
-			&raquo; <code>$(document).bind('carousel-open', function...);</code><br />
-			&raquo; <code>my.carousel.callbacks.open = function...</code><br />
+			&raquo; <code>$(document).on('carousel-next', function...);</code><br />
+			&raquo; <code>my.carousel.callbacks.next = function...</code><br />
 			available events and callbacks are:<br /><code>next</code>, <code>previous</code>, <code>move</code><br />
 			check the console for debug information on events.<br />
 		</p>
@@ -111,28 +111,28 @@ jQuery(document).ready(function ($) {
 	// grouped lightbox
 	var carousel = my.carousel = new Cl.Carousel('.carousel');
 
-	$('.carousel-opt-timeout').bind('click', function (e) { e.preventDefault();
+	$('.carousel-opt-timeout').on('click', function (e) { e.preventDefault();
 		my.carousel.options.timeout = 2000;
 		my.carousel.play();
 	});
-	$('.carousel-opt-autoplay').bind('click', function (e) { e.preventDefault();
+	$('.carousel-opt-autoplay').on('click', function (e) { e.preventDefault();
 		my.carousel.options.autoplay = true;
 	});
-	$('.carousel-opt-easing').bind('click', function (e) { e.preventDefault();
+	$('.carousel-opt-easing').on('click', function (e) { e.preventDefault();
 		my.carousel.options.easing = 'easeInOutCubic';
 	});
-	$('.carousel-opt-duration').bind('click', function (e) { e.preventDefault();
+	$('.carousel-opt-duration').on('click', function (e) { e.preventDefault();
 		my.carousel.options.duration = 1000;
 	});
-	$('.carousel-opt-move').bind('click', function (e) { e.preventDefault();
+	$('.carousel-opt-move').on('click', function (e) { e.preventDefault();
 		my.carousel.options.move = 'single';
 	});
-	$('.carousel-opt-momentum').bind('click', function (e) { e.preventDefault();
+	$('.carousel-opt-momentum').on('click', function (e) { e.preventDefault();
 		my.carousel.options.momentum = false;
 	});
 
 	// debugging events
-	$(document).bind(
+	$(document).on(
 		'carousel-next ' +
 		'carousel-previous ' +
 		'carousel-move ' +

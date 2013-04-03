@@ -135,15 +135,15 @@
 
 		<h3>Methods</h3>
 		<p>
-			&raquo; <a href="http://www.django-cms.org" onclick="my.accordion.toggle(2); return false;"><code>my.accordion.toggle(index)</code></a><br />
-			&raquo; <a href="http://www.django-cms.org" onclick="my.accordion.show(); return false;"><code>my.accordion.show(, [index])</code></a><br />
-			&raquo; <a href="http://www.django-cms.org" onclick="my.accordion.hide(); return false;"><code>my.accordion.hide(, [index])</code></a><br />
+			&raquo; <a href="#" onclick="my.accordion.toggle(2); return false;"><code>my.accordion.toggle(index)</code></a><br />
+			&raquo; <a href="#" onclick="my.accordion.show(); return false;"><code>my.accordion.show(, [index])</code></a><br />
+			&raquo; <a href="#" onclick="my.accordion.hide(); return false;"><code>my.accordion.hide(, [index])</code></a><br />
 		</p>
 		<div class="spacer"></div>
 
 		<h3>Events and Callbacks</h3>
 		<p>
-			&raquo; <code>$(document).bind('accordion-toggle', function...);</code><br />
+			&raquo; <code>$(document).on('accordion-toggle', function...);</code><br />
 			&raquo; <code>my.accordion.callbacks.toggle = function...</code><br />
 			available events and callbacks are:<br /><code>toggle</code>, <code>show</code>, <code>hide</code><br />
 			check the console for debug information on events.<br />
@@ -165,21 +165,21 @@ jQuery(document).ready(function ($) {
 	new Cl.Accordion('#accordion-002', { 'forceClose': true, 'expanded': true });
 	new Cl.Accordion('#accordion-003', { 'forceClose': true, 'expanded': true });
 
-	$('.carousel-opt-easing').bind('click', function (e) { e.preventDefault();
+	$('.carousel-opt-easing').on('click', function (e) { e.preventDefault();
 		my.accordion.options.easing = 'easeInOutCubic';
 	});
-	$('.carousel-opt-duration').bind('click', function (e) { e.preventDefault();
+	$('.carousel-opt-duration').on('click', function (e) { e.preventDefault();
 		my.accordion.options.duration = 0;
 	});
-	$('.carousel-opt-grouping').bind('click', function (e) { e.preventDefault();
+	$('.carousel-opt-grouping').on('click', function (e) { e.preventDefault();
 		my.accordion.options.grouping = false;
 	});
-	$('.carousel-opt-forceClose').bind('click', function (e) { e.preventDefault();
+	$('.carousel-opt-forceClose').on('click', function (e) { e.preventDefault();
 		my.accordion.options.forceClose = true;
 	});
 
 	// debugging events
-	$(document).bind(
+	$(document).on(
 		'accordion-toggle ' +
 		'accordion-show ' +
 		'accordion-hide', function (e) {
