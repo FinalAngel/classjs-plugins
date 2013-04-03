@@ -269,7 +269,7 @@ var Cl = window.Cl || {};
 				this.callbacks[keyword](scope);
 			} else {
 				// excecute event
-				$.event.trigger('accordion-' + keyword);
+				$.event.trigger('gallery-' + keyword);
 			}
 		}
 	});
