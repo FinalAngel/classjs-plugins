@@ -42,6 +42,7 @@ hr { height:1px; margin:10px 0;
 .clear { clear: both; display: block; overflow: hidden; }
 .nospace { margin:0; }
 .align-right { text-align:right; }
+.align-center { text-align:center; }
 .spacer { height:15px; margin:0; overflow:hidden; }
 .nowrap { white-space:nowrap; }
 
@@ -73,6 +74,9 @@ form label { cursor:pointer; font-size:13px; }
 .box:hover span { color:#fff; }
 
 .linklist a { display:inline-block; width:150px; }
+
+.btn { color:white; padding:10px 15px; background:#39c; border-radius:5px; }
+.btn:hover { color:white; background:#0f3e62; }
 
 /* RESPONSIVE */
 header h1, section .inner { padding-left:20px; padding-right:20px; }

@@ -8,9 +8,6 @@
 	<script src="../static/js/jquery.min.js"></script>
 	<script src="../static/js/class.min.js"></script>
 	<script src="../static/js/base.js"></script>
-
-	<!-- required files -->
-	<script src="../../src/cl.debug/cl.debug.js"></script>
 </head>
 <body>
 
@@ -32,6 +29,9 @@
 
 		<h3>Debug</h3>
 		<p>The Cl.Debug button is shown on the lower right corner when initialized.</p>
+		<div class="spacer"></div>
+		<p class="align-center"><a href="javascript:(function(){document.body.appendChild(document.createElement('script')).src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js';document.body.appendChild(document.createElement('script')).src='//raw.github.com/FinalAngel/classjs/master/src/class.min.js';document.body.appendChild(document.createElement('script')).src='//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.debug/cl.debug.js';setTimeout(function () {new Cl.Debug();}, 1000);})();" class="btn">
+			Load Bookmarklet</a></p>
 		<!-- start: carousel html -->
 
 		<!-- end: carousel html -->
@@ -60,7 +60,7 @@ var my = {};
 
 jQuery(document).ready(function ($) {
 	// grouped lightbox
-	my.debug = new Cl.Debug();
+	//my.debug = new Cl.Debug();
 });
 </script>
 
