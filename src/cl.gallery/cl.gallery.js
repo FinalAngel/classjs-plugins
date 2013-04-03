@@ -100,9 +100,6 @@ var Cl = window.Cl || {};
 			this.triggers.next.show();
 			this.triggers.previous.show();
 
-			// start autoplay
-			if(this.options.timeout) this.play();
-
 			// init first
 			this.move(this.options.index || 0, 'setup');
 		},
@@ -131,7 +128,7 @@ var Cl = window.Cl || {};
 
 		move: function (index, direction) {
 			// trigger event
-			this._fire('play');
+			this._fire('move');
 
 			// cancel if queue
 			if(this.queue) return false;
@@ -163,7 +160,7 @@ var Cl = window.Cl || {};
 			this.engine[this.options.engine].call(this);
 
 			// trigger event
-			this._fire('play', this);
+			this._fire('move', this);
 		},
 
 		play: function () {
