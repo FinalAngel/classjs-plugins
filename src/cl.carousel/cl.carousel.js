@@ -200,7 +200,7 @@ var Cl = window.Cl || {};
 			this.autoplay = true;
 
 			// trigger event
-			this._fire('stop');
+			this._fire('play', this);
 		},
 
 		stop: function () {
@@ -214,7 +214,7 @@ var Cl = window.Cl || {};
 			this.autoplay = false;
 
 			// trigger event
-			this._fire('stop');
+			this._fire('stop', this);
 		},
 
 		destroy: function () {
@@ -235,7 +235,7 @@ var Cl = window.Cl || {};
 			this.stop();
 
 			// trigger event
-			this._fire('destroy');
+			this._fire('destroy', this);
 		},
 
 		_setIndex: function (index) {
