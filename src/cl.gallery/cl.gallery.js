@@ -24,7 +24,7 @@ var Cl = window.Cl || {};
 			'easing': 'linear',
 			'duration': 300, // duration for animation
 			'move': 'next', // direction to move by default (next, previous or random)
-			'engine': 'slide', // animation type (fade, slide)
+			'engine': 'fade', // animation type (fade, slide)
 			'cls': { // these selectors are all relative to the container
 				'active': 'active', // class that will be used for active thumbnails
 				'wrapper': '.wrapper', // viewport wrapper
@@ -130,6 +130,9 @@ var Cl = window.Cl || {};
 		},
 
 		move: function (index, direction) {
+			// trigger event
+			this._fire('play');
+
 			// cancel if queue
 			if(this.queue) return false;
 
@@ -158,6 +161,9 @@ var Cl = window.Cl || {};
 
 			// start the engine
 			this.engine[this.options.engine].call(this);
+
+			// trigger event
+			this._fire('play', this);
 		},
 
 		play: function () {
@@ -174,7 +180,7 @@ var Cl = window.Cl || {};
 			this.autoplay = true;
 
 			// trigger event
-			this._fire('stop');
+			this._fire('play', this);
 		},
 
 		stop: function () {
@@ -188,12 +194,18 @@ var Cl = window.Cl || {};
 			this.autoplay = false;
 
 			// trigger event
-			this._fire('stop');
+			this._fire('stop', this);
 		},
 
 		update: function () {
+			// trigger event
+			this._fire('update');
+
 			// update gallery scripts
 			this.move(this.index);
+
+			// trigger event
+			this._fire('update', this);
 		},
 
 		engine: {
