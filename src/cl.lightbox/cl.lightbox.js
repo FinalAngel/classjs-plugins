@@ -77,7 +77,7 @@ var Cl = window.Cl || {};
 
 			// attach initial event on lightbox triggers
 			this.triggers = $(triggers);
-			this.triggers.bind('click', function (e) {
+			this.triggers.on('click', function (e) {
 				e.preventDefault();
 				that.open.call(that, this);
 			});
@@ -183,7 +183,7 @@ var Cl = window.Cl || {};
 			// trigger event
 			this._triggerEvent('destroy');
 
-			this.triggers.unbind('click');
+			this.triggers.off('click');
 			this.instance.remove();
 
 			// trigger callback
@@ -481,11 +481,11 @@ var Cl = window.Cl || {};
 			if(this.isOpen) return false;
 
 			// attach window resize event for lightbox
-			this.window.bind('resize.'+this.options.prefix+'.lightbox', function () {
+			this.window.on('resize.'+this.options.prefix+'.lightbox', function () {
 				that._resize.call(that, 'css');
 			});
 			if(this.options.fixed) {
-				this.window.bind('scroll.'+this.options.prefix+'.lightbox', function () {
+				this.window.on('scroll.'+this.options.prefix+'.lightbox', function () {
 					that._resize.call(that, 'css');
 				});
 			}
@@ -493,7 +493,7 @@ var Cl = window.Cl || {};
 			// the dimmer is loaded when "modal" is set to true
 			if(this.options.modal) {
 				// than bind the resize event to the windnt
-				this.window.bind('resize.'+this.options.prefix+'.lightboxdim', function () {
+				this.window.on('resize.'+this.options.prefix+'.lightboxdim', function () {
 					that._resizeDim.call(that, false);
 				});
 
@@ -504,7 +504,7 @@ var Cl = window.Cl || {};
 			// the dimmer is clickable when "modalClickable" is set to true
 			if(this.options.modalClickable) {
 				// add event to hide dimmer when clicking on the grey area
-				this.dimmer.bind('click', function (e) {
+				this.dimmer.on('click', function (e) {
 					e.preventDefault();
 					if(!that.options.modalClosable) return false;
 					that.close.call(that);
@@ -516,7 +516,7 @@ var Cl = window.Cl || {};
 
 			if(this.options.controls) {
 				// attach close to appropriate button
-				this.controls.find('a[href="#close"]').bind('click', function (e) {
+				this.controls.find('a[href="#close"]').on('click', function (e) {
 					e.preventDefault();
 					if(!that.options.modalClosable) return false;
 					$(this).show();
@@ -524,21 +524,21 @@ var Cl = window.Cl || {};
 				});
 
 				// attach previous event
-				this.controls.find('a[href="#previous"]').bind('click', function (e) {
+				this.controls.find('a[href="#previous"]').on('click', function (e) {
 					e.preventDefault();
 					that.previous.call(that);
 				});
 				// attach next event
-				this.controls.find('a[href="#next"]').bind('click', function (e) {
+				this.controls.find('a[href="#next"]').on('click', function (e) {
 					e.preventDefault();
 					that.next.call(that);
 				});
 				// attach hover event for buttons
-				this.content.bind('mouseenter', function () {
+				this.content.on('mouseenter', function () {
 					if(!that.collection) return false;
 					that.nav.find('a').stop().css('opacity', 1).fadeIn(that.options.speed);
 				});
-				this.frame.bind('mouseleave', function () {
+				this.frame.on('mouseleave', function () {
 					if(!that.collection) return false;
 					that.nav.find('a').stop().fadeOut(that.options.speed);
 				});
@@ -546,7 +546,7 @@ var Cl = window.Cl || {};
 
 			// enable key navigation
 			if(this.options.keys) {
-				$(document).bind('keydown', function (e) {
+				$(document).on('keydown', function (e) {
 					if(($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keyCodes.close) >= 0) && that.options.modalClosable) that.close();
 					if($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keyCodes.next) >= 0) that.next();
 					if($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keyCodes.previous) >= 0) that.previous();
@@ -558,21 +558,21 @@ var Cl = window.Cl || {};
 
 		_detachEvents: function () {
 			// unbind window dimmer resize event
-			this.window.unbind('resize.'+this.options.prefix+'.lightboxdim');
+			this.window.off('resize.'+this.options.prefix+'.lightboxdim');
 			// unbind dimmer click area
-			this.dimmer.unbind('click');
+			this.dimmer.off('click');
 			// unbind window resize event for the lightbox
-			this.window.unbind('resize.'+this.options.prefix+'.lightbox');
-			this.window.unbind('scroll.'+this.options.prefix+'.lightbox');
+			this.window.off('resize.'+this.options.prefix+'.lightbox');
+			this.window.off('scroll.'+this.options.prefix+'.lightbox');
 			// unbind close event
-			this.controls.find('a[href="#close"]').unbind('click');
+			this.controls.find('a[href="#close"]').off('click');
 			// detach controls events
-			this.controls.find('a[href="#previous"]').unbind('click');
-			this.controls.find('a[href="#next"]').unbind('click');
-			this.content.unbind('mouseenter');
-			this.frame.unbind('mouseleave');
+			this.controls.find('a[href="#previous"]').off('click');
+			this.controls.find('a[href="#next"]').off('click');
+			this.content.off('mouseenter');
+			this.frame.off('mouseleave');
 			// disable key navigation
-			$(document).unbind('keydown');
+			$(document).off('keydown');
 		},
 
 		_triggerCallback: function (fn, scope) {

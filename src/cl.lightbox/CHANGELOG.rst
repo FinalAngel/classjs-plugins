@@ -2,6 +2,10 @@
 Cl.Lightbox
 ===========
 
+1.1.1
+-----
+- changed from bind/unbind events to on/off
+
 1.1.0
 -----
 - added cursor reset when using modalClickable and modalClosable
