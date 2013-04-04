@@ -1,0 +1,110 @@
+@charset "utf-8";
+/*
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ */
+@media screen and (max-width: 539px) {
+  body {
+    position: relative;
+  }
+
+  .mainnav {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 1000;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+    -webkit-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+    box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+  }
+  .mainnav ul, .mainnav li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  .mainnav ul {
+    border-bottom: 1px solid #444444;
+  }
+  .mainnav li {
+    border-top: 1px solid #444444;
+  }
+  .mainnav li a {
+    display: block;
+    color: #ccc;
+    padding: 10px 20px;
+  }
+  .mainnav li a:hover {
+    color: #fff;
+    text-decoration: none;
+    background: #474747;
+  }
+  .mainnav .title {
+    color: white;
+    font-size: 18px;
+    padding: 20px 20px;
+  }
+
+  .mainnav-knob {
+    cursor: pointer;
+    width: 30px;
+    height: 29px;
+    margin: 0 0 20px;
+    border-radius: 5px;
+    background: #3399cc url("../static/img/mainnav-mobile.png") no-repeat left top;
+  }
+  .mainnav-knob:hover, .mainnav-knob:active, .mainnav-knob:focus {
+    background-color: #0f3e62;
+    background-position: left -30px;
+  }
+}
+@media screen and (min-width: 540px) {
+  .mainnav {
+    display: block;
+    overflow: hidden;
+    *zoom: 1;
+    margin: 0 0 20px;
+  }
+  .mainnav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  .mainnav li {
+    padding: 0;
+    float: left;
+  }
+  .mainnav a {
+    float: left;
+    color: white;
+    background: #39c;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    padding: 4px 15px;
+    margin-right: 10px;
+  }
+  .mainnav a:hover, .mainnav a:active, .mainnav a:focus {
+    background: #0f3e62;
+  }
+  .mainnav .title {
+    display: none;
+  }
+
+  .mainnav-knob {
+    display: none;
+  }
+}
+.mainnav-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  width: 30%;
+  height: 100%;
+  background: transparent;
+}

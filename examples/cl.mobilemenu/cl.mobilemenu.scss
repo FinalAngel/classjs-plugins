@@ -9,44 +9,49 @@
 @import "compass/utilities";
 
 // variables
-$carousel-font-size: 12px;
-$carousel-line-height: 12px;
 
-// required styles
-.carousel {
-	position:relative; z-index:100;
+// customm styles
+@media screen and (max-width: 539px) {
+	body { position:relative; }
+	// mainnav is hidden here per default
+	.mainnav { position:absolute; left:-9999px; top:0; z-index:1000; overflow:auto;
+		padding:0; margin:0;
+		@include box-shadow(inset -1.5em 0 1.5em -0.75em rgba(black, 0.25));
 
-	.wrapper { position:relative; z-index:100; width:100%; overflow:hidden; }
+		// set some basic styles
+		ul, li { list-style-type:none; padding:0; margin:0; }
 
-	.viewport { position:absolute; left:0; top:0; @include clearfix(); height:auto;
-		list-style-type:none; padding:0; margin:0; width:9999em; }
-	.viewport li { float:left; padding:0; margin:0; }
+		ul { border-bottom:1px solid #444; }
+		li { border-top:1px solid #444; }
 
-	.trigger-next, .trigger-previous { padding:0; margin:0; }
+		li a { display:block; color:#ccc; padding:10px 20px; }
+		li a:hover { color:#fff; text-decoration:none; background:#474747; }
 
-	.disabled { display:none !important; }
+		.title { color:white; font-size:18px; padding:20px 20px; }
+	}
+
+	// style for the knob
+	.mainnav-knob { cursor:pointer; width:30px; height:29px; margin:0 0 20px; border-radius:5px;
+		background:#39c url('../static/img/mainnav-mobile.png') no-repeat left top;
+		&:hover, &:active, &:focus { background-color:#0f3e62; background-position:left -30px; } }
 }
 
-// custom styles
-.carousel {
-	margin:0 0 20px;
+@media screen and (min-width: 540px) {
+	// mainnav is shown here
+	.mainnav {
+		display:block; @include clearfix(); margin:0 0 20px;
 
-	.trigger-next, .trigger-previous { position:absolute; top:50%; z-index:101;
-		font-size:$carousel-font-size; line-height:$carousel-line-height;
-		margin-top:-10px; background:rgba(black, 0.6); }
-	.trigger-next { right:0; }
-	.trigger-previous { left:0; }
-	.trigger-next a, .trigger-previous a { display:none; float:left; padding:4px;
-		&:hover { color:white;} }
+		ul { list-style-type:none; padding:0; margin:0; }
+		li { padding:0; float:left; }
+		a { float:left; color:white; background:#39c; @include border-radius(5px);
+			padding:4px 15px; margin-right:10px;
+			&:hover, &:active, &:focus { background:#0f3e62; } }
 
-	.wrapper { min-height:100px; } // only for nojs
-
-	.viewport li { width:105px; text-align:center; padding:5px; margin-right:10px; background:white;
-		@include border-radius(3px); @include box-shadow(0 0 1px #ccc); }
-
-	nav { text-align:center; padding-top:15px; }
-	nav a { font-size:11px; line-height:11px; padding:2px 6px 3px 6px;
-		@include inline-block(); display:none; @include border-radius(10px); border:1px solid #e5e5e5; background:#fff; }
-	nav a:hover { background:#f9f9f9; }
-	nav .active { color:#fff !important; border-color:#39c !important; background:#39c !important; }
+		.title { display:none; }
+	}
+	// knob should be hidden on desktop
+	.mainnav-knob { display:none; }
 }
+
+.mainnav-overlay { position:fixed; top:0; right:0; z-index:9999;
+	width:30%; height:100%; background:transparent; }
