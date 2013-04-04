@@ -13,7 +13,7 @@ Cl.Gallery
 - added WAI-ARIA labels
 - changed index from 0 to null
 - changed ``direction`` to ``move``
-- changed ``move`` default values to next, previous or random
+- removed option ``move``
 
 1.0.1
 -----

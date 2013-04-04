@@ -23,7 +23,6 @@ var Cl = window.Cl || {};
 			'autoplay': false, // same as carousel
 			'easing': 'linear',
 			'duration': 300, // duration for animation
-			'move': 'next', // direction to move by default (next, previous or random)
 			'engine': 'fade', // animation type (fade, slide)
 			'cls': { // these selectors are all relative to the container
 				'active': 'active', // class that will be used for active thumbnails
@@ -147,7 +146,7 @@ var Cl = window.Cl || {};
 			if(this.options.timeout > 0) this.play();
 
 			// set direction
-			this.direction = direction || this.options.move;
+			this.direction = direction || 'next';
 
 			// add accessibility
 			this._accessibility();
