@@ -1,5 +1,5 @@
 /*!
- * @author      Aleš Kocjančič - github.com/finalangel/classjs-plugins
+ * @author      Aleš Kocjančič, Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
  * @version     2.0.0
  */
