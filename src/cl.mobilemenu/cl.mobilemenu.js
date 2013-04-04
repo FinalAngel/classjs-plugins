@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.1
+ * @version     1.1.2
  */
 
 // ensure namespace is defined
@@ -16,14 +16,15 @@ var Cl = window.Cl || {};
 		options: {
 			'easing': 'linear',
 			'duration': 300,
-			'bound': 720,
+			'bound': 539,
 			'ratio': 70 / 100,
 			'offset': {
-				'left': -10,
+				'left': 0,
 				'top': 0
 			},
 			'cls': {
 				'menu': '.mainnav',
+				'inner': '> ul',
 				'knob': '.mainnav-knob'
 			},
 			'overlay': '<div class="mainnav-overlay"></div>'
@@ -78,11 +79,8 @@ var Cl = window.Cl || {};
 			// attach resize event for hiding mobile menu
 			$(window).on('resize.menu', function () {
 				if(that.visible && $(window).width() >= that.options.bound) that.hide(0);
-				if($(window).width() <= that.options.bound) {
-					that.menu.height(0);
-				} else {
-					that.menu.height('auto');
-				}
+
+				that.menu.height('auto');
 			});
 		},
 
@@ -170,7 +168,7 @@ var Cl = window.Cl || {};
 				this.callbacks[keyword](scope);
 			} else {
 				// excecute event
-				$.event.trigger('accordion-' + keyword);
+				$.event.trigger('mobilemenu-' + keyword);
 			}
 		}
 	});

@@ -2,6 +2,11 @@
 Cl.MobileMenu
 =============
 
+1.1.2
+-----
+- added option ``inner`` for cls which is used for the height calculation
+- fixed an issue where _fire triggered wrong event
+
 1.1.1
 -----
 - changed all ``bind`` events to ``on``
