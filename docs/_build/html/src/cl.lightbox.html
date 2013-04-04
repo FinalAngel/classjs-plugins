@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>cl.lightbox &mdash; classjs 1.0 documentation</title>
+    <title>Cl.Lightbox &mdash; classjs 1.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="classjs 1.0 documentation" href="../index.html" />
-    <link rel="prev" title="Cl.Accordion" href="cl.accordion.html" /> 
+    <link rel="prev" title="Cl.Gallery" href="cl.gallery.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,7 +36,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="cl.accordion.html" title="Cl.Accordion"
+          <a href="cl.gallery.html" title="Cl.Gallery"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">classjs 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -48,12 +48,10 @@
           <div class="body">
             
   <div class="section" id="cl-lightbox">
-<h1>cl.lightbox<a class="headerlink" href="#cl-lightbox" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="api-reference">
-<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<h1>Cl.Lightbox<a class="headerlink" href="#cl-lightbox" title="Permalink to this headline">¶</a></h1>
 <p>This is a list of all relevant options, methods, events and callbacks.</p>
 <div class="section" id="options">
-<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
 <p>Options are set on initializing the lightbox:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Lightbox</span><span class="p">({</span>
     <span class="s1">&#39;group&#39;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -61,146 +59,137 @@
 <span class="p">});</span>
 </pre></div>
 </div>
-<dl class="data">
-<dt id="prefix: 'cl'">
-<tt class="descname">prefix: 'cl'</tt><a class="headerlink" href="#prefix: 'cl'" title="Permalink to this definition">¶</a></dt>
-<dt id="the prefix is attached to all internal events and css classes for example cl-lightbox or cl-lightbox.">
-<tt class="descclassname">the prefix is attached to all internal events and css classes for example cl-lightbox or cl-lightbox.</tt><tt class="descname"></tt><a class="headerlink" href="#the prefix is attached to all internal events and css classes for example cl-lightbox or cl-lightbox." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="group: true">
-<tt class="descname">group: true</tt><a class="headerlink" href="#group: true" title="Permalink to this definition">¶</a></dt>
-<dt id="allows grouping of matching elements and enables status and navigation.">
-<tt class="descclassname">allows grouping of matching elements and enables status and navigation.</tt><tt class="descname"></tt><a class="headerlink" href="#allows grouping of matching elements and enables status and navigation." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="cycle: true">
-<tt class="descname">cycle: true</tt><a class="headerlink" href="#cycle: true" title="Permalink to this definition">¶</a></dt>
-<dt id="``requires group`` allows previous and next methods to cycle through matching elements.">
-<tt class="descclassname">``requires group`` allows previous and next methods to cycle through matching elements.</tt><tt class="descname"></tt><a class="headerlink" href="#``requires group`` allows previous and next methods to cycle through matching elements." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="modal: true">
-<tt class="descname">modal: true</tt><a class="headerlink" href="#modal: true" title="Permalink to this definition">¶</a></dt>
-<dt id="enables the dimmer functionality.">
-<tt class="descclassname">enables the dimmer functionality.</tt><tt class="descname"></tt><a class="headerlink" href="#enables the dimmer functionality." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="modalClickable: true">
-<tt class="descname">modalClickable: true</tt><a class="headerlink" href="#modalClickable: true" title="Permalink to this definition">¶</a></dt>
-<dt id="``requires modal`` allows the dimmer to be closed onclick.">
-<tt class="descclassname">``requires modal`` allows the dimmer to be closed onclick.</tt><tt class="descname"></tt><a class="headerlink" href="#``requires modal`` allows the dimmer to be closed onclick." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="modalClosable: true">
-<tt class="descname">modalClosable: true</tt><a class="headerlink" href="#modalClosable: true" title="Permalink to this definition">¶</a></dt>
-<dt id="``requires modalClickable`` disables all close events, lightbox can be only closed using the API.">
-<tt class="descclassname">``requires modalClickable`` disables all close events, lightbox can be only closed using the API.</tt><tt class="descname"></tt><a class="headerlink" href="#``requires modalClickable`` disables all close events, lightbox can be only closed using the API." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="forceLoad: false">
-<tt class="descname">forceLoad: false</tt><a class="headerlink" href="#forceLoad: false" title="Permalink to this definition">¶</a></dt>
-<dt id="if enabled, insures that iframes are fully loaded before display.">
-<tt class="descclassname">if enabled, insures that iframes are fully loaded before display.</tt><tt class="descname"></tt><a class="headerlink" href="#if enabled, insures that iframes are fully loaded before display." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="easing: 'linear'">
-<tt class="descname">easing: 'linear'</tt><a class="headerlink" href="#easing: 'linear'" title="Permalink to this definition">¶</a></dt>
-<dt id="jquery easing effect for all animations.">
-<tt class="descclassname">jquery easing effect for all animations.</tt><tt class="descname"></tt><a class="headerlink" href="#jquery easing effect for all animations." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="duration: 300">
-<tt class="descname">duration: 300</tt><a class="headerlink" href="#duration: 300" title="Permalink to this definition">¶</a></dt>
-<dt id="duration until the lightbox is fully expanded.">
-<tt class="descclassname">duration until the lightbox is fully expanded.</tt><tt class="descname"></tt><a class="headerlink" href="#duration until the lightbox is fully expanded." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="speed: 300">
-<tt class="descname">speed: 300</tt><a class="headerlink" href="#speed: 300" title="Permalink to this definition">¶</a></dt>
-<dt id="speed for all regular animations.">
-<tt class="descclassname">speed for all regular animations.</tt><tt class="descname"></tt><a class="headerlink" href="#speed for all regular animations." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="fixed: true">
-<tt class="descname">fixed: true</tt><a class="headerlink" href="#fixed: true" title="Permalink to this definition">¶</a></dt>
-<dt id="sets the lightbox always inside the viewport of the user even when scrolling.">
-<tt class="descclassname">sets the lightbox always inside the viewport of the user even when scrolling.</tt><tt class="descname"></tt><a class="headerlink" href="#sets the lightbox always inside the viewport of the user even when scrolling." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="responsive: true">
-<tt class="descname">responsive: true</tt><a class="headerlink" href="#responsive: true" title="Permalink to this definition">¶</a></dt>
-<dt id="enables responsive behaviour of the lightbox.">
-<tt class="descclassname">enables responsive behaviour of the lightbox.</tt><tt class="descname"></tt><a class="headerlink" href="#enables responsive behaviour of the lightbox." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="ajax: false">
-<tt class="descname">ajax: false</tt><a class="headerlink" href="#ajax: false" title="Permalink to this definition">¶</a></dt>
-<dt id="ajax loads the provided url and tries to inject the html into the lightbox. It does not create an iframe in order to maintain the css style.">
-<tt class="descclassname">ajax loads the provided url and tries to inject the html into the lightbox. It does not create an iframe in order to maintain the css style.</tt><tt class="descname"></tt><a class="headerlink" href="#ajax loads the provided url and tries to inject the html into the lightbox. It does not create an iframe in order to maintain the css style." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="controls: true">
-<tt class="descname">controls: true</tt><a class="headerlink" href="#controls: true" title="Permalink to this definition">¶</a></dt>
-<dt id="``requires group``enables controllable elements when a collection is active.">
-<tt class="descclassname">``requires group``enables controllable elements when a collection is active.</tt><tt class="descname"></tt><a class="headerlink" href="#``requires group``enables controllable elements when a collection is active." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="styles: {}">
-<tt class="descname">styles: {}</tt><a class="headerlink" href="#styles: {}" title="Permalink to this definition">¶</a></dt>
-<dt id="adds jquery style css object to gallery content element.">
-<tt class="descclassname">adds jquery style css object to gallery content element.</tt><tt class="descname"></tt><a class="headerlink" href="#adds jquery style css object to gallery content element." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="dimensions: {}">
-<tt class="descname">dimensions: {}</tt><a class="headerlink" href="#dimensions: {}" title="Permalink to this definition">¶</a></dt>
-<dt id="object includes ``initialWidth``, ``initialHeight``, ``bound`` for outer bound, ``offset`` for content padding, ``width`` and ``height``.">
-<tt class="descclassname">object includes ``initialWidth``, ``initialHeight``, ``bound`` for outer bound, ``offset`` for content padding, ``width`` and ``height``.</tt><tt class="descname"></tt><a class="headerlink" href="#object includes ``initialWidth``, ``initialHeight``, ``bound`` for outer bound, ``offset`` for content padding, ``width`` and ``height``." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="keys: true">
-<tt class="descname">keys: true</tt><a class="headerlink" href="#keys: true" title="Permalink to this definition">¶</a></dt>
-<dt id="enables control for the lightbox using the keyboard.">
-<tt class="descclassname">enables control for the lightbox using the keyboard.</tt><tt class="descname"></tt><a class="headerlink" href="#enables control for the lightbox using the keyboard." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="keyCodes: {}">
-<tt class="descname">keyCodes: {}</tt><a class="headerlink" href="#keyCodes: {}" title="Permalink to this definition">¶</a></dt>
-<dt id="``requires keys`` enables key control for ``close``, ``next`` and ``previous``.">
-<tt class="descclassname">``requires keys`` enables key control for ``close``, ``next`` and ``previous``.</tt><tt class="descname"></tt><a class="headerlink" href="#``requires keys`` enables key control for ``close``, ``next`` and ``previous``." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="lang: {}">
-<tt class="descname">lang: {}</tt><a class="headerlink" href="#lang: {}" title="Permalink to this definition">¶</a></dt>
-<dt id="translatable strings used inside the lightbox.">
-<tt class="descclassname">translatable strings used inside the lightbox.</tt><tt class="descname"></tt><a class="headerlink" href="#translatable strings used inside the lightbox." title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="5%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Default</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>prefix</td>
+<td>&#8216;cl&#8217;</td>
+<td>the prefix is attached to all internal events and css classes for example cl-lightbox or cl-lightbox.</td>
+</tr>
+<tr class="row-odd"><td>group</td>
+<td>true</td>
+<td>allows grouping of matching elements and enables status and navigation.</td>
+</tr>
+<tr class="row-even"><td>cycle</td>
+<td>true</td>
+<td><tt class="docutils literal"><span class="pre">requires</span> <span class="pre">group</span></tt> allows previous and next methods to cycle through matching elements.</td>
+</tr>
+<tr class="row-odd"><td>modal</td>
+<td>true</td>
+<td>enables the dimmer functionality.</td>
+</tr>
+<tr class="row-even"><td>modalClickable</td>
+<td>true</td>
+<td><tt class="docutils literal"><span class="pre">requires</span> <span class="pre">modal</span></tt> allows the dimmer to be closed onclick.</td>
+</tr>
+<tr class="row-odd"><td>modalClosable</td>
+<td>true</td>
+<td><tt class="docutils literal"><span class="pre">requires</span> <span class="pre">modalClickable</span></tt> disables all close events, lightbox can be only closed using the API.</td>
+</tr>
+<tr class="row-even"><td>forceLoad</td>
+<td>false</td>
+<td>if enabled, insures that iframes are fully loaded before display.</td>
+</tr>
+<tr class="row-odd"><td>easing</td>
+<td>&#8216;linear&#8217;</td>
+<td>jquery easing effect for all animations.</td>
+</tr>
+<tr class="row-even"><td>duration</td>
+<td>300</td>
+<td>duration until the lightbox is fully expanded.</td>
+</tr>
+<tr class="row-odd"><td>speed</td>
+<td>300</td>
+<td>speed for all regular animations.</td>
+</tr>
+<tr class="row-even"><td>fixed</td>
+<td>true</td>
+<td>sets the lightbox always inside the viewport of the user even when scrolling.</td>
+</tr>
+<tr class="row-odd"><td>responsive</td>
+<td>true</td>
+<td>enables responsive behaviour of the lightbox.</td>
+</tr>
+<tr class="row-even"><td>easing</td>
+<td>&#8216;linear&#8217;</td>
+<td>jquery easing effect for all animations.</td>
+</tr>
+<tr class="row-odd"><td>ajax</td>
+<td>false</td>
+<td>ajax loads the provided url and tries to inject the html into the lightbox. It does not create an iframe in order to maintain the css style.</td>
+</tr>
+<tr class="row-even"><td>controls</td>
+<td>true</td>
+<td><tt class="docutils literal"><span class="pre">requires</span> <span class="pre">group</span></tt> enables controllable elements when a collection is active.</td>
+</tr>
+<tr class="row-odd"><td>styles</td>
+<td>Object</td>
+<td>adds jquery style css object to gallery content element.</td>
+</tr>
+<tr class="row-even"><td>easing</td>
+<td>Object</td>
+<td>object includes <tt class="docutils literal"><span class="pre">initialWidth</span></tt>, <tt class="docutils literal"><span class="pre">initialHeight</span></tt>, <tt class="docutils literal"><span class="pre">bound</span></tt> for outer bound, <tt class="docutils literal"><span class="pre">offset</span></tt> for content padding, <tt class="docutils literal"><span class="pre">width</span></tt> and <tt class="docutils literal"><span class="pre">height</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>keys</td>
+<td>true</td>
+<td>enables control for the lightbox using the keyboard.</td>
+</tr>
+<tr class="row-even"><td>keyCodes</td>
+<td>Object</td>
+<td><tt class="docutils literal"><span class="pre">requires</span> <span class="pre">keys</span></tt> enables key control for <tt class="docutils literal"><span class="pre">close</span></tt>, <tt class="docutils literal"><span class="pre">next</span></tt> and <tt class="docutils literal"><span class="pre">previous</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>lang</td>
+<td>Object</td>
+<td>the available language configurations.</td>
+</tr>
+</tbody>
+</table>
+<p>Option <tt class="docutils literal"><span class="pre">lang</span></tt> strings:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>close</td>
+<td>&#8216;Close lightbox&#8217;</td>
+</tr>
+<tr class="row-odd"><td>errorMessage</td>
+<td>&#8216;&lt;p&gt;&lt;strong&gt;The requested element...&lt;/p&gt;&#8217;</td>
+</tr>
+<tr class="row-even"><td>next</td>
+<td>&#8216;Next&#8217;</td>
+</tr>
+<tr class="row-odd"><td>previous</td>
+<td>&#8216;Previous&#8217;</td>
+</tr>
+<tr class="row-even"><td>status</td>
+<td>&#8216;Slide {current} of {total}.&#8217;</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="methods">
-<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
-<p>Methods can be called using the instance of the Class:</p>
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>Methods can be called using an instance of the class:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">lightbox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Lightbox</span><span class="p">();</span>
-
-<span class="nx">lightbox</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.lightbox&#39;</span><span class="p">));</span>
+    <span class="c1">// trigger the instanace</span>
+    <span class="nx">lightbox</span><span class="p">.</span><span class="nx">open</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>All Methods have appropriate events and callbacks.</p>
@@ -337,90 +326,90 @@
 
 </div>
 <div class="section" id="events-and-callbacks">
-<h3>Events and Callbacks<a class="headerlink" href="#events-and-callbacks" title="Permalink to this headline">¶</a></h3>
-<p><strong>Events</strong> are always triggered <strong>before</strong> the function is excecuted and on the document level.</p>
-<p>You can also interact with events, for example:</p>
+<h2>Events and Callbacks<a class="headerlink" href="#events-and-callbacks" title="Permalink to this headline">¶</a></h2>
+<p><strong>Events</strong> are always triggered <strong>before</strong> the method is excecuted on the <tt class="docutils literal"><span class="pre">document</span></tt> level.
+You can interact with event as follows:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">lightbox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Lightbox</span><span class="p">();</span>
-
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;cl-lightbox-open&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// attach event</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;cl-lightbox-open&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;lightbox is opening&#39;</span><span class="p">);</span>
 <span class="p">});</span>
 </pre></div>
 </div>
-<p><strong>Callbacks</strong> are always triggered <strong>after</strong> the function is excecuted.</p>
-<p>Write your own callbacks using the options, for example:</p>
+<p><strong>Callbacks</strong> are always triggered <strong>after</strong> the method is excecuted.
+You can interact with callbacks as follows:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">lightbox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Lightbox</span><span class="p">();</span>
-
-<span class="nx">lightbox</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;lightbox has opened&#39;</span><span class="p">);</span>
+<span class="c1">// register callback</span>
+<span class="nx">lightbox</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">close</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;lightbox is closing&#39;</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></div>
 </div>
+<p><em>Available keywords</em>:</p>
 <dl class="attribute">
 <dt id="open">
 <tt class="descname">open</tt><a class="headerlink" href="#open" title="Permalink to this definition">¶</a></dt>
-<dt id="is called when opening the lightbox.">
-<tt class="descclassname">is called when opening the lightbox.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when opening the lightbox." title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``open``.">
+<tt class="descclassname">is called when triggering method ``open``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``open``." title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="close">
 <tt class="descname">close</tt><a class="headerlink" href="#close" title="Permalink to this definition">¶</a></dt>
-<dt id="is called when closing the lightbox.">
-<tt class="descclassname">is called when closing the lightbox.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when closing the lightbox." title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``close``.">
+<tt class="descclassname">is called when triggering method ``close``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``close``." title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="resize">
 <tt class="descname">resize</tt><a class="headerlink" href="#resize" title="Permalink to this definition">¶</a></dt>
-<dt id="is called when resizing the lightbox.">
-<tt class="descclassname">is called when resizing the lightbox.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when resizing the lightbox." title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``resize``.">
+<tt class="descclassname">is called when triggering method ``resize``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``resize``." title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="destroy">
 <tt class="descname">destroy</tt><a class="headerlink" href="#destroy" title="Permalink to this definition">¶</a></dt>
-<dt id="is called when the lightbox gets destroyed.">
-<tt class="descclassname">is called when the lightbox gets destroyed.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when the lightbox gets destroyed." title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``destroy``.">
+<tt class="descclassname">is called when triggering method ``destroy``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``destroy``." title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="next">
 <tt class="descname">next</tt><a class="headerlink" href="#next" title="Permalink to this definition">¶</a></dt>
-<dt id="'next': function (self) {}.">
-<tt class="descclassname">'next': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'next': function (self) {}." title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``next``.">
+<tt class="descclassname">is called when triggering method ``next``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``next``." title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="previous">
 <tt class="descname">previous</tt><a class="headerlink" href="#previous" title="Permalink to this definition">¶</a></dt>
-<dt id="'previous': function (self) {}.">
-<tt class="descclassname">'previous': function (self) {}.</tt><tt class="descname"></tt><a class="headerlink" href="#'previous': function (self) {}." title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``previous``.">
+<tt class="descclassname">is called when triggering method ``previous``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``previous``." title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>Additional:</p>
+<p><em>Private keywords</em>:</p>
 <dl class="attribute">
 <dt id="load">
 <tt class="descname">load</tt><a class="headerlink" href="#load" title="Permalink to this definition">¶</a></dt>
-<dt id="is called when preloading data.">
-<tt class="descclassname">is called when preloading data.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when preloading data." title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering private method ``load``.">
+<tt class="descclassname">is called when triggering private method ``load``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering private method ``load``." title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="complete">
 <tt class="descname">complete</tt><a class="headerlink" href="#complete" title="Permalink to this definition">¶</a></dt>
-<dt id="is called when preloading is completed.">
-<tt class="descclassname">is called when preloading is completed.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when preloading is completed." title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering private method ``complete``.">
+<tt class="descclassname">is called when triggering private method ``complete``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering private method ``complete``." title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="unload">
 <tt class="descname">unload</tt><a class="headerlink" href="#unload" title="Permalink to this definition">¶</a></dt>
-<dt id="is called when data is unloaded.">
-<tt class="descclassname">is called when data is unloaded.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when data is unloaded." title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering private method ``unload``.">
+<tt class="descclassname">is called when triggering private method ``unload``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering private method ``unload``." title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
 </div>
 </div>
 
@@ -432,20 +421,17 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">cl.lightbox</a><ul>
-<li><a class="reference internal" href="#api-reference">API Reference</a><ul>
+<li><a class="reference internal" href="#">Cl.Lightbox</a><ul>
 <li><a class="reference internal" href="#options">Options</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
 <li><a class="reference internal" href="#events-and-callbacks">Events and Callbacks</a></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="cl.accordion.html"
-                        title="previous chapter">Cl.Accordion</a></p>
+  <p class="topless"><a href="cl.gallery.html"
+                        title="previous chapter">Cl.Gallery</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/src/cl.lightbox.txt"
@@ -475,7 +461,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="cl.accordion.html" title="Cl.Accordion"
+          <a href="cl.gallery.html" title="Cl.Gallery"
              >previous</a> |</li>
         <li><a href="../index.html">classjs 1.0 documentation</a> &raquo;</li> 
       </ul>

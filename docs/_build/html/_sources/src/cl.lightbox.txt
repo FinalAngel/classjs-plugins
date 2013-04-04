@@ -1,10 +1,6 @@
-***********
-cl.lightbox
-***********
-
-
-API Reference
-=============
+===========
+Cl.Lightbox
+===========
 
 This is a list of all relevant options, methods, events and callbacks.
 
@@ -19,72 +15,53 @@ Options are set on initializing the lightbox::
         'responsive': false
     });
 
-.. js:data:: prefix: 'cl'
-    the prefix is attached to all internal events and css classes for example cl-lightbox or cl-lightbox.
+==============     ========     ===========
+Option             Default      Description
+==============     ========     ===========
+prefix             'cl'         the prefix is attached to all internal events and css classes for example cl-lightbox or cl-lightbox.
+group              true         allows grouping of matching elements and enables status and navigation.
+cycle              true         ``requires group`` allows previous and next methods to cycle through matching elements.
+modal              true         enables the dimmer functionality.
+modalClickable     true         ``requires modal`` allows the dimmer to be closed onclick.
+modalClosable      true         ``requires modalClickable`` disables all close events, lightbox can be only closed using the API.
+forceLoad          false        if enabled, insures that iframes are fully loaded before display.
+easing             'linear'     jquery easing effect for all animations.
+duration           300          duration until the lightbox is fully expanded.
+speed              300          speed for all regular animations.
+fixed              true         sets the lightbox always inside the viewport of the user even when scrolling.
+responsive         true         enables responsive behaviour of the lightbox.
+easing             'linear'     jquery easing effect for all animations.
+ajax               false        ajax loads the provided url and tries to inject the html into the lightbox. It does not create an iframe in order to maintain the css style.
+controls           true         ``requires group`` enables controllable elements when a collection is active.
+styles             Object       adds jquery style css object to gallery content element.
+easing             Object       object includes ``initialWidth``, ``initialHeight``, ``bound`` for outer bound, ``offset`` for content padding, ``width`` and ``height``.
+keys               true         enables control for the lightbox using the keyboard.
+keyCodes           Object       ``requires keys`` enables key control for ``close``, ``next`` and ``previous``.
+lang               Object       the available language configurations.
+==============     ========     ===========
 
-.. js:data:: group: true
-    allows grouping of matching elements and enables status and navigation.
 
-.. js:data:: cycle: true
-    ``requires group`` allows previous and next methods to cycle through matching elements.
+Option ``lang`` strings:
 
-.. js:data:: modal: true
-    enables the dimmer functionality.
-
-.. js:data:: modalClickable: true
-    ``requires modal`` allows the dimmer to be closed onclick.
-
-.. js:data:: modalClosable: true
-    ``requires modalClickable`` disables all close events, lightbox can be only closed using the API.
-
-.. js:data:: forceLoad: false
-    if enabled, insures that iframes are fully loaded before display.
-
-.. js:data:: easing: 'linear'
-    jquery easing effect for all animations.
-
-.. js:data:: duration: 300
-    duration until the lightbox is fully expanded.
-
-.. js:data:: speed: 300
-    speed for all regular animations.
-
-.. js:data:: fixed: true
-    sets the lightbox always inside the viewport of the user even when scrolling.
-
-.. js:data:: responsive: true
-    enables responsive behaviour of the lightbox.
-
-.. js:data:: ajax: false
-    ajax loads the provided url and tries to inject the html into the lightbox. It does not create an iframe in order to maintain the css style.
-
-.. js:data:: controls: true
-    ``requires group``enables controllable elements when a collection is active.
-
-.. js:data:: styles: {}
-    adds jquery style css object to gallery content element.
-
-.. js:data:: dimensions: {}
-    object includes ``initialWidth``, ``initialHeight``, ``bound`` for outer bound, ``offset`` for content padding, ``width`` and ``height``.
-
-.. js:data:: keys: true
-    enables control for the lightbox using the keyboard.
-
-.. js:data:: keyCodes: {}
-    ``requires keys`` enables key control for ``close``, ``next`` and ``previous``.
-
-.. js:data:: lang: {}
-    translatable strings used inside the lightbox.
+============     ============
+Option           Default
+============     ============
+close            'Close lightbox'
+errorMessage     '<p><strong>The requested element...</p>'
+next             'Next'
+previous         'Previous'
+status           'Slide {current} of {total}.'
+============     ============
 
 
 Methods
 -------
 
-Methods can be called using the instance of the Class::
+Methods can be called using an instance of the class::
 
     var lightbox = new Cl.Lightbox();
-
-    lightbox.open($('.lightbox'));
+        // trigger the instanace
+        lightbox.open();
 
 All Methods have appropriate events and callbacks.
 
@@ -140,51 +117,51 @@ All Methods have appropriate events and callbacks.
 Events and Callbacks
 --------------------
 
-**Events** are always triggered **before** the function is excecuted and on the document level.
-
-You can also interact with events, for example::
+**Events** are always triggered **before** the method is excecuted on the ``document`` level.
+You can interact with event as follows::
 
     var lightbox = new Cl.Lightbox();
-
-    $(document).bind('cl-lightbox-open', function (e) {
+    // attach event
+    $(document).on('cl-lightbox-open', function (e) {
     	console.log('lightbox is opening');
     });
 
-**Callbacks** are always triggered **after** the function is excecuted.
-
-Write your own callbacks using the options, for example::
+**Callbacks** are always triggered **after** the method is excecuted.
+You can interact with callbacks as follows::
 
     var lightbox = new Cl.Lightbox();
-
-    lightbox.callbacks.open = function () {
-        console.log('lightbox has opened');
+    // register callback
+    lightbox.callbacks.close = function () {
+        console.log('lightbox is closing');
     };
 
+*Available keywords*:
+
 .. js:attribute:: open
-    is called when opening the lightbox.
+    is called when triggering method ``open``.
 
 .. js:attribute:: close
-    is called when closing the lightbox.
+    is called when triggering method ``close``.
 
 .. js:attribute:: resize
-    is called when resizing the lightbox.
+    is called when triggering method ``resize``.
 
 .. js:attribute:: destroy
-    is called when the lightbox gets destroyed.
+    is called when triggering method ``destroy``.
 
 .. js:attribute:: next
-    'next': function (self) {}.
+    is called when triggering method ``next``.
 
 .. js:attribute:: previous
-    'previous': function (self) {}.
+    is called when triggering method ``previous``.
 
-Additional:
+*Private keywords*:
 
 .. js:attribute:: load
-    is called when preloading data.
+    is called when triggering private method ``load``.
 
 .. js:attribute:: complete
-    is called when preloading is completed.
+    is called when triggering private method ``complete``.
 
 .. js:attribute:: unload
-    is called when data is unloaded.
+    is called when triggering private method ``unload``.

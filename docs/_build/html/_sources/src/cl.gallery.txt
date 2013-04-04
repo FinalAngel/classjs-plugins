@@ -1,6 +1,6 @@
-===========
-Cl.Carousel
-===========
+==========
+Cl.Gallery
+==========
 
 This is a list of all relevant options, methods, events and callbacks.
 
@@ -8,24 +8,23 @@ This is a list of all relevant options, methods, events and callbacks.
 Options
 -------
 
-Options are set on initializing the carousel::
+Options are set on initializing the gallery::
 
-    new Cl.Carousel({
+    new Cl.Gallery({
         // your options
         'index': 0,
-        'move': 'single'
+        'engine': 'slide'
     });
 
 ==============     ========     ===========
 Option             Default      Description
 ==============     ========     ===========
 index              null         shows selected element[index]/group[index] starting form zero.
-timeout            null         timeout in ms for autoplay, if ``0`` or ``null`` autoplay is ignored.
+timeout            5000         timeout in ms for autoplay, if ``0`` or ``null`` autoplay is ignored.
 autoplay           false        continues timeout even after manual cancellation.
 easing             'linear'     the jquery easing method for all animations.
 duration           300          the jquery duration speed for all animations.
-move               'auto'       either ``single`` to move one element at a time or ``auto`` to move all visible elements.
-momentum           true         enables ``next`` and ``previous`` to jump to the end or beginning when reaching their bounds.
+engine             'fade'       this is the engine to be loaded when animating. Build-in are ``fade`` and ``slide``.
 cls                object       the available css class getters and setters.
 ==============     ========     ===========
 
@@ -36,7 +35,6 @@ Option ``cls`` setters and getters:
 Option         Default                   Description
 ==========     =====================     ===========
 active         'active'                  class will be added to the active item.
-disabled       'disabled'                class will be added to the triggers when bound is reached and momentum is false.
 wrapper        '.wrapper'                the outer relative positioned wrapper where the height will be added.
 viewport       '.viewport'               the inner absolute positioned wrapper that will be moved.
 elements       '.item'                   the element / individual items.
@@ -51,47 +49,47 @@ Methods
 
 Methods can be called using an instance of the class::
 
-    var carousel = new Cl.Carousel();
+    var gallery = new Cl.Gallery();
         // trigger the instanace
-        carousel.toggle();
+        gallery.toggle();
 
 All Methods have appropriate events and callbacks.
 
-.. js:function:: carousel.next()
+.. js:function:: gallery.next()
 
-    :description: goes to the next carousel slide.
+    :description: goes to the next gallery slide.
     :returns: next callback.
 
 
-.. js:function:: carousel.previous()
+.. js:function:: gallery.previous()
 
-    :description: goes to the previous carousel slide.
+    :description: goes to the previous gallery slide.
     :returns: previous callback.
 
 
-.. js:function:: carousel.move(index)
+.. js:function:: gallery.move(index)
 
-    :description: moves to a carousel entry.
+    :description: moves to a gallery entry.
     :param number index: index of the element to be moved to.
     :returns: move callback.
 
 
-.. js:function:: carousel.play()
+.. js:function:: gallery.play()
 
-    :description: starts the carousel timeout.
+    :description: starts the gallery timeout.
     :returns: play callback.
 
 
-.. js:function:: carousel.stop()
+.. js:function:: gallery.stop()
 
-    :description: stops the carousel timeout.
+    :description: stops the gallery timeout.
     :returns: stop callback.
 
 
-.. js:function:: carousel.destroy()
+.. js:function:: gallery.update()
 
-    :description: removes all states and events.
-    :returns: destroy callback.
+    :description: updates gallery to current index.
+    :returns: update callback.
 
 
 Events and Callbacks
@@ -100,19 +98,19 @@ Events and Callbacks
 **Events** are always triggered **before** the method is excecuted on the ``document`` level.
 You can interact with event as follows::
 
-    var carousel = new Cl.Carousel();
+    var gallery = new Cl.Gallery();
     // attach event
-    $(document).on('carousel-next', function (e) {
-    	console.log('carousel is moving to the next position');
+    $(document).on('gallery-next', function (e) {
+    	console.log('gallery is moving to the next element');
     });
 
 **Callbacks** are always triggered **after** the method is excecuted.
 You can interact with callbacks as follows::
 
-    var carousel = new Cl.Carousel();
+    var gallery = new Cl.Gallery();
     // register callback
-    carousel.callbacks.move = function (scope) {
-        console.log('caoursel is moving to position ' + scope.index);
+    gallery.callbacks.move = function (scope) {
+        console.log('galery is moving to element ' + scope.index);
     };
 
 *Available keywords*:
@@ -132,5 +130,5 @@ You can interact with callbacks as follows::
 .. js:data:: stop
     is called when triggering method ``stop``.
 
-.. js:data:: destroy
-    is called when triggering method ``destroy``.
+.. js:data:: update
+    is called when triggering method ``update``.
