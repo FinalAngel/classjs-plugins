@@ -32,7 +32,7 @@ fixed              true         sets the lightbox always inside the viewport of 
 responsive         true         enables responsive behaviour of the lightbox.
 easing             'linear'     jquery easing effect for all animations.
 ajax               false        ajax loads the provided url and tries to inject the html into the lightbox. It does not create an iframe in order to maintain the css style.
-controls           true         ``requires group``enables controllable elements when a collection is active.
+controls           true         ``requires group`` enables controllable elements when a collection is active.
 styles             Object       adds jquery style css object to gallery content element.
 easing             Object       object includes ``initialWidth``, ``initialHeight``, ``bound`` for outer bound, ``offset`` for content padding, ``width`` and ``height``.
 keys               true         enables control for the lightbox using the keyboard.
@@ -51,7 +51,7 @@ errorMessage     '<p><strong>The requested element...</p>'
 next             'Next'
 previous         'Previous'
 status           'Slide {current} of {total}.'
-=========        ============
+============     ============
 
 
 Methods
