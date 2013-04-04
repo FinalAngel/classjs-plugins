@@ -27,6 +27,7 @@ duration           300          the jquery duration speed for all animations.
 grouping           true         enables all elements to be grouped together, only one will be visible at any given time.
 forceClose         false        if enabled, allows open element to be closed again.
 disableAnchors     false        disables descending anchors from triggering. For example if the trigger is an ``li`` wrapping an anchor.
+autoHeight         false        sets the height for each element on initialization.
 cls                object       the available css class getters and setters.
 lang               object       the available language configurations.
 ==============     ========     ===========

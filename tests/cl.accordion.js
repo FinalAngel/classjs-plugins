@@ -12,9 +12,9 @@ var accordion = new Cl.Accordion();
 module('cl.accordion.js');
 
 test('Options', function() {
-	var options = ['index', 'expanded', 'event', 'easing', 'duration', 'grouping', 'forceClose',
+	var options = ['index', 'expanded', 'event', 'easing', 'duration', 'grouping', 'forceClose', 'autoHeight',
 		'disableAnchors'];
-	var defaults = [null, false, 'click focusin', 'linear', 300, true, false, true];
+	var defaults = [null, false, 'click focusin', 'linear', 300, true, false, true, false];
 	// tests
 	$.each(options, function (index, option) {
 		deepEqual(accordion.options[option], defaults[index], option + ' is available');
@@ -39,7 +39,7 @@ test('Options', function() {
 	ok(langLength === 2, 'there are ' + langLength + ' options');
 
 	var length = getLength(accordion.options);
-	ok(length === 10, 'there are ' + length + ' options');
+	ok(length === 11, 'there are ' + length + ' options');
 });
 
 test('Methods', function() {

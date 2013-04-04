@@ -27,6 +27,7 @@ var Cl = window.Cl || {};
 			'grouping': true,
 			'forceClose': false,
 			'disableAnchors': true,
+			'autoHeight': false,
 			'cls': {
 				'expanded': 'expanded',
 				'collapsed': 'collapsed',
@@ -63,9 +64,11 @@ var Cl = window.Cl || {};
 			var that = this;
 
 			// calculate height for each item
-			this.containers.each(function (index, item) {
-				$(item).height($(item).height());
-			});
+			if(this.options.autoHeight) {
+				this.containers.each(function (index, item) {
+					$(item).height($(item).height());
+				});
+			}
 
 			// add event to each trigger
 			this.triggers.on(this.options.event, function (e) {
@@ -82,9 +85,10 @@ var Cl = window.Cl || {};
 
 			// setup initial states
 			if(this.options.expanded) {
-				this._setExpanded(undefined, true);
+				this.show(undefined, true);
 			} else {
-				this._setCollapsed(undefined, true);
+				// trigger event
+				this.hide(undefined, true);
 			}
 
 			// if index is defined and the elements are not expanded, show provided index
@@ -107,23 +111,23 @@ var Cl = window.Cl || {};
 			this._fire('toggle', this);
 		},
 
-		show: function (index) {
+		show: function (index, fast) {
 			// trigger event
 			this._fire('show');
 
 			// if no index is provided, show all
-			this._setExpanded(index);
+			this._setExpanded(index, fast);
 
 			// trigger callback
 			this._fire('show', this);
 		},
 
-		hide: function (index) {
+		hide: function (index, fast) {
 			// trigger event
 			this._fire('hide');
 
 			// if no index is provided, hide all
-			this._setCollapsed(index);
+			this._setCollapsed(index, fast);
 
 			// trigger callback
 			this._fire('hide', this);

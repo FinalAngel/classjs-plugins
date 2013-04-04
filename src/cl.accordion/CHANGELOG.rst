@@ -5,6 +5,8 @@ Cl.Accordion
 1.1.2
 -----
 - added window.load so contents height can be correctly loaded
+- added option ``autoHeight`` with the default ``false``
+- fixed an issue where show doesn't trigger an event or callback
 
 1.1.1
 -----

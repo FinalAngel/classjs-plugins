@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>class.js plugins</title>
+	<link rel="icon" href="../static/favicon.png">
+	<link rel="stylesheet" href="../static/styles.css" />
+	<script src="../static/js/jquery.min.js"></script>
+	<script src="../static/js/class.min.js"></script>
+	<script src="../static/js/base.js"></script>
+
+	<!-- required files -->
+	<link rel="stylesheet" href="cl.mobilemenu.css" />
+	<script src="../../src/cl.mobilemenu/cl.mobilemenu.js"></script>
+</head>
+<body>
+
+<header>
+	<h1><a href="../" class="logo">class<span class="dot">.</span><span class="ext">js</span></a> <a href=".">mobilemenu</a></h1>
+</header>
+
+<section>
+	<div class="inner">
+		<h2>Examples</h2>
+
+		<p>Released under the <strong>BSD License</strong>.
+			The latest source can be found on <a href="https://github.com/FinalAngel/classjs-plugins">Github</a>.<br />
+			Check out the <a href="https://classjs-plugins.readthedocs.org/en/latest/src/cl.mobilemenu.html" class="iframe">Documentation</a> or
+			<a href="../../src/cl.mobilemenu/CHANGELOG.rst" class="iframe">Changelog</a> for detailed information.</p>
+		<p>This plugin has been tested in Firefox, Chrome, Safari and IE7+ and requires class.js 1.0+ and jQuery 1.7+.
+			We also tested under iOS, Android and Windows Phone to insure correct responsive behaviour
+			with full accessible support according to the WCAG 2.0 standards.</p>
+
+		<div class="spacer"></div>
+
+		<h3>Mobile Menu</h3>
+		<!-- start: mobilemenu html -->
+		<nav class="mainnav">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Portfolio</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</nav>
+		<p>This is a generic navigation. Resizes the window to be <code>below 500</code> pixels and the mobile menu is shown.</p>
+		<!-- end: mobilemenu html -->
+
+		<div class="spacer"></div>
+
+		<h3>Options</h3>
+		<p class="col-two">
+			&raquo; <code>index: 2</code><br />
+			&raquo; <a href="#" class="carousel-opt-timeout"><code>timeout: 1000</code></a><br />
+			&raquo; <a href="#" class="carousel-opt-autoplay"><code>autoplay: true</code></a><br />
+			&raquo; <a href="#" class="carousel-opt-easing"><code>easing: 'easeInOutCubic'</code></a><br />
+			&raquo; <a href="#" class="carousel-opt-duration"><code>duration: 1000</code></a><br />
+		</p>
+		<p class="col-two">
+			&raquo; <a href="#" class="carousel-opt-move"><code>move: 'single'</code></a><br />
+			&raquo; <a href="#" class="carousel-opt-momentum"><code>momentum: false</code></a><br />
+			&raquo; <code>cls: {}</code><br />
+		</p>
+		<div class="clear"></div>
+		<div class="spacer"></div>
+
+		<h3>Methods</h3>
+		<p>
+			&raquo; <a href="#" onclick="my.carousel.next(); return false;"><code>my.carousel.next()</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.previous(); return false;"><code>my.carousel.previous()</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.move(2); return false;"><code>my.carousel.move(index)</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.play(); return false;"><code>my.carousel.play()</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.stop(); return false;"><code>my.carousel.stop()</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.destroy(); return false;"><code>my.carousel.destroy()</code></a><br />
+		</p>
+		<div class="spacer"></div>
+
+		<h3>Events and Callbacks</h3>
+		<p>
+			&raquo; <code>$(document).on('carousel-next', function...);</code><br />
+			&raquo; <code>my.carousel.callbacks.next = function...</code><br />
+			available events and callbacks are:<br /><code>next</code>, <code>previous</code>, <code>move</code><br />
+			check the console for debug information on events.<br />
+		</p>
+		<div class="spacer"></div>
+</div>
+</section>
+
+<footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
+
+<!-- required javascript -->
+<script>
+var my = {};
+
+jQuery(document).ready(function ($) {
+	// grouped lightbox
+	var mobilemenu = my.mobilemenu = new Cl.MobileMenu('.carousel');
+
+	$('.carousel-opt-autoplay').on('click', function (e) { e.preventDefault();
+		my.carousel.options.autoplay = true;
+	});
+	$('.carousel-opt-easing').on('click', function (e) { e.preventDefault();
+		my.carousel.options.easing = 'easeInOutCubic';
+	});
+	$('.carousel-opt-duration').on('click', function (e) { e.preventDefault();
+		my.carousel.options.duration = 1000;
+	});
+	$('.carousel-opt-move').on('click', function (e) { e.preventDefault();
+		my.carousel.options.move = 'single';
+	});
+	$('.carousel-opt-momentum').on('click', function (e) { e.preventDefault();
+		my.carousel.options.momentum = false;
+	});
+
+	// debugging events
+	$(document).on(
+		'carousel-next ' +
+		'carousel-previous ' +
+		'carousel-move ' +
+		'carousel-play ' +
+		'carousel-stop ' +
+		'carousel-destroy', function (e) {
+		if(console && console.log) console.log('trigger event: ' + e.type);
+	});
+});
+</script>
+
+</body>
+</html>
