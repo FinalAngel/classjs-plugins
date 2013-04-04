@@ -80,7 +80,7 @@ Options are set on initializing the lightbox::
 Methods
 -------
 
-Methods can be called using the instance of the Class::
+Methods can be called using the instance of the class::
 
     var lightbox = new Cl.Lightbox();
 

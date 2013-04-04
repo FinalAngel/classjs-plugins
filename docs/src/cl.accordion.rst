@@ -57,7 +57,7 @@ collapsed     'Collapsed '
 Methods
 -------
 
-Methods can be called using an instance of the Class::
+Methods can be called using an instance of the class::
 
     var accordion = new Cl.Accordion();
         // trigger the instanace

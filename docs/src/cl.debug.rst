@@ -8,7 +8,7 @@ This is a list of all relevant options, methods, events and callbacks.
 Options
 -------
 
-Options are set on initializing the carousel::
+Options are set on initializing debug::
 
     new Cl.Debug({
         // your options

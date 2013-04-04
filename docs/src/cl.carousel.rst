@@ -26,7 +26,7 @@ easing             'linear'     the jquery easing method for all animations.
 duration           300          the jquery duration speed for all animations.
 move               'auto'       either ``single`` to move one element at a time or ``auto`` to move all visible elements.
 momentum           true         enables ``next`` and ``previous`` to jump to the end or beginning when reaching their bounds.
-lang               object       the available language configurations.
+cls                object       the available css class getters and setters.
 ==============     ========     ===========
 
 
@@ -49,7 +49,7 @@ navigation     '.nav a'                  navigation elements which trigger the m
 Methods
 -------
 
-Methods can be called using an instance of the Class::
+Methods can be called using an instance of the class::
 
     var carousel = new Cl.Carousel();
         // trigger the instanace
