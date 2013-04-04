@@ -16,6 +16,8 @@ var Cl = window.Cl || {};
 			TODO 1.1.1
 			- when cycle is enabled, remove next and prev (or disable) when reaching bound
 			- conflicts when working with .open() and collections
+			- check for large images
+			- check ajax option to work proper
 
 			TODO 1.2
 			- add slideshow, play and pause options
