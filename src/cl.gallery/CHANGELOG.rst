@@ -5,7 +5,7 @@ Cl.Gallery
 2.0.0
 -----
 - rewrite gallery to support different engines (animation types)
-- reqrite internal api
+- rewrite internal api
 - added option ``engine``
 - added engine ``fade`` and ``slide``
 - added option ``autoplay``
