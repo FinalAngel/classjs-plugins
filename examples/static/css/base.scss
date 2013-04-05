@@ -98,6 +98,15 @@ form {
 	.ext { color:black; }
 }
 
+.box { float:left; padding:5px; margin:0 10px 10px 0; line-height:0; width:105px;
+	@include border-radius($border-radius); box-shadow: 0 0 1px #ccc; background:white;
+	&:hover { background:$color-blue; -webkit-transition:background 500ms; }
+	&:hover span { color:white; }
+
+	span { display:block; font-size:12px; line-height:12px; padding:5px 2px 2px; }
+	.strong { color:$color-font-dark; }
+}
+
 // #CUSTOM/buttons#
 .buttons {
 	padding-left:10px; font-size:0; position:relative; top:-1px;
