@@ -20,5 +20,5 @@ test('Options', function() {
 	});
 
 	var length = getLength(debug.options);
-	ok(length === 2, 'there are ' + length + ' options');
+	ok(methods.length === 2, 'there are ' + methods.length + ' methods')
 });

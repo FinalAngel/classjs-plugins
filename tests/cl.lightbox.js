@@ -50,5 +50,5 @@ test('Methods', function() {
 		equal(typeof(lightbox[method]), 'function', method + ' is available');
 	});
 	// check method count
-	ok(methods.length === 8, 'there are 8 methods')
+	ok(methods.length === 8, 'there are ' + methods.length + ' methods')
 });

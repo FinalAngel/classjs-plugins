@@ -38,12 +38,12 @@ test('Options', function() {
 });
 
 test('Methods', function() {
-	var methods = ['next', 'previous', 'move', 'play', 'stop', 'destroy'];
+	var methods = ['next', 'previous', 'move', 'play', 'stop', 'update', 'destroy'];
 	// tests
 	$.each(methods, function (index, method) {
 		equal(typeof(carousel[method]), 'function', method + ' is available');
 	});
 
 	// check method count
-	ok(methods.length === 6, 'there are 6 methods')
+	ok(methods.length === 7, 'there are ' + methods.length + ' methods')
 });
