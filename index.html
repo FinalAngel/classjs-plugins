@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>class.js plugins</title>
+	<title>class.js</title>
 	<link rel="icon" href="examples/static/favicon.png">
 	<link rel="stylesheet" href="examples/static/css/base.css">
 	<script src="examples/static/js/base.js"></script>
@@ -10,18 +10,18 @@
 <body>
 
 <header>
-	<h1><a href="." class="logo">class<span class="dot">.</span><span class="ext">js</span></a> plugins</h1>
+	<h1><a href="." class="logo">class<span class="dot">.</span><span class="ext">js</span></a></h1>
 </header>
 
 <section>
 	<div class="inner">
-		<h2>Documentation</h2>
-		<p>All classjs-plugins have an extensive documentation regarding their options, methods, events and callbacks.
-			We also have tests and demos prepared for each of them, please consult the list underneath.</p>
+		<h2>Introduction</h2>
+		<p>Class.js is a JavaScript library for building class based object-oriented programms using JavaScript's
+			prototypal inheritance. It strives to mimic classical class inheritance provided by other languages such
+			as Python, Java or PHP. Its syntax is heavily inspired by MooTools's class implementation.</p>
 
 		<div class="spacer"></div>
 
-		<h3>Library</h3>
 		<table>
 			<colgroup>
 				<col style="width:25%;" />
@@ -34,14 +34,21 @@
 				<td><small>v1.0.0</small></td>
 				<td class="align-right">
 					<span class="buttons">
-						<a href="https://classjs.readthedocs.org/en/latest/" class="btn btn-highlight"><strong>Docs</strong></a>
-						<a href="#" class="btn btn-highlight"><strong>Tests</strong></a>
-						<a href="https://classjs.readthedocs.org/en/latest/" class="btn btn-highlight"><strong>Download</strong></a>
+						<a href="//classjs.readthedocs.org/" class="btn btn-highlight"><strong>Docs</strong></a>
+						<a href="//finalangel.github.com/classjs/tests/" class="btn btn-highlight"><strong>Tests</strong></a>
+						<a href="//raw.github.com/FinalAngel/classjs/master/src/class.min.js" class="btn btn-highlight"><strong>Download</strong></a>
 					</span>
-					<span class="buttons buttons-icon"><a href="#" class="icon-github"><strong>GitHub</strong></a></span>
+					<span class="buttons buttons-icon"><a href="//github.com/finalangel/classjs/" class="icon-github"><strong>GitHub</strong></a></span>
 				</td>
 			</tr>
 		</table>
+
+		<div class="spacer"></div>
+
+		<h2>Development</h2>
+
+		<p>These plugins are aimed for professionals with extensive JavaScript knowledge. Each plugin follows a simplistic and a modular approach.
+			All plugins have demos, tests and documentation regarding their options, methods, events and callbacks.</p>
 
 		<div class="spacer"></div>
 
@@ -67,10 +74,7 @@
 				</td>
 			</tr>
 			<!--
-			<tr>
-				<th>Cl.Autocomplete <small>v1.0.0</span></th>
-				<td class="align-right"></td>
-			</tr>
+			Cl.Autocomplete
 			-->
 			<tr>
 				<th>Cl.Carousel</th>
@@ -138,10 +142,7 @@
 				</td>
 			</tr>
 			<!--
-			<tr>
-				<th>Cl.Tooltip <small>v1.0.0</span></th>
-				<td class="align-right"></td>
-			</tr>
+			Cl.Tooltip
 			-->
 			<tr>
 				<th>Cl.Uniform</th>
@@ -173,7 +174,7 @@
 				<th>Cl.Parallax</th>
 				<td><small>v1.0.beta1</small></td>
 				<td class="align-right">
-					<span class="buttons"><a href="examples/cl.parallax" class="btn btn-dark"><strong>Demo</strong></a></span>
+					<!--<span class="buttons"><a href="examples/cl.parallax" class="btn btn-dark"><strong>Demo</strong></a></span>-->
 					<span class="buttons"><a href="src/cl.parallax/cl.parallax.min.js" class="btn">Download</a></span>
 					<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
 				</td>
@@ -182,28 +183,38 @@
 				<th>Cl.Scroll</th>
 				<td><small>v1.0.beta1</small></td>
 				<td class="align-right">
-					<span class="buttons"><a href="examples/cl.scroll" class="btn btn-dark"><strong>Demo</strong></a></span>
+					<!--<span class="buttons"><a href="examples/cl.scroll" class="btn btn-dark"><strong>Demo</strong></a></span>-->
 					<span class="buttons"><a href="src/cl.scroll/cl.scroll.min.js" class="btn">Download</a></span>
 					<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
 				</td>
 			</tr>
 			<!--
-			<tr>
-				<th>Cl.Touch <small>v1.0.beta1</span></th>
-				<td class="align-right"><span class="buttons"><a href="examples/cl.carousel" class="btn btn-dark"><strong>Demo</strong></a></span></td>
-			</tr>
+			Cl.Touch
 			-->
 			</tbody>
 		</table>
 
 		<div class="spacer"></div>
 
-		<h3>General Help</h3>
+		<p>The plugins are compatible with Firefox, Chrome, Safari and IE7+. We also support iOS, Android and Windows Phone to
+			insure correct responsive behaviour with full accessible support according to the WCAG 2.0 standards.
+			Each plugin requires at least class.js 1.0+ and jQuery 1.7+.</p>
 
-		<p>Each example project has a SASS (Compass) file and the compiled css.
-			Navigate to the examples/cl.{plugin} folder and compile using <code>compass watch .</code></p>
-		<p>The documentation is generated using sphinx. Navigate to the docs folder and compile using <code>make html</code></p>
-		<p>To auto-commit to the gh-pages branch using git push, excecute the following two lines in the terminal inside the repository:<br />
+		<div class="spacer"></div>
+
+		<h2>Contribute</h2>
+		<p>Use the <a href="//github.com/finalangel/classjs-plugins/issues">GitHub issue</a> tracker to submit bug fixes or feature proposals.<br />
+			A detailed guide is available within the <a href="//classjs.readthedocs.org/en/latest/src/contributing/guide.html">classjs documentation</a>.</p>
+
+		<div class="spacer"></div>
+
+		<h2>FAQ</h2>
+		<p><strong>How do I compile the css?</strong><br />
+			To compile the css, navigate to the examples/cl.{plugin} folder and run:<br /><code>compass watch</code>.</p>
+		<p><strong>How do I compile the documentation?</strong><br />
+			To compile the documentation, navigate to the docs folder and run:<br /><code>make html</code>.</p>
+		<p><strong>How do I puplish the changes to the branch gh-pages?</strong><br />
+			To auto-commit, excecute the following two lines within the repository:<br />
 			<code class="nowrap">git config --add remote.origin.push +refs/heads/master:refs/heads/gh-pages</code><br />
 			<code class="nowrap">git config --add remote.origin.push +refs/heads/master:refs/heads/master</code></p>
 	</div>
