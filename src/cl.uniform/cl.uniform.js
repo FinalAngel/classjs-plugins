@@ -15,11 +15,6 @@ var Cl = window.Cl || {};
 
 		options: {
 			'offset': -9999,
-			'lang': {
-				'fileBtn': 'Upload',
-				'fileStatus': 'Please select a file...'
-			},
-			// class handling
 			'cls': {
 				'prefix': 'uniform',
 				'radio': 'radio',
@@ -29,10 +24,13 @@ var Cl = window.Cl || {};
 				'disabled': 'disabled',
 				'focus': 'focus'
 			},
-			// template handling
+			'lang': {
+				'fileBtn': 'Upload',
+				'fileStatus': 'Please select a file...'
+			},
 			'tpl': {
-				'radio': '<span class="{cls}"><span class="{knob}"></span></span>',
-				'checkbox': '<span class="{cls}"><span class="{knob}"></span></span>',
+				'radio': '<span class="{cls}" role="radio"><span class="{knob}"></span></span>',
+				'checkbox': '<span class="{cls}" role="checkbox"><span class="{knob}"></span></span>',
 				'file': '<span class="{cls}"><span class="{input}"><!-- file --></span><span class="{btn}">{btntext}</span><span class="{status}">{statustext}</span></span>',
 				'select': '<span class="{cls}"><span class="{input}"><!-- select --></span><span class="{status}"></span><span class="{arrow}"></span>'
 			}
@@ -48,15 +46,50 @@ var Cl = window.Cl || {};
 		_setup: function () {
 			var that = this;
 
+			// global vars
+			this.callbacks = {};
+
 			// loop through individual entries
 			this.elements.each(function (index, item) {
 				that._scan($(item));
 			});
 		},
 
-		update: function () {},
+		update: function () {
+			// trigger event
+			this._fire('update');
 
-		destroy: function () {},
+			this.elements.each(function (index, item) {
+				var input = $(item);
+					if(input.is(':checked')) input.trigger('click');
+					input.trigger('change');
+			});
+
+			// trigger event
+			this._fire('update', this);
+		},
+
+		destroy: function () {
+			// trigger event
+			this._fire('destroy');
+
+			var cls = this.options.cls;
+
+			this.elements.each(function (index, item) {
+				var input = $(item);
+					input.parent().siblings('span').remove();
+					input.unwrap()
+						.unwrap()
+						.removeAttr('style')
+						.off('click.' + cls.prefix)
+						.off('change.' + cls.prefix)
+						.off('focus.' + cls.prefix)
+						.off('blur.' + cls.prefix);
+			});
+
+			// trigger event
+			this._fire('destroy', this);
+		},
 
 		_scan: function (field) {
 			// delegate form elements to their responsive setup handlers
@@ -91,7 +124,7 @@ var Cl = window.Cl || {};
 
 			// inject element
 			field.wrap(tpl).css('left', this.options.offset);
-			field.bind('click.' + cls.prefix, function (e) {
+			field.on('click.' + cls.prefix, function (e) {
 				// prevent event bubbling
 				e.stopPropagation();
 
@@ -119,11 +152,14 @@ var Cl = window.Cl || {};
 
 				// api call
 				input.trigger(cls.prefix + 'change');
+
+				// change accessibility labels
+				(parseInt(knob.css('left')) === 0) ? parent.attr('aria-checked', true) : parent.attr('aria-checked', false);
 			});
 
 			// start attaching events
 			var parent = field.parents('.' + cls.prefix);
-				parent.bind('click.' + cls.prefix, function (e) {
+				parent.on('click.' + cls.prefix, function (e) {
 					// prevent event bubbling
 					e.preventDefault();
 					e.stopPropagation();
@@ -133,11 +169,15 @@ var Cl = window.Cl || {};
 						input.trigger('click');
 				});
 
+			// set initial accessibility labels
+			(field.is(':checked')) ? parent.attr('aria-checked', true) : parent.attr('aria-checked', false);
+			if(field.attr('required')) parent.attr('aria-required', true);
+
 			// initial state
 			if(!field.is(':checked')) field.parents('.' + cls.prefix).children().css('left', this.options.offset);
 
 			// add common elements
-			this._common(field);
+			this._common(field, parent);
 		},
 
 		_setupFile: function (field) {
@@ -165,11 +205,11 @@ var Cl = window.Cl || {};
 
 			// inject element
 			field.wrap(tpl).css('left', this.options.offset);
-			field.bind('click.' + cls.prefix, function (e) {
+			field.on('click.' + cls.prefix, function (e) {
 				// prevent event bubbling
 				e.stopPropagation();
 			});
-			field.bind('change.' + cls.prefix, function (e) {
+			field.on('change.' + cls.prefix, function (e) {
 				// set new value to status
 				var value = $(this).val().replace(/^C:\\fakepath\\/i, '');
 				$(this).parents('.' + cls.prefix).find('.' + clsStatus).text(value);
@@ -177,7 +217,7 @@ var Cl = window.Cl || {};
 
 			// start attaching events
 			var parent = field.parents('.' + cls.prefix);
-				parent.bind('click.' + cls.prefix, function (e) {
+				parent.on('click.' + cls.prefix, function (e) {
 					// prevent event bubbling
 					e.preventDefault();
 					e.stopPropagation();
@@ -186,6 +226,9 @@ var Cl = window.Cl || {};
 					var input = $(this).find('input');
 						input.trigger('click');
 				});
+
+			// set initial accessibility labels
+			if(field.attr('required')) parent.attr('aria-required', true);
 
 			// add common elements
 			this._common(field);
@@ -220,7 +263,7 @@ var Cl = window.Cl || {};
 			var text = parent.find('.' + clsStatus);
 
 			// attach change event
-			field.bind('change', function () {
+			field.on('change', function () {
 				text.text($(this).find('option:selected').text());
 			});
 
@@ -230,15 +273,18 @@ var Cl = window.Cl || {};
 			// we need to set a fixed with if field is 100%
 			field.css('width', tpl.outerWidth(true));
 
+			// set initial accessibility labels
+			if(field.attr('required')) parent.attr('aria-required', true);
+
 			// add common elements
 			this._common(field);
 		},
 
-		_common: function (field) {
+		_common: function (field, parent) {
 			var cls = this.options.cls;
 
 			// add focus event
-			field.bind('focus.' + cls.prefix + ' blur.' + cls.prefix, function (e) {
+			field.on('focus.' + cls.prefix + ' blur.' + cls.prefix, function (e) {
 				var wrap = $(this).parents('.' + cls.prefix);
 				var wrapCls = cls.prefix + '-' + cls.focus;
 				(e.type === 'focus') ? wrap.addClass(wrapCls) : wrap.removeClass(wrapCls);
@@ -246,6 +292,18 @@ var Cl = window.Cl || {};
 
 			// add classes depending on the state
 			if(field.is(':disabled')) field.parents('.' + cls.prefix).addClass(cls.prefix + '-' + cls.disabled);
+		},
+
+		_fire: function (keyword, scope) {
+			if(scope) {
+				// cancel if there is no callback found
+				if(this.callbacks[keyword] === undefined) return false;
+				// excecute callback
+				this.callbacks[keyword](scope);
+			} else {
+				// excecute event
+				$.event.trigger('uniform-' + keyword);
+			}
 		}
 
 	});
