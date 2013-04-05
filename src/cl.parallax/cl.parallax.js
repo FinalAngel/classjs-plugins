@@ -4,7 +4,7 @@
  * @version     1.0.beta1
  */
 
-// insure namespace is defined
+// ensure namespace is defined
 var Cl = window.Cl || {};
 
 (function($){
