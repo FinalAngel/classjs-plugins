@@ -8,8 +8,13 @@
 Welcome
 #######
 
-The classjs-plugins are a set of usefull javascript plugins based on class.js 1.0+ and jquery 1.7+.
-They are easily extendable, follow the W3C and WCAG 2.0 standards and are build for responsive webdesign.
+These plugins are aimed for professionals with extensive JavaScript knowledge.
+Each plugin follows a simplistic and a modular approach.
+All plugins have demos, tests and documentation regarding their options, methods, events and callbacks.
+
+The plugins are compatible with Firefox, Chrome, Safari and IE7+. We also support iOS, Android and Windows Phone to
+insure correct responsive behaviour with full accessible support according to the WCAG 2.0 standards.
+Each plugin requires at least class.js 1.0+ and jQuery 1.7+.
 
 The latest stable versions are available on github - https://github.com/finalangel/classjs-plugins
 
