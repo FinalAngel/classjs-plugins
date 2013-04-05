@@ -88,6 +88,12 @@ footer p { font-size:12px; color:#bfbfbf; text-align:center; padding:10px 0; mar
 form {
 	fieldset { padding:8px 12px; margin:0 0 10px; background:white; border:1px solid $color-border; @include border-radius($border-radius); }
 	label { cursor:pointer; font-size:13px; }
+
+	input[type="file"] { padding:2px; }
+	select { width:200px; height:24px; background:#fff; }
+
+	.uniform-select, .uniform-file { margin-left:5px !important; position:relative; top:-2px; }
+	.uniform-radio, .uniform-checkbox { position:relative; top:-1px; margin-right:5px; }
 }
 
 .logo { font-size:28px; font-weight:300; padding:0 8px 4px; margin-right:8px; color:$color-font; @include border-radius($border-radius);
