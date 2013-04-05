@@ -13,7 +13,7 @@ module('cl.carousel.js');
 
 test('Options', function() {
 	var options = ['offset'];
-	var defaults = [-999];
+	var defaults = [-9999];
 	// tests
 	$.each(options, function (index, option) {
 		deepEqual(uniform.options[option], defaults[index], option + ' is available');
@@ -29,11 +29,21 @@ test('Options', function() {
 	equal(cls.disabled, 'disabled', 'disabled is availalbe');
 	equal(cls.focus, 'focus', 'focus is availalbe');
 
+	var lang = uniform.options.lang;
+	equal(lang.fileBtn, 'Upload', 'fileBtn is availalbe');
+	equal(lang.fileStatus, 'Please select a file...', 'fileStatus is availalbe');
+
 	var clsLength = getLength(uniform.options.cls);
-	ok(clsLength === 8, 'there are ' + clsLength + ' cls options');
+	ok(clsLength === 7, 'there are ' + clsLength + ' cls options');
+
+	var langLength = getLength(uniform.options.lang);
+	ok(langLength === 2, 'there are ' + clsLength + ' lang options');
+
+	var tplLength = getLength(uniform.options.tpl);
+	ok(tplLength === 4, 'there are ' + tplLength + ' tpl options');
 
 	var length = getLength(uniform.options);
-	ok(length === 8, 'there are ' + length + ' options');
+	ok(length === 4, 'there are ' + length + ' options');
 });
 
 test('Methods', function() {
