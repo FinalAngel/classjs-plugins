@@ -209,7 +209,7 @@ var Cl = window.Cl || {};
 				// prevent event bubbling
 				e.stopPropagation();
 			});
-			field.on('change.' + cls.prefix, function (e) {
+			field.on('change.' + cls.prefix, function () {
 				// set new value to status
 				var value = $(this).val().replace(/^C:\\fakepath\\/i, '');
 				$(this).parents('.' + cls.prefix).find('.' + clsStatus).text(value);
@@ -280,7 +280,7 @@ var Cl = window.Cl || {};
 			this._common(field);
 		},
 
-		_common: function (field, parent) {
+		_common: function (field) {
 			var cls = this.options.cls;
 
 			// add focus event
