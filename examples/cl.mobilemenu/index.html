@@ -51,7 +51,7 @@
 		<h3>Options</h3>
 		<p class="col-two">
 			&raquo; <code>index: 2</code><br />
-			&raquo; <a href="#" class="mobilemenu-opt-easing"><code>easing: 'easeInOutCubic'</code></a><br />
+			&raquo; <a href="#" class="mobilemenu-opt-easing"><code>easing: 'swing'</code></a><br />
 			&raquo; <a href="#" class="mobilemenu-opt-duration"><code>duration: 1000</code></a><br />
 			&raquo; <a href="#" class="mobilemenu-opt-bound"><code>bound: 539</code></a><br />
 		</p>
@@ -66,21 +66,21 @@
 
 		<h3>Methods</h3>
 		<p>
-			&raquo; <a href="#" onclick="my.mobilemenu.toggle(); return false;"><code>my.mobilemenu.toggle()</code></a><br />
-			&raquo; <a href="#" onclick="my.mobilemenu.show(); return false;"><code>my.mobilemenu.show()</code></a><br />
-			&raquo; <a href="#" onclick="my.mobilemenu.hide(); return false;"><code>my.mobilemenu.hide()</code></a><br />
+			&raquo; <a href="#" onclick="my.mobilemenu.toggle(); return false;"><code>my.mobilemenu.toggle();</code></a><br />
+			&raquo; <a href="#" onclick="my.mobilemenu.show(); return false;"><code>my.mobilemenu.show();</code></a><br />
+			&raquo; <a href="#" onclick="my.mobilemenu.hide(); return false;"><code>my.mobilemenu.hide();</code></a><br />
 		</p>
 		<div class="spacer"></div>
 
 		<h3>Events and Callbacks</h3>
 		<p>
 			&raquo; <code>$(document).on('mobilemenu-toggle', function...);</code><br />
-			&raquo; <code>my.mobilemenu.callbacks.toggle = function...</code><br />
-			available events and callbacks are:<br /><code>toggle</code>, <code>show</code>, <code>hide</code><br />
+			&raquo; <code>my.mobilemenu.callbacks.toggle = function...</code><br /><br />
+			available events and callbacks are:<br /><code>toggle</code>, <code>show</code>, <code>hide</code><br /><br />
 			check the console for debug information on events.<br />
 		</p>
 		<div class="spacer"></div>
-</div>
+	</div>
 </section>
 
 <footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
@@ -94,7 +94,7 @@ jQuery(document).ready(function ($) {
 	var mobilemenu = my.mobilemenu = new Cl.MobileMenu('.mainnav');
 
 	$('.mobilemenu-opt-easing').on('click', function (e) { e.preventDefault();
-		my.mobilemenu.options.easing = 'easeInOutCubic';
+		my.mobilemenu.options.easing = 'swing';
 	});
 	$('.mobilemenu-opt-duration').on('click', function (e) { e.preventDefault();
 		my.mobilemenu.options.duration = 1000;

@@ -55,7 +55,7 @@
 			&raquo; <a href="../static/dummy/img-large-001.jpg" class="lightbox-opt-modalClickable"><code>modalClickable: false</code></a><br />
 			&raquo; <a href="../static/dummy/img-large-001.jpg" class="lightbox-opt-modalClosable"><code>modalClosable: false</code></a><br />
 			&raquo; <a href="http://www.django-cms.org" class="lightbox-opt-forceLoad"><code>forceLoad: false</code></a><br />
-			&raquo; <a href="../static/dummy/img-large-001.jpg" class="lightbox-opt-easing"><code>easing: 'easeInOutCubic'</code></a><br />
+			&raquo; <a href="../static/dummy/img-large-001.jpg" class="lightbox-opt-easing"><code>easing: 'swing'</code></a><br />
 			&raquo; <a href="../static/dummy/img-large-001.jpg" class="lightbox-opt-duration"><code>duration: 1000</code></a><br />
 			&raquo; <a href="../static/dummy/img-large-001.jpg" class="lightbox-opt-speed"><code>speed: 0</code></a><br />
 		</p>
@@ -75,8 +75,8 @@
 
 		<h3>Methods</h3>
 		<p>
-			&raquo; <a href="http://www.django-cms.org" onclick="my.lightbox.open(); return false;"><code>my.lightbox.open()</code></a><br />
-			available methods are:<br /><code>open</code>, <code>close</code>, <code>resize</code>, <code>destroy</code>,<br />
+			&raquo; <a href="http://www.django-cms.org" onclick="my.lightbox.open(); return false;"><code>my.lightbox.open(, [url]);</code></a><br />
+			additional methods are:<br /><code>close</code>, <code>resize</code>, <code>destroy</code>,<br />
 			<code>next</code>, <code>previous</code>, <code>getElement</code>, <code>getCollection</code><br />
 		</p>
 		<div class="spacer"></div>
@@ -84,10 +84,10 @@
 		<h3>Events and Callbacks</h3>
 		<p>
 			&raquo; <code>$(document).on('cl-lightbox-open', function...);</code><br />
-			&raquo; <code>my.lightbox.callbacks.open = function...</code><br />
+			&raquo; <code>my.lightbox.callbacks.open = function...</code><br /><br />
 			available events and callbacks are:<br /><code>open</code>, <code>close</code>, <code>resize</code>, <code>destroy</code>,
 			<code>next</code>, <code>previous</code>,<br />
-			<code>load</code>, <code>complete</code>, <code>unload</code><br />
+			<code>load</code>, <code>complete</code>, <code>unload</code><br /><br />
 			check the console for debug information on events.<br />
 		</p>
 		<div class="spacer"></div>
@@ -99,7 +99,7 @@
 			&raquo; <a href="http://www.django-cms.org?width=1024&amp;height=600" class="lightbox">url attributes</a> <code>?width=1024&amp;height=600</code><br />
 		</p>
 		<div class="spacer"></div>
-</div>
+	</div>
 </section>
 
 <footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
@@ -149,7 +149,7 @@ jQuery(document).ready(function ($) {
 		lightbox.callbacks.unload = function () { lightbox.options.forceLoad = false; };
 	});
 	$('.lightbox-opt-easing').on('click', function (e) { e.preventDefault();
-		lightbox.options.easing = 'easeInOutCubic';
+		lightbox.options.easing = 'swing';
 		lightbox.open(this);
 		lightbox.callbacks.unload = function () { lightbox.options.easing = 'linear'; };
 	});

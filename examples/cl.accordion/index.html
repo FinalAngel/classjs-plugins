@@ -118,7 +118,7 @@
 			&raquo; <code>index: 2</code><br />
 			&raquo; <code>expanded: true</code><br />
 			&raquo; <code>event: 'hover'</code><br />
-			&raquo; <a href="#" class="carousel-opt-easing"><code>easing: 'linear'</code></a><br />
+			&raquo; <a href="#" class="carousel-opt-easing"><code>easing: 'swing'</code></a><br />
 			&raquo; <a href="#" class="carousel-opt-duration"><code>duration: 0</code></a><br />
 		</p>
 		<p class="col-two">
@@ -134,21 +134,21 @@
 
 		<h3>Methods</h3>
 		<p>
-			&raquo; <a href="#" onclick="my.accordion.toggle(2); return false;"><code>my.accordion.toggle(index)</code></a><br />
-			&raquo; <a href="#" onclick="my.accordion.show(); return false;"><code>my.accordion.show(, [index])</code></a><br />
-			&raquo; <a href="#" onclick="my.accordion.hide(); return false;"><code>my.accordion.hide(, [index])</code></a><br />
+			&raquo; <a href="#" onclick="my.accordion.toggle(2); return false;"><code>my.accordion.toggle(index);</code></a><br />
+			&raquo; <a href="#" onclick="my.accordion.show(); return false;"><code>my.accordion.show(, [index]);</code></a><br />
+			&raquo; <a href="#" onclick="my.accordion.hide(); return false;"><code>my.accordion.hide(, [index]);</code></a><br />
 		</p>
 		<div class="spacer"></div>
 
 		<h3>Events and Callbacks</h3>
 		<p>
 			&raquo; <code>$(document).on('accordion-toggle', function...);</code><br />
-			&raquo; <code>my.accordion.callbacks.toggle = function...</code><br />
-			available events and callbacks are:<br /><code>toggle</code>, <code>show</code>, <code>hide</code><br />
+			&raquo; <code>my.accordion.callbacks.toggle = function...</code><br /><br />
+			available events and callbacks are:<br /><code>toggle</code>, <code>show</code>, <code>hide</code><br /><br />
 			check the console for debug information on events.<br />
 		</p>
 		<div class="spacer"></div>
-</div>
+	</div>
 </section>
 
 <footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
@@ -159,13 +159,16 @@ var my = {};
 
 jQuery(document).ready(function ($) {
 	// grouped lightbox
-	var accordion = my.accordion = new Cl.Accordion('#accordion-001', { 'index': 0 });
+	var accordion = my.accordion = new Cl.Accordion('#accordion-001', {
+		'index': 0,
+		'autoHeight': true
+	});
 
 	new Cl.Accordion('#accordion-002', { 'forceClose': true, 'expanded': true });
 	new Cl.Accordion('#accordion-003', { 'forceClose': true, 'expanded': true });
 
 	$('.carousel-opt-easing').on('click', function (e) { e.preventDefault();
-		my.accordion.options.easing = 'easeInOutCubic';
+		my.accordion.options.easing = 'swing';
 	});
 	$('.carousel-opt-duration').on('click', function (e) { e.preventDefault();
 		my.accordion.options.duration = 0;

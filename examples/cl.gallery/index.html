@@ -58,7 +58,7 @@
 			&raquo; <code>index: 2</code><br />
 			&raquo; <a href="#" class="gallery-opt-timeout"><code>timeout: 2000</code></a><br />
 			&raquo; <a href="#" class="gallery-opt-autoplay"><code>autoplay: true</code></a><br />
-			&raquo; <a href="#" class="gallery-opt-easing"><code>easing: 'easeInOutCubic'</code></a><br />
+			&raquo; <a href="#" class="gallery-opt-easing"><code>easing: 'swing'</code></a><br />
 			&raquo; <a href="#" class="gallery-opt-duration"><code>duration: 1000</code></a><br />
 		</p>
 		<p class="col-two">
@@ -70,25 +70,25 @@
 
 		<h3>Methods</h3>
 		<p>
-			&raquo; <a href="#" onclick="my.gallery.next(); return false;"><code>my.gallery.next()</code></a><br />
-			&raquo; <a href="#" onclick="my.gallery.previous(); return false;"><code>my.gallery.previous()</code></a><br />
-			&raquo; <a href="#" onclick="my.gallery.move(2); return false;"><code>my.gallery.move(index)</code></a><br />
-			&raquo; <a href="#" onclick="my.gallery.play(); return false;"><code>my.gallery.play()</code></a><br />
-			&raquo; <a href="#" onclick="my.gallery.stop(); return false;"><code>my.gallery.stop()</code></a><br />
-			&raquo; <a href="#" onclick="my.gallery.update(); return false;"><code>my.gallery.update()</code></a><br />
+			&raquo; <a href="#" onclick="my.gallery.next(); return false;"><code>my.gallery.next();</code></a><br />
+			&raquo; <a href="#" onclick="my.gallery.previous(); return false;"><code>my.gallery.previous();</code></a><br />
+			&raquo; <a href="#" onclick="my.gallery.move(2); return false;"><code>my.gallery.move(index);</code></a><br />
+			&raquo; <a href="#" onclick="my.gallery.play(); return false;"><code>my.gallery.play();</code></a><br />
+			&raquo; <a href="#" onclick="my.gallery.stop(); return false;"><code>my.gallery.stop();</code></a><br />
+			&raquo; <a href="#" onclick="my.gallery.update(); return false;"><code>my.gallery.update();</code></a><br />
 		</p>
 		<div class="spacer"></div>
 
 		<h3>Events and Callbacks</h3>
 		<p>
 			&raquo; <code>$(document).on('gallery-next', function...);</code><br />
-			&raquo; <code>my.gallery.callbacks.next = function...</code><br />
+			&raquo; <code>my.gallery.callbacks.next = function...</code><br /><br />
 			available events and callbacks are:<br /><code>next</code>, <code>previous</code>, <code>move</code>,
-			<code>play</code>, <code>stop</code>, <code>update</code><br />
+			<code>play</code>, <code>stop</code>, <code>update</code><br /><br />
 			check the console for debug information on events.<br />
 		</p>
 		<div class="spacer"></div>
-</div>
+	</div>
 </section>
 
 <footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
@@ -110,7 +110,7 @@ jQuery(document).ready(function ($) {
 		my.gallery.options.autoplay = true;
 	});
 	$('.gallery-opt-easing').on('click', function (e) { e.preventDefault();
-		my.gallery.options.easing = 'easeInOutCubic';
+		my.gallery.options.easing = 'swing';
 	});
 	$('.gallery-opt-duration').on('click', function (e) { e.preventDefault();
 		my.gallery.options.duration = 1000;

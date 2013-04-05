@@ -66,7 +66,7 @@
 			&raquo; <code>index: 2</code><br />
 			&raquo; <a href="#" class="carousel-opt-timeout"><code>timeout: 1000</code></a><br />
 			&raquo; <a href="#" class="carousel-opt-autoplay"><code>autoplay: true</code></a><br />
-			&raquo; <a href="#" class="carousel-opt-easing"><code>easing: 'easeInOutCubic'</code></a><br />
+			&raquo; <a href="#" class="carousel-opt-easing"><code>easing: 'swing'</code></a><br />
 			&raquo; <a href="#" class="carousel-opt-duration"><code>duration: 1000</code></a><br />
 		</p>
 		<p class="col-two">
@@ -79,24 +79,26 @@
 
 		<h3>Methods</h3>
 		<p>
-			&raquo; <a href="#" onclick="my.carousel.next(); return false;"><code>my.carousel.next()</code></a><br />
-			&raquo; <a href="#" onclick="my.carousel.previous(); return false;"><code>my.carousel.previous()</code></a><br />
-			&raquo; <a href="#" onclick="my.carousel.move(2); return false;"><code>my.carousel.move(index)</code></a><br />
-			&raquo; <a href="#" onclick="my.carousel.play(); return false;"><code>my.carousel.play()</code></a><br />
-			&raquo; <a href="#" onclick="my.carousel.stop(); return false;"><code>my.carousel.stop()</code></a><br />
-			&raquo; <a href="#" onclick="my.carousel.destroy(); return false;"><code>my.carousel.destroy()</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.next(); return false;"><code>my.carousel.next();</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.previous(); return false;"><code>my.carousel.previous();</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.move(2); return false;"><code>my.carousel.move(index);</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.play(); return false;"><code>my.carousel.play();</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.stop(); return false;"><code>my.carousel.stop();</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.update(); return false;"><code>my.carousel.update();</code></a><br />
+			&raquo; <a href="#" onclick="my.carousel.destroy(); return false;"><code>my.carousel.destroy();</code></a><br />
 		</p>
 		<div class="spacer"></div>
 
 		<h3>Events and Callbacks</h3>
 		<p>
 			&raquo; <code>$(document).on('carousel-next', function...);</code><br />
-			&raquo; <code>my.carousel.callbacks.next = function...</code><br />
-			available events and callbacks are:<br /><code>next</code>, <code>previous</code>, <code>move</code><br />
+			&raquo; <code>my.carousel.callbacks.next = function...</code><br /><br />
+			available events and callbacks are:<br /><code>next</code>, <code>previous</code>, <code>move</code>,
+			<code>play</code>, <code>stop</code>, <code>update</code>, <code>destroy</code><br /><br />
 			check the console for debug information on events.<br />
 		</p>
 		<div class="spacer"></div>
-</div>
+	</div>
 </section>
 
 <footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
@@ -117,7 +119,7 @@ jQuery(document).ready(function ($) {
 		my.carousel.options.autoplay = true;
 	});
 	$('.carousel-opt-easing').on('click', function (e) { e.preventDefault();
-		my.carousel.options.easing = 'easeInOutCubic';
+		my.carousel.options.easing = 'swing';
 	});
 	$('.carousel-opt-duration').on('click', function (e) { e.preventDefault();
 		my.carousel.options.duration = 1000;
@@ -136,6 +138,7 @@ jQuery(document).ready(function ($) {
 		'carousel-move ' +
 		'carousel-play ' +
 		'carousel-stop ' +
+		'carousel-update ' +
 		'carousel-destroy', function (e) {
 		if(console && console.log) console.log('trigger event: ' + e.type);
 	});
