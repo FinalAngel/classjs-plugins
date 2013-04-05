@@ -214,6 +214,17 @@ var Cl = window.Cl || {};
 			this._fire('stop', this);
 		},
 
+		update: function () {
+			// trigger event
+			this._fire('update');
+
+			// update gallery scripts
+			this.move(this.index);
+
+			// trigger event
+			this._fire('update', this);
+		},
+
 		destroy: function () {
 			// trigger event
 			this._fire('destroy');

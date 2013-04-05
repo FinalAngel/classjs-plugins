@@ -6,6 +6,7 @@ Cl.Carousel
 -----
 - added missing event and callback triggers for play, stop and destroy
 - added WAI-ARIA labels
+- added method ``update``
 - fixed an issue where ``destroy`` did not remove all types
 - fixed an issue using ``options.index``
 - changed internal event handling to one single method ``_fire``
