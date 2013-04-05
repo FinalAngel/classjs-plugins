@@ -19,6 +19,6 @@ test('Options', function() {
 		deepEqual(debug.options[option], defaults[index], option + ' is available');
 	});
 
-	var length = getLength(debug.options);
-	ok(methods.length === 2, 'there are ' + methods.length + ' methods')
+	//var length = getLength(debug.options);
+	//ok(methods.length === 2, 'there are ' + methods.length + ' methods')
 });

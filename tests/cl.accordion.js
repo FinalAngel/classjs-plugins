@@ -12,8 +12,8 @@ var accordion = new Cl.Accordion();
 module('cl.accordion.js');
 
 test('Options', function() {
-	var options = ['index', 'expanded', 'event', 'easing', 'duration', 'grouping', 'forceClose', 'autoHeight',
-		'disableAnchors'];
+	var options = ['index', 'expanded', 'event', 'easing', 'duration', 'grouping', 'forceClose',
+		'disableAnchors', 'autoHeight'];
 	var defaults = [null, false, 'click focusin', 'linear', 300, true, false, true, false];
 	// tests
 	$.each(options, function (index, option) {

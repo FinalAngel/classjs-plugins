@@ -3,8 +3,6 @@
 <head>
 	<title>QUnit Test Suite</title>
 	<link type="text/css" rel="stylesheet" href="qunit/qunit.css" media="all" />
-	<script type="text/javascript" src="../examples/static/js/jquery.min.js"></script>
-	<script type="text/javascript" src="../examples/static/js/class.min.js"></script>
 	<script type="text/javascript" src="../examples/static/js/base.js"></script>
 	<script type="text/javascript" src="qunit/qunit.js"></script>
 
@@ -22,6 +20,7 @@
 
 	<script type="text/javascript" src="../src/cl.lightbox/cl.lightbox.js"></script>
 	<script type="text/javascript" src="cl.lightbox.js"></script>
+	<script type="text/javascript">var getLength = function (object) { var count = 0; for(var key in object) { if(object.hasOwnProperty(key)) { count++; } } return count; };</script>
 </head>
 <body>
 	<h1 id="qunit-header">QUnit Test Suite</h1>
