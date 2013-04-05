@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.0
+ * @version     1.0.1
  */
 
 // insure namespace is defined
@@ -42,10 +42,10 @@ var Cl = window.Cl || {};
 			this.elements = $(elements);
 			this.options = $.extend(true, {}, this.options, options);
 
-			this.build();
+			this._setup();
 		},
 
-		build: function () {
+		_setup: function () {
 			var that = this;
 
 			// loop through individual entries
@@ -54,16 +54,10 @@ var Cl = window.Cl || {};
 			});
 		},
 
-		/*
-		 * PUBLIC API
-		 */
 		update: function () {},
 
 		destroy: function () {},
 
-		/*
-		 * PRIVATE METHODS
-		 */
 		_scan: function (field) {
 			// delegate form elements to their responsive setup handlers
 			switch(field.attr('type')) {
@@ -84,8 +78,7 @@ var Cl = window.Cl || {};
 					break;
 			}
 		},
-	// TODO trigger visual change if checkbox is really selected
-	// TODO test other pseudos like active and focus
+
 		_setupRadioCheck: function (field, type) {
 			var that = this;
 			var cls = this.options.cls;

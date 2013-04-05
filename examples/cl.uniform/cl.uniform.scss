@@ -12,20 +12,26 @@
 
 // required style
 .uniform { cursor:pointer; }
-.uniform-checkbox, .uniform-radio,
-.uniform-file, .uniform-select { position:relative; @include inline-block(); overflow:hidden; cursor:pointer; }
-.uniform-checkbox *, .uniform-radio *, .uniform-file *, .uniform-select * { position:relative; left:0; }
-.uniform-checkbox input, .uniform-radio input, .uniform-file input, .uniform-select select { position:absolute; }
-.uniform-select .uniform-input { z-index:100; }
 
-// custom
+.uniform-checkbox, .uniform-radio,
+.uniform-file, .uniform-select { position:relative; @include inline-block(); cursor:pointer; }
+
+.uniform input,
+.uniform select { position:absolute; z-index:100; }
+
+.uniform-radio > span, .uniform-checkbox > span { position:relative; }
+
+// custom radio and checks
 .uniform-radio, .uniform-checkbox { line-height:0; width:12px; height:12px;
 	@include border-radius(2px); border:1px solid #e5e5e5; }
 .uniform-radio > span, .uniform-checkbox > span { display:block; margin:3px 0 0 3px;
 	width:6px; height:6px; background:#39c; }
+
+// custom radio
 .uniform-radio { @include border-radius(100%); }
 .uniform-radio span { @include border-radius(100%); }
 
+// custom file
 .uniform-file { clear:both; overflow:hidden; border:1px solid #e5e5e5; }
 .uniform-file-btn { float:right; font-size:11px; line-height:11px; cursor:pointer; color:white;
 	padding:3px 5px 4px; background:#39c; }
@@ -33,6 +39,7 @@
 .uniform-file-status { float:left; font-size:12px; line-height:12px; padding:4px 0 0 4px;
 	max-width:70%; white-space:nowrap; overflow:hidden; }
 
+// custom select
 .uniform-select { border:1px solid #e5e5e5; }
 .uniform-select-status { float:left; font-size:11px; line-height:11px; padding:3px 0 0 4px; }
 .uniform-select-arrow { float:right; width:15px; height:15px; margin:1px 5px 0 0;
