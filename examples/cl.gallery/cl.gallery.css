@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*
- * @author      Aleš Kocjančič - github.com/finalangel/classjs-plugins
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
  */
 .gallery .wrapper {
@@ -17,19 +17,19 @@
   padding: 0;
   margin: 0;
 }
-.gallery .viewport li {
+.gallery .viewport .item {
   display: none;
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
 }
-.gallery .viewport li img {
+.gallery .viewport .item img {
   display: block;
   max-width: 100%;
   margin: 0 auto;
 }
-.gallery .viewport li.active {
+.gallery .viewport .item.active {
   display: block;
 }
 .gallery .trigger-next, .gallery .trigger-previous {

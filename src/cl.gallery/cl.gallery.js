@@ -1,7 +1,7 @@
 /*!
  * @author      Aleš Kocjančič, Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     2.0.0
+ * @version     2.0.1
  */
 
 // ensure namespace is defined
@@ -18,11 +18,12 @@ var Cl = window.Cl || {};
 		 */
 
 		options: {
-			'index': null, // initial image to show
+			'index': null,
 			'timeout': 5000, // if set, the gallery will start moving automatically
 			'autoplay': false, // same as carousel
 			'easing': 'linear',
 			'duration': 300, // duration for animation
+			'autoHeight': true,
 			'engine': 'fade', // animation type (fade, slide)
 			'cls': { // these selectors are all relative to the container
 				'active': 'active', // class that will be used for active thumbnails
@@ -67,8 +68,8 @@ var Cl = window.Cl || {};
 		_setup: function () {
 			var that = this;
 
-			// dynamically set height if necessary (only happens on page reload)
-			this.wrapper.css('height', this.elements.eq(0).outerHeight(true));
+			// set the correct height
+			if(this.options.autoHeight) this._setHeight();
 
 			// bind event for next triggers
 			this.triggers.next.on('click', function(e) {
@@ -129,11 +130,14 @@ var Cl = window.Cl || {};
 			// trigger event
 			this._fire('move');
 
+			// helper vars
+			var that = this;
+
 			// cancel if queue
 			if(this.queue) return false;
 
 			// set new height
-			this.wrapper.css('height', this.elements.eq(this.index).outerHeight(true));
+			if(this.options.autoHeight) this._setHeight();
 
 			// cancel if index is the same
 			if(index === this.index) return false;
@@ -160,6 +164,11 @@ var Cl = window.Cl || {};
 
 			// trigger event
 			this._fire('move', this);
+
+			// release queue
+			setTimeout(function () {
+				that.queue = false;
+			}, this.options.duration);
 		},
 
 		play: function () {
@@ -207,6 +216,8 @@ var Cl = window.Cl || {};
 		engine: {
 
 			'fade': function () {
+				this.queue = true;
+				if(this.direction === 'setup') this.queue = false;
 				// add fade animation
 				this.elements.fadeOut(this.options.duration, this.options.transition);
 				this.elements.eq(this.index).fadeIn(this.options.duration, this.options.transition);
@@ -219,9 +230,9 @@ var Cl = window.Cl || {};
 				// setup
 				if(this.direction === 'setup') {
 					var el = this.elements.eq(this.index);
-					// we need to set a fixed width and height
+						el.css('left', 0);
+
 					this.elements.show().css('left', -9999);
-					el.css('left', 0);
 					// we don't need a queue here
 					this.queue = false;
 				} else {
@@ -243,11 +254,6 @@ var Cl = window.Cl || {};
 						'left': 0
 					}, this.options.duration, this.options.transition);
 				}
-
-				var that = this;
-				setTimeout(function () {
-					that.queue = false;
-				}, this.options.duration);
 			}
 
 		},
@@ -257,6 +263,19 @@ var Cl = window.Cl || {};
 			if(index >= this.bound) index = 0;
 
 			return index;
+		},
+
+		_setHeight: function () {
+			// autoheight gets the heighest element of the set and adds that value to the .wrapper
+			var height = null;
+			this.elements.each(function (index, item) {
+				var el = $(item);
+				if(height < el.outerHeight(true)) {
+					// set greater value
+					height = el.outerHeight(true);
+				}
+			});
+			this.wrapper.css('height', height);
 		},
 
 		_accessibility: function () {

@@ -2,6 +2,12 @@
 Cl.Gallery
 ==========
 
+2.0.1
+-----
+- added option ``autoHeight``
+- added queue to fade engine
+- fixed an issue with height calculation
+
 2.0.0
 -----
 - rewrite gallery to support different engines (animation types)
