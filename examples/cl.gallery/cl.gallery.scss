@@ -21,6 +21,8 @@ $gallery-line-height: 12px;
 		.item { display:none; position:absolute; left:0; top:0; width:100%; }
 		.item img { display:block; max-width:100%; margin:0 auto;  }
 		.item.active { display:block; }
+		// show first item if javascript is disabled
+		.item:first-child { display:block; }
 	}
 
 	// custom styles
@@ -29,12 +31,14 @@ $gallery-line-height: 12px;
 		margin-top:-10px; background:rgba(black, 0.6); }
 	.trigger-next { right:0; }
 	.trigger-previous { left:0; }
-	.trigger-next a, .trigger-previous a { float:left; padding:4px;
+	.trigger-next a, .trigger-previous a { display:none; float:left; padding:4px;
 		&:hover { color:white;} }
 
 	nav { text-align:center; padding-top:15px; }
-	nav a { font-size:11px; line-height:11px; padding:3px 6px 4px 6px;
+	nav a { display:none; font-size:11px; line-height:11px; padding:3px 6px 4px 6px;
 		@include inline-block(); @include border-radius(10px); border:1px solid #e5e5e5; background:#fff; }
 	nav a:hover { background:#f9f9f9; }
 	nav .active { color:#fff !important; border-color:#39c !important; background:#39c !important; }
 }
+
+.wrapper { min-height:250px; }

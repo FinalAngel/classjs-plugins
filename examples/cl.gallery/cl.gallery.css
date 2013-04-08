@@ -32,6 +32,9 @@
 .gallery .viewport .item.active {
   display: block;
 }
+.gallery .viewport .item:first-child {
+  display: block;
+}
 .gallery .trigger-next, .gallery .trigger-previous {
   position: absolute;
   top: 50%;
@@ -49,6 +52,7 @@
   left: 0;
 }
 .gallery .trigger-next a, .gallery .trigger-previous a {
+  display: none;
   float: left;
   padding: 4px;
 }
@@ -60,6 +64,7 @@
   padding-top: 15px;
 }
 .gallery nav a {
+  display: none;
   font-size: 11px;
   line-height: 11px;
   padding: 3px 6px 4px 6px;
@@ -84,4 +89,8 @@
   color: white !important;
   border-color: #3399cc !important;
   background: #3399cc !important;
+}
+
+.wrapper {
+  min-height: 250px;
 }

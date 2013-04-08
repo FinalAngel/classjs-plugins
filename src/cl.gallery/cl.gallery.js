@@ -19,20 +19,20 @@ var Cl = window.Cl || {};
 
 		options: {
 			'index': null,
-			'timeout': 5000, // if set, the gallery will start moving automatically
-			'autoplay': false, // same as carousel
+			'timeout': 5000,
+			'autoplay': false,
 			'easing': 'linear',
-			'duration': 300, // duration for animation
+			'duration': 300,
 			'autoHeight': true,
-			'engine': 'fade', // animation type (fade, slide)
-			'cls': { // these selectors are all relative to the container
-				'active': 'active', // class that will be used for active thumbnails
-				'wrapper': '.wrapper', // viewport wrapper
-				'viewport': '.viewport', // item container
+			'engine': 'slide',
+			'cls': {
+				'active': 'active',
+				'wrapper': '.wrapper',
+				'viewport': '.viewport',
 				'elements': '.item',
-				'next': '.trigger-next a', // right trigger
-				'previous': '.trigger-previous a', // left trigger
-				'navigation': 'nav a' // navigation triggers container
+				'next': '.trigger-next a',
+				'previous': '.trigger-previous a',
+				'navigation': 'nav a'
 			}
 		},
 
@@ -217,10 +217,15 @@ var Cl = window.Cl || {};
 
 			'fade': function () {
 				this.queue = true;
-				if(this.direction === 'setup') this.queue = false;
-				// add fade animation
-				this.elements.fadeOut(this.options.duration, this.options.transition);
-				this.elements.eq(this.index).fadeIn(this.options.duration, this.options.transition);
+				if(this.direction === 'setup') {
+					this.queue = false;
+					this.elements.hide();
+					this.elements.eq(0).show();
+				} else {
+					// add fade animation
+					this.elements.fadeOut(this.options.duration, this.options.transition);
+					this.elements.eq(this.index).fadeIn(this.options.duration, this.options.transition);
+				}
 			},
 
 			'slide': function () {
@@ -229,10 +234,11 @@ var Cl = window.Cl || {};
 
 				// setup
 				if(this.direction === 'setup') {
-					var el = this.elements.eq(this.index);
-						el.css('left', 0);
-
 					this.elements.show().css('left', -9999);
+					// show first slide
+					var el = this.elements.eq(this.index);
+						el.css('left', 0).show();
+
 					// we don't need a queue here
 					this.queue = false;
 				} else {

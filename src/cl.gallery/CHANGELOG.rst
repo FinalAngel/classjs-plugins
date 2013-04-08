@@ -7,6 +7,9 @@ Cl.Gallery
 - added option ``autoHeight``
 - added queue to fade engine
 - fixed an issue with height calculation
+- fixed an issue where first slide is not shown
+- fixed an issue when javascript is disabled
+- fixed an issue where first slide flashes on initialization
 
 2.0.0
 -----
