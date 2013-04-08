@@ -24,6 +24,7 @@ timeout            5000         timeout in ms for autoplay, if ``0`` or ``null``
 autoplay           false        continues timeout even after manual cancellation.
 easing             'linear'     the jquery easing method for all animations.
 duration           300          the jquery duration speed for all animations.
+autoHeight         false        sets the height on the warpper to the heighest element.
 engine             'fade'       this is the engine to be loaded when animating. Build-in are ``fade`` and ``slide``.
 cls                object       the available css class getters and setters.
 ==============     ========     ===========

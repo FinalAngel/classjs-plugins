@@ -12,8 +12,8 @@ var gallery = new Cl.Gallery();
 module('cl.gallery.js');
 
 test('Options', function() {
-	var options = ['index', 'timeout', 'autoplay', 'easing', 'duration', 'engine'];
-	var defaults = [null, 5000, false, 'linear', 300, 'fade'];
+	var options = ['index', 'timeout', 'autoplay', 'easing', 'duration', 'autoHeight', 'engine'];
+	var defaults = [null, 5000, false, 'linear', 300, true, 'fade'];
 	// tests
 	$.each(options, function (index, option) {
 		deepEqual(gallery.options[option], defaults[index], option + ' is available');
@@ -33,7 +33,7 @@ test('Options', function() {
 	ok(clsLength === 7, 'there are ' + clsLength + ' cls options');
 
 	var length = getLength(gallery.options);
-	ok(length === 7, 'there are ' + length + ' options');
+	ok(length === 8, 'there are ' + length + ' options');
 });
 
 test('Methods', function() {

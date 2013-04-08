@@ -24,7 +24,7 @@ var Cl = window.Cl || {};
 			'easing': 'linear',
 			'duration': 300,
 			'autoHeight': true,
-			'engine': 'slide',
+			'engine': 'fade',
 			'cls': {
 				'active': 'active',
 				'wrapper': '.wrapper',
