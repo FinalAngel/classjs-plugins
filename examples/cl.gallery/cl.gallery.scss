@@ -39,6 +39,9 @@ $gallery-line-height: 12px;
 		@include inline-block(); @include border-radius(10px); border:1px solid #e5e5e5; background:#fff; }
 	nav a:hover { background:#f9f9f9; }
 	nav .active { color:#fff !important; border-color:#39c !important; background:#39c !important; }
+
+	// very custom
+	.item-content { padding:70px 100px 25px; height:155px; background:white; }
 }
 
 .wrapper { min-height:250px; }

@@ -90,6 +90,11 @@
   border-color: #3399cc !important;
   background: #3399cc !important;
 }
+.gallery .item-content {
+  padding: 70px 100px 25px;
+  height: 155px;
+  background: white;
+}
 
 .wrapper {
   min-height: 250px;
