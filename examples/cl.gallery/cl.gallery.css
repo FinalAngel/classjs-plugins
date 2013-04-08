@@ -92,7 +92,7 @@
 }
 .gallery .item-content {
   padding: 70px 100px 25px;
-  height: 155px;
+  min-height: 155px;
   background: white;
 }
 
