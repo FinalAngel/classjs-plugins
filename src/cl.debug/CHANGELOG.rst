@@ -2,6 +2,12 @@
 Cl.Debug
 ========
 
+1.2.1
+-----
+- changed internal methods to be private
+- changed option values from strings to boolean
+- fixed an issue where button is not showed when entering #show at first
+
 1.2.0
 -----
 - added zoom functionality

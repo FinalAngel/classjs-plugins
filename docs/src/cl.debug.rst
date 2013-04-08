@@ -12,14 +12,14 @@ Options are set on initializing debug::
 
     new Cl.Debug({
         // your options
-        'close': 'true'
+        'close': true
     });
 
 ==============     ========     ===========
 Option             Default      Description
 ==============     ========     ===========
-closed             'false'      defines if the button is visible or not.
-collapsed          'true'       defines if the menu is expanded or collapsed.
+closed             false        defines if the button is visible or not.
+collapsed          true         defines if the menu is expanded or collapsed.
 ==============     ========     ===========
 
 

@@ -13,7 +13,7 @@ module('cl.debug.js');
 
 test('Options', function() {
 	var options = ['closed', 'collapsed'];
-	var defaults = ['false', 'true'];
+	var defaults = [false, true];
 	// tests
 	$.each(options, function (index, option) {
 		deepEqual(debug.options[option], defaults[index], option + ' is available');
