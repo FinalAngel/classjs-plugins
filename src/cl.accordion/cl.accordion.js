@@ -63,12 +63,8 @@ var Cl = window.Cl || {};
 		_setup: function () {
 			var that = this;
 
-			// calculate height for each item
-			if(this.options.autoHeight) {
-				this.containers.each(function (index, item) {
-					$(item).height($(item).height());
-				});
-			}
+			// set the correct height
+			if(this.options.autoHeight) this._setHeight();
 
 			// add event to each trigger
 			this.triggers.on(this.options.event, function (e) {
@@ -190,6 +186,12 @@ var Cl = window.Cl || {};
 					.attr('aria-expanded', false)
 						.find('.text').html(this.options.lang.collapsed);
 			}
+		},
+
+		_setHeight: function () {
+			this.containers.each(function (index, item) {
+				$(item).height($(item).height());
+			});
 		},
 
 		_fire: function (keyword, scope) {
