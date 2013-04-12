@@ -130,6 +130,9 @@ var Cl = window.Cl || {};
 			// trigger event
 			this._fire('move');
 
+			// cancel if there are not enough elements
+			if (direction !== 'setup' && this.elements.length <= 1) return;
+
 			// helper vars
 			var that = this;
 
