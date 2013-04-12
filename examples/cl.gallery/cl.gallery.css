@@ -1,0 +1,101 @@
+@charset "utf-8";
+/*
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ */
+.gallery .wrapper {
+  position: relative;
+  z-idnex: 1;
+  overflow: hidden;
+}
+.gallery .viewport {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.gallery .viewport .item {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.gallery .viewport .item img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.gallery .viewport .item.active {
+  display: block;
+}
+.gallery .viewport .item:first-child {
+  display: block;
+}
+.gallery .trigger-next, .gallery .trigger-previous {
+  position: absolute;
+  top: 50%;
+  z-index: 101;
+  margin: 0;
+  font-size: 12px;
+  line-height: 12px;
+  margin-top: -10px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.gallery .trigger-next {
+  right: 0;
+}
+.gallery .trigger-previous {
+  left: 0;
+}
+.gallery .trigger-next a, .gallery .trigger-previous a {
+  display: none;
+  float: left;
+  padding: 4px;
+}
+.gallery .trigger-next a:hover, .gallery .trigger-previous a:hover {
+  color: white;
+}
+.gallery nav {
+  text-align: center;
+  padding-top: 15px;
+}
+.gallery nav a {
+  display: none;
+  font-size: 11px;
+  line-height: 11px;
+  padding: 3px 6px 4px 6px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+}
+.gallery nav a:hover {
+  background: #f9f9f9;
+}
+.gallery nav .active {
+  color: white !important;
+  border-color: #3399cc !important;
+  background: #3399cc !important;
+}
+.gallery .item-content {
+  padding: 70px 100px 25px;
+  min-height: 155px;
+  background: white;
+}
+
+.wrapper {
+  min-height: 250px;
+}

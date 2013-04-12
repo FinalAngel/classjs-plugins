@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cl.Carousel &mdash; classjs 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="classjs 1.0 documentation" href="../index.html" />
+    <link rel="next" title="Cl.Debug" href="cl.debug.html" />
+    <link rel="prev" title="Cl.Accordion" href="cl.accordion.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="cl.debug.html" title="Cl.Debug"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="cl.accordion.html" title="Cl.Accordion"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">classjs 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="cl-carousel">
+<h1>Cl.Carousel<a class="headerlink" href="#cl-carousel" title="Permalink to this headline">¶</a></h1>
+<p>This is a list of all relevant options, methods, events and callbacks.</p>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p>Options are set on initializing the carousel:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Carousel</span><span class="p">({</span>
+    <span class="c1">// your options</span>
+    <span class="s1">&#39;index&#39;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;move&#39;</span><span class="o">:</span> <span class="s1">&#39;single&#39;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="7%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Default</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>index</td>
+<td>null</td>
+<td>shows selected element[index]/group[index] starting form zero.</td>
+</tr>
+<tr class="row-odd"><td>timeout</td>
+<td>null</td>
+<td>timeout in ms for autoplay, if <tt class="docutils literal"><span class="pre">0</span></tt> or <tt class="docutils literal"><span class="pre">null</span></tt> autoplay is ignored.</td>
+</tr>
+<tr class="row-even"><td>autoplay</td>
+<td>false</td>
+<td>continues timeout even after manual cancellation.</td>
+</tr>
+<tr class="row-odd"><td>easing</td>
+<td>&#8216;linear&#8217;</td>
+<td>the jquery easing method for all animations.</td>
+</tr>
+<tr class="row-even"><td>duration</td>
+<td>300</td>
+<td>the jquery duration speed for all animations.</td>
+</tr>
+<tr class="row-odd"><td>move</td>
+<td>&#8216;auto&#8217;</td>
+<td>either <tt class="docutils literal"><span class="pre">single</span></tt> to move one element at a time or <tt class="docutils literal"><span class="pre">auto</span></tt> to move all visible elements.</td>
+</tr>
+<tr class="row-even"><td>momentum</td>
+<td>true</td>
+<td>enables <tt class="docutils literal"><span class="pre">next</span></tt> and <tt class="docutils literal"><span class="pre">previous</span></tt> to jump to the end or beginning when reaching their bounds.</td>
+</tr>
+<tr class="row-odd"><td>cls</td>
+<td>object</td>
+<td>the available css class getters and setters.</td>
+</tr>
+</tbody>
+</table>
+<p>Option <tt class="docutils literal"><span class="pre">cls</span></tt> setters and getters:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="18%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Default</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>active</td>
+<td>&#8216;active&#8217;</td>
+<td>class will be added to the active item.</td>
+</tr>
+<tr class="row-odd"><td>disabled</td>
+<td>&#8216;disabled&#8217;</td>
+<td>class will be added to the triggers when bound is reached and momentum is false.</td>
+</tr>
+<tr class="row-even"><td>wrapper</td>
+<td>&#8216;.wrapper&#8217;</td>
+<td>the outer relative positioned wrapper where the height will be added.</td>
+</tr>
+<tr class="row-odd"><td>viewport</td>
+<td>&#8216;.viewport&#8217;</td>
+<td>the inner absolute positioned wrapper that will be moved.</td>
+</tr>
+<tr class="row-even"><td>elements</td>
+<td>&#8216;.item&#8217;</td>
+<td>the element / individual items.</td>
+</tr>
+<tr class="row-odd"><td>next</td>
+<td>&#8216;.trigger-next a&#8217;</td>
+<td>element which triggers the method <tt class="docutils literal"><span class="pre">next</span></tt>.</td>
+</tr>
+<tr class="row-even"><td>previous</td>
+<td>&#8216;.trigger-previous a&#8217;</td>
+<td>element which triggers the method <tt class="docutils literal"><span class="pre">previous</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>navigation</td>
+<td>&#8216;.nav a&#8217;</td>
+<td>navigation elements which trigger the method <tt class="docutils literal"><span class="pre">move</span></tt> whith their corresponding index.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>Methods can be called using an instance of the class:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Carousel</span><span class="p">();</span>
+    <span class="c1">// trigger the instanace</span>
+    <span class="nx">carousel</span><span class="p">.</span><span class="nx">toggle</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>All Methods have appropriate events and callbacks.</p>
+<dl class="function">
+<dt id="carousel.next">
+<tt class="descclassname">carousel.</tt><tt class="descname">next</tt><big>(</big><big>)</big><a class="headerlink" href="#carousel.next" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body">goes to the next carousel slide.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">next callback.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="carousel.previous">
+<tt class="descclassname">carousel.</tt><tt class="descname">previous</tt><big>(</big><big>)</big><a class="headerlink" href="#carousel.previous" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body">goes to the previous carousel slide.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">previous callback.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="carousel.move">
+<tt class="descclassname">carousel.</tt><tt class="descname">move</tt><big>(</big><em>index</em><big>)</big><a class="headerlink" href="#carousel.move" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body"><p class="first">moves to a carousel entry.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>index</strong> (<em>number</em>) &#8211; index of the element to be moved to.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">move callback.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="carousel.play">
+<tt class="descclassname">carousel.</tt><tt class="descname">play</tt><big>(</big><big>)</big><a class="headerlink" href="#carousel.play" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body">starts the carousel timeout.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">play callback.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="carousel.stop">
+<tt class="descclassname">carousel.</tt><tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#carousel.stop" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body">stops the carousel timeout.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">stop callback.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="carousel.destroy">
+<tt class="descclassname">carousel.</tt><tt class="descname">destroy</tt><big>(</big><big>)</big><a class="headerlink" href="#carousel.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body">removes all states and events.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">destroy callback.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="events-and-callbacks">
+<h2>Events and Callbacks<a class="headerlink" href="#events-and-callbacks" title="Permalink to this headline">¶</a></h2>
+<p><strong>Events</strong> are always triggered <strong>before</strong> the method is excecuted on the <tt class="docutils literal"><span class="pre">document</span></tt> level.
+You can interact with event as follows:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Carousel</span><span class="p">();</span>
+<span class="c1">// attach event</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;carousel-next&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;carousel is moving to the next position&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p><strong>Callbacks</strong> are always triggered <strong>after</strong> the method is excecuted.
+You can interact with callbacks as follows:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Carousel</span><span class="p">();</span>
+<span class="c1">// register callback</span>
+<span class="nx">carousel</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">move</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">scope</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;caoursel is moving to position &#39;</span> <span class="o">+</span> <span class="nx">scope</span><span class="p">.</span><span class="nx">index</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><em>Available keywords</em>:</p>
+<dl class="data">
+<dt id="next">
+<tt class="descname">next</tt><a class="headerlink" href="#next" title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``next``.">
+<tt class="descclassname">is called when triggering method ``next``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``next``." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="previous">
+<tt class="descname">previous</tt><a class="headerlink" href="#previous" title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``previous``.">
+<tt class="descclassname">is called when triggering method ``previous``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``previous``." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="move">
+<tt class="descname">move</tt><a class="headerlink" href="#move" title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``move``.">
+<tt class="descclassname">is called when triggering method ``move``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``move``." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="play">
+<tt class="descname">play</tt><a class="headerlink" href="#play" title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``play``.">
+<tt class="descclassname">is called when triggering method ``play``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``play``." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="stop">
+<tt class="descname">stop</tt><a class="headerlink" href="#stop" title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``stop``.">
+<tt class="descclassname">is called when triggering method ``stop``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``stop``." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="destroy">
+<tt class="descname">destroy</tt><a class="headerlink" href="#destroy" title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``destroy``.">
+<tt class="descclassname">is called when triggering method ``destroy``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``destroy``." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Cl.Carousel</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+<li><a class="reference internal" href="#events-and-callbacks">Events and Callbacks</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="cl.accordion.html"
+                        title="previous chapter">Cl.Accordion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="cl.debug.html"
+                        title="next chapter">Cl.Debug</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/src/cl.carousel.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="cl.debug.html" title="Cl.Debug"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="cl.accordion.html" title="Cl.Accordion"
+             >previous</a> |</li>
+        <li><a href="../index.html">classjs 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Angelo Dini.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cl.Accordion &mdash; classjs 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="classjs 1.0 documentation" href="../index.html" />
+    <link rel="next" title="Cl.Carousel" href="cl.carousel.html" />
+    <link rel="prev" title="Welcome" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="cl.carousel.html" title="Cl.Carousel"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Welcome"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">classjs 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="cl-accordion">
+<h1>Cl.Accordion<a class="headerlink" href="#cl-accordion" title="Permalink to this headline">¶</a></h1>
+<p>This is a list of all relevant options, methods, events and callbacks.</p>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p>Options are set on initializing the accordion:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Accordion</span><span class="p">({</span>
+    <span class="c1">// your options</span>
+    <span class="s1">&#39;index&#39;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;event&#39;</span><span class="o">:</span> <span class="s1">&#39;mouseenter&#39;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="6%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Default</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>index</td>
+<td>null</td>
+<td>shows selected element[index] starting form zero.</td>
+</tr>
+<tr class="row-odd"><td>expanded</td>
+<td>false</td>
+<td>initial visibility of all items inside the selector.</td>
+</tr>
+<tr class="row-even"><td>event</td>
+<td>&#8216;click&#8217;</td>
+<td>the jquery element of which the accordion will listen to.</td>
+</tr>
+<tr class="row-odd"><td>easing</td>
+<td>&#8216;linear&#8217;</td>
+<td>the jquery easing method for all animations.</td>
+</tr>
+<tr class="row-even"><td>duration</td>
+<td>300</td>
+<td>the jquery duration speed for all animations.</td>
+</tr>
+<tr class="row-odd"><td>grouping</td>
+<td>true</td>
+<td>enables all elements to be grouped together, only one will be visible at any given time.</td>
+</tr>
+<tr class="row-even"><td>forceClose</td>
+<td>false</td>
+<td>if enabled, allows open element to be closed again.</td>
+</tr>
+<tr class="row-odd"><td>disableAnchors</td>
+<td>false</td>
+<td>disables descending anchors from triggering. For example if the trigger is an <tt class="docutils literal"><span class="pre">li</span></tt> wrapping an anchor.</td>
+</tr>
+<tr class="row-even"><td>autoHeight</td>
+<td>false</td>
+<td>sets the height for each element on initialization.</td>
+</tr>
+<tr class="row-odd"><td>cls</td>
+<td>object</td>
+<td>the available css class getters and setters.</td>
+</tr>
+<tr class="row-even"><td>lang</td>
+<td>object</td>
+<td>the available language configurations.</td>
+</tr>
+</tbody>
+</table>
+<p>Option <tt class="docutils literal"><span class="pre">cls</span></tt> setters and getters:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="19%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Default</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>expanded</td>
+<td>&#8216;expanded&#8217;</td>
+<td>will be added on the trigger when expanded</td>
+</tr>
+<tr class="row-odd"><td>collapsed</td>
+<td>&#8216;collapsed&#8217;</td>
+<td>will be added on the trigger when collapsed</td>
+</tr>
+<tr class="row-even"><td>trigger</td>
+<td>&#8216;.trigger&#8217;</td>
+<td>the element which triggers <tt class="docutils literal"><span class="pre">toggle</span></tt></td>
+</tr>
+<tr class="row-odd"><td>container</td>
+<td>&#8216;.container&#8217;</td>
+<td>the container to be expanded and collapsed</td>
+</tr>
+</tbody>
+</table>
+<p>Option <tt class="docutils literal"><span class="pre">lang</span></tt> strings:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>expanded</td>
+<td>&#8216;Expanded &#8216;</td>
+</tr>
+<tr class="row-odd"><td>collapsed</td>
+<td>&#8216;Collapsed &#8216;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>Methods can be called using an instance of the class:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">accordion</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Accordion</span><span class="p">();</span>
+    <span class="c1">// trigger the instanace</span>
+    <span class="nx">accordion</span><span class="p">.</span><span class="nx">toggle</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>All Methods have appropriate events and callbacks.</p>
+<dl class="function">
+<dt id="accordion.toggle">
+<tt class="descclassname">accordion.</tt><tt class="descname">toggle</tt><big>(</big><em>index</em><big>)</big><a class="headerlink" href="#accordion.toggle" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body"><p class="first">toggles a specified accordion entry.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>index</strong> (<em>number</em>) &#8211; <tt class="docutils literal"><span class="pre">required</span></tt> the index of the element to be toggled.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">toggle callback.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="accordion.show">
+<tt class="descclassname">accordion.</tt><tt class="descname">show</tt><big>(</big><span class="optional">[</span><em>index</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#accordion.show" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body"><p class="first">opens an accordion entry.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>index</strong> (<em>number</em>) &#8211; optional index of the element to be shown, if empty shows all.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">open callback.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="accordion.hide">
+<tt class="descclassname">accordion.</tt><tt class="descname">hide</tt><big>(</big><span class="optional">[</span><em>index</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#accordion.hide" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Description :</th><td class="field-body"><p class="first">hides an accordion entry.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>index</strong> (<em>number</em>) &#8211; optional index of the element to be shown, if empty hides all.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">close callback.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="events-and-callbacks">
+<h2>Events and Callbacks<a class="headerlink" href="#events-and-callbacks" title="Permalink to this headline">¶</a></h2>
+<p><strong>Events</strong> are always triggered <strong>before</strong> the method is excecuted on the <tt class="docutils literal"><span class="pre">document</span></tt> level.
+You can interact with event as follows:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">accordion</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Accordion</span><span class="p">();</span>
+<span class="c1">// attach event</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;accordion-toggle&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;item is toggling&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p><strong>Callbacks</strong> are always triggered <strong>after</strong> the method is excecuted.
+You can interact with callbacks as follows:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">accordion</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Accordion</span><span class="p">();</span>
+<span class="c1">// register callback</span>
+<span class="nx">accordion</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">toggle</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;item has toggled&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><em>Available keywords</em>:</p>
+<dl class="data">
+<dt id="toggle">
+<tt class="descname">toggle</tt><a class="headerlink" href="#toggle" title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``toggle``.">
+<tt class="descclassname">is called when triggering method ``toggle``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``toggle``." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="open">
+<tt class="descname">open</tt><a class="headerlink" href="#open" title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``open``.">
+<tt class="descclassname">is called when triggering method ``open``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``open``." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="close">
+<tt class="descname">close</tt><a class="headerlink" href="#close" title="Permalink to this definition">¶</a></dt>
+<dt id="is called when triggering method ``close``.">
+<tt class="descclassname">is called when triggering method ``close``.</tt><tt class="descname"></tt><a class="headerlink" href="#is called when triggering method ``close``." title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Cl.Accordion</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+<li><a class="reference internal" href="#events-and-callbacks">Events and Callbacks</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Welcome</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="cl.carousel.html"
+                        title="next chapter">Cl.Carousel</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/src/cl.accordion.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="cl.carousel.html" title="Cl.Carousel"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Welcome"
+             >previous</a> |</li>
+        <li><a href="../index.html">classjs 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Angelo Dini.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

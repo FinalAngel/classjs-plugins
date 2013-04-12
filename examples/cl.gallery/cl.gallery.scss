@@ -1,0 +1,47 @@
+@charset "utf-8";
+/*!
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ */
+
+// sass imports
+@import "compass/css3";
+@import "compass/utilities";
+
+// variables
+$gallery-font-size: 12px;
+$gallery-line-height: 12px;
+
+// required styles
+.gallery {
+	.wrapper { position:relative; z-idnex:1; overflow:hidden; }
+	.viewport {
+		position:absolute; left:0; top:0; width:100%; list-style-type:none; padding:0; margin:0;
+
+		.item { display:none; position:absolute; left:0; top:0; width:100%; }
+		.item img { display:block; max-width:100%; margin:0 auto;  }
+		.item.active { display:block; }
+		// show first item if javascript is disabled
+		.item:first-child { display:block; }
+	}
+
+	// custom styles
+	.trigger-next, .trigger-previous { position:absolute; top:50%; z-index:101; margin:0;
+		font-size:$gallery-font-size; line-height:$gallery-line-height;
+		margin-top:-10px; background:rgba(black, 0.6); }
+	.trigger-next { right:0; }
+	.trigger-previous { left:0; }
+	.trigger-next a, .trigger-previous a { display:none; float:left; padding:4px;
+		&:hover { color:white;} }
+
+	nav { text-align:center; padding-top:15px; }
+	nav a { display:none; font-size:11px; line-height:11px; padding:3px 6px 4px 6px;
+		@include inline-block(); @include border-radius(10px); border:1px solid #e5e5e5; background:#fff; }
+	nav a:hover { background:#f9f9f9; }
+	nav .active { color:#fff !important; border-color:#39c !important; background:#39c !important; }
+
+	// very custom
+	.item-content { padding:70px 100px 25px; min-height:155px; background:white; }
+}
+
+.wrapper { min-height:250px; }
