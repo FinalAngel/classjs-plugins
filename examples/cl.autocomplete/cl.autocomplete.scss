@@ -1,0 +1,25 @@
+@charset "utf-8";
+/*!
+ * Cl.Autocomplete
+ * @author      Ales Kocjancic - github.com/finalangel/classjs-plugins
+ * @copyright	Distributed under the BSD License.
+ */
+
+// sass imports
+@import "compass/css3";
+@import "compass/utilities";
+
+.autocomplete-results {
+	position: absolute; left: 0; z-index: 100; width: 100%; background: white; padding: 0; margin: 0 0 10px 0;
+	@include box-shadow(0 2px 4px rgba(black, 0.3));
+
+	.autocomplete-inner, .message { padding: 10px; margin: 0; }
+	.autocomplete-item {
+		display: block; margin: 2px 0; padding: 2px 5px;
+		&:hover, &:focus { background: #f2f2f2; }
+	}
+
+	.autocomplete-foot { background: #333; padding: 2px 2px 2px 10px; margin: 0; }
+	.close, .all-results { font-size: 12px; color: white; }
+	.all-results { float: right; }
+}
