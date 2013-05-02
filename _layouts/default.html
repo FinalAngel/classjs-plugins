@@ -6,7 +6,7 @@
 	<link rel="icon" href="{{ site.baseurl }}/examples/static/favicon.png">
 	<link rel="stylesheet" href="{{ site.baseurl }}/examples/static/css/base.css">
 	<script src="{{ site.baseurl }}/examples/static/js/base.js"></script>
-	{% if not page.is_root %}
+	{% if !page.is_root %}
 	<!-- required files -->
 	<script src="{{ site.baseurl }}/src/cl.{{ page.title }}/cl.{{ page.title }}.js"></script>
 	<link rel="stylesheet" href="cl.{{ page.title }}.css" />
