@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>class.js plugins</title>
+	<link rel="icon" href="../static/favicon.png">
+	<link rel="stylesheet" href="../static/css/base.css" />
+	<script src="../static/js/base.js"></script>
+
+	<!-- required files -->
+	<link rel="stylesheet" href="cl.autocomplete.css" />
+	<script src="../../src/cl.autocomplete/cl.autocomplete.js"></script>
+</head>
+<body>
+
+<header>
+	<h1><a href="../" class="logo">class<span class="dot">.</span><span class="ext">js</span></a> <a href=".">carousel</a></h1>
+</header>
+
+<section>
+	<div class="inner">
+		<h2>Examples</h2>
+
+		<p>Released under the <strong>BSD License</strong>.
+			The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.</p>
+
+		<div class="spacer"></div>
+
+		<h3>Autocomplete</h3>
+		<!-- start: autocomplete html -->
+		<form action="/classjs-plugins/examples/cl.autocomplete/autocomplete_response.html" method="get" id="search-form">
+			<fieldset class="relative">
+				<label for="search">Search</label>
+				<input type="search" id="search" autocomplete="off" aria-autocomplete="list" role="listbox" />
+				<div class="autocomplete-results"></div>
+			</fieldset>
+		</form>
+		<!-- end: autocomplete html -->
+
+		<div class="spacer"></div>
+
+		<h3>Options</h3>
+		<p class="col-two">
+			&raquo; <code>index: 2</code><br />
+		</p>
+		<p class="col-two">
+		</p>
+		<div class="clear"></div>
+		<div class="spacer"></div>
+	</div>
+</section>
+
+<footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
+
+<!-- required javascript -->
+<script>
+jQuery(document).ready(function ($) {
+	var autocomplete = new Cl.Autocomplete('#search-form');
+});
+</script>
+
+</body>
+</html>
