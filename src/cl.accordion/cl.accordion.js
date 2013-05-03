@@ -21,8 +21,8 @@ var Cl = window.Cl || {};
 		options: {
 			'index': null,
 			'expanded': false,
-			'event': 'click focusin',
-			'easing': 'linear',
+			'event': 'click',
+			'easing': 'swing',
 			'duration': 300,
 			'grouping': true,
 			'forceClose': false,
