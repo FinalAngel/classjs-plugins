@@ -1,123 +1,103 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>class.js plugins</title>
-	<link rel="icon" href="../static/favicon.png">
-	<link rel="stylesheet" href="../static/css/base.css" />
-	<script src="../static/js/base.js"></script>
+---
+layout: default
+title: uniform
+---
 
-	<!-- required files -->
-	<link rel="stylesheet" href="cl.uniform.css" />
-	<script src="../../src/cl.uniform/cl.uniform.js"></script>
-</head>
-<body>
+<h2>Examples</h2>
 
-<header>
-	<h1><a href="../" class="logo">class<span class="dot">.</span><span class="ext">js</span></a>  <a href=".">uniform</a></h1>
-</header>
+<p>Released under the <strong>BSD License</strong>.
+	The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.<br />
+	Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.uniform.html">Documentation</a> or
+	<a href="../../src/cl.uniform/CHANGELOG.rst">Changelog</a> for detailed information.</p>
+<p>This plugin has been tested in Firefox, Chrome, Safari and IE7+ and requires class.js 1.0+ and jQuery 1.7+.
+	We also tested under iOS, Android and Windows Phone to insure correct responsive behaviour
+	with full accessible support according to the WCAG 2.0 standards.</p>
 
-<section>
-	<div class="inner">
-		<h2>Examples</h2>
+<div class="spacer"></div>
 
-		<p>Released under the <strong>BSD License</strong>.
-			The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.<br />
-			Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.uniform.html">Documentation</a> or
-			<a href="../../src/cl.uniform/CHANGELOG.rst">Changelog</a> for detailed information.</p>
-		<p>This plugin has been tested in Firefox, Chrome, Safari and IE7+ and requires class.js 1.0+ and jQuery 1.7+.
-			We also tested under iOS, Android and Windows Phone to insure correct responsive behaviour
-			with full accessible support according to the WCAG 2.0 standards.</p>
-
-		<div class="spacer"></div>
-
-		<h3>Uniform</h3>
-		<!-- start: uniform html -->
-		<form action="." method="post" class="frm">
-			<fieldset>
-				<h4>Default forms</h4>
-				<div><label>input <input type="text" /></label></div>
-				<hr />
-				<div><label>upload <input type="file" /></label></div>
-				<hr />
-				<div><label><select><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
-				<hr />
-				<div>
-					<label><input type="radio" checked="checked" /> radio</label> &nbsp;&nbsp;&nbsp;
-					<label><input type="checkbox" checked="checked" /> checkbox</label>
-				</div>
-			</fieldset>
-			<fieldset>
-				<h4>File field</h4>
-				<div><label>upload <input type="file" class="uniform" /></label></div>
-				<div><label>upload <input type="file" class="uniform" /></label></div>
-				<div><label for="field-file">upload</label> <input type="file" class="uniform" id="field-file" /></div>
-			</fieldset>
-			<fieldset>
-				<h4>Select field</h4>
-				<div><label>choose <select class="uniform"><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
-				<div><label>choose <select class="uniform"><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
-				<div><label for="field-select">choose</label> <select class="uniform" id="field-select" required="required"><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></div>
-			</fieldset>
-			<div class="col-two">
-				<fieldset>
-					<h4>Radio field</h4>
-					<div><label><input type="radio" name="radiogroup1" class="uniform" /> radiogroup 1</label></div>
-					<div><label><input type="radio" name="radiogroup1" class="uniform" /> radiogroup 1</label></div>
-					<div><input type="radio" name="radiogroup1" class="uniform" id="field-radiotest" required="required" /> <label for="field-radiotest">radiogroup 1</label></div>
-					<hr />
-					<div><label><input type="radio" name="radiogroup2" class="uniform" checked="checked" /> radiogroup 2</label></div>
-					<div><label><input type="radio" name="radiogroup2" class="uniform" disabled="disabled" /> radiogroup 2</label></div>
-				</fieldset>
-			</div>
-			<div class="col-two col-last">
-				<fieldset>
-					<h4>Checkbox field</h4>
-					<div><label><input type="checkbox" name="check1" class="uniform" /> checkbox 1</label></div>
-					<div><label><input type="checkbox" name="check2" class="uniform" /> checkbox 2</label></div>
-					<div><input type="checkbox" name="check3" class="uniform" id="field-checktest" required="required" /> <label for="field-checktest">checkbox 3</label></div>
-					<hr />
-					<div><label><input type="checkbox" name="check4" class="uniform" checked="checked" /> checkbox 4</label></div>
-					<div><label><input type="checkbox" name="check5" class="uniform" disabled="disabled" /> checkbox 5</label></div>
-				</fieldset>
-			</div>
-			<div class="clear"></div>
-		</form>
-		<!-- end: uniform html -->
-
-		<div class="spacer"></div>
-
-		<h3>Options</h3>
-		<p class="col-two">
-			&raquo; <code>offset: -9999</code><br />
-			&raquo; <code>lang: {}</code><br />
-		</p>
-		<p class="col-two">
-			&raquo; <code>cls: {}</code><br />
-			&raquo; <code>tpl: {}</code><br />
-		</p>
-		<div class="clear"></div>
-		<div class="spacer"></div>
-
-		<h3>Methods</h3>
-		<p>
-			&raquo; <a href="#" onclick="my.uniform.update(); return false;"><code>my.uniform.update();</code></a><br />
-			&raquo; <a href="#" onclick="my.uniform.destroy(); return false;"><code>my.uniform.destroy();</code></a><br />
-		</p>
-		<div class="spacer"></div>
-
-		<h3>Events and Callbacks</h3>
-		<p>
-			&raquo; <code>$(document).on('uniform-update', function...);</code><br />
-			&raquo; <code>my.uniform.callbacks.update = function...</code><br /><br />
-			available events and callbacks are:<br /><code>update</code>, <code>destroy</code><br /><br />
-			check the console for debug information on events.<br />
-		</p>
-		<div class="spacer"></div>
+<h3>Uniform</h3>
+<!-- start: uniform html -->
+<form action="." method="post" class="frm">
+	<fieldset>
+		<h4>Default forms</h4>
+		<div><label>input <input type="text" /></label></div>
+		<hr />
+		<div><label>upload <input type="file" /></label></div>
+		<hr />
+		<div><label><select><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
+		<hr />
+		<div>
+			<label><input type="radio" checked="checked" /> radio</label> &nbsp;&nbsp;&nbsp;
+			<label><input type="checkbox" checked="checked" /> checkbox</label>
+		</div>
+	</fieldset>
+	<fieldset>
+		<h4>File field</h4>
+		<div><label>upload <input type="file" class="uniform" /></label></div>
+		<div><label>upload <input type="file" class="uniform" /></label></div>
+		<div><label for="field-file">upload</label> <input type="file" class="uniform" id="field-file" /></div>
+	</fieldset>
+	<fieldset>
+		<h4>Select field</h4>
+		<div><label>choose <select class="uniform"><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
+		<div><label>choose <select class="uniform"><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
+		<div><label for="field-select">choose</label> <select class="uniform" id="field-select" required="required"><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></div>
+	</fieldset>
+	<div class="col-two">
+		<fieldset>
+			<h4>Radio field</h4>
+			<div><label><input type="radio" name="radiogroup1" class="uniform" /> radiogroup 1</label></div>
+			<div><label><input type="radio" name="radiogroup1" class="uniform" /> radiogroup 1</label></div>
+			<div><input type="radio" name="radiogroup1" class="uniform" id="field-radiotest" required="required" /> <label for="field-radiotest">radiogroup 1</label></div>
+			<hr />
+			<div><label><input type="radio" name="radiogroup2" class="uniform" checked="checked" /> radiogroup 2</label></div>
+			<div><label><input type="radio" name="radiogroup2" class="uniform" disabled="disabled" /> radiogroup 2</label></div>
+		</fieldset>
 	</div>
-</section>
+	<div class="col-two col-last">
+		<fieldset>
+			<h4>Checkbox field</h4>
+			<div><label><input type="checkbox" name="check1" class="uniform" /> checkbox 1</label></div>
+			<div><label><input type="checkbox" name="check2" class="uniform" /> checkbox 2</label></div>
+			<div><input type="checkbox" name="check3" class="uniform" id="field-checktest" required="required" /> <label for="field-checktest">checkbox 3</label></div>
+			<hr />
+			<div><label><input type="checkbox" name="check4" class="uniform" checked="checked" /> checkbox 4</label></div>
+			<div><label><input type="checkbox" name="check5" class="uniform" disabled="disabled" /> checkbox 5</label></div>
+		</fieldset>
+	</div>
+	<div class="clear"></div>
+</form>
+<!-- end: uniform html -->
 
-<footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
+<div class="spacer"></div>
+
+<h3>Options</h3>
+<p class="col-two">
+	&raquo; <code>offset: -9999</code><br />
+	&raquo; <code>lang: {}</code><br />
+</p>
+<p class="col-two">
+	&raquo; <code>cls: {}</code><br />
+	&raquo; <code>tpl: {}</code><br />
+</p>
+<div class="clear"></div>
+<div class="spacer"></div>
+
+<h3>Methods</h3>
+<p>
+	&raquo; <a href="#" onclick="my.uniform.update(); return false;"><code>my.uniform.update();</code></a><br />
+	&raquo; <a href="#" onclick="my.uniform.destroy(); return false;"><code>my.uniform.destroy();</code></a><br />
+</p>
+<div class="spacer"></div>
+
+<h3>Events and Callbacks</h3>
+<p>
+	&raquo; <code>$(document).on('uniform-update', function...);</code><br />
+	&raquo; <code>my.uniform.callbacks.update = function...</code><br /><br />
+	available events and callbacks are:<br /><code>update</code>, <code>destroy</code><br /><br />
+	check the console for debug information on events.<br />
+</p>
+<div class="spacer"></div>
 
 <!-- required javascript -->
 <script>
@@ -135,6 +115,3 @@ jQuery(document).ready(function ($) {
 	});
 });
 </script>
-
-</body>
-</html>
