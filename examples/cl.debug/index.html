@@ -1,59 +1,37 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>class.js plugins</title>
-	<link rel="icon" href="../static/favicon.png">
-	<link rel="stylesheet" href="../static/css/base.css" />
-	<script src="../static/js/base.js"></script>
+---
+layout: default
+title: debug
+---
 
-	<script src="../../src/cl.debug/cl.debug.js"></script>
-	<script>jQuery(document).ready(function () { new Cl.Debug(); });</script>
-</head>
-<body>
+<h2>Examples</h2>
 
-<header>
-	<h1><a href="../" class="logo">class<span class="dot">.</span><span class="ext">js</span></a> <a href=".">debug</a></h1>
-</header>
+<p>Released under the <strong>BSD License</strong>.
+	The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.<br />
+	Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.debug.html">Documentation</a> or
+	<a href="../../src/cl.debug/CHANGELOG.rst">Changelog</a> for detailed information.</p>
+<p>This plugin is for development only.<br />Many feature do only work with modern browsers.</p>
 
-<section>
-	<div class="inner">
-		<h2>Examples</h2>
+<div class="spacer"></div>
 
-		<p>Released under the <strong>BSD License</strong>.
-			The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.<br />
-			Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.debug.html">Documentation</a> or
-			<a href="../../src/cl.debug/CHANGELOG.rst">Changelog</a> for detailed information.</p>
-		<p>This plugin is for development only.<br />Many feature do only work with modern browsers.</p>
+<h3>Debug</h3>
+<p>The Cl.Debug button is shown on the lower right corner when initialized.</p>
+<div class="spacer"></div>
+<p class="align-center"><a class="btn btn-large" href="javascript:(function(){document.body.appendChild(document.createElement('script')).src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js';document.body.appendChild(document.createElement('script')).src='//raw.github.com/FinalAngel/classjs/master/src/class.min.js';document.body.appendChild(document.createElement('script')).src='//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.debug/cl.debug.js';setTimeout(function () {new Cl.Debug();}, 1000);})();">
+	Load Bookmarklet</a></p>
+<!-- start: carousel html -->
 
-		<div class="spacer"></div>
+<!-- end: carousel html -->
+<div class="spacer"></div>
 
-		<h3>Debug</h3>
-		<p>The Cl.Debug button is shown on the lower right corner when initialized.</p>
-		<div class="spacer"></div>
-		<p class="align-center"><a class="btn btn-large" href="javascript:(function(){document.body.appendChild(document.createElement('script')).src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js';document.body.appendChild(document.createElement('script')).src='//raw.github.com/FinalAngel/classjs/master/src/class.min.js';document.body.appendChild(document.createElement('script')).src='//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.debug/cl.debug.js';setTimeout(function () {new Cl.Debug();}, 1000);})();">
-			Load Bookmarklet</a></p>
-		<!-- start: carousel html -->
+<h3>Options</h3>
+&raquo; <code>closed: false</code><br />
+&raquo; <code>collapsed: true</code><br />
+<div class="spacer"></div>
 
-		<!-- end: carousel html -->
-		<div class="spacer"></div>
+<h3>Methods</h3>
+<p>&raquo; append <code>#show</code> to url for enabling the button when closed.</p>
+<div class="spacer"></div>
 
-		<h3>Options</h3>
-		&raquo; <code>closed: false</code><br />
-		&raquo; <code>collapsed: true</code><br />
-		<div class="spacer"></div>
-
-		<h3>Methods</h3>
-		<p>&raquo; append <code>#show</code> to url for enabling the button when closed.</p>
-		<div class="spacer"></div>
-
-		<h3>Events and Callbacks</h3>
-		<p>&raquo; <code>none</code></p>
-		<div class="spacer"></div>
-	</div>
-</section>
-
-<footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>
-
-</body>
-</html>
+<h3>Events and Callbacks</h3>
+<p>&raquo; <code>none</code></p>
+<div class="spacer"></div>
