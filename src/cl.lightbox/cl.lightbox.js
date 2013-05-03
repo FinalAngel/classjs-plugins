@@ -696,7 +696,8 @@ var Cl = window.Cl || {};
 
 		_resizeDim: function () {
 			var that = this;
-			var offset = ($.browser && $.browser.msie && $.browser.version <= 7) ? 21 : 0;
+			var offset = ($.browser && $.browser.msie && $.browser.version <= 8) ? 21 : 0;
+			if($.browser && $.browser.msie && $.browser.version >= 9) offset = 17;
 
 			// first set the dimmer to 100% when resizing so we avoid jumpint errors
 			this.dimmer.css({
