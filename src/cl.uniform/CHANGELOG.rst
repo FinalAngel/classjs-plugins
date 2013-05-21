@@ -2,6 +2,10 @@
 Cl.Uniform
 ==========
 
+1.0.2
+-----
+- classes from fields are now copied to the most outer uniform wrapper
+
 1.0.1
 -----
 - added method ``update``
