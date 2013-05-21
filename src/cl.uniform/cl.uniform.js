@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.1
+ * @version     1.0.2
  */
 
 // insure namespace is defined
@@ -292,6 +292,9 @@ var Cl = window.Cl || {};
 
 			// add classes depending on the state
 			if(field.is(':disabled')) field.parents('.' + cls.prefix).addClass(cls.prefix + '-' + cls.disabled);
+
+			// add classes from the field (for example, error styles)
+			field.parents('.' + cls.prefix).last().addClass(field.attr('class'));
 		},
 
 		_fire: function (keyword, scope) {
