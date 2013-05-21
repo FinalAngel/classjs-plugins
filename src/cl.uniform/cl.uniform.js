@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.1
+ * @version     1.0.2
  */
 
 // insure namespace is defined
@@ -61,8 +61,10 @@ var Cl = window.Cl || {};
 
 			this.elements.each(function (index, item) {
 				var input = $(item);
-					if(input.is(':checked')) input.trigger('click');
-					input.trigger('change');
+				if(input.is(':checked')) {
+					input.trigger('click');
+				}
+				input.trigger('change');
 			});
 
 			// trigger event
@@ -137,7 +139,7 @@ var Cl = window.Cl || {};
 
 				if(type === 'checkbox') {
 					// we need to check if we should activate or deactivate the checkbox
-					if(parseInt(knob.css('left')) === 0) {
+					if(parseInt(knob.css('left')) === 0 || knob.css('left') === 'auto') {
 						knob.css('left', that.options.offset);
 					} else {
 						knob.css('left', 0);
@@ -292,6 +294,9 @@ var Cl = window.Cl || {};
 
 			// add classes depending on the state
 			if(field.is(':disabled')) field.parents('.' + cls.prefix).addClass(cls.prefix + '-' + cls.disabled);
+
+			// add classes from the field (for example, error styles)
+			field.parents('.' + cls.prefix).last().addClass(field.attr('class'));
 		},
 
 		_fire: function (keyword, scope) {
