@@ -61,8 +61,10 @@ var Cl = window.Cl || {};
 
 			this.elements.each(function (index, item) {
 				var input = $(item);
-					if(input.is(':checked')) input.trigger('click');
-					input.trigger('change');
+				if(input.is(':checked')) {
+					input.trigger('click');
+				}
+				input.trigger('change');
 			});
 
 			// trigger event
@@ -137,7 +139,7 @@ var Cl = window.Cl || {};
 
 				if(type === 'checkbox') {
 					// we need to check if we should activate or deactivate the checkbox
-					if(parseInt(knob.css('left')) === 0) {
+					if(parseInt(knob.css('left')) === 0 || knob.css('left') === 'auto') {
 						knob.css('left', that.options.offset);
 					} else {
 						knob.css('left', 0);
