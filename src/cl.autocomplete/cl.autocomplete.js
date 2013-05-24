@@ -2,7 +2,7 @@
  * Cl.Autocomplete
  * @author      Ales Kocjancic - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.0.2
+ * @version     1.0.beta2
  */
 
 // ensure namespace is defined
