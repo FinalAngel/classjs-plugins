@@ -98,6 +98,8 @@ var Cl = window.Cl || {};
 			}
 			if('onhashchange' in window) {
 				window.onhashchange = function () {
+					// cancen if hash is not show
+					if(window.location.hash !== '#show') return false;
 					that.frame.show();
 					that.setStorage('divio-toolbar-closed', false);
 				}

@@ -2,6 +2,10 @@
 Cl.Debug
 ========
 
+1.2.2
+-----
+- fixed an issue with #show mappingon entering
+
 1.2.1
 -----
 - changed internal methods to be private
