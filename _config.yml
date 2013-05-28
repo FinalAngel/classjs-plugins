@@ -1,4 +1,3 @@
 # Jekyll
 name: class.js
-layouts: ./examples/layout
-port: 8000
+layouts: examples/layout
