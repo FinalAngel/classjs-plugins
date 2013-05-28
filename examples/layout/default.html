@@ -3,14 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.name }}{% if page.is_root %} - class based inheritance{% endif %}</title>
-	<link rel="icon" href="{{ site.baseurl }}/examples/static/favicon.png">
-	<link rel="stylesheet" href="{{ site.baseurl }}/examples/static/css/base.css">
-	<script src="{{ site.baseurl }}/examples/static/js/base.js"></script>
-	{% if page.is_root %}{% else %}
-	<!-- required files -->
-	<script src="{{ site.baseurl }}/src/cl.{{ page.title }}/cl.{{ page.title }}.js"></script>
-	<link rel="stylesheet" href="{{ site.baseurl }}/examples/cl.{{ page.title }}/cl.{{ page.title }}.css" />
-	{% endif %}
+	<link rel="icon" href="{% if page.is_root %}examples/{% else %}../{% endif %}static/favicon.png">
+	<link rel="stylesheet" href="{% if page.is_root %}examples/{% else %}../{% endif %}static/css/base.css">
+	<script src="{% if page.is_root %}examples/{% else %}../{% endif %}static/js/base.js"></script>
+	{% if page.is_root %}{% else %}<!-- required files -->
+	<script src="../../src/cl.{{ page.title }}/cl.{{ page.title }}.js"></script>
+	<link rel="stylesheet" href="../cl.{{ page.title }}/cl.{{ page.title }}.css" />{% endif %}
 </head>
 <body>
 

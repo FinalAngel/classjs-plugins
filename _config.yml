@@ -1,3 +1,4 @@
 # Jekyll
-baseurl: /classjs-plugins
 name: class.js
+layouts: ./examples/layout
+port: 8000
