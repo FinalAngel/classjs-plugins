@@ -17,7 +17,7 @@ callbacks.
 Documentation
 -------------
 
-Go to `http://classjs-plugins.rtfd.org` for a full documentation.
+| Go to `http://classjs-plugins.rtfd.org` for a full documentation.
 | Please use github to report bugs or feature requests. Include a `jsfiddle <http://jsfiddle.net>`_ or equivalent example whenever possible.
 
 
