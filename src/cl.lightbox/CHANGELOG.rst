@@ -5,6 +5,7 @@ Cl.Lightbox
 1.1.1
 -----
 - changed from bind/unbind events to on/off
+- fixed an issue with type ajax
 
 1.1.0
 -----

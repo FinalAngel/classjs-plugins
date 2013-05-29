@@ -278,6 +278,7 @@ var Cl = window.Cl || {};
 
 			// forces ajax
 			if(this.options.preload) this.type = 'preload';
+			if(this.options.ajax) this.type = 'ajax';
 
 			// create the element
 			switch(this.type) {
@@ -325,6 +326,9 @@ var Cl = window.Cl || {};
 					'method': 'get',
 					'cache': false,
 					'success': function (data) {
+						data = '<div class="' + that.options.prefix + '-lightbox-ajax">' + data;
+						data = data + '</div>';
+						// after wrapper is added create element
 						that.element = $(data);
 						that._load(that.element);
 					},
