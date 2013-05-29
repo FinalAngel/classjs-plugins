@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Cl.Carousel &mdash; classjs 1.0 documentation</title>
+    <title>Cl.Uniform &mdash; classjs 1.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -47,8 +47,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="cl-carousel">
-<h1>Cl.Carousel<a class="headerlink" href="#cl-carousel" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="cl-uniform">
+<h1>Cl.Uniform<a class="headerlink" href="#cl-uniform" title="Permalink to this headline">¶</a></h1>
 <p>This is a list of all relevant options, methods, events and callbacks.</p>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
@@ -218,17 +218,8 @@
 </dd></dl>
 
 </div>
-<div class="section" id="events-and-callbacks">
-<h2>Events and Callbacks<a class="headerlink" href="#events-and-callbacks" title="Permalink to this headline">¶</a></h2>
-<p><strong>Events</strong> are always triggered <strong>before</strong> the method is excecuted on the <tt class="docutils literal"><span class="pre">document</span></tt> level.
-You can interact with event as follows:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">uniform</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Uniform</span><span class="p">();</span>
-<span class="c1">// attach event</span>
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;uniform-update&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;uniform is excecuting update&#39;</span><span class="p">);</span>
-<span class="p">});</span>
-</pre></div>
-</div>
+<div class="section" id="callbacks">
+<h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
 <p><strong>Callbacks</strong> are always triggered <strong>after</strong> the method is excecuted.
 You can interact with callbacks as follows:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">uniform</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Uniform</span><span class="p">();</span>
@@ -264,10 +255,10 @@ You can interact with callbacks as follows:</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Cl.Carousel</a><ul>
+<li><a class="reference internal" href="#">Cl.Uniform</a><ul>
 <li><a class="reference internal" href="#options">Options</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
-<li><a class="reference internal" href="#events-and-callbacks">Events and Callbacks</a></li>
+<li><a class="reference internal" href="#callbacks">Callbacks</a></li>
 </ul>
 </li>
 </ul>

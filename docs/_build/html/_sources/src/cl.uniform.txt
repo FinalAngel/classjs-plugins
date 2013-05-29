@@ -1,6 +1,6 @@
-===========
-Cl.Carousel
-===========
+==========
+Cl.Uniform
+==========
 
 This is a list of all relevant options, methods, events and callbacks.
 
@@ -82,17 +82,8 @@ All Methods have appropriate events and callbacks.
     :returns: destroy callback.
 
 
-Events and Callbacks
---------------------
-
-**Events** are always triggered **before** the method is excecuted on the ``document`` level.
-You can interact with event as follows::
-
-    var uniform = new Cl.Uniform();
-    // attach event
-    $(document).on('uniform-update', function (e) {
-    	console.log('uniform is excecuting update');
-    });
+Callbacks
+---------
 
 **Callbacks** are always triggered **after** the method is excecuted.
 You can interact with callbacks as follows::
