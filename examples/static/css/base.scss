@@ -95,6 +95,8 @@ form {
 
 	.uniform-select, .uniform-file { margin-left:5px !important; position:relative; top:-2px; }
 	.uniform-radio, .uniform-checkbox { position:relative; top:-1px; margin-right:5px; }
+
+	div { margin:0 0 5px; }
 }
 
 .logo { font-size:28px; font-weight:300; padding:0 8px 4px; margin-right:8px; color:$color-font; @include border-radius($border-radius);
