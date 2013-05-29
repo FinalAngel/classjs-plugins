@@ -56,9 +56,6 @@ var Cl = window.Cl || {};
 		},
 
 		update: function () {
-			// trigger event
-			this._fire('update');
-
 			this.elements.each(function (index, item) {
 				var input = $(item);
 				if(input.is(':checked')) {
@@ -72,9 +69,6 @@ var Cl = window.Cl || {};
 		},
 
 		destroy: function () {
-			// trigger event
-			this._fire('destroy');
-
 			var cls = this.options.cls;
 
 			this.elements.each(function (index, item) {
@@ -106,8 +100,7 @@ var Cl = window.Cl || {};
 					this._setupFile(field);
 					break;
 				case undefined:
-					if(field.prop('tagName') === 'SELECT'
-						&& field.attr('multiple') === undefined) this._setupSelect(field);
+					if(field.prop('tagName') === 'SELECT' && field.attr('multiple') === undefined) this._setupSelect(field);
 					break;
 				default:
 					break;
@@ -139,7 +132,7 @@ var Cl = window.Cl || {};
 
 				if(type === 'checkbox') {
 					// we need to check if we should activate or deactivate the checkbox
-					if(parseInt(knob.css('left')) === 0 || knob.css('left') === 'auto') {
+					if(parseInt(knob.css('left'), 10) === 0 || knob.css('left') === 'auto') {
 						knob.css('left', that.options.offset);
 					} else {
 						knob.css('left', 0);
@@ -156,7 +149,11 @@ var Cl = window.Cl || {};
 				input.trigger(cls.prefix + 'change');
 
 				// change accessibility labels
-				(parseInt(knob.css('left')) === 0) ? parent.attr('aria-checked', true) : parent.attr('aria-checked', false);
+				if(parseInt(knob.css('left'), 10) === 0) {
+					parent.attr('aria-checked', true);
+				} else {
+					parent.attr('aria-checked', false);
+				}
 			});
 
 			// start attaching events
@@ -172,7 +169,11 @@ var Cl = window.Cl || {};
 				});
 
 			// set initial accessibility labels
-			(field.is(':checked')) ? parent.attr('aria-checked', true) : parent.attr('aria-checked', false);
+			if(field.is(':checked')) {
+				parent.attr('aria-checked', true);
+			} else {
+				parent.attr('aria-checked', false);
+			}
 			if(field.attr('required')) parent.attr('aria-required', true);
 
 			// initial state
@@ -289,7 +290,12 @@ var Cl = window.Cl || {};
 			field.on('focus.' + cls.prefix + ' blur.' + cls.prefix, function (e) {
 				var wrap = $(this).parents('.' + cls.prefix);
 				var wrapCls = cls.prefix + '-' + cls.focus;
-				(e.type === 'focus') ? wrap.addClass(wrapCls) : wrap.removeClass(wrapCls);
+
+				if(e.type === 'focus') {
+					wrap.addClass(wrapCls);
+				} else {
+					wrap.removeClass(wrapCls);
+				}
 			});
 
 			// add classes depending on the state
@@ -300,15 +306,10 @@ var Cl = window.Cl || {};
 		},
 
 		_fire: function (keyword, scope) {
-			if(scope) {
-				// cancel if there is no callback found
-				if(this.callbacks[keyword] === undefined) return false;
-				// excecute callback
-				this.callbacks[keyword](scope);
-			} else {
-				// excecute event
-				$.event.trigger('uniform-' + keyword);
-			}
+			// cancel if there is no callback found
+			if(this.callbacks[keyword] === undefined) return false;
+			// excecute callback
+			this.callbacks[keyword](scope);
 		}
 
 	});

@@ -5,6 +5,9 @@ Cl.Uniform
 1.0.2
 -----
 - classes from fields are now copied to the most outer uniform wrapper
+- fixes issues when attaching uniform on the same element again
+- adds compatibility to jshint
+- remove event api
 
 1.0.1
 -----
