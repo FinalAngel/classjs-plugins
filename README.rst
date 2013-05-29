@@ -17,7 +17,7 @@ callbacks.
 Documentation
 -------------
 
-| Go to `http://classjs-plugins.rtfd.org` for a full documentation.
+| Visit `http://classjs-plugins.rtfd.org` for a full documentation or go to the `demo page <http://finalangel.github.io/classjs-plugins/>`_ to view the examples.
 | Please use github to report bugs or feature requests. Include a `jsfiddle <http://jsfiddle.net>`_ or equivalent example whenever possible.
 
 
