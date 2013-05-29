@@ -1,21 +1,31 @@
 ---
-layout: default
+layout: plugin
 title: uniform
+
+lang_options: — Options can be set on initialisation
+lang_methods: — Methods can be called on an instance
+lang_callbacks: — Callbacks can be called on an instance
+
+options:
+  - name: offset
+    default: "-9999"
+  - name: lang
+    default: "{}"
+  - name: cls
+    default: "{}"
+  - name: tpl
+    default: "{}"
+
+methods:
+  - name: update
+  - name: destroy
+
+callbacks:
+  - name: update
+  - name: destroy
 ---
 
-<h2>Examples</h2>
-
-<p>Released under the <strong>BSD License</strong>.
-	The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.<br />
-	Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.uniform.html">Documentation</a> or
-	<a href="../../src/cl.uniform/CHANGELOG.rst">Changelog</a> for detailed information.</p>
-<p>This plugin has been tested in Firefox, Chrome, Safari and IE7+ and requires class.js 1.0+ and jQuery 1.7+.
-	We also tested under iOS, Android and Windows Phone to insure correct responsive behaviour
-	with full accessible support according to the WCAG 2.0 standards.</p>
-
-<div class="spacer"></div>
-
-<h3>Uniform</h3>
+<h3>{{ page.title | capitalize }}</h3>
 <!-- start: uniform html -->
 <form action="." method="post" class="frm">
 	<fieldset>
@@ -57,28 +67,33 @@ title: uniform
 <!-- end: uniform html -->
 
 <div class="spacer"></div>
+<hr />
+<div class="spacer"></div>
 
 <div class="col-two">
 	<h3>Options</h3>
-	<p>Options are set on initialization:</p>
+	<p>{{ page.lang_options }}</p>
 	<p>
-		&raquo; <code>offset: -9999</code><br />
-		&raquo; <code>lang: {}</code><br />
-		&raquo; <code>cls: {}</code><br />
-		&raquo; <code>tpl: {}</code><br />
+		{% for option in page.options %}
+		&raquo; <code>{{ option.name }}: {{ option.default }}</code><br />
+		{% endfor %}
 	</p>
 </div>
 <div class="col-two">
 	<h3>Methods</h3>
+	<p>{{ page.lang_methods }}</p>
 	<p>
-		&raquo; <a href="#" onclick="my.uniform.update(); return false;"><code>my.uniform.update();</code></a><br />
-		&raquo; <a href="#" onclick="my.uniform.destroy(); return false;"><code>my.uniform.destroy();</code></a><br />
+	{% for method in page.methods %}
+	&raquo; <a href="#" onclick="my.{{ page.title }}.{{ method.name }}(); return false;"><code>{{ page.title }}.{{ method.name }}();</code></a><br />
+	{% endfor %}
 	</p>
 	<div class="spacer"></div>
 	<h3>Callbacks</h3>
+	<p>{{ page.lang_callbacks }}</p>
 	<p>
-		&raquo; <code>update</code><br />
-		&raquo; <code>destroy</code><br />
+	{% for callback in page.callbacks %}
+	&raquo; <code>callbacks.{{ callback.name }}</code><br />
+	{% endfor %}
 	</p>
 </div>
 <div class="clear"></div>
@@ -89,11 +104,12 @@ var my = {};
 
 jQuery(document).ready(function ($) {
 	// grouped lightbox
-	var uniform = my.uniform = new Cl.Uniform('.uniform');
+	var {{ page.title }} = my.{{ page.title }} = new Cl.{{ page.title | capitalize }}('.uniform');
+	var methods = [{% for method in page.methods %}'{{ method.name }}'{% if forloop.last %}{% else %},{% endif %}{% endfor %}];
 
 	// debugging events
-	$.each(['update', 'destroy'], function (index, api) {
-		uniform.callbacks[api] = function (scope) {
+	$.each(methods, function (index, api) {
+		{{ page.title }}.callbacks[api] = function () {
 			console.log('trigger callback: ' + api);
 		};
 	});
