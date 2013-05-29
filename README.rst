@@ -1,4 +1,4 @@
-Class.js - plugin repository
+Class.js - Plugin Repository
 ============================
 
 https://github.com/finalangel/classjs
@@ -24,4 +24,4 @@ Documentation
 License
 -------
 
-Distributed under the BSD `LICENSE. <http://github.com/FinalAngel/classjs-plugins/blob/master/LICENSE.rst>`_.
+Distributed under the BSD `LICENSE <http://github.com/FinalAngel/classjs-plugins/blob/master/LICENSE.rst>`_.
