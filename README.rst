@@ -1,8 +1,5 @@
 Class.js - plugin repository
 ============================
-.. |br| raw:: html
-
-    <br />
 
 https://github.com/finalangel/classjs
 
@@ -20,8 +17,8 @@ callbacks.
 Documentation
 -------------
 
-Go to `http://classjs-plugins.rtfd.org` for a full documentation.|br|
-Please use github to report bugs or feature requests. Include a `jsfiddle <http://jsfiddle.net>`_ or equivalent example whenever possible.
+Go to `http://classjs-plugins.rtfd.org` for a full documentation.
+| Please use github to report bugs or feature requests. Include a `jsfiddle <http://jsfiddle.net>`_ or equivalent example whenever possible.
 
 
 License
