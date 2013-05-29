@@ -19,19 +19,6 @@ title: uniform
 <!-- start: uniform html -->
 <form action="." method="post" class="frm">
 	<fieldset>
-		<h4>Default forms</h4>
-		<div><label>input <input type="text" /></label></div>
-		<hr />
-		<div><label>upload <input type="file" /></label></div>
-		<hr />
-		<div><label><select><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
-		<hr />
-		<div>
-			<label><input type="radio" checked="checked" /> radio</label> &nbsp;&nbsp;&nbsp;
-			<label><input type="checkbox" checked="checked" /> checkbox</label>
-		</div>
-	</fieldset>
-	<fieldset>
 		<h4>File field</h4>
 		<div><label>upload <input type="file" class="uniform" /></label></div>
 		<div><label>upload <input type="file" class="uniform" /></label></div>
@@ -71,33 +58,30 @@ title: uniform
 
 <div class="spacer"></div>
 
-<h3>Options</h3>
-<p class="col-two">
-	&raquo; <code>offset: -9999</code><br />
-	&raquo; <code>lang: {}</code><br />
-</p>
-<p class="col-two">
-	&raquo; <code>cls: {}</code><br />
-	&raquo; <code>tpl: {}</code><br />
-</p>
+<div class="col-two">
+	<h3>Options</h3>
+	<p>Options are set on initialization:</p>
+	<p>
+		&raquo; <code>offset: -9999</code><br />
+		&raquo; <code>lang: {}</code><br />
+		&raquo; <code>cls: {}</code><br />
+		&raquo; <code>tpl: {}</code><br />
+	</p>
+</div>
+<div class="col-two">
+	<h3>Methods</h3>
+	<p>
+		&raquo; <a href="#" onclick="my.uniform.update(); return false;"><code>my.uniform.update();</code></a><br />
+		&raquo; <a href="#" onclick="my.uniform.destroy(); return false;"><code>my.uniform.destroy();</code></a><br />
+	</p>
+	<div class="spacer"></div>
+	<h3>Callbacks</h3>
+	<p>
+		&raquo; <code>update</code><br />
+		&raquo; <code>destroy</code><br />
+	</p>
+</div>
 <div class="clear"></div>
-<div class="spacer"></div>
-
-<h3>Methods</h3>
-<p>
-	&raquo; <a href="#" onclick="my.uniform.update(); return false;"><code>my.uniform.update();</code></a><br />
-	&raquo; <a href="#" onclick="my.uniform.destroy(); return false;"><code>my.uniform.destroy();</code></a><br />
-</p>
-<div class="spacer"></div>
-
-<h3>Events and Callbacks</h3>
-<p>
-	&raquo; <code>$(document).on('uniform-update', function...);</code><br />
-	&raquo; <code>my.uniform.callbacks.update = function...</code><br /><br />
-	available events and callbacks are:<br /><code>update</code>, <code>destroy</code><br /><br />
-	check the console for debug information on events.<br />
-</p>
-<div class="spacer"></div>
 
 <!-- required javascript -->
 <script>
@@ -108,10 +92,10 @@ jQuery(document).ready(function ($) {
 	var uniform = my.uniform = new Cl.Uniform('.uniform');
 
 	// debugging events
-	$(document).on(
-		'uniform-update ' +
-		'uniform-destroy', function (e) {
-		if(console && console.log) console.log('trigger event: ' + e.type);
+	$.each(['update', 'destroy'], function (index, api) {
+		uniform.callbacks[api] = function (scope) {
+			console.log('trigger callback: ' + api);
+		};
 	});
 });
 </script>
