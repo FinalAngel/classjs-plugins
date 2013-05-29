@@ -36,9 +36,9 @@ callbacks:
 	</fieldset>
 	<fieldset>
 		<h4>Select field</h4>
-		<div><label>choose <select class="uniform"><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
-		<div><label>choose <select class="uniform"><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
-		<div><label for="field-select">choose</label> <select class="uniform" id="field-select" required="required"><option>Select 1</option><option>Select 2</option><option>Select 3</option></select></div>
+		<div><label>choose <select class="uniform"><option value="">Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
+		<div><label>choose <select class="uniform"><option value="">Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>
+		<div><label for="field-select">choose</label> <select class="uniform" id="field-select" required="required"><option value="">Select 1</option><option>Select 2</option><option>Select 3</option></select></div>
 	</fieldset>
 	<div class="col-two">
 		<fieldset>
@@ -73,27 +73,17 @@ callbacks:
 <div class="col-two">
 	<h3>Options</h3>
 	<p>{{ page.lang_options }}</p>
-	<p>
-		{% for option in page.options %}
-		&raquo; <code>{{ option.name }}: {{ option.default }}</code><br />
-		{% endfor %}
-	</p>
+	<p>{% for option in page.options %}&raquo; <code>{{ option.name }}: {{ option.default }}</code><br />{% endfor %}</p>
 </div>
 <div class="col-two">
 	<h3>Methods</h3>
 	<p>{{ page.lang_methods }}</p>
-	<p>
-	{% for method in page.methods %}
-	&raquo; <a href="#" onclick="my.{{ page.title }}.{{ method.name }}(); return false;"><code>{{ page.title }}.{{ method.name }}();</code></a><br />
-	{% endfor %}
+	<p>{% for method in page.methods %}&raquo; <a href="#" onclick="my.{{ page.title }}.{{ method.name }}(); return false;"><code>{{ page.title }}.{{ method.name }}();</code></a><br />{% endfor %}
 	</p>
 	<div class="spacer"></div>
 	<h3>Callbacks</h3>
 	<p>{{ page.lang_callbacks }}</p>
-	<p>
-	{% for callback in page.callbacks %}
-	&raquo; <code>callbacks.{{ callback.name }}</code><br />
-	{% endfor %}
+	<p>{% for callback in page.callbacks %}&raquo; <code>callbacks.{{ callback.name }}</code><br />{% endfor %}
 	</p>
 </div>
 <div class="clear"></div>
@@ -104,7 +94,7 @@ var my = {};
 
 jQuery(document).ready(function ($) {
 	// grouped lightbox
-	var {{ page.title }} = my.{{ page.title }} = new Cl.{{ page.title | capitalize }}('.uniform');
+	var {{ page.title }} = my.{{ page.title }} = new Cl.{{ page.title | capitalize }}('.{{ page.title }}');
 	var methods = [{% for method in page.methods %}'{{ method.name }}'{% if forloop.last %}{% else %},{% endif %}{% endfor %}];
 
 	// debugging events
