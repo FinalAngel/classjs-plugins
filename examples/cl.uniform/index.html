@@ -99,7 +99,7 @@ jQuery(document).ready(function ($) {
 
 	// debugging events
 	$.each(methods, function (index, api) {
-		{{ page.title }}.callbacks[api] = function () {
+		{{ page.title }}.callbacks[api] = function (scope) {
 			console.log('trigger callback: ' + api);
 		};
 	});

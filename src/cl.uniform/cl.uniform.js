@@ -65,7 +65,7 @@ var Cl = window.Cl || {};
 			});
 
 			// trigger event
-			this._fire('update', this);
+			this._fire('update');
 		},
 
 		destroy: function () {
@@ -80,14 +80,18 @@ var Cl = window.Cl || {};
 						.off('click.' + cls.prefix)
 						.off('change.' + cls.prefix)
 						.off('focus.' + cls.prefix)
-						.off('blur.' + cls.prefix);
+						.off('blur.' + cls.prefix)
+						.data('ready', false);
 			});
 
 			// trigger event
-			this._fire('destroy', this);
+			this._fire('destroy');
 		},
 
 		_scan: function (field) {
+			// validate if uniform is already attached
+			if(field.data('ready')) return false;
+
 			// delegate form elements to their responsive setup handlers
 			switch(field.attr('type')) {
 				case 'checkbox':
@@ -285,6 +289,7 @@ var Cl = window.Cl || {};
 
 		_common: function (field) {
 			var cls = this.options.cls;
+			var parent = field.parents('.' + cls.prefix).last();
 
 			// add focus event
 			field.on('focus.' + cls.prefix + ' blur.' + cls.prefix, function (e) {
@@ -301,15 +306,18 @@ var Cl = window.Cl || {};
 			// add classes depending on the state
 			if(field.is(':disabled')) field.parents('.' + cls.prefix).addClass(cls.prefix + '-' + cls.disabled);
 
+			// add initialized class
+			field.data('ready', true);
+
 			// add classes from the field (for example, error styles)
-			field.parents('.' + cls.prefix).last().addClass(field.attr('class'));
+			parent.addClass(field.attr('class'));
 		},
 
-		_fire: function (keyword, scope) {
+		_fire: function (keyword) {
 			// cancel if there is no callback found
 			if(this.callbacks[keyword] === undefined) return false;
 			// excecute callback
-			this.callbacks[keyword](scope);
+			this.callbacks[keyword](this);
 		}
 
 	});
