@@ -1,28 +1,27 @@
-========================================
-classjs-plugins - class.js based plugins
-========================================
+Class.js - plugin repository
+============================
+
+https://github.com/finalangel/classjs
+
+Class.js is a JavaScript library for building class based object-oriented programms using JavaScript's prototypal
+inheritance. It strives to mimic classical class inheritance provided by other languages such as Python, Java or PHP.
+Its syntax is heavily inspired by MooTools's class implementation.
 
 https://github.com/finalangel/classjs-plugins
 
-The idea behind this project is to provide a set of plugins which are supported by all major platforms including
-Windows, Mac OSX, iOS and Android. Using the latest technologies such as HTML5, CSS3 and progressive enhancement
-whenever possible.
+Class.js plugins are aimed for professionals with extensive JavaScript knowledge. Each plugin follows a simplistic and
+a modular approach. All plugins have demos, tests and documentation regarding their options, methods, events and
+callbacks.
 
 
 Documentation
 =============
 
-Go to `http://classjs-plugins.rtfd.org` for a full documentation.
-
-Please use github to report bugs or feature requests. Include a `jsfiddle <http://jsfiddle.net>`_
-or equivalent example whenever possible for issues and bugs.
-
-Testet in Chrome, Fierfox 4+, Internet Explorer 7+ and Opera.
+Go to `http://classjs-plugins.rtfd.org` for a full documentation. Please use github to report bugs or feature requests.
+Include a `jsfiddle <http://jsfiddle.net>`_ or equivalent example whenever possible.
 
 
 License
 =======
 
-Distributed under the BSD Licence.
-
-Copyright (c) 2012 Angelo Dini and contributors
+Distributed under the BSD `LICENSE. <http://github.com/FinalAngel/classjs-plugins/blob/master/LICENSE.rst>`_.
