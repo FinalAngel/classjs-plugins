@@ -1,22 +1,38 @@
 ---
-layout: default
+layout: plugin
 title: mobilemenu
+
+options:
+  - name: index
+    default: "2"
+  - name: easing
+    default: "'swing'"
+  - name: duration
+    default: "1000"
+  - name: bound
+    default: "539"
+  - name: ratio
+    default: "80 / 100"
+    example: true
+  - name: offset
+    default: "{}"
+  - name: cls
+    default: "{}"
+  - name: overlay
+    default: "'&laquo;div class...'"
+
+methods:
+  - name: toggle
+  - name: show
+  - name: hide
+
+callbacks:
+  - name: toggle
+  - name: show
+  - name: hide
 ---
 
-<h2>Examples</h2>
-
-<p>Released under the <strong>BSD License</strong>.
-	The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.<br />
-	Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.mobilemenu.html">Documentation</a> or
-	<a href="../../src/cl.mobilemenu/CHANGELOG.rst">Changelog</a> for detailed information.</p>
-<p>This plugin has been tested in Firefox, Chrome, Safari and IE7+ and requires class.js 1.0+ and jQuery 1.7+.
-	We also tested under iOS, Android and Windows Phone to insure correct responsive behaviour
-	with full accessible support according to the WCAG 2.0 standards.</p>
-
-<div class="spacer"></div>
-
-<h3>Mobile Menu</h3>
-<!-- start: mobilemenu html -->
+<!-- start: example -->
 <nav class="mainnav">
 	<ul>
 		<li class="title">Navigation</li>
@@ -28,70 +44,4 @@ title: mobilemenu
 </nav>
 <div class="mainnav-knob"></div>
 <p>This is a generic navigation. Resizes the window to be <code>below 540</code> pixels and the mobile menu is shown.</p>
-<!-- end: mobilemenu html -->
-
-<div class="spacer"></div>
-
-<h3>Options</h3>
-<p class="col-two">
-	&raquo; <code>index: 2</code><br />
-	&raquo; <a href="#" class="mobilemenu-opt-easing"><code>easing: 'swing'</code></a><br />
-	&raquo; <a href="#" class="mobilemenu-opt-duration"><code>duration: 1000</code></a><br />
-	&raquo; <a href="#" class="mobilemenu-opt-bound"><code>bound: 539</code></a><br />
-</p>
-<p class="col-two">
-	&raquo; <a href="#" class="mobilemenu-opt-ratio"><code>ratio: 80 / 100</code></a><br />
-	&raquo; <code>offset: {}</code><br />
-	&raquo; <code>cls: {}</code><br />
-	&raquo; <code>overlay: '&laquo;div class...'</code><br />
-</p>
-<div class="clear"></div>
-<div class="spacer"></div>
-
-<h3>Methods</h3>
-<p>
-	&raquo; <a href="#" onclick="my.mobilemenu.toggle(); return false;"><code>my.mobilemenu.toggle();</code></a><br />
-	&raquo; <a href="#" onclick="my.mobilemenu.show(); return false;"><code>my.mobilemenu.show();</code></a><br />
-	&raquo; <a href="#" onclick="my.mobilemenu.hide(); return false;"><code>my.mobilemenu.hide();</code></a><br />
-</p>
-<div class="spacer"></div>
-
-<h3>Events and Callbacks</h3>
-<p>
-	&raquo; <code>$(document).on('mobilemenu-toggle', function...);</code><br />
-	&raquo; <code>my.mobilemenu.callbacks.toggle = function...</code><br /><br />
-	available events and callbacks are:<br /><code>toggle</code>, <code>show</code>, <code>hide</code><br /><br />
-	check the console for debug information on events.<br />
-</p>
-<div class="spacer"></div>
-
-<!-- required javascript -->
-<script>
-var my = {};
-
-jQuery(document).ready(function ($) {
-	// grouped lightbox
-	var mobilemenu = my.mobilemenu = new Cl.MobileMenu('.mainnav');
-
-	$('.mobilemenu-opt-easing').on('click', function (e) { e.preventDefault();
-		my.mobilemenu.options.easing = 'swing';
-	});
-	$('.mobilemenu-opt-duration').on('click', function (e) { e.preventDefault();
-		my.mobilemenu.options.duration = 1000;
-	});
-	$('.mobilemenu-opt-bound').on('click', function (e) { e.preventDefault();
-		my.mobilemenu.options.bound = 539;
-	});
-	$('.mobilemenu-opt-ratio').on('click', function (e) { e.preventDefault();
-		my.mobilemenu.options.ratio = 80 / 100;
-	});
-
-	// debugging events
-	$(document).on(
-		'mobilemenu-toggle ' +
-		'mobilemenu-show ' +
-		'mobilemenu-hide ', function (e) {
-		if(console && console.log) console.log('trigger event: ' + e.type);
-	});
-});
-</script>
+<!-- end: example -->
