@@ -1,37 +1,24 @@
 ---
-layout: default
+layout: plugin
 title: debug
+stylesheet: false
+
+options:
+  - name: closed
+    default: "false"
+  - name: collapsed
+    default: "true"
+
+methods:
+  - name: append <code>#show</code> to url for enabling the button when closed
+    text: "true"
+
+callbacks:
 ---
 
-<h2>Examples</h2>
-
-<p>Released under the <strong>BSD License</strong>.
-	The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.<br />
-	Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.debug.html">Documentation</a> or
-	<a href="../../src/cl.debug/CHANGELOG.rst">Changelog</a> for detailed information.</p>
-<p>This plugin is for development only.<br />Many feature do only work with modern browsers.</p>
-
-<div class="spacer"></div>
-
-<h3>Debug</h3>
+<!-- start: example -->
 <p>The Cl.Debug button is shown on the lower right corner when initialized.</p>
 <div class="spacer"></div>
 <p class="align-center"><a class="btn btn-large" href="javascript:(function(){document.body.appendChild(document.createElement('script')).src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js';document.body.appendChild(document.createElement('script')).src='//raw.github.com/FinalAngel/classjs/master/src/class.min.js';document.body.appendChild(document.createElement('script')).src='//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.debug/cl.debug.js';setTimeout(function () {new Cl.Debug();}, 1000);})();">
 	Load Bookmarklet</a></p>
-<!-- start: carousel html -->
-
-<!-- end: carousel html -->
-<div class="spacer"></div>
-
-<h3>Options</h3>
-&raquo; <code>closed: false</code><br />
-&raquo; <code>collapsed: true</code><br />
-<div class="spacer"></div>
-
-<h3>Methods</h3>
-<p>&raquo; append <code>#show</code> to url for enabling the button when closed.</p>
-<div class="spacer"></div>
-
-<h3>Events and Callbacks</h3>
-<p>&raquo; <code>none</code></p>
-<div class="spacer"></div>
+<!-- end: example -->
