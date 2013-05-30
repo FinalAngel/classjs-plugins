@@ -1,30 +1,60 @@
 ---
-layout: default
+layout: plugin
 title: gallery
+
+options:
+  - name: index
+    default: "2"
+  - name: timeout
+    default: "2000"
+    example: true
+  - name: autoplay
+    default: "true"
+    example: true
+  - name: easing
+    default: "'swing'"
+    example: true
+  - name: duration
+    default: "1000"
+    example: true
+  - name: autoHeight
+    default: "true"
+  - name: engine
+    default: "'slide'"
+  - name: cls
+    default: "{}"
+
+methods:
+  - name: next
+  - name: previous
+  - name: move
+    argument: "2"
+  - name: play
+  - name: stop
+  - name: update
+  - name: hello
+  - name: hello
+
+callbacks:
+  - name: next
+  - name: previous
+  - name: move
+  - name: play
+  - name: stop
+  - name: update
+  - name: hello
+  - name: hello
 ---
 
-<h2>Examples</h2>
-
-<p>Released under the <strong>BSD License</strong>.
-	The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.<br />
-	Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.gallery.html">Documentation</a> or
-	<a href="../../src/cl.gallery/CHANGELOG.rst">Changelog</a> for detailed information.</p>
-<p>This plugin has been tested in Firefox, Chrome, Safari and IE7+ and requires class.js 1.0+ and jQuery 1.7+.
-	We also tested under iOS, Android and Windows Phone to insure correct responsive behaviour
-	with full accessible support according to the WCAG 2.0 standards.</p>
-
-<div class="spacer"></div>
-
-<h3>Gallery</h3>
-<!-- start: gallery html -->
+<!-- start: example -->
 <div class="gallery">
 	<div class="wrapper">
 		<p class="trigger-previous"><a href="#previous">previous</a></p>
 		<ul class="viewport">
-			<li class="item"><img src="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" alt="" /></li>
-			<li class="item"><img src="{{ site.baseurl }}/examples/static/dummy/img-large-002.jpg" alt="" /></li>
-			<li class="item"><img src="{{ site.baseurl }}/examples/static/dummy/img-large-003.jpg" alt="" /></li>
-			<li class="item"><img src="{{ site.baseurl }}/examples/static/dummy/img-large-004.jpg" alt="" /></li>
+			<li class="item"><img src="../static/dummy/img-large-001.jpg" alt="" /></li>
+			<li class="item"><img src="../static/dummy/img-large-002.jpg" alt="" /></li>
+			<li class="item"><img src="../static/dummy/img-large-003.jpg" alt="" /></li>
+			<li class="item"><img src="../static/dummy/img-large-004.jpg" alt="" /></li>
 			<li class="item">
 				<div class="item-content">
 					<h3>William Shakespeare</h3>
@@ -41,79 +71,4 @@ title: gallery
 
 	<nav><a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a></nav>
 </div>
-<!-- end: gallery html -->
-
-<div class="spacer"></div>
-
-<h3>Options</h3>
-<p class="col-two">
-	&raquo; <code>index: 2</code><br />
-	&raquo; <a href="#" class="gallery-opt-timeout"><code>timeout: 2000</code></a><br />
-	&raquo; <a href="#" class="gallery-opt-autoplay"><code>autoplay: true</code></a><br />
-	&raquo; <a href="#" class="gallery-opt-easing"><code>easing: 'swing'</code></a><br />
-	&raquo; <a href="#" class="gallery-opt-duration"><code>duration: 1000</code></a><br />
-</p>
-<p class="col-two">
-	&raquo; <code>autoHeight: true</code><br />
-	&raquo; <code>engine: 'slide'</code><br />
-	&raquo; <code>cls: {}</code><br />
-</p>
-<div class="clear"></div>
-<div class="spacer"></div>
-
-<h3>Methods</h3>
-<p>
-	&raquo; <a href="#" onclick="my.gallery.next(); return false;"><code>my.gallery.next();</code></a><br />
-	&raquo; <a href="#" onclick="my.gallery.previous(); return false;"><code>my.gallery.previous();</code></a><br />
-	&raquo; <a href="#" onclick="my.gallery.move(2); return false;"><code>my.gallery.move(index);</code></a><br />
-	&raquo; <a href="#" onclick="my.gallery.play(); return false;"><code>my.gallery.play();</code></a><br />
-	&raquo; <a href="#" onclick="my.gallery.stop(); return false;"><code>my.gallery.stop();</code></a><br />
-	&raquo; <a href="#" onclick="my.gallery.update(); return false;"><code>my.gallery.update();</code></a><br />
-</p>
-<div class="spacer"></div>
-
-<h3>Events and Callbacks</h3>
-<p>
-	&raquo; <code>$(document).on('gallery-next', function...);</code><br />
-	&raquo; <code>my.gallery.callbacks.next = function...</code><br /><br />
-	available events and callbacks are:<br /><code>next</code>, <code>previous</code>, <code>move</code>,
-	<code>play</code>, <code>stop</code>, <code>update</code><br /><br />
-	check the console for debug information on events.<br />
-</p>
-<div class="spacer"></div>
-
-<!-- required javascript -->
-<script>
-var my = {};
-
-jQuery(document).ready(function ($) {
-	// grouped lightbox
-	var gallery = my.gallery = new Cl.Gallery('.gallery');
-
-	$('.gallery-opt-timeout').on('click', function (e) { e.preventDefault();
-		my.gallery.options.timeout = 2000;
-		my.gallery.stop();
-		my.gallery.play();
-	});
-	$('.gallery-opt-autoplay').on('click', function (e) { e.preventDefault();
-		my.gallery.options.autoplay = true;
-	});
-	$('.gallery-opt-easing').on('click', function (e) { e.preventDefault();
-		my.gallery.options.easing = 'swing';
-	});
-	$('.gallery-opt-duration').on('click', function (e) { e.preventDefault();
-		my.gallery.options.duration = 1000;
-	});
-
-	// debugging events
-	$(document).on(
-		'gallery-next ' +
-		'gallery-previous ' +
-		'gallery-move ' +
-		'gallery-play ' +
-		'gallery-stop ' +
-		'gallery-update', function (e) {
-		if(console && console.log) console.log('trigger event: ' + e.type);
-	});
-});
-</script>
+<!-- end: example -->
