@@ -1,44 +1,35 @@
 ---
-layout: default
+layout: plugin
 title: autocomplete
+
+options:
+  - name: url
+    default: "false"
+  - name: minLength
+    default: "3"
+  - name: delay
+    default: "300"
+  - name: duration
+    default: "300"
+  - name: closeOnBlur
+    default: "false"
+  - name: cls
+    default: "{}"
+  - name: lang
+    default: "{}"
+
+methods:
+
+callbacks:
+
 ---
 
-<h2>Examples</h2>
-
-<p>Released under the <strong>BSD License</strong>.
-	The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.</p>
-
-<div class="spacer"></div>
-
-<h3>Autocomplete</h3>
-<!-- start: autocomplete html -->
-<form action="/classjs-plugins/examples/cl.autocomplete/autocomplete_response.html" method="get" id="search-form">
+<!-- start: example -->
+<form action="autocomplete_response.html" method="get" class="autocomplete">
 	<fieldset class="relative">
 		<label for="search">Search</label>
 		<input type="search" id="search" autocomplete="off" aria-autocomplete="list" role="listbox" />
 		<div class="autocomplete-results"></div>
 	</fieldset>
 </form>
-<!-- end: autocomplete html -->
-
-<div class="spacer"></div>
-
-<h3>Options</h3>
-<p class="col-two">
-	&raquo; <code>url: false</code><br />
-	&raquo; <code>minLength: 3</code><br />
-	&raquo; <code>delay: 300</code><br />
-	&raquo; <code>duration: 300</code><br />
-	&raquo; <code>closeOnBlur: false</code><br />
-</p>
-<p class="col-two">
-</p>
-<div class="clear"></div>
-<div class="spacer"></div>
-
-<!-- required javascript -->
-<script>
-jQuery(document).ready(function ($) {
-	var autocomplete = new Cl.Autocomplete('#search-form');
-});
-</script>
+<!-- end: example -->
