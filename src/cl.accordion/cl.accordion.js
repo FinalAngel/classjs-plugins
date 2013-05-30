@@ -92,9 +92,6 @@ var Cl = window.Cl || {};
 		},
 
 		toggle: function (index) {
-			// trigger event
-			this._fire('toggle');
-
 			// cancel if index is the same end forceClose disabled or not provided
 			if(this.index === index && !this.options.forceClose || this.index === undefined) return false;
 			// set global index
@@ -104,29 +101,23 @@ var Cl = window.Cl || {};
 			(this.containers.eq(index).is(':visible')) ? this.hide(index) : this.show(index);
 
 			// trigger callback
-			this._fire('toggle', this);
+			this._fire('toggle');
 		},
 
 		show: function (index, fast) {
-			// trigger event
-			this._fire('show');
-
 			// if no index is provided, show all
 			this._setExpanded(index, fast);
 
 			// trigger callback
-			this._fire('show', this);
+			this._fire('show');
 		},
 
 		hide: function (index, fast) {
-			// trigger event
-			this._fire('hide');
-
 			// if no index is provided, hide all
 			this._setCollapsed(index, fast);
 
 			// trigger callback
-			this._fire('hide', this);
+			this._fire('hide');
 		},
 
 		_setExpanded: function (index, fast) {
@@ -194,16 +185,11 @@ var Cl = window.Cl || {};
 			});
 		},
 
-		_fire: function (keyword, scope) {
-			if(scope) {
-				// cancel if there is no callback found
-				if(this.callbacks[keyword] === undefined) return false;
-				// excecute callback
-				this.callbacks[keyword](scope);
-			} else {
-				// excecute event
-				$.event.trigger('accordion-' + keyword);
-			}
+		_fire: function (keyword) {
+			// cancel if there is no callback found
+			if(this.callbacks[keyword] === undefined) return false;
+			// excecute callback
+			this.callbacks[keyword](this);
 		}
 
 	});
