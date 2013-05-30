@@ -7,7 +7,7 @@ Cl.Uniform
 - classes from fields are now copied to the most outer uniform wrapper
 - fixes issues when attaching uniform on the same element again
 - adds compatibility to jshint
-- remove event api
+- removed ``_fire`` event calls
 
 1.0.1
 -----
