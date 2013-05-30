@@ -7,10 +7,13 @@ Cl.Lightbox
 - added ``options.cls``
 - added ``options.opacity``
 - changed from bind/unbind events to on/off
+- changed from ``_triggerEvent`` tp ``_fire``
+- changed internal event handling to one single method ``_fire``
 - fixed an issue with type ajax
 - fixed height calculations on very large images
 - fixed several IE issues
 - fixed an issue when opening a collection manually
+- removed ``_fire`` event calls
 
 1.1.0
 -----

@@ -13,9 +13,6 @@ var Cl = window.Cl || {};
 	// creating class
 	Cl.Lightbox = new Class({
 		/*
-			TODO 1.2.1
-			- when cycle is enabled, remove next and prev (or disable) when reaching bound
-
 			TODO 1.3
 			- add slideshow, play and pause options
 			- collections refactor (so collections can be added and removed)
@@ -84,9 +81,6 @@ var Cl = window.Cl || {};
 		},
 
 		_setup: function () {
-			// trigger event
-			this._triggerEvent('setup');
-
 			// insure that this instant is loaded so setup is not called twice
 			this.isLoaded = true;
 
@@ -120,17 +114,12 @@ var Cl = window.Cl || {};
 			// attach frame to the dom
 			this.body.append(this.instance);
 
-			// trigger event
-			this._triggerCallback('setup', this);
+			// trigger callback
+			this._fire('setup');
 		},
 
-		/*
-		 * PUBLIC API
-		 */
+		// PUBLOC METHODS
 		open: function (el) {
-			// trigger event
-			this._triggerEvent('open');
-
 			// check if there is already an instance available
 			if(!this.isLoaded) this._setup();
 			this._show((this.isOpen) ? false : true);
@@ -154,13 +143,10 @@ var Cl = window.Cl || {};
 			this.isOpen = true;
 
 			// trigger callback
-			return this._triggerCallback('open', this);
+			return this._fire('open');
 		},
 
 		close: function () {
-			// trigger event
-			this._triggerEvent('close');
-
 			this._hide();
 			this._unload();
 
@@ -168,34 +154,25 @@ var Cl = window.Cl || {};
 			this.isOpen = false;
 
 			// trigger callback
-			return this._triggerCallback('close', this);
+			return this._fire('close');
 		},
 
 		resize: function (width, height) {
-			// trigger event
-			this._triggerEvent('resize');
-
 			this._resize('animate', width, height);
 
 			// trigger callback
-			return this._triggerCallback('resize', this);
+			return this._fire('resize');
 		},
 
 		destroy: function () {
-			// trigger event
-			this._triggerEvent('destroy');
-
 			this.triggers.off('click');
 			this.instance.remove();
 
 			// trigger callback
-			return this._triggerCallback('destroy', this);
+			return this._fire('destroy');
 		},
 
 		next: function () {
-			// trigger event
-			this._triggerEvent('next');
-
 			// cancel if there is no collection
 			if(!this.collection) return false;
 
@@ -210,13 +187,10 @@ var Cl = window.Cl || {};
 			this.open(this.collection[this.index]);
 
 			// trigger callback
-			return this._triggerCallback('next', this);
+			return this._fire('next');
 		},
 
 		previous: function () {
-			// trigger event
-			this._triggerEvent('previous');
-
 			// cancel if there is no collection
 			if(!this.collection) return false;
 
@@ -231,7 +205,7 @@ var Cl = window.Cl || {};
 			this.open(this.collection[this.index]);
 
 			// trigger callback
-			return this._triggerCallback('previous', this);
+			return this._fire('previous');
 		},
 
 		getElement: function () {
@@ -242,12 +216,8 @@ var Cl = window.Cl || {};
 			return this.collection || null;
 		},
 
-		/*
-		 * PRIVATE METHODS
-		 */
+		// PRIVATE METHODS
 		_preload: function (el) {
-			this._triggerEvent('load');
-
 			// define global helper variables
 			this.element = this.getElement();
 			this.width = null;
@@ -359,7 +329,8 @@ var Cl = window.Cl || {};
 				});
 			}
 
-			this._triggerCallback('load', this);
+			// trigger callback
+			this._fire('load');
 		},
 
 		_load: function (el) {
@@ -385,9 +356,6 @@ var Cl = window.Cl || {};
 		},
 
 		_complete: function (el) {
-			// trigger event
-			this._triggerEvent('complete');
-
 			var that = this;
 
 			// load element and show
@@ -417,18 +385,15 @@ var Cl = window.Cl || {};
 			this.content.find('a').attr('tabindex', 0);
 
 			// trigger callback
-			this._triggerCallback('complete', this);
+			this._fire('complete');
 		},
 
 		_unload: function () {
-			// trigger event
-			this._triggerEvent('unload');
-
 			// remove element
 			this.element.remove();
 
 			// trigger callback
-			this._triggerCallback('unload', this);
+			this._fire('unload');
 		},
 
 		_show: function (state) {
@@ -581,17 +546,6 @@ var Cl = window.Cl || {};
 			$(document).off('keydown');
 		},
 
-		_triggerCallback: function (fn, scope) {
-			// cancel if there is no callback found
-			if(this.callbacks[fn] === undefined) return false;
-			// excecute fallback
-			this.callbacks[fn](scope);
-		},
-
-		_triggerEvent: function (event) {
-			$.event.trigger(this.options.prefix + '-lightbox-' + event);
-		},
-
 		_resize: function (type, width, height) {
 			// set defaults
 			type = type || 'css';
@@ -660,9 +614,14 @@ var Cl = window.Cl || {};
 			}
 		},
 
-		/*
-		 * PRIVATE CONTROL METHODS
-		 */
+		_fire: function (keyword) {
+			// cancel if there is no callback found
+			if(this.callbacks[keyword] === undefined) return false;
+			// excecute callback
+			this.callbacks[keyword](this);
+		},
+
+		// PRIVATE CONTROLS METHODS
 		_showControls: function () {
 			var that = this;
 
@@ -694,10 +653,11 @@ var Cl = window.Cl || {};
 			this.text.hide();
 		},
 
-		/*
-		 * PRIVATE DIMMER METHODS
-		 */
+		// PRIVATE DIMMER METHODS
 		_showDim: function () {
+			// cancel if dimmer is already shown
+			if(this.dimmer.is(':visible')) return false;
+			// show dimmer
 			this.dimmer.css('opacity', 0)
 				.show()
 				.animate({ 'opacity': this.options.opacity });
@@ -736,9 +696,7 @@ var Cl = window.Cl || {};
 			}, 100);
 		},
 
-		/*
-		 * TEMPLATES
-		 */
+		// TEMPLATES
 		_tpl: function (prefix) {
 			var cls = (this.options.cls) ? ' ' + this.options.cls : '';
 
