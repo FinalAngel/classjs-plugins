@@ -35,8 +35,12 @@ layout: default
 	<p>— Methods can be called on an instance</p>
 	<p>
 	{% for method in page.methods %}
-		&raquo; <a href="#" onclick="my.{{ page.title }}.{{ method.name }}(); return false;">
+		{% if method.text %}
+		&raquo; {{ method.name }}
+		{% else %}
+		&raquo; <a href="#" onclick="my.{{ page.title }}.{{ method.name }}({{ method.argument }}); return false;">
 			<code>{{ page.title }}.{{ method.name }}({{ method.argument }});</code></a><br />
+		{% endif %}
 	{% endfor %}
 	</p>
 	<div class="spacer"></div>
@@ -57,9 +61,9 @@ var my = {};
 jQuery(document).ready(function ($) {
 	// grouped lightbox
 	var {{ page.title }} = my.{{ page.title }} = new Cl.{{ page.title | capitalize }}('.{{ page.title }}');
-	var methods = [{% for method in page.methods %}'{{ method.name }}'{% if forloop.last %}{% else %},{% endif %}{% endfor %}];
 
-	// debugging events
+	// debugging methods
+	var methods = [{% for method in page.methods %}{% if method.text %}{% else %}'{{ method.name }}'{% if forloop.last %}{% else %},{% endif %}{% endif %}{% endfor %}];
 	$.each(methods, function (index, api) {
 		{{ page.title }}.callbacks[api] = function (scope) {
 			console.log('trigger callback: ' + api);
@@ -73,7 +77,7 @@ jQuery(document).ready(function ($) {
 			e.preventDefault();
 			my.{{ page.title }}.options.{{ option.name }} = {{ option.default }};
 		});
-		{% endif%}
+		{% endif %}
 	{% endfor %}
 });
 </script>

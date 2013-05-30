@@ -8,7 +8,7 @@
 	<script src="{% if page.is_root %}examples/{% else %}../{% endif %}static/js/base.js"></script>
 	{% if page.is_root %}{% else %}<!-- required files -->
 	<script src="../../src/cl.{{ page.title }}/cl.{{ page.title }}.js"></script>
-	<link rel="stylesheet" href="../cl.{{ page.title }}/cl.{{ page.title }}.css" />{% endif %}
+	{% if page.stylesheet != false %}<link rel="stylesheet" href="../cl.{{ page.title }}/cl.{{ page.title }}.css" />{% endif %}{% endif %}
 </head>
 <body>
 
