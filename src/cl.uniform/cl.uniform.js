@@ -29,8 +29,8 @@ var Cl = window.Cl || {};
 				'fileStatus': 'Please select a file...'
 			},
 			'tpl': {
-				'radio': '<span class="{cls}" role="radio"><span class="{knob}"></span></span>',
-				'checkbox': '<span class="{cls}" role="checkbox"><span class="{knob}"></span></span>',
+				'radio': '<span class="{cls}" role="radio"><span class="{knob}"><!-- radio --></span></span>',
+				'checkbox': '<span class="{cls}" role="checkbox"><span class="{knob}"><!-- checkbox --></span></span>',
 				'file': '<span class="{cls}"><span class="{input}"><!-- file --></span><span class="{btn}">{btntext}</span><span class="{status}">{statustext}</span></span>',
 				'select': '<span class="{cls}"><span class="{input}"><!-- select --></span><span class="{status}"></span><span class="{arrow}"></span></span>'
 			}
@@ -178,13 +178,12 @@ var Cl = window.Cl || {};
 			} else {
 				parent.attr('aria-checked', false);
 			}
-			if(field.attr('required')) parent.attr('aria-required', true);
 
 			// initial state
 			if(!field.is(':checked')) field.parents('.' + cls.prefix).children().css('left', this.options.offset);
 
 			// add common elements
-			this._common(field, parent);
+			this._common(field);
 		},
 
 		_setupFile: function (field) {
@@ -234,9 +233,6 @@ var Cl = window.Cl || {};
 						input.trigger('click');
 				});
 
-			// set initial accessibility labels
-			if(field.attr('required')) parent.attr('aria-required', true);
-
 			// add common elements
 			this._common(field);
 		},
@@ -280,9 +276,6 @@ var Cl = window.Cl || {};
 			// we need to set a fixed with if field is 100%
 			field.css('width', tpl.outerWidth(true));
 
-			// set initial accessibility labels
-			if(field.attr('required')) parent.attr('aria-required', true);
-
 			// add common elements
 			this._common(field);
 		},
@@ -304,7 +297,10 @@ var Cl = window.Cl || {};
 			});
 
 			// add classes depending on the state
-			if(field.is(':disabled')) field.parents('.' + cls.prefix).addClass(cls.prefix + '-' + cls.disabled);
+			if(field.is(':disabled')) parent.addClass(cls.prefix + '-' + cls.disabled);
+
+			// set initial accessibility labels
+			if(field.attr('required')) parent.attr('aria-required', true);
 
 			// add initialized class
 			field.data('ready', true);
