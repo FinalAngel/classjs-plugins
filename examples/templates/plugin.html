@@ -60,7 +60,15 @@ var my = {};
 
 jQuery(document).ready(function ($) {
 	// grouped lightbox
+	{% if page.is_lightbox %}
+	new Cl.Lightbox('.lightbox-groups');
+	var lightbox = my.lightbox = new Cl.Lightbox();
+	$('.lightbox').on('click', function (e) { e.preventDefault();
+		lightbox.open(this);
+	});
+	{% else %}
 	var {{ page.title }} = my.{{ page.title }} = new Cl.{{ page.title | capitalize }}('.{{ page.title }}');
+	{% endif %}
 
 	// debugging methods
 	var methods = [{% for method in page.methods %}{% if method.text %}{% else %}'{{ method.name }}'{% if forloop.last %}{% else %},{% endif %}{% endif %}{% endfor %}];
