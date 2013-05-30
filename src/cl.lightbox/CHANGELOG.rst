@@ -10,6 +10,7 @@ Cl.Lightbox
 - fixed an issue with type ajax
 - fixed height calculations on very large images
 - fixed several IE issues
+- fixed an issue when opening a collection manually
 
 1.1.0
 -----

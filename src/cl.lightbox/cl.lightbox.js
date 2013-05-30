@@ -15,7 +15,6 @@ var Cl = window.Cl || {};
 		/*
 			TODO 1.2.1
 			- when cycle is enabled, remove next and prev (or disable) when reaching bound
-			- conflicts when working with .open() and collections
 
 			TODO 1.3
 			- add slideshow, play and pause options
@@ -74,6 +73,7 @@ var Cl = window.Cl || {};
 			this.isOpen = false;
 			this.callbacks = {};
 			this.dimTimer = function () {};
+			this.manual = false;
 
 			// attach initial event on lightbox triggers
 			this.triggers = $(triggers);
@@ -137,10 +137,12 @@ var Cl = window.Cl || {};
 
 			// load given jquery element
 			if(typeof(el) === 'object') {
+				this.manual = false;
 				this._preload(el);
 			}
 			// load string element
 			if(typeof(el) === 'string') {
+				this.manual = true;
 				this._preload('<a href="' + el + '"></a>');
 			}
 			// load first element of collection
@@ -663,6 +665,9 @@ var Cl = window.Cl || {};
 		 */
 		_showControls: function () {
 			var that = this;
+
+			// dont show when manually opening an entry
+			if(this.manual) return false;
 
 			// show close only if modalClosable is true
 			if(this.options.modalClosable) this.closeBtn.fadeIn();
