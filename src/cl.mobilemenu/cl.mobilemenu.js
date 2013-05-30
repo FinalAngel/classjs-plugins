@@ -71,7 +71,7 @@ var Cl = window.Cl || {};
 			// attach resize event for hiding mobile menu
 			$(window).on('resize.menu', function () {
 				if(that.visible && $(window).width() >= that.options.bound) that.hide(0);
-				that.menu.height('auto');
+				that.menu.height('min-height', that._setHeight());
 			});
 		},
 
@@ -102,13 +102,10 @@ var Cl = window.Cl || {};
 			}, (speed !== undefined) ? speed : this.options.duration, this.options.easing)
 				.css('width', $(window).width())
 				.css('overflow-x', 'hidden');
-			// figure out the correct height for the menu
-			var height = ($(window).height() > this.body.height()) ? $(window).height() : this.body.height();
-			if(this.height > height) height = this.height;
 			// set correct menu css
 			this.menu.css({
 				'width': this.width,
-				'height': height + 1, // +5 = address bar fix
+				'min-height': this._setHeight(), // +5 = address bar fix
 				'top': this.options.offset.top,
 				'left': -this.width + this.options.offset.left
 			});
@@ -147,6 +144,14 @@ var Cl = window.Cl || {};
 
 		_validate: function () {
 			return ($(window).width() < this.options.bound) ? true : false;
+		},
+
+		_setHeight: function () {
+			var height = ($(window).height() > this.body.height()) ? $(window).height() : this.body.height();
+
+			if(this.height > height) height = this.height;
+
+			return height + 1;
 		},
 
 		_fire: function (keyword) {

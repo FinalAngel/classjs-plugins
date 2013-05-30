@@ -7,6 +7,7 @@ Cl.MobileMenu
 - rename ``MobileMenu`` to ``Mobilemenu``
 - removed ``_fire`` event calls
 - fixes an issue with show being triggered outside of bound
+- fixes issues with height calculation
 
 1.1.2
 -----
