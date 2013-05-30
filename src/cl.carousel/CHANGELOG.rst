@@ -2,6 +2,10 @@
 Cl.Carousel
 ===========
 
+1.3.2
+-----
+- removed ``_fire`` event calls
+
 1.3.1
 -----
 - added missing event and callback triggers for play, stop and destroy
