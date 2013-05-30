@@ -2,6 +2,10 @@
 Cl.MobileMenu
 =============
 
+1.1.3
+-----
+- rename ``MobileMenu`` to ``Mobilemenu``
+
 1.1.2
 -----
 - added option ``inner`` for cls which is used for the height calculation

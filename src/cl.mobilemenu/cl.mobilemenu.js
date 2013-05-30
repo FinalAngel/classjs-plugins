@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.2
+ * @version     1.1.3
  */
 
 // ensure namespace is defined
@@ -11,7 +11,7 @@ var Cl = window.Cl || {};
 	'use strict';
 
 	// creating class
-	Cl.MobileMenu = new Class({
+	Cl.Mobilemenu = new Class({
 
 		options: {
 			'easing': 'linear',
