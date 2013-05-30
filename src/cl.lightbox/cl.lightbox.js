@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.0
+ * @version     1.2.0
  */
 
 // ensure namespace is defined
@@ -13,13 +13,11 @@ var Cl = window.Cl || {};
 	// creating class
 	Cl.Lightbox = new Class({
 		/*
-			TODO 1.1.1
+			TODO 1.2.1
 			- when cycle is enabled, remove next and prev (or disable) when reaching bound
 			- conflicts when working with .open() and collections
-			- check for large images
-			- check ajax option to work proper
 
-			TODO 1.2
+			TODO 1.3
 			- add slideshow, play and pause options
 			- collections refactor (so collections can be added and removed)
 		 */
@@ -39,6 +37,7 @@ var Cl = window.Cl || {};
 			'responsive': true,
 			'ajax': false,
 			'controls': true,
+			'cls': '',
 			'styles': {},
 			'dimensions': {
 				'initialWidth': 50,
@@ -392,7 +391,7 @@ var Cl = window.Cl || {};
 			this.content.html(el.css('visibility', 'visible').hide().fadeIn(this.options.speed));
 
 			// add description and show if given
-			if(this.source.attr('title')) this.description.html(this.source.attr('title')).slideDown(this.options.speed);
+			if(this.source.attr('title')) this.description.html(this.source.attr('title')).slideDown(this.options.speed, function () { that._resize('animate') });
 
 			var iframe = this.content.find('iframe');
 			// hide loader depending on content
@@ -600,22 +599,18 @@ var Cl = window.Cl || {};
 			var windowWidth = this.window.width();
 			var windowHeight = this.window.height();
 			var originalWidth = width;
-			var originalHeight = height;
-			var textOffset = $(this.controls.find('.'+this.options.prefix+'-lightbox-text')).data('height') || 0;
-			// disable textOffset if grouping is enabled
-			if(!this.collection || !this.options.controls) textOffset = 0;
+
+			var heightOffset = this.instance.find('.'+this.options.prefix+'-lightbox-description').outerHeight(true) || 0;
+				heightOffset = heightOffset + this.instance.find('.'+this.options.prefix+'-lightbox-controls').outerHeight(true) || 0;
+
+			var widthBound = windowWidth <= width + this.options.dimensions.bound && this.options.responsive;
+			var heightBound = windowHeight <= this.instance.outerHeight(true);
 
 			// width boundry calculations
-			if(windowWidth <= width + this.options.dimensions.bound && this.options.responsive) {
+			if(widthBound) {
 				width = originalWidth - (width - windowWidth + this.options.dimensions.bound);
 				// aspect ratio
 				if(this.type === 'image') height = Math.floor(height * width / originalWidth);
-				// height boundry calculations
-			}
-			if(windowHeight <= height + this.options.dimensions.bound + textOffset && this.options.responsive) {
-				height = originalHeight - (height - windowHeight + this.options.dimensions.bound) - textOffset;
-				// aspect ratio
-				if(this.type === 'image') width = Math.floor(width * height / originalHeight);
 			}
 
 			// animate to element content dimensions
@@ -624,9 +619,12 @@ var Cl = window.Cl || {};
 				'height': height
 			}, this.options.duration, this.options.easing);
 
+			// stop alignment when image is to large
+			if(heightBound) return false;
+
 			var offset = this.options.dimensions.offset / 2;
 			var left = (windowWidth - width) / 2 - offset;
-			var top = (windowHeight - height) / 2 + this.window.scrollTop() - offset - textOffset / 2;
+			var top = (windowHeight - height) / 2 + this.window.scrollTop() - offset - heightOffset / 2;
 
 			// removing padding padding and margins from left and top alignments
 			left = left - ((this.content.outerWidth(true) - this.content.width())/2);
@@ -659,6 +657,8 @@ var Cl = window.Cl || {};
 		 * PRIVATE CONTROL METHODS
 		 */
 		_showControls: function () {
+			var that = this;
+
 			// show close only if modalClosable is true
 			if(this.options.modalClosable) this.closeBtn.fadeIn();
 
@@ -674,7 +674,7 @@ var Cl = window.Cl || {};
 			this.status.text(text);
 
 			// show content
-			this.text.slideDown(this.options.speed);
+			this.text.slideDown(this.options.speed, function () { that._resize('animate') });
 		},
 
 		_hideControls: function () {
@@ -729,8 +729,10 @@ var Cl = window.Cl || {};
 		 * TEMPLATES
 		 */
 		_tpl: function (prefix) {
+			var cls = (this.options.cls) ? ' ' + this.options.cls : '';
+
 			return  '' +
-				'<div class="'+prefix+'-lightbox" hidden="hidden">' +
+				'<div class="'+prefix+'-lightbox'+cls+'" hidden="hidden">' +
 				'	<div class="'+prefix+'-lightbox-inner">' +
 				'		<div class="'+prefix+'-lightbox-loader"></div>' +
 				'		<div class="'+prefix+'-lightbox-content"></div>' +

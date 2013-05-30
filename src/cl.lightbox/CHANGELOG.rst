@@ -2,10 +2,12 @@
 Cl.Lightbox
 ===========
 
-1.1.1
+1.2.0
 -----
+- added ``options.cls``
 - changed from bind/unbind events to on/off
 - fixed an issue with type ajax
+- fixed height calculations on very large images
 
 1.1.0
 -----
