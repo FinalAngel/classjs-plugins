@@ -1,185 +1,89 @@
 ---
-layout: default
+layout: plugin
 title: lightbox
+
+options:
+  - name: prefix
+    default: "'myLightbox'"
+  - name: group
+    default: "false"
+    example: true
+  - name: cycle
+    default: "false"
+    example: true
+  - name: modal
+    default: "false"
+    example: true
+  - name: modalClickable
+    default: "false"
+    example: true
+  - name: modalClosable
+    default: "false"
+    example: true
+  - name: forceLoad
+    default: "false"
+    example: true
+  - name: easing
+    default: "'swing'"
+    example: true
+  - name: duration
+    default: "1000"
+    example: true
+  - name: speed
+    default: "0"
+    example: true
+  - name: fixed
+    default: "false"
+    example: true
+  - name: responsive
+    default: "false"
+    example: true
+  - name: ajax
+    default: "true"
+    example: true
+  - name: styles
+    default: "{ 'background': 'red' }"
+  - name: dimensions
+    default: "{}"
+  - name: keys
+    default: "false"
+    example: true
+  - name: keyCodes
+    default: "{}"
+  - name: lang
+    default: "{}"
+
+methods:
+  - name: open
+  - name: close
+  - name: resize
+  - name: destroy
+  - name: next
+  - name: previous
+  - name: getElement
+  - name: getCollection
+
+callbacks:
+  - name: open
+  - name: close
+  - name: resize
+  - name: destroy
+  - name: next
+  - name: previous
+  - name: load
+  - name: complete
+  - name: unload
 ---
 
-<div id="inline">
-	<h2>Examples</h2>
-
-	<p>Released under the <strong>BSD License</strong>.
-		The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/">Github</a>.<br />
-		Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.lightbox.html">Documentation</a> or
-		<a href="../../src/cl.lightbox/CHANGELOG.rst">Changelog</a> for detailed information.</p>
-	<p>This plugin has been tested in Firefox, Chrome, Safari and IE7+ and requires class.js 1.0+ and jQuery 1.7+.
-		We also tested under iOS, Android and Windows Phone to insure correct responsive behaviour
-		with full accessible support according to the WCAG 2.0 standards.</p>
-</div>
-
-<div class="spacer"></div>
-
-<h3>Lightbox</h3>
+<!-- start: example -->
 <p class="clear">
-	<a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox box" id="group" title="&copy; Blizzard Entertainment."><img src="{{ site.baseurl }}/examples/static/dummy/img-001.jpg" alt="" /> <span>image</span></a>
-	<a href="{{ site.baseurl }}/examples/static/dummy/img-large-002.jpg" class="lightbox-group box" title="&copy; Blizzard Entertainment."><img src="{{ site.baseurl }}/examples/static/dummy/img-002.jpg" alt="" /> <span>image <strong>group</strong></span></a>
-	<a href="{{ site.baseurl }}/examples/static/dummy/img-large-003.jpg" class="lightbox-group box" title="&copy; Blizzard Entertainment."><img src="{{ site.baseurl }}/examples/static/dummy/img-003.jpg" alt="" /> <span>image <strong>group</strong></span></a>
-	<a href="{{ site.baseurl }}/examples/static/dummy/img-large-004.jpg" class="lightbox-group box" title="&copy; Blizzard Entertainment."><img src="{{ site.baseurl }}/examples/static/dummy/img-004.jpg" alt="" /> <span>image <strong>group</strong></span></a>
-	<a href="http://www.youtube.com/embed/vCsGTP3-Jlw?rel=0" class="lightbox box"><img src="{{ site.baseurl }}/examples/static/dummy/youtube.jpg" alt="" /> <span>youtube</span></a>
-	<a href="http://player.vimeo.com/video/43839129" class="lightbox box"><img src="{{ site.baseurl }}/examples/static/dummy/vimeo.jpg" alt="" /> <span>vimeoh</span></a>
-	<a href="http://www.adobe.com/swf/software/flash/about/mini_FMA_about_01.swf" class="lightbox box"><img src="{{ site.baseurl }}/examples/static/dummy/swf.jpg" alt="" /> <span>flash</span></a>
-	<a href="#inline" class="lightbox box"><img src="{{ site.baseurl }}/examples/static/dummy/inline.jpg" alt="" /> <span>inline</span></a>
+	<a href="../static/dummy/img-large-001.jpg" class="lightbox box" id="group" title="&copy; Blizzard Entertainment."><img src="../static/dummy/img-001.jpg" alt="" /> <span>image</span></a>
+	<a href="../static/dummy/img-large-002.jpg" class="lightbox-group box" title="&copy; Blizzard Entertainment."><img src="../static/dummy/img-002.jpg" alt="" /> <span>image <strong>group</strong></span></a>
+	<a href="../static/dummy/img-large-003.jpg" class="lightbox-group box" title="&copy; Blizzard Entertainment."><img src="../static/dummy/img-003.jpg" alt="" /> <span>image <strong>group</strong></span></a>
+	<a href="../static/dummy/img-large-004.jpg" class="lightbox-group box" title="&copy; Blizzard Entertainment."><img src="../static/dummy/img-004.jpg" alt="" /> <span>image <strong>group</strong></span></a>
+	<a href="http://www.youtube.com/embed/vCsGTP3-Jlw?rel=0" class="lightbox box"><img src="../static/dummy/youtube.jpg" alt="" /> <span>youtube</span></a>
+	<a href="http://player.vimeo.com/video/43839129" class="lightbox box"><img src="../static/dummy/vimeo.jpg" alt="" /> <span>vimeoh</span></a>
+	<a href="http://www.adobe.com/swf/software/flash/about/mini_FMA_about_01.swf" class="lightbox box"><img src="../static/dummy/swf.jpg" alt="" /> <span>flash</span></a>
+	<a href="#inline" class="lightbox box"><img src="../static/dummy/inline.jpg" alt="" /> <span>inline</span></a>
 </p>
-<div class="spacer"></div>
-
-<h3>Options</h3>
-<p class="col-two">
-	&raquo; <code>prefix: 'myLightbox'</code><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-group"><code>group: false</code></a><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-cycle"><code>cycle: false</code></a><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-modal"><code>modal: false</code></a><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-modalClickable"><code>modalClickable: false</code></a><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-modalClosable"><code>modalClosable: false</code></a><br />
-	&raquo; <a href="http://www.django-cms.org" class="lightbox-opt-forceLoad"><code>forceLoad: false</code></a><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-easing"><code>easing: 'swing'</code></a><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-duration"><code>duration: 1000</code></a><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-speed"><code>speed: 0</code></a><br />
-</p>
-<p class="col-two">
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-fixed"><code>fixed: false</code></a><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-responsive"><code>responsive: false</code></a><br />
-	&raquo; <a href="ajax.html" class="lightbox-opt-ajax"><code>ajax: true</code></a><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-controls"><code>controls: false</code></a><br />
-	&raquo; <code>styles: { 'background': 'red' }</code><br />
-	&raquo; <code>dimensions: {}</code><br />
-	&raquo; <a href="{{ site.baseurl }}/examples/static/dummy/img-large-001.jpg" class="lightbox-opt-keys"><code>keys: false</code></a><br />
-	&raquo; <code>keyCodes: {}</code><br />
-	&raquo; <code>lang: {}</code><br />
-</p>
-<div class="clear"></div>
-<div class="spacer"></div>
-
-<h3>Methods</h3>
-<p>
-	&raquo; <a href="http://www.django-cms.org" onclick="my.lightbox.open(); return false;"><code>my.lightbox.open(, [url]);</code></a><br />
-	additional methods are:<br /><code>close</code>, <code>resize</code>, <code>destroy</code>,<br />
-	<code>next</code>, <code>previous</code>, <code>getElement</code>, <code>getCollection</code><br />
-</p>
-<div class="spacer"></div>
-
-<h3>Events and Callbacks</h3>
-<p>
-	&raquo; <code>$(document).on('cl-lightbox-open', function...);</code><br />
-	&raquo; <code>my.lightbox.callbacks.open = function...</code><br /><br />
-	available events and callbacks are:<br /><code>open</code>, <code>close</code>, <code>resize</code>, <code>destroy</code>,
-	<code>next</code>, <code>previous</code>,<br />
-	<code>load</code>, <code>complete</code>, <code>unload</code><br /><br />
-	check the console for debug information on events.<br />
-</p>
-<div class="spacer"></div>
-
-<h3>Other</h3>
-<p class="linklist">
-	&raquo; <a href="notfound.jpg" class="lightbox">error handling</a> set in <code>options.lang.errorMessage</code><br />
-	&raquo; <a href="http://www.django-cms.org" class="lightbox" data-width="1024" data-height="600">data attributes</a> <code>data-width</code> and <code>data-height</code><br />
-	&raquo; <a href="http://www.django-cms.org?width=1024&amp;height=600" class="lightbox">url attributes</a> <code>?width=1024&amp;height=600</code><br />
-</p>
-<div class="spacer"></div>
-
-<!-- required javascript -->
-<script>
-var my = {};
-
-jQuery(document).ready(function ($) {
-	// grouped lightbox
-	var grouped = my.lightbox = new Cl.Lightbox('.lightbox-group');
-
-	// create demo lightbox
-	var lightbox = new Cl.Lightbox();
-	$('.lightbox').on('click', function (e) { e.preventDefault();
-		lightbox.open(this);
-	});
-
-	$('.lightbox-opt-group').on('click', function (e) { e.preventDefault();
-		grouped.options.group = false;
-		grouped.open();
-		grouped.callbacks.unload = function () { grouped.options.group = true; };
-	});
-	$('.lightbox-opt-cycle').on('click', function (e) { e.preventDefault();
-		grouped.options.cycle = false;
-		grouped.open();
-		grouped.callbacks.unload = function () { grouped.options.cycle = true; };
-	});
-	$('.lightbox-opt-modal').on('click', function (e) { e.preventDefault();
-		lightbox.options.modal = false;
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.modal = true; };
-	});
-	$('.lightbox-opt-modalClickable').on('click', function (e) { e.preventDefault();
-		lightbox.options.modalClickable = false;
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.modalClickable = true; };
-	});
-	$('.lightbox-opt-modalClosable').on('click', function (e) { e.preventDefault();
-		lightbox.options.modalClosable = false;
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.modalClosable = true; };
-	});
-	$('.lightbox-opt-forceLoad').on('click', function (e) { e.preventDefault();
-		lightbox.options.forceLoad = true;
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.forceLoad = false; };
-	});
-	$('.lightbox-opt-easing').on('click', function (e) { e.preventDefault();
-		lightbox.options.easing = 'swing';
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.easing = 'linear'; };
-	});
-	$('.lightbox-opt-duration').on('click', function (e) { e.preventDefault();
-		lightbox.options.duration = 1000;
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.duration = 300; };
-	});
-	$('.lightbox-opt-speed').on('click', function (e) { e.preventDefault();
-		lightbox.options.speed = 0;
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.speed = 300; };
-	});
-	$('.lightbox-opt-fixed').on('click', function (e) { e.preventDefault();
-		lightbox.options.fixed = false;
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.fixed = true; };
-	});
-	$('.lightbox-opt-responsive').on('click', function (e) { e.preventDefault();
-		lightbox.options.responsive = false;
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.responsive = true; };
-	});
-	$('.lightbox-opt-ajax').on('click', function (e) { e.preventDefault();
-		lightbox.options.ajax = true;
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.ajax = false; };
-	});
-	$('.lightbox-opt-controls').on('click', function (e) { e.preventDefault();
-		grouped.options.controls = false;
-		grouped.open(this);
-		grouped.callbacks.unload = function () { grouped.options.controls = true; };
-	});
-	$('.lightbox-opt-keys').on('click', function (e) { e.preventDefault();
-		lightbox.options.keys = false;
-		lightbox.open(this);
-		lightbox.callbacks.unload = function () { lightbox.options.keys = true; };
-	});
-
-	// debugging events
-	$(document).on(
-		'cl-lightbox-open ' +
-		'cl-lightbox-close ' +
-		'cl-lightbox-resize ' +
-		'cl-lightbox-destroy ' +
-		'cl-lightbox-setup ' +
-		'cl-lightbox-load ' +
-		'cl-lightbox-complete ' +
-		'cl-lightbox-unload', function (e) {
-		if(console && console.log) console.log('trigger event: ' + e.type);
-	});
-});
-</script>
+<!-- end: example -->
