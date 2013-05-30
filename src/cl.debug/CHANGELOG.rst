@@ -5,6 +5,7 @@ Cl.Debug
 1.2.2
 -----
 - fixed an issue with #show mappingon entering
+- fixed an issue with local storage detection
 
 1.2.1
 -----

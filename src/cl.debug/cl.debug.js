@@ -209,14 +209,14 @@ var Cl = window.Cl || {};
 
 		setStorage: function (attribute, value) {
 			// cancel if this feature is not supported by some browser
-			if(localStorage === undefined) return false;
+			if(window.localStorage === undefined) return false;
 			// save storage
 			localStorage.setItem(attribute, value);
 		},
 
 		getStorage: function (attribute) {
 			// cancel if feature is not supported by some browser
-			if(localStorage === undefined) return false;
+			if(window.localStorage === undefined) return false;
 			// retrieve storage
 			return localStorage.getItem(attribute);
 		}
