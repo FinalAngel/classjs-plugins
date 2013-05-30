@@ -66,41 +66,29 @@ var Cl = window.Cl || {};
 			this.overlay.on('click', function () { that.hide(); });
 
 			// show navigation if focus
-			this.menu.on('focusin focusout', function (e) {
-				// cancel if viewport is smaller than expected
-				if($(window).width() >= that.options.bound) return false;
-				// start timer
-				clearTimeout(that.timer);
-				that.timer = setTimeout(function () {
-					(e.type === 'focusin') ? that.show() : that.hide(0)
-				}, 50);
-			});
+			this.menu.on('focusin', function () { that.show(); });
 
 			// attach resize event for hiding mobile menu
 			$(window).on('resize.menu', function () {
 				if(that.visible && $(window).width() >= that.options.bound) that.hide(0);
-
 				that.menu.height('auto');
 			});
 		},
 
 		toggle: function () {
-			// trigger event
-			this._fire('toggle');
-
-			(this.visible) ? this.hide() : this.show();
+			if(this.visible) { this.hide(); } else { this.show(); }
 
 			// if not initialized, inject overlay
 			if(!this.initialized) this.body.append(this.overlay);
 			this.initialized = true;
 
 			// trigger callback
-			this._fire('toggle', this);
+			this._fire('toggle');
 		},
 
 		show: function (speed) {
-			// trigger event
-			this._fire('show');
+			// validate if toolbar should be shown
+			if(!this._validate()) return false;
 
 			// switch aria
 			this.menu.attr('aria-expanded', true);
@@ -131,13 +119,10 @@ var Cl = window.Cl || {};
 			this.visible = true;
 
 			// trigger callback
-			this._fire('show', this);
+			this._fire('show');
 		},
 
 		hide: function (speed) {
-			// trigger event
-			this._fire('hide');
-
 			var that = this;
 
 			// switch aria
@@ -157,20 +142,20 @@ var Cl = window.Cl || {};
 			this.visible = false;
 
 			// trigger callback
-			this._fire('hide', this);
+			this._fire('hide');
 		},
 
-		_fire: function (keyword, scope) {
-			if(scope) {
-				// cancel if there is no callback found
-				if(this.callbacks[keyword] === undefined) return false;
-				// excecute callback
-				this.callbacks[keyword](scope);
-			} else {
-				// excecute event
-				$.event.trigger('mobilemenu-' + keyword);
-			}
+		_validate: function () {
+			return ($(window).width() < this.options.bound) ? true : false;
+		},
+
+		_fire: function (keyword) {
+			// cancel if there is no callback found
+			if(this.callbacks[keyword] === undefined) return false;
+			// excecute callback
+			this.callbacks[keyword](this);
 		}
+
 	});
 
 })(jQuery);

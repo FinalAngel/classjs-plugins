@@ -5,6 +5,8 @@ Cl.MobileMenu
 1.1.3
 -----
 - rename ``MobileMenu`` to ``Mobilemenu``
+- removed ``_fire`` event calls
+- fixes an issue with show being triggered outside of bound
 
 1.1.2
 -----
