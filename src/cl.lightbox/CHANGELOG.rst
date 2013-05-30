@@ -5,9 +5,11 @@ Cl.Lightbox
 1.2.0
 -----
 - added ``options.cls``
+- added ``options.opacity``
 - changed from bind/unbind events to on/off
 - fixed an issue with type ajax
 - fixed height calculations on very large images
+- fixed several IE issues
 
 1.1.0
 -----

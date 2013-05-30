@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
 	var methods = [{% for method in page.methods %}{% if method.text %}{% else %}'{{ method.name }}'{% if forloop.last %}{% else %},{% endif %}{% endif %}{% endfor %}];
 	$.each(methods, function (index, api) {
 		{{ page.title }}.callbacks[api] = function (scope) {
-			console.log('trigger callback: ' + api);
+			if(window.console && window.console.log) console.log('trigger callback: ' + api);
 		};
 	});
 

@@ -38,6 +38,7 @@ var Cl = window.Cl || {};
 			'ajax': false,
 			'controls': true,
 			'cls': '',
+			'opacity': 0.8,
 			'styles': {},
 			'dimensions': {
 				'initialWidth': 50,
@@ -519,7 +520,7 @@ var Cl = window.Cl || {};
 
 			if(this.options.controls) {
 				// attach close to appropriate button
-				this.controls.find('a[href="#close"]').on('click', function (e) {
+				this.controls.find('.'+this.options.prefix+'-lightbox-close a').on('click', function (e) {
 					e.preventDefault();
 					if(!that.options.modalClosable) return false;
 					$(this).show();
@@ -527,12 +528,12 @@ var Cl = window.Cl || {};
 				});
 
 				// attach previous event
-				this.controls.find('a[href="#previous"]').on('click', function (e) {
+				this.controls.find('.'+this.options.prefix+'-lightbox-previous').on('click', function (e) {
 					e.preventDefault();
 					that.previous.call(that);
 				});
 				// attach next event
-				this.controls.find('a[href="#next"]').on('click', function (e) {
+				this.controls.find('.'+this.options.prefix+'-lightbox-next').on('click', function (e) {
 					e.preventDefault();
 					that.next.call(that);
 				});
@@ -596,6 +597,7 @@ var Cl = window.Cl || {};
 			height = parseInt(height) || parseInt(this.height);
 
 			// set dimensions
+			var that = this;
 			var windowWidth = this.window.width();
 			var windowHeight = this.window.height();
 			var originalWidth = width;
@@ -617,7 +619,10 @@ var Cl = window.Cl || {};
 			this.content.stop()[type]({
 				'width': width,
 				'height': height
-			}, this.options.duration, this.options.easing);
+			}, this.options.duration, this.options.easing, function () {
+				// set with to controls
+				that.controls.css('max-width', width);
+			});
 
 			// stop alignment when image is to large
 			if(heightBound) return false;
@@ -688,20 +693,21 @@ var Cl = window.Cl || {};
 		 * PRIVATE DIMMER METHODS
 		 */
 		_showDim: function () {
-			($.browser && $.browser.msie && $.browser.version <= 8) ? this.dimmer.show() : this.dimmer.fadeIn();
+			this.dimmer.css('opacity', 0)
+				.show()
+				.animate({ 'opacity': this.options.opacity });
 
 			(this.options.modalClosable) ? this.dimmer.css('cursor', 'pointer') : this.dimmer.css('cursor', 'default');
 		},
 
 		_hideDim: function () {
 			// hide the dimmer, skip the fade transition on ie cause of performance issues
-			($.browser && $.browser.msie && $.browser.version <= 8) ? this.dimmer.hide() : this.dimmer.fadeOut();
+			this.dimmer.fadeOut();
 		},
 
 		_resizeDim: function () {
 			var that = this;
-			var offset = ($.browser && $.browser.msie && $.browser.version <= 8) ? 21 : 0;
-			if($.browser && $.browser.msie && $.browser.version >= 9) offset = 17;
+			var offset = 0;
 
 			// first set the dimmer to 100% when resizing so we avoid jumpint errors
 			this.dimmer.css({
