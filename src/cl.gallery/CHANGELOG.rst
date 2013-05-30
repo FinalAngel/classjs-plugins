@@ -2,6 +2,10 @@
 Cl.Gallery
 ==========
 
+2.0.2
+-----
+- removed ``_fire`` event calls
+
 2.0.1
 -----
 - added option ``autoHeight``

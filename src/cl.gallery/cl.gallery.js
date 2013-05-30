@@ -1,7 +1,7 @@
 /*!
  * @author      Aleš Kocjančič, Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     2.0.1
+ * @version     2.0.2
  */
 
 // ensure namespace is defined
@@ -105,31 +105,22 @@ var Cl = window.Cl || {};
 		},
 
 		next: function () {
-			// trigger event
-			this._fire('next');
-
 			// move
 			this.move(this.index + 1, 'next');
 
 			// trigger callback
-			this._fire('next', this);
+			this._fire('next');
 		},
 
 		previous: function () {
-			// trigger event
-			this._fire('previous');
-
 			// move
 			this.move(this.index - 1, 'previous');
 
 			// trigger callback
-			this._fire('previous', this);
+			this._fire('previous');
 		},
 
 		move: function (index, direction) {
-			// trigger event
-			this._fire('move');
-
 			// cancel if there are not enough elements
 			if (direction !== 'setup' && this.elements.length <= 1) return;
 
@@ -166,7 +157,7 @@ var Cl = window.Cl || {};
 			this.engine[this.options.engine].call(this);
 
 			// trigger event
-			this._fire('move', this);
+			this._fire('move');
 
 			// release queue
 			setTimeout(function () {
@@ -175,9 +166,6 @@ var Cl = window.Cl || {};
 		},
 
 		play: function () {
-			// trigger event
-			this._fire('play');
-
 			var that = this;
 			// start timer
 			this.timer = setInterval(function () {
@@ -188,13 +176,10 @@ var Cl = window.Cl || {};
 			this.autoplay = true;
 
 			// trigger event
-			this._fire('play', this);
+			this._fire('play');
 		},
 
 		stop: function () {
-			// trigger event
-			this._fire('stop');
-
 			// we just need to clear the intervall
 			clearInterval(this.timer);
 
@@ -202,18 +187,15 @@ var Cl = window.Cl || {};
 			this.autoplay = false;
 
 			// trigger event
-			this._fire('stop', this);
+			this._fire('stop');
 		},
 
 		update: function () {
-			// trigger event
-			this._fire('update');
-
 			// update gallery scripts
 			this.move(this.index);
 
 			// trigger event
-			this._fire('update', this);
+			this._fire('update');
 		},
 
 		engine: {
@@ -297,17 +279,13 @@ var Cl = window.Cl || {};
 				.attr('aria-selected', true);
 		},
 
-		_fire: function (keyword, scope) {
-			if(scope) {
-				// cancel if there is no callback found
-				if(this.callbacks[keyword] === undefined) return false;
-				// excecute callback
-				this.callbacks[keyword](scope);
-			} else {
-				// excecute event
-				$.event.trigger('gallery-' + keyword);
-			}
+		_fire: function (keyword) {
+			// cancel if there is no callback found
+			if(this.callbacks[keyword] === undefined) return false;
+			// excecute callback
+			this.callbacks[keyword](this);
 		}
+
 	});
 
 })(jQuery);
