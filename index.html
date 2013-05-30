@@ -1,12 +1,44 @@
 ---
 layout: default
 is_root: true
+
+classjs: 1.0.0
+
+stable_plugins:
+  - name: accordion
+    version: 1.1.2
+  - name: carousel
+    version: 1.3.1
+  - name: debug
+    version: 1.2.1
+  - name: gallery
+    version: 2.0.1
+  - name: lightbox
+    version: 1.1.0
+  - name: mobilemenu
+    version: 1.1.3
+  - name: uniform
+    version: 1.0.2
+
+experimental_plugins:
+  - name: autocomplete
+    version: 1.0.beta1
+    demo: true
+  - name: parallax
+    version: 1.0.beta1
+  - name: scroll
+    version: 1.0.beta2
 ---
 
 <h2>Introduction</h2>
 <p>Class.js is a JavaScript library for building class based object-oriented programms using JavaScript's
 	prototypal inheritance. It strives to mimic classical class inheritance provided by other languages such
 	as Python, Java or PHP. Its syntax is heavily inspired by MooTools's class implementation.</p>
+
+
+{% for method in methods %}
+test
+{% endfor %}
 
 <div class="spacer"></div>
 
@@ -19,7 +51,7 @@ is_root: true
 	<tbody>
 	<tr>
 		<th>class.js</th>
-		<td><small>v1.0.0</small></td>
+		<td><small>v{{ page.classjs }}</small></td>
 		<td class="align-right">
 			<span class="buttons">
 				<a href="//classjs.readthedocs.org/" class="btn btn-highlight"><strong>Docs</strong></a>
@@ -48,103 +80,21 @@ is_root: true
 		<col style="width:60%;" />
 	</colgroup>
 	<tbody>
+	{% for plugin in page.stable_plugins %}
 	<tr>
-		<th>Cl.Accordion</th>
-		<td><small>v1.1.2</small></td>
+		<th>Cl.{{ plugin.name | capitalize }}</th>
+		<td><small>v{{ plugin.version }}</small></td>
 		<td class="align-right tbl-buttons">
-			<span class="buttons"><a href="examples/cl.accordion" class="btn btn-dark"><strong>Demo</strong></a></span>
+			<span class="buttons"><a href="examples/cl.{{ plugin.name }}" class="btn btn-dark"><strong>Demo</strong></a></span>
 			<span class="buttons">
-				<a href="//classjs-plugins.readthedocs.org/" class="btn">Docs</a>
-				<a href="tests/" class="btn">Tests</a>
-				<a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.accordion/cl.accordion.min.js" class="btn">Download</a>
+				<a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.{{ plugin.name }}.html" class="btn">Docs</a>
+				<a href="tests/?cl.{{ plugin.name }}.js" class="btn">Tests</a>
+				<a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.{{ plugin.name }}/cl.{{ plugin.name }}.min.js" class="btn">Download</a>
 			</span>
-			<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
+			<span class="buttons buttons-icon"><a href="//github.com/finalangel/classjs-plugins/tree/master/src/cl.{{ plugin.name }}" class="icon-github"><strong>GitHub</strong></a></span>
 		</td>
 	</tr>
-	<!--
-	Cl.Autocomplete
-	-->
-	<tr>
-		<th>Cl.Carousel</th>
-		<td><small>v1.3.1</small></td>
-		<td class="align-right tbl-buttons">
-			<span class="buttons"><a href="examples/cl.carousel" class="btn btn-dark"><strong>Demo</strong></a></span>
-			<span class="buttons">
-				<a href="//classjs-plugins.readthedocs.org/" class="btn">Docs</a>
-				<a href="tests/" class="btn">Tests</a>
-				<a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.carousel/cl.carousel.min.js" class="btn">Download</a>
-			</span>
-			<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
-	<tr>
-		<th>Cl.Debug</th>
-		<td><small>v1.2.0</small></td>
-		<td class="align-right tbl-buttons">
-			<span class="buttons"><a href="examples/cl.debug" class="btn btn-dark"><strong>Demo</strong></a></span>
-			<span class="buttons">
-				<a href="//classjs-plugins.readthedocs.org/" class="btn">Docs</a>
-				<a href="tests/" class="btn">Tests</a>
-				<a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.debug/cl.debug.min.js" class="btn">Download</a>
-			</span>
-			<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
-	<tr>
-		<th>Cl.Gallery</th>
-		<td><small>v2.0.0</small></td>
-		<td class="align-right tbl-buttons">
-			<span class="buttons"><a href="examples/cl.gallery" class="btn btn-dark"><strong>Demo</strong></a></span>
-			<span class="buttons">
-				<a href="//classjs-plugins.readthedocs.org/" class="btn">Docs</a>
-				<a href="tests/" class="btn">Tests</a>
-				<a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.gallery/cl.gallery.min.js" class="btn">Download</a>
-			</span>
-			<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
-	<tr>
-		<th>Cl.Lightbox</th>
-		<td><small>v1.1.0</small></td>
-		<td class="align-right tbl-buttons">
-			<span class="buttons"><a href="examples/cl.lightbox" class="btn btn-dark"><strong>Demo</strong></a></span>
-			<span class="buttons">
-				<a href="//classjs-plugins.readthedocs.org/" class="btn">Docs</a>
-				<a href="tests/" class="btn">Tests</a>
-				<a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.lightbox/cl.lightbox.min.js" class="btn">Download</a>
-			</span>
-			<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
-	<tr>
-		<th>Cl.MobileMenu</th>
-		<td><small>v1.1.2</small></td>
-		<td class="align-right tbl-buttons">
-			<span class="buttons"><a href="examples/cl.mobilemenu" class="btn btn-dark"><strong>Demo</strong></a></span>
-			<span class="buttons">
-				<a href="//classjs-plugins.readthedocs.org/" class="btn">Docs</a>
-				<a href="tests/" class="btn">Tests</a>
-				<a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.mobilemenu/cl.mobilemenu.min.js" class="btn">Download</a>
-			</span>
-			<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
-	<!--
-	Cl.Tooltip
-	-->
-	<tr>
-		<th>Cl.Uniform</th>
-		<td><small>v1.0.1</small></td>
-		<td class="align-right tbl-buttons">
-			<span class="buttons"><a href="examples/cl.uniform" class="btn btn-dark"><strong>Demo</strong></a></span>
-			<span class="buttons">
-				<a href="//classjs-plugins.readthedocs.org/" class="btn">Docs</a>
-				<a href="tests/" class="btn">Tests</a>
-				<a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.uniform/cl.uniform.min.js" class="btn">Download</a>
-			</span>
-			<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
+	{% endfor %}
 	</tbody>
 </table>
 
@@ -158,36 +108,17 @@ is_root: true
 		<col style="width:60%;" />
 	</colgroup>
 	<tbody>
+	{% for plugin in page.experimental_plugins %}
 	<tr>
-		<th>Cl.Parallax</th>
-		<td><small>v1.0.beta1</small></td>
+		<th>Cl.{{ plugin.name | capitalize }}</th>
+		<td><small>v{{ plugin.version }}</small></td>
 		<td class="align-right">
-			<!--<span class="buttons"><a href="examples/cl.parallax" class="btn btn-dark"><strong>Demo</strong></a></span>-->
-			<span class="buttons"><a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.parallax/cl.parallax.js" class="btn">Download</a></span>
-			<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
+			{% if plugin.demo %}<span class="buttons"><a href="examples/cl.{{ plugin.name }}" class="btn btn-dark"><strong>Demo</strong></a></span>{% endif %}
+			<span class="buttons"><a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.{{ plugin.name }}/cl.{{ plugin.name }}.js" class="btn">Download</a></span>
+			<span class="buttons buttons-icon"><a href="//github.com/finalangel/classjs-plugins/tree/master/src/cl.{{ plugin.name }}" class="icon-github"><strong>GitHub</strong></a></span>
 		</td>
 	</tr>
-	<tr>
-		<th>Cl.Scroll</th>
-		<td><small>v1.0.beta2</small></td>
-		<td class="align-right">
-			<!--<span class="buttons"><a href="examples/cl.scroll" class="btn btn-dark"><strong>Demo</strong></a></span>-->
-			<span class="buttons"><a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.scroll/cl.scroll.js" class="btn">Download</a></span>
-			<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
-	<tr>
-		<th>Cl.Autocomplete</th>
-		<td><small>v1.0.beta1</small></td>
-		<td class="align-right">
-			<span class="buttons"><a href="examples/cl.autocomplete" class="btn btn-dark"><strong>Demo</strong></a></span>
-			<span class="buttons"><a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.autocomplete/cl.autocomplete.js" class="btn">Download</a></span>
-			<span class="buttons buttons-icon"><a href="https://github.com/FinalAngel/classjs-plugins" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
-	<!--
-	Cl.Touch
-	-->
+	{% endfor %}
 	</tbody>
 </table>
 
