@@ -13,7 +13,6 @@ $lightbox-font-size: 12px;
 $lightbox-line-height: 15px;
 $lightbox-padding: 10px;
 $lightbox-alpha: 0.6;
-$lightbox-dim-alpha: 0.7;
 $lightbox-bg: #000;
 $lightbox-dim: #000;
 $lightbox-content: #fff;
@@ -35,10 +34,16 @@ $lightbox-content: #fff;
 // custom styles
 .cl-lightbox { background-color:$lightbox-bg; background:rgba($lightbox-bg, $lightbox-alpha); @include border-radius(5px); }
 .cl-lightbox-loader { background-image:url('../static/img/loader.gif'); }
-.cl-lightbox-inner { padding:$lightbox-padding; } // DO NOT ADD ANY PADDING HERE
+.cl-lightbox-inner { padding:$lightbox-padding; }
 .cl-lightbox-content { background:$lightbox-content; }
 .cl-lightbox-error { text-align:center; width:350px; p { padding:15px 0; } }
-.cl-lightbox-dim { @include opacity($lightbox-dim-alpha); background:$lightbox-dim; }
+.cl-lightbox-dim { background:$lightbox-dim; }
+
+// scrollbar styling for mobile
+.cl-lightbox-content {
+	&::-webkit-scrollbar { width:15px; background:#fafafa; }
+	&::-webkit-scrollbar-thumb { border-radius:10px; border:4px solid #fafafa; background:#c1c1c1; }
+}
 
 // description
 .cl-lightbox-description { font-size:$lightbox-font-size; line-height:$lightbox-line-height;
