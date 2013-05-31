@@ -14,7 +14,7 @@ var Cl = window.Cl || {};
 	Cl.Mobilemenu = new Class({
 
 		options: {
-			'easing': 'linear',
+			'easing': 'swing',
 			'duration': 300,
 			'bound': 539,
 			'ratio': 70 / 100,
