@@ -24,6 +24,7 @@ var Cl = window.Cl || {};
 			'easing': 'linear',
 			'duration': 300,
 			'autoHeight': true,
+			'autoResize': true,
 			'engine': 'fade',
 			'cls': {
 				'active': 'active',
@@ -94,6 +95,11 @@ var Cl = window.Cl || {};
 				if(!that.options.autoplay) that.options.timeout = null;
 				that.move(that.navigation.index($(this)), 'random');
 			});
+
+			// attach autoresize if enabled
+			if(this.options.autoResize) {
+				this._autoResize();
+			}
 
 			// show elements
 			this.navigation.show();
@@ -267,6 +273,13 @@ var Cl = window.Cl || {};
 				}
 			});
 			this.wrapper.css('height', height);
+		},
+
+		_autoResize: function () {
+			var that = this;
+			$(window).on('resize.cl-gallery', function () {
+				that._setHeight();
+			});
 		},
 
 		_accessibility: function () {

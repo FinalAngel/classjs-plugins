@@ -4,6 +4,7 @@ Cl.Gallery
 
 2.0.2
 -----
+- added option ``autoResize``
 - removed ``_fire`` event calls
 
 2.0.1
