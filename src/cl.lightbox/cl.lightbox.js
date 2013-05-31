@@ -39,7 +39,6 @@ var Cl = window.Cl || {};
 			'dimensions': {
 				'initialWidth': 50,
 				'initialHeight': 50,
-				'bound': 50,
 				'offset': 20,
 				'width': null,
 				'height': null
@@ -70,7 +69,6 @@ var Cl = window.Cl || {};
 			this.isOpen = false;
 			this.callbacks = {};
 			this.dimTimer = function () {};
-			this.manual = false;
 
 			// attach initial event on lightbox triggers
 			this.triggers = $(triggers);
@@ -81,9 +79,6 @@ var Cl = window.Cl || {};
 		},
 
 		_setup: function () {
-			// insure that this instant is loaded so setup is not called twice
-			this.isLoaded = true;
-
 			// setup template
 			var template = this._tpl(this.options.prefix);
 
@@ -107,7 +102,6 @@ var Cl = window.Cl || {};
 			this.text = this.controls.find('.'+this.options.prefix+'-lightbox-text');
 			this.status = this.controls.find('.'+this.options.prefix+'-lightbox-status');
 			this.timer = function () {};
-
 			// attach styles from options to content
 			this.content.css(this.options.styles);
 
@@ -120,30 +114,38 @@ var Cl = window.Cl || {};
 
 		// PUBLOC METHODS
 		open: function (el) {
+			var that = this;
 			// check if there is already an instance available
-			if(!this.isLoaded) this._setup();
-			this._show((this.isOpen) ? false : true);
+			if(this.isLoaded === false) this._setup();
 
-			// load given jquery element
-			if(typeof(el) === 'object') {
-				this.manual = false;
-				this._preload(el);
-			}
-			// load string element
-			if(typeof(el) === 'string') {
-				this.manual = true;
-				this._preload('<a href="' + el + '"></a>');
-			}
-			// load first element of collection
-			if(el === undefined && this.triggers.length) {
-				this._preload(this.triggers.first());
-			}
+			// set a timeout if open is called before html is injected
+			setTimeout(function () {
+				// insure that this instant is loaded so setup is not called twice
+				that.isLoaded = true;
 
-			this._attachEvents();
-			this.isOpen = true;
+				// show the lightbox
+				that._show((this.isOpen) ? false : true);
 
-			// trigger callback
-			return this._fire('open');
+				// load given jquery element
+				if(typeof(el) === 'object') {
+					that._preload(el);
+				}
+				// load string element
+				if(typeof(el) === 'string') {
+					that._preload('<a href="' + el + '"></a>');
+				}
+				// load first element of collection
+				if(el === undefined && this.triggers.length) {
+					that._preload(that.triggers.first());
+				}
+
+				that._attachEvents();
+				that.isOpen = true;
+
+				// trigger callback
+				return that._fire('open');
+			}, 50);
+
 		},
 
 		close: function () {
@@ -362,7 +364,7 @@ var Cl = window.Cl || {};
 			this.content.html(el.css('visibility', 'visible').hide().fadeIn(this.options.speed));
 
 			// add description and show if given
-			if(this.source.attr('title')) this.description.html(this.source.attr('title')).slideDown(this.options.speed, function () { that._resize('animate') });
+			if(this.source.attr('title')) this.description.html(this.source.attr('title')).slideDown(this.options.speed, function () { that.resize() });
 
 			var iframe = this.content.find('iframe');
 			// hide loader depending on content
@@ -452,24 +454,13 @@ var Cl = window.Cl || {};
 			if(this.isOpen) return false;
 
 			// attach window resize event for lightbox
-			this.window.on('resize.'+this.options.prefix+'.lightbox', function () {
+			this.window.on('resize.'+this.options.prefix+'-lightbox', function () {
 				that._resize.call(that, 'css');
 			});
 			if(this.options.fixed) {
-				this.window.on('scroll.'+this.options.prefix+'.lightbox', function () {
+				this.window.on('scroll.'+this.options.prefix+'-lightbox', function () {
 					that._resize.call(that, 'css');
 				});
-			}
-
-			// the dimmer is loaded when "modal" is set to true
-			if(this.options.modal) {
-				// than bind the resize event to the windnt
-				this.window.on('resize.'+this.options.prefix+'.lightboxdim', function () {
-					that._resizeDim.call(that, false);
-				});
-
-				// we have to resize the dimmer on lightbox call
-				this._resizeDim(true);
 			}
 
 			// the dimmer is clickable when "modalClickable" is set to true
@@ -528,22 +519,20 @@ var Cl = window.Cl || {};
 		},
 
 		_detachEvents: function () {
-			// unbind window dimmer resize event
-			this.window.off('resize.'+this.options.prefix+'.lightboxdim');
+			// unbind window resize event for the lightbox
+			this.window.off('resize.'+this.options.prefix+'-lightbox');
+			this.window.off('scroll.'+this.options.prefix+'-lightbox');
 			// unbind dimmer click area
 			this.dimmer.off('click');
-			// unbind window resize event for the lightbox
-			this.window.off('resize.'+this.options.prefix+'.lightbox');
-			this.window.off('scroll.'+this.options.prefix+'.lightbox');
 			// unbind close event
-			this.controls.find('a[href="#close"]').off('click');
+			this.controls.find('.'+this.options.prefix+'-lightbox-close a').off('click');
 			// detach controls events
-			this.controls.find('a[href="#previous"]').off('click');
-			this.controls.find('a[href="#next"]').off('click');
+			this.controls.find('.'+this.options.prefix+'-lightbox-previous').off('click');
+			this.controls.find('.'+this.options.prefix+'-lightbox-next').off('click');
 			this.content.off('mouseenter');
 			this.frame.off('mouseleave');
 			// disable key navigation
-			$(document).off('keydown');
+			$(document).off('keydown.'+this.options.prefix+'-lightbox');
 		},
 
 		_resize: function (type, width, height) {
@@ -558,15 +547,13 @@ var Cl = window.Cl || {};
 			var windowHeight = this.window.height();
 			var originalWidth = width;
 
-			var heightOffset = this.instance.find('.'+this.options.prefix+'-lightbox-description').outerHeight(true) || 0;
-				heightOffset = heightOffset + this.instance.find('.'+this.options.prefix+'-lightbox-controls').outerHeight(true) || 0;
+			var bound = this.options.dimensions.offset;
+			var widthBound = windowWidth <= (width + bound * 2) && this.options.responsive;
+			var heightBound = windowHeight <= this.instance.outerHeight(true) + (bound * 2);
 
-			var widthBound = windowWidth <= width + this.options.dimensions.bound && this.options.responsive;
-			var heightBound = windowHeight <= this.instance.outerHeight(true);
-
-			// width boundry calculations
+			// WIDTH CALCULATION IN RESPONSIVE MODE
 			if(widthBound) {
-				width = originalWidth - (width - windowWidth + this.options.dimensions.bound);
+				width = originalWidth - (width - windowWidth + (bound * 2));
 				// aspect ratio
 				if(this.type === 'image') height = Math.floor(height * width / originalWidth);
 			}
@@ -575,27 +562,47 @@ var Cl = window.Cl || {};
 			this.content.stop()[type]({
 				'width': width,
 				'height': height
-			}, this.options.duration, this.options.easing, function () {
-				// set with to controls
-				that.controls.css('max-width', width);
-			});
-
-			// stop alignment when image is to large
-			if(heightBound) return false;
-
-			var offset = this.options.dimensions.offset / 2;
-			var left = (windowWidth - width) / 2 - offset;
-			var top = (windowHeight - height) / 2 + this.window.scrollTop() - offset - heightOffset / 2;
-
-			// removing padding padding and margins from left and top alignments
-			left = left - ((this.content.outerWidth(true) - this.content.width())/2);
-			top = top - ((this.content.outerHeight(true) - this.content.height())/2);
-
-			// animate to new element position
-			this.frame.stop()[type]({
-				'left': left,
-				'top': top
 			}, this.options.duration, this.options.easing);
+
+			// TOP CALCULATIONS
+			var description = this.instance.find('.'+this.options.prefix+'-lightbox-description');
+			var controls = this.instance.find('.'+this.options.prefix+'-lightbox-controls');
+
+			var heightOffset = (description.is(':visible')) ? description.outerHeight(true) : 0;
+				heightOffset = heightOffset + (controls.is(':visible')) ? controls.outerHeight(true) : 0;
+
+			var top = (windowHeight - height) / 2 + this.window.scrollTop();
+				top = top - ((this.content.outerHeight(true) - this.content.height())/2);
+			// bound limits
+			if(heightBound) {
+				// we need to fix the top alignment
+				top = bound + $(window).scrollTop();
+				this.isFixed = true;
+			} else {
+				this.isFixed = false;
+			}
+			// top should never be negative
+			if(top <= bound) top = bound;
+
+			// LEFT CALCULATIONS
+			// removing padding padding and margins from left and top alignments
+			var left = (windowWidth - width) / 2;
+				left = left - ((this.content.outerWidth(true) - this.content.width())/2);
+
+			// ANIMATION HANDLING
+			if(this.isFixed) {
+				this.frame.stop()[type]({
+					'left': left
+				}, this.options.duration, this.options.easing);
+			} else {
+				this.frame.stop()[type]({
+					'left': left,
+					'top': top - heightOffset
+				}, this.options.duration, this.options.easing);
+			}
+
+			// dimmer resize
+			if(this.options.modal) this._resizeDim();
 		},
 
 		_setError: function (message) {
@@ -625,9 +632,6 @@ var Cl = window.Cl || {};
 		_showControls: function () {
 			var that = this;
 
-			// dont show when manually opening an entry
-			if(this.manual) return false;
-
 			// show close only if modalClosable is true
 			if(this.options.modalClosable) this.closeBtn.fadeIn();
 
@@ -643,7 +647,7 @@ var Cl = window.Cl || {};
 			this.status.text(text);
 
 			// show content
-			this.text.slideDown(this.options.speed, function () { that._resize('animate') });
+			this.text.slideDown(this.options.speed, function () { that.resize() });
 		},
 
 		_hideControls: function () {
@@ -672,7 +676,6 @@ var Cl = window.Cl || {};
 
 		_resizeDim: function () {
 			var that = this;
-			var offset = 0;
 
 			// first set the dimmer to 100% when resizing so we avoid jumpint errors
 			this.dimmer.css({
@@ -683,14 +686,14 @@ var Cl = window.Cl || {};
 
 			// than we clear all previous timeouts
 			clearTimeout(this.dimTimer);
-
 			// and last set a timeout to set the correct dimensions
 			this.dimTimer = setTimeout(function () {
 				var scrollHeight = $(document).height() - $(window).height();
-				var scrollWidth = $(document).width() - $(window).width();
+				var scrollWidth = $('body').attr('clientWidth') - $(window).width();
+
 				that.dimmer.css({
 					'position': 'absolute',
-					'width': $(window).width() + scrollWidth - offset,
+					'width': $(window).width() + scrollWidth,
 					'height': $(window).height() + scrollHeight
 				});
 			}, 100);
@@ -734,4 +737,5 @@ var Cl = window.Cl || {};
 		}
 
 	});
+
 })(jQuery);

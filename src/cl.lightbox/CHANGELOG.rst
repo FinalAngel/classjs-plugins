@@ -13,6 +13,9 @@ Cl.Lightbox
 - fixed height calculations on very large images
 - fixed several IE issues
 - fixed an issue when opening a collection manually
+- fixed an issue when lightbox is to large
+- fixed an issue with scrolling availability
+- fixed an issue with positioning
 - removed ``_fire`` event calls
 
 1.1.0
