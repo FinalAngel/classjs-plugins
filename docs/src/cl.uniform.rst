@@ -52,10 +52,10 @@ Option ``tpl`` strings:
 ==========    ============
 Option        Default
 ==========    ============
-radio         '<span class="{cls}" role="radio"><span class="{knob}"></span></span>'
-checkbox      '<span class="{cls}" role="checkbox"><span class="{knob}"></span></span>'
-file          '<span class="{cls}"><span class="{input}"><!-- file --></span><span class="{btn}">{btntext}</span><span class="{status}">{statustext}</span></span>'
-select        '<span class="{cls}"><span class="{input}"><!-- select --></span><span class="{status}"></span><span class="{arrow}"></span>'
+radio         dom element (string)
+checkbox      dom element (string)
+file          dom element (string)
+select        dom element (string)
 ==========    ============
 
 

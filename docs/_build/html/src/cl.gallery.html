@@ -90,7 +90,7 @@
 <td>continues timeout even after manual cancellation.</td>
 </tr>
 <tr class="row-odd"><td>easing</td>
-<td>&#8216;linear&#8217;</td>
+<td>&#8216;swing&#8217;</td>
 <td>the jquery easing method for all animations.</td>
 </tr>
 <tr class="row-even"><td>duration</td>
@@ -98,14 +98,18 @@
 <td>the jquery duration speed for all animations.</td>
 </tr>
 <tr class="row-odd"><td>autoHeight</td>
-<td>false</td>
+<td>true</td>
 <td>sets the height on the warpper to the heighest element.</td>
 </tr>
-<tr class="row-even"><td>engine</td>
+<tr class="row-even"><td>autoResize</td>
+<td>true</td>
+<td>sets the height on the warpper on window.resize.</td>
+</tr>
+<tr class="row-odd"><td>engine</td>
 <td>&#8216;fade&#8217;</td>
 <td>this is the engine to be loaded when animating. Build-in are <tt class="docutils literal"><span class="pre">fade</span></tt> and <tt class="docutils literal"><span class="pre">slide</span></tt>.</td>
 </tr>
-<tr class="row-odd"><td>cls</td>
+<tr class="row-even"><td>cls</td>
 <td>object</td>
 <td>the available css class getters and setters.</td>
 </tr>
@@ -263,17 +267,8 @@
 </dd></dl>
 
 </div>
-<div class="section" id="events-and-callbacks">
-<h2>Events and Callbacks<a class="headerlink" href="#events-and-callbacks" title="Permalink to this headline">¶</a></h2>
-<p><strong>Events</strong> are always triggered <strong>before</strong> the method is excecuted on the <tt class="docutils literal"><span class="pre">document</span></tt> level.
-You can interact with event as follows:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">gallery</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Gallery</span><span class="p">();</span>
-<span class="c1">// attach event</span>
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;gallery-next&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;gallery is moving to the next element&#39;</span><span class="p">);</span>
-<span class="p">});</span>
-</pre></div>
-</div>
+<div class="section" id="callbacks">
+<h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
 <p><strong>Callbacks</strong> are always triggered <strong>after</strong> the method is excecuted.
 You can interact with callbacks as follows:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">gallery</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Gallery</span><span class="p">();</span>
@@ -340,7 +335,7 @@ You can interact with callbacks as follows:</p>
 <li><a class="reference internal" href="#">Cl.Gallery</a><ul>
 <li><a class="reference internal" href="#options">Options</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
-<li><a class="reference internal" href="#events-and-callbacks">Events and Callbacks</a></li>
+<li><a class="reference internal" href="#callbacks">Callbacks</a></li>
 </ul>
 </li>
 </ul>

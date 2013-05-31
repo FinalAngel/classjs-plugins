@@ -22,9 +22,10 @@ Option             Default      Description
 index              null         shows selected element[index]/group[index] starting form zero.
 timeout            5000         timeout in ms for autoplay, if ``0`` or ``null`` autoplay is ignored.
 autoplay           false        continues timeout even after manual cancellation.
-easing             'linear'     the jquery easing method for all animations.
+easing             'swing'      the jquery easing method for all animations.
 duration           300          the jquery duration speed for all animations.
-autoHeight         false        sets the height on the warpper to the heighest element.
+autoHeight         true         sets the height on the warpper to the heighest element.
+autoResize         true         sets the height on the warpper on window.resize.
 engine             'fade'       this is the engine to be loaded when animating. Build-in are ``fade`` and ``slide``.
 cls                object       the available css class getters and setters.
 ==============     ========     ===========
@@ -93,17 +94,8 @@ All Methods have appropriate events and callbacks.
     :returns: update callback.
 
 
-Events and Callbacks
---------------------
-
-**Events** are always triggered **before** the method is excecuted on the ``document`` level.
-You can interact with event as follows::
-
-    var gallery = new Cl.Gallery();
-    // attach event
-    $(document).on('gallery-next', function (e) {
-    	console.log('gallery is moving to the next element');
-    });
+Callbacks
+---------
 
 **Callbacks** are always triggered **after** the method is excecuted.
 You can interact with callbacks as follows::

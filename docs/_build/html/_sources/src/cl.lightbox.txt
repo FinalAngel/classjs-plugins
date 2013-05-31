@@ -25,16 +25,17 @@ modal              true         enables the dimmer functionality.
 modalClickable     true         ``requires modal`` allows the dimmer to be closed onclick.
 modalClosable      true         ``requires modalClickable`` disables all close events, lightbox can be only closed using the API.
 forceLoad          false        if enabled, insures that iframes are fully loaded before display.
-easing             'linear'     jquery easing effect for all animations.
+easing             'swing'      jquery easing effect for all animations.
 duration           300          duration until the lightbox is fully expanded.
 speed              300          speed for all regular animations.
 fixed              true         sets the lightbox always inside the viewport of the user even when scrolling.
 responsive         true         enables responsive behaviour of the lightbox.
-easing             'linear'     jquery easing effect for all animations.
 ajax               false        ajax loads the provided url and tries to inject the html into the lightbox. It does not create an iframe in order to maintain the css style.
 controls           true         ``requires group`` enables controllable elements when a collection is active.
+cls                ''           adds an additional class to the top level element.
+opacity            0.8          ``requires modal``transparent level for dimmer.
 styles             Object       adds jquery style css object to gallery content element.
-easing             Object       object includes ``initialWidth``, ``initialHeight``, ``bound`` for outer bound, ``offset`` for content padding, ``width`` and ``height``.
+dimensions         Object       available dimensions are ``initialWidth``, ``initialHeight``, ``offset``, ``width`` and ``height``.
 keys               true         enables control for the lightbox using the keyboard.
 keyCodes           Object       ``requires keys`` enables key control for ``close``, ``next`` and ``previous``.
 lang               Object       the available language configurations.
@@ -114,17 +115,8 @@ All Methods have appropriate events and callbacks.
     :returns: all current elements in the collection
 
 
-Events and Callbacks
---------------------
-
-**Events** are always triggered **before** the method is excecuted on the ``document`` level.
-You can interact with event as follows::
-
-    var lightbox = new Cl.Lightbox();
-    // attach event
-    $(document).on('cl-lightbox-open', function (e) {
-    	console.log('lightbox is opening');
-    });
+Callbacks
+---------
 
 **Callbacks** are always triggered **after** the method is excecuted.
 You can interact with callbacks as follows::

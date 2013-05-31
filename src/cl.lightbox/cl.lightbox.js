@@ -26,7 +26,7 @@ var Cl = window.Cl || {};
 			'modalClickable': true,
 			'modalClosable': true,
 			'forceLoad': false,
-			'easing': 'linear',
+			'easing': 'swing',
 			'duration': 300,
 			'speed': 300,
 			'fixed': true,

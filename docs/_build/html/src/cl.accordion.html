@@ -90,7 +90,7 @@
 <td>the jquery element of which the accordion will listen to.</td>
 </tr>
 <tr class="row-odd"><td>easing</td>
-<td>&#8216;linear&#8217;</td>
+<td>&#8216;swing&#8217;</td>
 <td>the jquery easing method for all animations.</td>
 </tr>
 <tr class="row-even"><td>duration</td>
@@ -106,7 +106,7 @@
 <td>if enabled, allows open element to be closed again.</td>
 </tr>
 <tr class="row-odd"><td>disableAnchors</td>
-<td>false</td>
+<td>true</td>
 <td>disables descending anchors from triggering. For example if the trigger is an <tt class="docutils literal"><span class="pre">li</span></tt> wrapping an anchor.</td>
 </tr>
 <tr class="row-even"><td>autoHeight</td>
@@ -153,6 +153,10 @@
 <td>&#8216;.container&#8217;</td>
 <td>the container to be expanded and collapsed</td>
 </tr>
+<tr class="row-even"><td>text</td>
+<td>&#8216;.text&#8217;</td>
+<td>will be used to switch language text</td>
+</tr>
 </tbody>
 </table>
 <p>Option <tt class="docutils literal"><span class="pre">lang</span></tt> strings:</p>
@@ -180,7 +184,7 @@
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <p>Methods can be called using an instance of the class:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">accordion</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Accordion</span><span class="p">();</span>
-    <span class="c1">// trigger the instanace</span>
+    <span class="c1">// trigger the method</span>
     <span class="nx">accordion</span><span class="p">.</span><span class="nx">toggle</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -252,17 +256,8 @@
 </dd></dl>
 
 </div>
-<div class="section" id="events-and-callbacks">
-<h2>Events and Callbacks<a class="headerlink" href="#events-and-callbacks" title="Permalink to this headline">¶</a></h2>
-<p><strong>Events</strong> are always triggered <strong>before</strong> the method is excecuted on the <tt class="docutils literal"><span class="pre">document</span></tt> level.
-You can interact with event as follows:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">accordion</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Accordion</span><span class="p">();</span>
-<span class="c1">// attach event</span>
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;accordion-toggle&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;item is toggling&#39;</span><span class="p">);</span>
-<span class="p">});</span>
-</pre></div>
-</div>
+<div class="section" id="callbacks">
+<h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
 <p><strong>Callbacks</strong> are always triggered <strong>after</strong> the method is excecuted.
 You can interact with callbacks as follows:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">accordion</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Accordion</span><span class="p">();</span>
@@ -308,7 +303,7 @@ You can interact with callbacks as follows:</p>
 <li><a class="reference internal" href="#">Cl.Accordion</a><ul>
 <li><a class="reference internal" href="#options">Options</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
-<li><a class="reference internal" href="#events-and-callbacks">Events and Callbacks</a></li>
+<li><a class="reference internal" href="#callbacks">Callbacks</a></li>
 </ul>
 </li>
 </ul>

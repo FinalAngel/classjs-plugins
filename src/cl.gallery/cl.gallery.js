@@ -21,7 +21,7 @@ var Cl = window.Cl || {};
 			'index': null,
 			'timeout': 5000,
 			'autoplay': false,
-			'easing': 'linear',
+			'easing': 'swing',
 			'duration': 300,
 			'autoHeight': true,
 			'autoResize': true,

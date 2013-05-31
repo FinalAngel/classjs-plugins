@@ -26,6 +26,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="classjs 1.0 documentation" href="../index.html" />
+    <link rel="next" title="Cl.Uniform" href="cl.uniform.html" />
     <link rel="prev" title="Cl.Gallery" href="cl.gallery.html" /> 
   </head>
   <body>
@@ -35,6 +36,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="cl.uniform.html" title="Cl.Uniform"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="cl.gallery.html" title="Cl.Gallery"
              accesskey="P">previous</a> |</li>
@@ -101,7 +105,7 @@
 <td>if enabled, insures that iframes are fully loaded before display.</td>
 </tr>
 <tr class="row-odd"><td>easing</td>
-<td>&#8216;linear&#8217;</td>
+<td>&#8216;swing&#8217;</td>
 <td>jquery easing effect for all animations.</td>
 </tr>
 <tr class="row-even"><td>duration</td>
@@ -120,35 +124,39 @@
 <td>true</td>
 <td>enables responsive behaviour of the lightbox.</td>
 </tr>
-<tr class="row-even"><td>easing</td>
-<td>&#8216;linear&#8217;</td>
-<td>jquery easing effect for all animations.</td>
-</tr>
-<tr class="row-odd"><td>ajax</td>
+<tr class="row-even"><td>ajax</td>
 <td>false</td>
 <td>ajax loads the provided url and tries to inject the html into the lightbox. It does not create an iframe in order to maintain the css style.</td>
 </tr>
-<tr class="row-even"><td>controls</td>
+<tr class="row-odd"><td>controls</td>
 <td>true</td>
 <td><tt class="docutils literal"><span class="pre">requires</span> <span class="pre">group</span></tt> enables controllable elements when a collection is active.</td>
 </tr>
-<tr class="row-odd"><td>styles</td>
+<tr class="row-even"><td>cls</td>
+<td>&#8216;&#8217;</td>
+<td>adds an additional class to the top level element.</td>
+</tr>
+<tr class="row-odd"><td>opacity</td>
+<td>0.8</td>
+<td><a href="#id1"><span class="problematic" id="id2">``</span></a>requires modal``transparent level for dimmer.</td>
+</tr>
+<tr class="row-even"><td>styles</td>
 <td>Object</td>
 <td>adds jquery style css object to gallery content element.</td>
 </tr>
-<tr class="row-even"><td>easing</td>
+<tr class="row-odd"><td>dimensions</td>
 <td>Object</td>
-<td>object includes <tt class="docutils literal"><span class="pre">initialWidth</span></tt>, <tt class="docutils literal"><span class="pre">initialHeight</span></tt>, <tt class="docutils literal"><span class="pre">bound</span></tt> for outer bound, <tt class="docutils literal"><span class="pre">offset</span></tt> for content padding, <tt class="docutils literal"><span class="pre">width</span></tt> and <tt class="docutils literal"><span class="pre">height</span></tt>.</td>
+<td>available dimensions are <tt class="docutils literal"><span class="pre">initialWidth</span></tt>, <tt class="docutils literal"><span class="pre">initialHeight</span></tt>, <tt class="docutils literal"><span class="pre">offset</span></tt>, <tt class="docutils literal"><span class="pre">width</span></tt> and <tt class="docutils literal"><span class="pre">height</span></tt>.</td>
 </tr>
-<tr class="row-odd"><td>keys</td>
+<tr class="row-even"><td>keys</td>
 <td>true</td>
 <td>enables control for the lightbox using the keyboard.</td>
 </tr>
-<tr class="row-even"><td>keyCodes</td>
+<tr class="row-odd"><td>keyCodes</td>
 <td>Object</td>
 <td><tt class="docutils literal"><span class="pre">requires</span> <span class="pre">keys</span></tt> enables key control for <tt class="docutils literal"><span class="pre">close</span></tt>, <tt class="docutils literal"><span class="pre">next</span></tt> and <tt class="docutils literal"><span class="pre">previous</span></tt>.</td>
 </tr>
-<tr class="row-odd"><td>lang</td>
+<tr class="row-even"><td>lang</td>
 <td>Object</td>
 <td>the available language configurations.</td>
 </tr>
@@ -325,17 +333,8 @@
 </dd></dl>
 
 </div>
-<div class="section" id="events-and-callbacks">
-<h2>Events and Callbacks<a class="headerlink" href="#events-and-callbacks" title="Permalink to this headline">¶</a></h2>
-<p><strong>Events</strong> are always triggered <strong>before</strong> the method is excecuted on the <tt class="docutils literal"><span class="pre">document</span></tt> level.
-You can interact with event as follows:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">lightbox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Lightbox</span><span class="p">();</span>
-<span class="c1">// attach event</span>
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;cl-lightbox-open&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;lightbox is opening&#39;</span><span class="p">);</span>
-<span class="p">});</span>
-</pre></div>
-</div>
+<div class="section" id="callbacks">
+<h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
 <p><strong>Callbacks</strong> are always triggered <strong>after</strong> the method is excecuted.
 You can interact with callbacks as follows:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">lightbox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cl</span><span class="p">.</span><span class="nx">Lightbox</span><span class="p">();</span>
@@ -424,7 +423,7 @@ You can interact with callbacks as follows:</p>
 <li><a class="reference internal" href="#">Cl.Lightbox</a><ul>
 <li><a class="reference internal" href="#options">Options</a></li>
 <li><a class="reference internal" href="#methods">Methods</a></li>
-<li><a class="reference internal" href="#events-and-callbacks">Events and Callbacks</a></li>
+<li><a class="reference internal" href="#callbacks">Callbacks</a></li>
 </ul>
 </li>
 </ul>
@@ -432,6 +431,9 @@ You can interact with callbacks as follows:</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="cl.gallery.html"
                         title="previous chapter">Cl.Gallery</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="cl.uniform.html"
+                        title="next chapter">Cl.Uniform</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/src/cl.lightbox.txt"
@@ -460,6 +462,9 @@ You can interact with callbacks as follows:</p>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="cl.uniform.html" title="Cl.Uniform"
+             >next</a> |</li>
         <li class="right" >
           <a href="cl.gallery.html" title="Cl.Gallery"
              >previous</a> |</li>

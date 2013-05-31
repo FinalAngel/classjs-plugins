@@ -14,7 +14,7 @@ module('cl.accordion.js');
 test('Options', function() {
 	var options = ['index', 'expanded', 'event', 'easing', 'duration', 'grouping', 'forceClose',
 		'disableAnchors', 'autoHeight'];
-	var defaults = [null, false, 'click focusin', 'linear', 300, true, false, true, false];
+	var defaults = [null, false, 'click', 'swing', 300, true, false, true, false];
 	// tests
 	$.each(options, function (index, option) {
 		deepEqual(accordion.options[option], defaults[index], option + ' is available');

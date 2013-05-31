@@ -13,8 +13,8 @@ module("cl.lightbox.js");
 
 test('Options', function() {
 	var options = ['prefix', 'group', 'cycle', 'modal', 'modalClickable', 'modalClosable', 'forceLoad',
-		'easing', 'duration', 'speed', 'fixed', 'responsive', 'ajax', 'controls', 'styles', 'keys'];
-	var defaults = ['cl', true, true, true, true, true, false, 'linear', 300, 300, true, true, false, true, {}, true];
+		'easing', 'duration', 'speed', 'fixed', 'responsive', 'ajax', 'controls', 'cls', 'opacity', 'styles', 'keys'];
+	var defaults = ['cl', true, true, true, true, true, false, 'swing', 300, 300, true, true, false, true, '', 0.8, {}, true];
 	// tests
 	$.each(options, function (index, option) {
 		deepEqual(lightbox.options[option], defaults[index], option + ' is available');
@@ -24,7 +24,6 @@ test('Options', function() {
 	var dimensions = lightbox.options.dimensions;
 	equal(dimensions.initialWidth, 50, 'initialWidth is availalbe');
 	equal(dimensions.initialHeight, 50, 'initialHeight is availalbe');
-	equal(dimensions.bound, 50, 'bound is availalbe');
 	equal(dimensions.offset, 20, 'offset is availalbe');
 	equal(dimensions.width, null, 'width is availalbe');
 	equal(dimensions.height, null, 'height is availalbe');

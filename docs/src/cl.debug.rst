@@ -26,10 +26,10 @@ collapsed          true         defines if the menu is expanded or collapsed.
 Methods
 -------
 
-There are no methods so far.
+append **#show** to url for enabling the button when closed.
 
 
-Events and Callbacks
---------------------
+Callbacks
+---------
 
-There are no events or callbacks so far.
+There are no callbacks so far.

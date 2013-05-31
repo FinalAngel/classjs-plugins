@@ -22,11 +22,11 @@ Option             Default      Description
 index              null         shows selected element[index] starting form zero.
 expanded           false        initial visibility of all items inside the selector.
 event              'click'      the jquery element of which the accordion will listen to.
-easing             'linear'     the jquery easing method for all animations.
+easing             'swing'      the jquery easing method for all animations.
 duration           300          the jquery duration speed for all animations.
 grouping           true         enables all elements to be grouped together, only one will be visible at any given time.
 forceClose         false        if enabled, allows open element to be closed again.
-disableAnchors     false        disables descending anchors from triggering. For example if the trigger is an ``li`` wrapping an anchor.
+disableAnchors     true         disables descending anchors from triggering. For example if the trigger is an ``li`` wrapping an anchor.
 autoHeight         false        sets the height for each element on initialization.
 cls                object       the available css class getters and setters.
 lang               object       the available language configurations.
@@ -42,6 +42,7 @@ expanded      'expanded'       will be added on the trigger when expanded
 collapsed     'collapsed'      will be added on the trigger when collapsed
 trigger       '.trigger'       the element which triggers ``toggle``
 container     '.container'     the container to be expanded and collapsed
+text          '.text'          will be used to switch language text
 =========     ============     ===========
 
 
@@ -61,7 +62,7 @@ Methods
 Methods can be called using an instance of the class::
 
     var accordion = new Cl.Accordion();
-        // trigger the instanace
+        // trigger the method
         accordion.toggle();
 
 All Methods have appropriate events and callbacks.
@@ -87,17 +88,8 @@ All Methods have appropriate events and callbacks.
     :returns: close callback.
 
 
-Events and Callbacks
---------------------
-
-**Events** are always triggered **before** the method is excecuted on the ``document`` level.
-You can interact with event as follows::
-
-    var accordion = new Cl.Accordion();
-    // attach event
-    $(document).on('accordion-toggle', function (e) {
-    	console.log('item is toggling');
-    });
+Callbacks
+---------
 
 **Callbacks** are always triggered **after** the method is excecuted.
 You can interact with callbacks as follows::

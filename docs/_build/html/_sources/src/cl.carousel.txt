@@ -88,23 +88,20 @@ All Methods have appropriate events and callbacks.
     :returns: stop callback.
 
 
+.. js:function:: carousel.update()
+
+    :description: updates the carousels states.
+    :returns: update callback.
+
+
 .. js:function:: carousel.destroy()
 
     :description: removes all states and events.
     :returns: destroy callback.
 
 
-Events and Callbacks
---------------------
-
-**Events** are always triggered **before** the method is excecuted on the ``document`` level.
-You can interact with event as follows::
-
-    var carousel = new Cl.Carousel();
-    // attach event
-    $(document).on('carousel-next', function (e) {
-    	console.log('carousel is moving to the next position');
-    });
+Callbacks
+---------
 
 **Callbacks** are always triggered **after** the method is excecuted.
 You can interact with callbacks as follows::
@@ -131,6 +128,9 @@ You can interact with callbacks as follows::
 
 .. js:data:: stop
     is called when triggering method ``stop``.
+
+.. js:data:: update
+    is called when triggering method ``update``.
 
 .. js:data:: destroy
     is called when triggering method ``destroy``.
