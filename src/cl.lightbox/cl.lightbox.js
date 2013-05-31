@@ -675,28 +675,11 @@ var Cl = window.Cl || {};
 		},
 
 		_resizeDim: function () {
-			var that = this;
-
-			// first set the dimmer to 100% when resizing so we avoid jumpint errors
 			this.dimmer.css({
 				'position': 'fixed',
 				'width': '100%',
 				'height': '100%'
 			});
-
-			// than we clear all previous timeouts
-			clearTimeout(this.dimTimer);
-			// and last set a timeout to set the correct dimensions
-			this.dimTimer = setTimeout(function () {
-				var scrollHeight = $(document).height() - $(window).height();
-				var scrollWidth = $('body').attr('clientWidth') - $(window).width();
-
-				that.dimmer.css({
-					'position': 'absolute',
-					'width': $(window).width() + scrollWidth,
-					'height': $(window).height() + scrollHeight
-				});
-			}, 100);
 		},
 
 		// TEMPLATES
