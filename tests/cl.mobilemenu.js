@@ -26,7 +26,7 @@ test('Options', function() {
 	equal(cls.knob, '.mainnav-knob', 'knob is availalbe');
 
 	var length = getLength(mobilemenu.options);
-	ok(length === 6, 'there are ' + length + ' options');
+	ok(length === 7, 'there are ' + length + ' options');
 });
 
 test('Methods', function() {
