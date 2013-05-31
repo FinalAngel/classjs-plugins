@@ -32,7 +32,8 @@ $lightbox-content: #fff;
 	opacity:inherit; filter:inherit; }
 
 // custom styles
-.cl-lightbox { background-color:$lightbox-bg; background:rgba($lightbox-bg, $lightbox-alpha); @include border-radius(5px); }
+.cl-lightbox { background-color:$lightbox-bg; background:rgba($lightbox-bg, $lightbox-alpha); @include border-radius(5px);
+	margin-left:-$lightbox-padding; margin-top:-$lightbox-padding; }
 .cl-lightbox-loader { background-image:url('../static/img/loader.gif'); }
 .cl-lightbox-inner { padding:$lightbox-padding; }
 .cl-lightbox-content { background:$lightbox-content; }
@@ -55,7 +56,7 @@ $lightbox-content: #fff;
 
 	p { padding:0; margin:0; }
 
-	.cl-lightbox-close { position:absolute; right:-12px; top:-12px; z-index:105;
+	.cl-lightbox-close { position:absolute; right:-10px; top:-10px; z-index:105;
 		a { float:right; width:30px; height:30px; @include hide-text();
 			background:url('../static/img/icon-close.png') no-repeat left top;
 			&:hover { background-position:left -30px; } }

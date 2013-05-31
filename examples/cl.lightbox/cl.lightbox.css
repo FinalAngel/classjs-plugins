@@ -79,6 +79,8 @@
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
+  margin-left: -10px;
+  margin-top: -10px;
 }
 
 .cl-lightbox-loader {
@@ -134,8 +136,8 @@
 }
 .cl-lightbox-controls .cl-lightbox-close {
   position: absolute;
-  right: -12px;
-  top: -12px;
+  right: -10px;
+  top: -10px;
   z-index: 105;
 }
 .cl-lightbox-controls .cl-lightbox-close a {
