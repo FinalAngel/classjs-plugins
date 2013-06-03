@@ -12,8 +12,8 @@ Options are set on initializing the mobilemenu::
 
     new Cl.Mobilemenu({
         // your options
-        'index': 0,
-        'event': 'mouseenter'
+        'duration': 0,
+        'ratio': 80 / 100
     });
 
 ==============     ========     ===========
