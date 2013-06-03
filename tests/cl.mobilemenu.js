@@ -25,6 +25,9 @@ test('Options', function() {
 	equal(cls.inner, '> ul', 'inner is availalbe');
 	equal(cls.knob, '.mainnav-knob', 'knob is availalbe');
 
+	var clsLength = getLength(mobilemenu.options.cls);
+	ok(clsLength === 3, 'there are ' + clsLength + ' cls options');
+
 	var length = getLength(mobilemenu.options);
 	ok(length === 7, 'there are ' + length + ' options');
 });
