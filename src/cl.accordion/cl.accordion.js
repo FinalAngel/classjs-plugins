@@ -58,10 +58,15 @@ var Cl = window.Cl || {};
 			jQuery(window).load(function () {
 				that._setup();
 			});
+			// skip window.load if jquery is already loaded
+			if(Cl._ready) that._setup();
 		},
 
 		_setup: function () {
 			var that = this;
+
+			// set internal CL.Redy to true, this is required whenever load is used
+			Cl._ready = true;
 
 			// set the correct height
 			if(this.options.autoHeight) this._setHeight();
