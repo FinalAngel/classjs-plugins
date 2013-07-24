@@ -13,7 +13,7 @@
 	position: absolute; left: 0; z-index: 100; width: 100%; background: white; padding: 0; margin: 0 0 10px 0;
 	@include box-shadow(0 2px 4px rgba(black, 0.3));
 
-	.autocomplete-inner, .message { padding: 10px; margin: 0; }
+	.autocomplete-inner, .autocomplete-message { padding: 10px; margin: 0; }
 	.autocomplete-item {
 		display: block; margin: 2px 0; padding: 2px 5px;
 		&:hover, &:focus { background: #f2f2f2; }

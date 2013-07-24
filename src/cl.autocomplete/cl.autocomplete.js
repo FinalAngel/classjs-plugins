@@ -2,7 +2,7 @@
  * Cl.Autocomplete
  * @author      Ales Kocjancic - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.0.beta2
+ * @version     1.0.0
  */
 
 // ensure namespace is defined
@@ -17,15 +17,17 @@ var Cl = window.Cl || {};
 		options: {
 			'url': false,
 			'minLength': 3,
-			'delay': 300,
+			'easing': 'swing',
 			'duration': 300,
+			'delay': 300,
+			'fx': 'slide',
 			'closeOnBlur': false,
 			'cls': {
 				'field': 'input[type="search"]',
 				'results': '.autocomplete-results',
 				'item': '.autocomplete-item',
-				'close': '.close',
-				'submit': '.all-results'
+				'close': '.autocomplete-close',
+				'submit': '.autocomplete-submit'
 			},
 			'lang': {
 				'error': 'There has been an error!',
@@ -40,6 +42,7 @@ var Cl = window.Cl || {};
 			this.url = this.options.url ? this.options.url : this.container.attr('action');
 			this.results = this.container.find(this.options.cls.results);
 			this.field = this.container.find(this.options.cls.field);
+			this.callbacks = {};
 
 			this.timer = function(){};
 			this.query = '';
@@ -53,23 +56,23 @@ var Cl = window.Cl || {};
 			this.results.hide().attr('aria-hidden', true);
 
 			// add search event
-			this.field.on('keyup focus paste click', function(e) {
-				that.triggerSearch();
+			this.field.on('keyup focus paste click', function() {
+				that.search();
 			});
 			// add key events
 			this.container.on('keydown', function(e) {
 				var pressed = e.charCode ? parseInt(e.charCode) : e.keyCode ? parseInt(e.keyCode) : 0;
 				switch (pressed) {
 					case 27:  // escape
-						that.close();
+						that.hide();
 						break;
 					case 38:  // up
 						e.preventDefault();
-						that.focusPreviousResult();
+						that._focusPreviousResult();
 						break;
 					case 40:  // down
 						e.preventDefault();
-						that.focusNextResult();
+						that._focusNextResult();
 						break;
 				}
 			});
@@ -80,7 +83,7 @@ var Cl = window.Cl || {};
 					e.stopPropagation();
 				});
 				$(document.body).on('click', function () {
-					that.close();
+					that.hide();
 				});
 			}
 
@@ -93,11 +96,48 @@ var Cl = window.Cl || {};
 			// bind close event
 			$(document).on('click', this.selector+' '+this.options.cls.close, function(e) {
 				e.preventDefault();
-				that.close();
+				that.hide();
 			});
 		},
 
-		focusNextResult: function() {
+		show: function() {
+			this.results.attr('aria-hidden', false);
+
+			if(this.options.fx === 'toggle') this.results.show();
+			if(this.options.fx === 'fade') this.results.fadeIn(this.options.duration);
+			if(this.options.fx === 'slide') this.results.slideDown(this.options.duration);
+
+			// trigger callback
+			this._fire('show');
+		},
+
+		hide: function() {
+			this.results.attr('aria-hidden', true);
+
+			if(this.options.fx === 'toggle') this.results.hide();
+			if(this.options.fx === 'fade') this.results.fadeOut(this.options.duration, this.options.transition);
+			if(this.options.fx === 'slide') this.results.slideUp(this.options.duration, this.options.transition);
+
+			// trigger callback
+			this._fire('hide');
+		},
+
+		search: function(query) {
+			var that = this;
+			query = query || this.field.val();
+			if(this._validate(query)) {
+				that.query = query;
+				clearTimeout(that.timer);
+				that.timer = setTimeout(function() {
+					that._request();
+				}, that.options.delay);
+			}
+
+			// trigger callback
+			this._fire('search');
+		},
+
+		_focusNextResult: function() {
 			var items = this.results.find(this.options.cls.item);
 			if (items.length > 0) {
 				var current = items.filter(':focus').first();
@@ -113,7 +153,7 @@ var Cl = window.Cl || {};
 			}
 		},
 
-		focusPreviousResult: function() {
+		_focusPreviousResult: function() {
 			var items = this.results.find(this.options.cls.item);
 			if (items.length > 0) {
 				var current = items.filter(':focus').first();
@@ -129,32 +169,8 @@ var Cl = window.Cl || {};
 			}
 		},
 
-		open: function() {
-			this.results
-				.fadeIn(this.options.duration / 2)
-				.attr('aria-hidden', false);
-		},
-
-		close: function() {
-			this.results
-				.fadeOut(this.options.duration)
-				.attr('aria-hidden', true);
-		},
-
-		triggerSearch: function() {
-			var that = this;
-			var query = this.field.val();
-			if(this._valid(query)) {
-				that.query = query;
-				clearTimeout(that.timer);
-				that.timer = setTimeout(function() {
-					that._request();
-				}, that.options.delay);
-			}
-		},
-
 		// validates query
-		_valid: function(query) {
+		_validate: function(query) {
 			// passes if query is not empty, query is not open and has the correct length
 			return (query !== '' && query.length >= this.options.minLength && query !== this.query);
 		},
@@ -186,16 +202,23 @@ var Cl = window.Cl || {};
 		_replace: function(data) {
 			this.results.html(data);
 			if (!this.results.is(':visible')) {
-				this.results.slideDown(this.options.duration);
+				this.show();
 			}
 		},
 
 		_showEmpty: function() {
-			this._replace('<p class="message">' + this.options.lang.empty + '</p>');
+			this._replace('<p class="autocomplete-message">' + this.options.lang.empty + '</p>');
 		},
 
 		_showError: function() {
-			this._replace('<p class="message">' + this.options.lang.error +'</p>');
+			this._replace('<p class="autocomplete-message">' + this.options.lang.error +'</p>');
+		},
+
+		_fire: function (keyword) {
+			// cancel if there is no callback found
+			if(this.callbacks[keyword] === undefined) return false;
+			// excecute callback
+			this.callbacks[keyword](this);
 		}
 
 	});
