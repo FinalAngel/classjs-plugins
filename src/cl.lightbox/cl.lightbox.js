@@ -68,7 +68,6 @@ var Cl = window.Cl || {};
 			this.isLoaded = false;
 			this.isOpen = false;
 			this.callbacks = {};
-			this.dimTimer = function () {};
 
 			// attach initial event on lightbox triggers
 			this.triggers = $(triggers);
@@ -124,7 +123,7 @@ var Cl = window.Cl || {};
 				that.isLoaded = true;
 
 				// show the lightbox
-				that._show((this.isOpen) ? false : true);
+				that._show((that.isOpen) ? false : true);
 
 				// load given jquery element
 				if(typeof(el) === 'object') {
@@ -135,7 +134,7 @@ var Cl = window.Cl || {};
 					that._preload('<a href="' + el + '"></a>');
 				}
 				// load first element of collection
-				if(el === undefined && this.triggers.length) {
+				if(el === undefined && that.triggers.length) {
 					that._preload(that.triggers.first());
 				}
 
@@ -542,7 +541,6 @@ var Cl = window.Cl || {};
 			height = parseInt(height) || parseInt(this.height);
 
 			// set dimensions
-			var that = this;
 			var windowWidth = this.window.width();
 			var windowHeight = this.window.height();
 			var originalWidth = width;
