@@ -80,7 +80,7 @@ var Cl = window.Cl || {};
 			}
 
 			// setup initial states
-			if(this.options.expanded) {
+			if(this.options.expanded || this.container.data('expanded')) {
 				this.show(undefined, true);
 			} else {
 				// trigger event
@@ -136,7 +136,7 @@ var Cl = window.Cl || {};
 					.removeClass(this.options.cls.collapsed)
 					.attr('aria-selected', true)
 					.attr('aria-expanded', true)
-						.find('.text').html(this.options.lang.expanded);
+						.find(this.options.cls.text).html(this.options.lang.expanded);
 			} else {
 				this.containers.eq(index)
 					.slideDown(this.options.duration, this.options.easing)
@@ -147,8 +147,11 @@ var Cl = window.Cl || {};
 					.removeClass(this.options.cls.collapsed)
 					.attr('aria-selected', true)
 					.attr('aria-expanded', true)
-						.find('.text').html(this.options.lang.expanded);
+						.find(this.options.cls.text).html(this.options.lang.expanded);
 			}
+
+			// assign correct index
+			this.index = index || this.index || 0;
 		},
 
 		_setCollapsed: function (index, fast) {
@@ -164,7 +167,7 @@ var Cl = window.Cl || {};
 					.removeClass(this.options.cls.expanded)
 					.attr('aria-selected', false)
 					.attr('aria-expanded', false)
-						.find('.text').html(this.options.lang.collapsed);
+						.find(this.options.cls.text).html(this.options.lang.collapsed);
 			} else {
 				this.containers.eq(index)
 					.slideUp(this.options.duration, this.options.easing)
@@ -175,7 +178,7 @@ var Cl = window.Cl || {};
 					.removeClass(this.options.cls.expanded)
 					.attr('aria-selected', false)
 					.attr('aria-expanded', false)
-						.find('.text').html(this.options.lang.collapsed);
+						.find(this.options.cls.text).html(this.options.lang.collapsed);
 			}
 		},
 
