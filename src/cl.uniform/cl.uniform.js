@@ -31,8 +31,8 @@ var Cl = window.Cl || {};
 			'tpl': {
 				'radio': '<span class="{cls}" role="radio"><span class="{knob}"><!-- radio --></span></span>',
 				'checkbox': '<span class="{cls}" role="checkbox"><span class="{knob}"><!-- checkbox --></span></span>',
-				'file': '<span class="{cls}"><span class="{input}"><!-- file --></span><span class="{btn}">{btntext}</span><span class="{status}">{statustext}</span></span>',
-				'select': '<span class="{cls}"><span class="{input}"><!-- select --></span><span class="{status}"></span><span class="{arrow}"></span></span>'
+				'file': '<span class="{cls}"><span class="{input}"><!-- file --></span><span class="{btn}" aria-hidden="true">{btntext}</span><span class="{status}" aria-hidden="true">{statustext}</span></span>',
+				'select': '<span class="{cls}"><span class="{input}"><!-- select --></span><span class="{status}" aria-hidden="true"></span><span class="{arrow}"></span></span>'
 			}
 		},
 
@@ -266,7 +266,7 @@ var Cl = window.Cl || {};
 			var text = parent.find('.' + clsStatus);
 
 			// attach change event
-			field.on('change', function () {
+			field.on('change keyup', function () {
 				text.text($(this).find('option:selected').text());
 			});
 
