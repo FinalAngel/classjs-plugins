@@ -1,6 +1,8 @@
 Class.js - Plugin Repository
 ============================
 
+[![Build Status](https://travis-ci.org/FinalAngel/classjs-plugins.png?branch=master)](https://travis-ci.org/FinalAngel/classjs-plugins)
+
 https://github.com/finalangel/classjs
 
 Class.js is a JavaScript library for building class based object-oriented programms using JavaScript's prototypal
