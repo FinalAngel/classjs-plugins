@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		qunit: {
-			files: ['tests/*.html']
+			all: ['tests/*.html']
 		},
 		jshint: {
 			all: ['Gruntfile.js',
@@ -47,13 +47,34 @@ module.exports = function(grunt) {
 					Cl: true
 				}
 			}
+		},
+		uglify: {
+			all: {
+				files: {
+					'src/cl.accordion/cl.accordion.min.js': ['src/cl.accordion/cl.accordion.js'],
+					'src/cl.autocomplete/cl.autocomplete.min.js': ['src/cl.autocomplete/cl.autocomplete.js'],
+					'src/cl.carousel/cl.carousel.min.js': ['src/cl.carousel/cl.carousel.js'],
+					'src/cl.debug/cl.debug.min.js': ['src/cl.debug/cl.debug.js'],
+					'src/cl.gallery/cl.gallery.min.js': ['src/cl.gallery/cl.gallery.js'],
+					'src/cl.lightbox/cl.lightbox.min.js': ['src/cl.lightbox/cl.lightbox.js'],
+					'src/cl.mobilemenu/cl.mobilemenu.min.js': ['src/cl.mobilemenu/cl.mobilemenu.js'],
+					'src/cl.parallax/cl.parallax.min.js': ['src/cl.parallax/cl.parallax.js'],
+					'src/cl.scroll/cl.scroll.min.js': ['src/cl.scroll/cl.scroll.js'],
+					'src/cl.touch/cl.touch.min.js': ['src/cl.touch/cl.touch.js'],
+					'src/cl.uniform/cl.uniform.min.js': ['src/cl.uniform/cl.uniform.js']
+				},
+				options: {
+					report: 'min'
+				}
+			}
 		}
 	});
 
 	// Travis CI task.
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	// Default task.
-	grunt.registerTask('default', ['qunit', 'jshint']);
+	grunt.registerTask('default', ['qunit', 'jshint', 'uglify']);
 };
