@@ -20,5 +20,5 @@ test('Options', function() {
 	});
 
 	//var length = getLength(debug.options);
-	//ok(methods.length === 2, 'there are ' + methods.length + ' methods')
+	//ok(methods.length === 2, 'there are ' + methods.length + ' methods');
 });

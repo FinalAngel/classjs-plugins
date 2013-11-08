@@ -253,31 +253,6 @@ var Cl = window.Cl || {};
 			if(this.options.preload) this.type = 'preload';
 			if(this.options.ajax) this.type = 'ajax';
 
-			// create the element
-			switch(this.type) {
-				case 'image':
-					// we need to add date gettime to prevent caching in ie7
-					this.element = $(new Image()).attr({ 'src': this.url + '?' + new Date().getTime(), 'alt': this.source.attr('title') });
-					load();
-					break;
-				case 'flash':
-					this.element = $(connectors.flash.replace('{url}', this.source.attr('href')));
-					this.loadingBay.append(this.element);
-					this._load(that.element);
-					break;
-				case 'ajax':
-					ajax(this.url);
-					break;
-				case 'inline':
-					this.element = $(this.url).clone(true, true);
-					this.loadingBay.append(this.element);
-					(this.element.length) ? this._load(this.element) : error();
-					break;
-				default:
-					this.element = iframe(this.url);
-					this._load(that.element);
-			}
-
 			// preload element and pass to _load
 			function load() {
 				that.element.load(function () {
@@ -313,11 +288,11 @@ var Cl = window.Cl || {};
 
 			// setting error and pass to _load
 			function error() {
-				var error = that._setError(that.options.lang.errorMessage);
+				var err = that._setError(that.options.lang.errorMessage);
 				// attach element to dom
-				that.loadingBay.append(error);
+				that.loadingBay.append(err);
 				// set element dimensions
-				that._load(error);
+				that._load(err);
 			}
 
 			// wrapps element with iframe
@@ -328,6 +303,31 @@ var Cl = window.Cl || {};
 					'scrollbars': 'no',
 					'frameborder': 0
 				});
+			}
+
+			// create the element
+			switch(this.type) {
+				case 'image':
+					// we need to add date gettime to prevent caching in ie7
+					this.element = $(new Image()).attr({ 'src': this.url + '?' + new Date().getTime(), 'alt': this.source.attr('title') });
+					load();
+					break;
+				case 'flash':
+					this.element = $(connectors.flash.replace('{url}', this.source.attr('href')));
+					this.loadingBay.append(this.element);
+					this._load(that.element);
+					break;
+				case 'ajax':
+					ajax(this.url);
+					break;
+				case 'inline':
+					this.element = $(this.url).clone(true, true);
+					this.loadingBay.append(this.element);
+					(this.element.length) ? this._load(this.element) : error();
+					break;
+				default:
+					this.element = iframe(this.url);
+					this._load(that.element);
 			}
 
 			// trigger callback
@@ -363,7 +363,7 @@ var Cl = window.Cl || {};
 			this.content.html(el.css('visibility', 'visible').hide().fadeIn(this.options.speed));
 
 			// add description and show if given
-			if(this.source.attr('title')) this.description.html(this.source.attr('title')).slideDown(this.options.speed, function () { that.resize() });
+			if(this.source.attr('title')) this.description.html(this.source.attr('title')).slideDown(this.options.speed, function () { that.resize(); });
 
 			var iframe = this.content.find('iframe');
 			// hide loader depending on content
@@ -567,10 +567,10 @@ var Cl = window.Cl || {};
 			var controls = this.instance.find('.'+this.options.prefix+'-lightbox-controls');
 
 			var heightOffset = (description.is(':visible')) ? description.outerHeight(true) : 0;
-				heightOffset = heightOffset + (controls.is(':visible')) ? controls.outerHeight(true) : 0;
+			heightOffset = heightOffset + (controls.is(':visible')) ? controls.outerHeight(true) : 0;
 
 			var top = (windowHeight - height) / 2 + this.window.scrollTop();
-				top = top - ((this.content.outerHeight(true) - this.content.height())/2);
+			top = top - ((this.content.outerHeight(true) - this.content.height())/2);
 			// bound limits
 			if(heightBound) {
 				// we need to fix the top alignment
@@ -585,7 +585,7 @@ var Cl = window.Cl || {};
 			// LEFT CALCULATIONS
 			// removing padding padding and margins from left and top alignments
 			var left = (windowWidth - width) / 2;
-				left = left - ((this.content.outerWidth(true) - this.content.width())/2);
+			left = left - ((this.content.outerWidth(true) - this.content.width())/2);
 
 			// ANIMATION HANDLING
 			if(this.isFixed) {
@@ -638,14 +638,14 @@ var Cl = window.Cl || {};
 
 			// update controls text
 			var text = this.options.lang.status;
-				text = text.replace('{current}', this.index + 1);
-				text = text.replace('{total}', this.bound);
+			text = text.replace('{current}', this.index + 1);
+			text = text.replace('{total}', this.bound);
 
 			// set status
 			this.status.text(text);
 
 			// show content
-			this.text.slideDown(this.options.speed, function () { that.resize() });
+			this.text.slideDown(this.options.speed, function () { that.resize(); });
 		},
 
 		_hideControls: function () {

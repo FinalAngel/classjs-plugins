@@ -49,5 +49,5 @@ test('Methods', function() {
 	});
 
 	// check method count
-	ok(methods.length === 3, 'there are ' + methods.length + ' methods')
+	ok(methods.length === 3, 'there are ' + methods.length + ' methods');
 });

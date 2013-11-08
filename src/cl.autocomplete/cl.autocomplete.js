@@ -194,7 +194,7 @@ var Cl = window.Cl || {};
 					that._showError();
 				},
 				'headers': {
-					"X-Requested-With": "XMLHttpRequest"
+					'X-Requested-With': 'XMLHttpRequest'
 				}
 			});
 		},

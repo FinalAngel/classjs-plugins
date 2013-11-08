@@ -9,7 +9,7 @@
 
 var lightbox = new Cl.Lightbox();
 
-module("cl.lightbox.js");
+module('cl.lightbox.js');
 
 test('Options', function() {
 	var options = ['prefix', 'group', 'cycle', 'modal', 'modalClickable', 'modalClosable', 'forceLoad',
@@ -49,5 +49,5 @@ test('Methods', function() {
 		equal(typeof(lightbox[method]), 'function', method + ' is available');
 	});
 	// check method count
-	ok(methods.length === 8, 'there are ' + methods.length + ' methods')
+	ok(methods.length === 8, 'there are ' + methods.length + ' methods');
 });

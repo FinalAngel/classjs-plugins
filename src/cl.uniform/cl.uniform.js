@@ -73,15 +73,15 @@ var Cl = window.Cl || {};
 
 			this.elements.each(function (index, item) {
 				var input = $(item);
-					input.parent().siblings('span').remove();
-					input.unwrap()
-						.unwrap()
-						.removeAttr('style')
-						.off('click.' + cls.prefix)
-						.off('change.' + cls.prefix)
-						.off('focus.' + cls.prefix)
-						.off('blur.' + cls.prefix)
-						.data('ready', false);
+				input.parent().siblings('span').remove();
+				input.unwrap()
+					.unwrap()
+					.removeAttr('style')
+					.off('click.' + cls.prefix)
+					.off('change.' + cls.prefix)
+					.off('focus.' + cls.prefix)
+					.off('blur.' + cls.prefix)
+					.data('ready', false);
 			});
 
 			// trigger event
@@ -162,15 +162,15 @@ var Cl = window.Cl || {};
 
 			// start attaching events
 			var parent = field.parents('.' + cls.prefix);
-				parent.on('click.' + cls.prefix, function (e) {
-					// prevent event bubbling
-					e.preventDefault();
-					e.stopPropagation();
+			parent.on('click.' + cls.prefix, function (e) {
+				// prevent event bubbling
+				e.preventDefault();
+				e.stopPropagation();
 
-					// delegate to input
-					var input = $(this).find('input');
-						input.trigger('click');
-				});
+				// delegate to input
+				var input = $(this).find('input');
+				input.trigger('click');
+			});
 
 			// set initial accessibility labels
 			if(field.is(':checked')) {
@@ -223,15 +223,15 @@ var Cl = window.Cl || {};
 
 			// start attaching events
 			var parent = field.parents('.' + cls.prefix);
-				parent.on('click.' + cls.prefix, function (e) {
-					// prevent event bubbling
-					e.preventDefault();
-					e.stopPropagation();
+			parent.on('click.' + cls.prefix, function (e) {
+				// prevent event bubbling
+				e.preventDefault();
+				e.stopPropagation();
 
-					// delegate to input
-					var input = $(this).find('input');
-						input.trigger('click');
-				});
+				// delegate to input
+				var input = $(this).find('input');
+				input.trigger('click');
+			});
 
 			// add common elements
 			this._common(field);

@@ -228,7 +228,7 @@ var Cl = window.Cl || {};
 					this.elements.show().css('left', -9999);
 					// show first slide
 					var el = this.elements.eq(this.index);
-						el.css('left', 0).show();
+					el.css('left', 0).show();
 
 					// we don't need a queue here
 					this.queue = false;

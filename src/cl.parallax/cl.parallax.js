@@ -48,7 +48,7 @@ var Cl = window.Cl || {};
 
 			// attach the event if scroll
 			if(this.options.event === 'scroll') {
-				$(window).bind('scroll', function (e) {
+				$(window).bind('scroll', function () {
 					that.elements.each(function (index, item) {
 						that._parallax.scroll.call(that, $(item));
 					});
@@ -72,7 +72,7 @@ var Cl = window.Cl || {};
 
 				// animate if visible
 				if(isVisible) {
-					$(this.options.axis).each(function (index, axis) {
+					$(this.options.axis).each(function () {
 						var pos = -(top - scrollPos + el.height());
 						pos = pos / that.options.steps;
 
