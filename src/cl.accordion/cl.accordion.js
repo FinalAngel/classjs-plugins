@@ -46,10 +46,6 @@ var Cl = window.Cl || {};
 			this.options = $.extend(true, {}, this.options, options);
 
 			this.triggers = this.container.find(this.options.cls.trigger);
-			this.triggerMap = {};
-			for (var i = 0; i < this.triggers.length; i++) {
-				this.triggerMap[$('a', this.triggers[i]).eq(0).attr('href')] = i;
-			}
 			this.containers = this.container.find(this.options.cls.container);
 			this.index = null;
 			this.callbacks = {};
@@ -77,7 +73,7 @@ var Cl = window.Cl || {};
 
 			// add event to each trigger
 			this.triggers.on(this.options.event, function (e) {
-				e.preventDefault();
+				if(that.options.disableAnchors) e.preventDefault();
 				that.toggle(that.triggers.index(this));
 			});
 
@@ -95,15 +91,12 @@ var Cl = window.Cl || {};
 				// trigger event
 				this.hide(undefined, true);
 			}
-			
-			if(!this.options.expanded) {
-				if(this.triggerMap[window.location.hash] !== undefined){
-					// if a hash matching one of the containers is provided, show that one
-					this.toggle(this.triggerMap[window.location.hash]);
-				} else if(this.options.index !== null){
-					// if index is defined and the elements are not expanded, show provided index
-					this.toggle(this.options.index)
-				}
+
+			// check for hash
+			var hash = window.location.hash;
+			if(!this.options.expanded && hash !== undefined) {
+				var el = this.container.find('a[href="'+hash+'"]');
+				if(el.length) el.trigger('click');
 			}
 		},
 

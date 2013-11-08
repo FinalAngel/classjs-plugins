@@ -5,6 +5,8 @@ Cl.Accordion
 1.1.4
 -----
 - added ability to set initial open element using URL hash fragment
+- fixed issue #39: actually assign correct index
+- fixed an issue with ``disableAnchors``
 
 1.1.3
 -----
