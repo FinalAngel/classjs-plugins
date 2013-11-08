@@ -123,10 +123,7 @@ var Cl = window.Cl || {};
 
 			// inject element
 			field.wrap(tpl).css('left', this.options.offset);
-			field.on('click.' + cls.prefix, function (e) {
-				// prevent event bubbling
-				e.stopPropagation();
-
+			field.on('change.' + cls.prefix, function (e) {
 				// getting vars
 				var input = $(this);
 				var knob = $(this).parents('.' + clsKnob);
@@ -136,24 +133,29 @@ var Cl = window.Cl || {};
 
 				if(type === 'checkbox') {
 					// we need to check if we should activate or deactivate the checkbox
-					if(parseInt(knob.css('left'), 10) === 0 || knob.css('left') === 'auto') {
-						knob.css('left', that.options.offset);
-					} else {
+					if(field.is(':checked')) {
 						knob.css('left', 0);
+					} else {
+						knob.css('left', that.options.offset);
 					}
 				} else { // radio
 					// we need to determine the radio group and trigger/enable them at once
-					input.closest('form').find('input[type="radio"][name="' + input.attr('name') + '"]')
-						.parents('.' + clsKnob)
-						.css('left', that.options.offset);
-					knob.css('left', 0);
+					input.closest('form').find('input[type="radio"][name="' + input.attr('name') + '"]').each(function() {
+						var self = $(this);
+						var knob = self.parents('.' + clsKnob);
+						if(self.is(':checked')) {
+							knob.css('left', 0);
+						} else {
+							knob.css('left', that.options.offset);
+						}
+					});
 				}
 
 				// api call
 				input.trigger(cls.prefix + 'change');
 
 				// change accessibility labels
-				if(parseInt(knob.css('left'), 10) === 0) {
+				if(field.is(':checked')) {
 					parent.attr('aria-checked', true);
 				} else {
 					parent.attr('aria-checked', false);
@@ -162,15 +164,6 @@ var Cl = window.Cl || {};
 
 			// start attaching events
 			var parent = field.parents('.' + cls.prefix);
-				parent.on('click.' + cls.prefix, function (e) {
-					// prevent event bubbling
-					e.preventDefault();
-					e.stopPropagation();
-
-					// delegate to input
-					var input = $(this).find('input');
-						input.trigger('click');
-				});
 
 			// set initial accessibility labels
 			if(field.is(':checked')) {
