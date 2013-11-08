@@ -1,0 +1,21 @@
+{
+	"name": "classjs-plugins",
+	"version": "1.0.0",
+	"description": "Class.js - Class Based Inheritance",
+	"author": "Angelo Dini",
+	"repository" : {
+		"type" : "git",
+		"url" : "https://github.com/FinalAngel/classjs-plugins"
+	},
+	"scripts": {
+		"test": "grunt default --verbose"
+	},
+	"dependencies": {
+		"jquery": "*"
+	},
+	"devDependencies": {
+		"grunt-contrib-qunit": "~0.3.0",
+		"grunt": "~0.4.1"
+	},
+	"license": "BSD"
+}
