@@ -156,7 +156,9 @@ var Cl = window.Cl || {};
 			}
 
 			// assign correct index
-			this.index = index || this.index || 0;
+			if (typeof(index) !== 'undefined') {
+				this.index = index;
+			}
 		},
 
 		_setCollapsed: function (index, fast) {
