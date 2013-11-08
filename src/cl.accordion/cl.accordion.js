@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.3
+ * @version     1.1.4
  */
 
 // ensure namespace is defined
@@ -46,6 +46,10 @@ var Cl = window.Cl || {};
 			this.options = $.extend(true, {}, this.options, options);
 
 			this.triggers = this.container.find(this.options.cls.trigger);
+			this.triggerMap = {};
+			for (var i = 0; i < this.triggers.length; i++) {
+				this.triggerMap[$('a', this.triggers[i]).eq(0).attr('href')] = i;
+			}
 			this.containers = this.container.find(this.options.cls.container);
 			this.index = null;
 			this.callbacks = {};
@@ -91,9 +95,16 @@ var Cl = window.Cl || {};
 				// trigger event
 				this.hide(undefined, true);
 			}
-
-			// if index is defined and the elements are not expanded, show provided index
-			if(this.options.index !== null && !this.options.expanded) this.toggle(this.options.index);
+			
+			if(!this.options.expanded) {
+				if(this.triggerMap[window.location.hash] !== undefined){
+					// if a hash matching one of the containers is provided, show that one
+					this.toggle(this.triggerMap[window.location.hash]);
+				} else if(this.options.index !== null){
+					// if index is defined and the elements are not expanded, show provided index
+					this.toggle(this.options.index)
+				}
+			}
 		},
 
 		toggle: function (index) {

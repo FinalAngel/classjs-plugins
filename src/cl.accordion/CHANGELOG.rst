@@ -2,6 +2,10 @@
 Cl.Accordion
 ============
 
+1.1.4
+-----
+- added ability to set initial open element using URL hash fragment
+
 1.1.3
 -----
 - removed ``_fire`` event calls
