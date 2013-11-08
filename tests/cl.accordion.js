@@ -52,3 +52,10 @@ test('Methods', function() {
 	// check method count
 	ok(methods.length === 3, 'there are ' + methods.length + ' methods')
 });
+
+test('Test for issue #39: Actually assign correct index', function() {
+	accordion.show(1);
+	equal(accordion.index, 1, 'index is set to 1');
+	accordion.show(0);
+	equal(accordion.index, 0, 'index is set to 0');
+});
