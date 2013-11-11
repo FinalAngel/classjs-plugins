@@ -1,5 +1,5 @@
 @charset "utf-8";
-/*
+/*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
  */
@@ -98,13 +98,14 @@
 
 .uniform-select {
   border: 1px solid #e5e5e5;
+  padding-bottom: 3px !important;
 }
 
 .uniform-select-status {
   float: left;
   font-size: 12px;
   line-height: 12px;
-  padding: 6px 0 0 6px;
+  padding: 5px 0 0 6px;
 }
 
 .uniform-select-arrow {
@@ -115,12 +116,12 @@
   background: url("../static/img/arrow-down.png") no-repeat right center;
 }
 
-.uniform-disabled {
+.uniform-disabled, .uniform-disabled select {
   opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .uniform-focus {
-  outline: 1px solid black;
   outline: -webkit-focus-ring-color auto 5px;
 }
 

@@ -40,14 +40,14 @@
 	max-width:70%; white-space:nowrap; overflow:hidden; }
 
 // custom select
-.uniform-select { border:1px solid #e5e5e5; }
-.uniform-select-status { float:left; font-size:12px; line-height:12px; padding:6px 0 0 6px; }
+.uniform-select { border:1px solid #e5e5e5; padding-bottom:3px !important; }
+.uniform-select-status { float:left; font-size:12px; line-height:12px; padding:5px 0 0 6px; }
 .uniform-select-arrow { float:right; width:15px; height:15px; margin:3px 8px 0 0;
 	background:url('../static/img/arrow-down.png') no-repeat right center; }
 
 // states
-.uniform-disabled { opacity:0.5; }
-.uniform-focus { outline:1px solid black; outline:-webkit-focus-ring-color auto 5px; }
+.uniform-disabled, .uniform-disabled select { opacity:0.5; cursor:not-allowed; }
+.uniform-focus { outline:-webkit-focus-ring-color auto 5px; }
 
 .uniform-radio:hover, .uniform-checkbox:hover,
 .uniform-file:hover, .uniform-select:hover { border-color:#ccc; @include box-shadow(0 0 3px #e5e5e5);
