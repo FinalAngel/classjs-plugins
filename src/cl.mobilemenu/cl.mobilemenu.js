@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.3
+ * @version     1.1.4
  */
 
 // ensure namespace is defined
@@ -111,6 +111,12 @@ var Cl = window.Cl || {};
 			});
 			// show overlay
 			this.overlay.show();
+
+			// restict height to menu height
+			$('html').css({
+				'height': this._setHeight(),
+				'overflow-y': 'hidden'
+			});
 
 			// set new state
 			this.visible = true;
