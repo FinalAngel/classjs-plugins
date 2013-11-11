@@ -2,6 +2,14 @@
 Cl.Uniform
 ==========
 
+1.0.3
+-----
+- fixed an issue with updated
+- fixed issues with IE 8/9
+- fixed an issue with firefox
+- code quality improvements
+- move change api call to the end
+
 1.0.2
 -----
 - added compatibility to jshint

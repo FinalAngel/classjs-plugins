@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.2
+ * @version     1.0.3
  */
 
 // insure namespace is defined
@@ -56,12 +56,10 @@ var Cl = window.Cl || {};
 		},
 
 		update: function () {
+			var that = this;
+			this.destroy();
 			this.elements.each(function (index, item) {
-				var input = $(item);
-				if(input.is(':checked')) {
-					input.trigger('click');
-				}
-				input.trigger('change');
+				that._scan($(item));
 			});
 
 			// trigger event
@@ -149,15 +147,15 @@ var Cl = window.Cl || {};
 					knob.css('left', 0);
 				}
 
-				// api call
-				input.trigger(cls.prefix + 'change');
-
 				// change accessibility labels
 				if(parseInt(knob.css('left'), 10) === 0) {
 					parent.attr('aria-checked', true);
 				} else {
 					parent.attr('aria-checked', false);
 				}
+
+				// api call
+				input.trigger(cls.prefix + 'change');
 			});
 
 			// start attaching events
