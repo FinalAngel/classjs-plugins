@@ -2,6 +2,10 @@
 Cl.Gallery
 ==========
 
+2.0.3
+-----
+- removed chrome window.load fix
+
 2.0.2
 -----
 - added option ``autoResize``

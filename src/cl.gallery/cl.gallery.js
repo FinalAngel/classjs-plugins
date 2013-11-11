@@ -1,7 +1,7 @@
 /*!
  * @author      Aleš Kocjančič, Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     2.0.2
+ * @version     2.0.3
  */
 
 // ensure namespace is defined
@@ -61,9 +61,7 @@ var Cl = window.Cl || {};
 
 			var that = this;
 			// this fixes chromes jQuery(window).load issue
-			jQuery(window).load(function () {
-				if(that.elements.length > 0) that._setup();
-			});
+			if(that.elements.length > 0) this._setup();
 		},
 
 		_setup: function () {
