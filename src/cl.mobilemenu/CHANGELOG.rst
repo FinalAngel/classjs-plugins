@@ -2,10 +2,6 @@
 Cl.MobileMenu
 =============
 
-1.1.4
------
-- added better height restriction
-
 1.1.3
 -----
 - rename ``MobileMenu`` to ``Mobilemenu``
