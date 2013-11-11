@@ -56,3 +56,16 @@ test('Methods', function() {
 	// check method count
 	ok(methods.length === 2, 'there are ' + methods.length + ' methods');
 });
+
+test('Test for issue #41: Uniform Upload in IE', function() {
+	var fixture = $('#qunit-fixture');
+	fixture.append('<form action="." method="post"><input type="file" class="uniform" /></form>');
+	fixture.find('form').on('submit', function (e) {
+		e.preventDefault();
+	});
+	new Cl.Uniform('.uniform');
+	// set a value
+	var upload = fixture.find('input[type="file"]');
+
+	ok(upload.length === 1, 'upload field is available.');
+});
