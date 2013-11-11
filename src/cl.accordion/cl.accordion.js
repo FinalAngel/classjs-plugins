@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.4
+ * @version     1.1.5
  */
 
 // ensure namespace is defined
@@ -53,20 +53,12 @@ var Cl = window.Cl || {};
 			// cancel if triggers and containers are not even
 			if(this.triggers.length !== this.containers.length) return false;
 
-			var that = this;
-			// this fixes chromes jQuery(window).load issue
-			jQuery(window).load(function () {
-				that._setup();
-			});
-			// skip window.load if jquery is already loaded
-			if(Cl._ready) that._setup();
+			// move to setup
+			this._setup();
 		},
 
 		_setup: function () {
 			var that = this;
-
-			// set internal CL.Redy to true, this is required whenever load is used
-			Cl._ready = true;
 
 			// set the correct height
 			if(this.options.autoHeight) this._setHeight();
