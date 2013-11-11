@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.3.2
+ * @version     1.3.3
  */
 
 // ensure namespace is defined
@@ -13,8 +13,6 @@ var Cl = window.Cl || {};
 	// creating class
 	Cl.Carousel = new Class({
 		/*
-			TODO 1.3.2
-			- add bound handling if there are less or equal items than viewBound
 			TODO 1.4.0
 			- add items using ajax
 			- add unlimited moving
@@ -61,11 +59,8 @@ var Cl = window.Cl || {};
 				'previous': this.container.find(this.options.cls.previous)
 			};
 
-			var that = this;
-			// this fixes chromes jQuery(window).load issue
-			jQuery(window).load(function () {
-				that._setup();
-			});
+			// move to setup
+			this._setup();
 		},
 
 		_setup: function () {

@@ -2,6 +2,11 @@
 Cl.Carousel
 ===========
 
+1.3.3
+-----
+- removed chrome window.load fix
+- added bound handling if there are less or equal items than viewBound
+
 1.3.2
 -----
 - removed ``_fire`` event calls
