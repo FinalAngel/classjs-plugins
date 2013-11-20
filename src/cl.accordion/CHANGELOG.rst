@@ -5,6 +5,7 @@ Cl.Accordion
 1.1.5
 -----
 - removed chrome window.load fix
+- fixes an issue that ``options.index`` is ignored is ignored
 
 1.1.4
 -----

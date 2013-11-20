@@ -84,6 +84,9 @@ var Cl = window.Cl || {};
 				this.hide(undefined, true);
 			}
 
+			// set first item
+			if(this.options.index !== null) this.show(this.options.index, true);
+
 			// check for hash
 			var hash = window.location.hash;
 			if(!this.options.expanded && hash !== undefined) {
