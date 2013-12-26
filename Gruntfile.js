@@ -77,4 +77,5 @@ module.exports = function(grunt) {
 
 	// Default task.
 	grunt.registerTask('default', ['uglify', 'qunit', 'jshint']);
+	// use grunt test for testing and grunt build for building and add grunt watch
 };
