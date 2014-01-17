@@ -69,7 +69,7 @@ var Cl = window.Cl || {};
 			// calculate viewport width
 			this.viewport.css('width', this.elements.length * this.elements.outerWidth(true));
 			// calculate container height
-			this.wrapper.css('height', this.viewport.height());
+			this.wrapper.css('height', this.elements.outerHeight(true));
 
 			// cancel if bound is bigger then containing items
 			if(this.bound < Math.ceil(this.wrapper.outerWidth(true) / this.elements.eq(0).outerWidth(true))) {
