@@ -1,7 +1,7 @@
 /*!
  * @author      Aleš Kocjančič, Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     2.0.3
+ * @version     2.0.4
  */
 
 // ensure namespace is defined
@@ -99,10 +99,13 @@ var Cl = window.Cl || {};
 				this._autoResize();
 			}
 
-			// show elements
-			this.navigation.show();
-			this.triggers.next.show();
-			this.triggers.previous.show();
+			// show triggers and navigation only if there is more than one item
+			if(that.elements.length > 1) {
+				// show elements
+				this.navigation.parent().show();
+				this.triggers.next.parent().show();
+				this.triggers.previous.parent().show();
+			}
 
 			// init first
 			this.move(this.options.index || 0, 'setup');

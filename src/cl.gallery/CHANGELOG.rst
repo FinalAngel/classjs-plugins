@@ -2,6 +2,10 @@
 Cl.Gallery
 ==========
 
+2.0.4
+-----
+- remove navigation and triggers if gallery only contains one entry
+
 2.0.3
 -----
 - removed chrome window.load fix
