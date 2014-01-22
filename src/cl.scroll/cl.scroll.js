@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.0.beta2
+ * @version     1.0.beta3
  */
 
 // ensure namespace is defined
@@ -26,6 +26,7 @@ var Cl = window.Cl || {};
 			this.options = $.extend(true, {}, this.options, options);
 
 			this.body = $('body, html');
+			this.callbacks = {};
 
 			this._setup();
 		},
@@ -64,9 +65,6 @@ var Cl = window.Cl || {};
 		},
 
 		scrollTo: function (position, hash) {
-			// trigger event
-			this._fire('scrollto');
-
 			var that = this;
 
 			this.body.animate({
@@ -76,19 +74,14 @@ var Cl = window.Cl || {};
 			});
 
 			// trigger callback
-			this._fire('scrollto', this);
+			this._fire('scrollto');
 		},
 
-		_fire: function (keyword, scope) {
-			if(scope) {
-				// cancel if there is no callback found
-				if(this.callbacks[keyword] === undefined) return false;
-				// excecute callback
-				this.callbacks[keyword](scope);
-			} else {
-				// excecute event
-				$.event.trigger('gallery-' + keyword);
-			}
+		_fire: function (keyword) {
+			// cancel if there is no callback found
+			if(this.callbacks[keyword] === undefined) return false;
+			// excecute callback
+			this.callbacks[keyword](this);
 		}
 
 	});
