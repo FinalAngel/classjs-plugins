@@ -216,7 +216,7 @@ var Cl = window.Cl || {};
 			// remove interval
 			this.stop();
 
-			// trigger event
+			// trigger callback
 			this._fire('destroy');
 		},
 
