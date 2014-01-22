@@ -2,6 +2,10 @@
 Cl.Lightbox
 ===========
 
+1.2.1
+-----
+- fixed an issue with keydown on documentbody not having a namespace
+
 1.2.0
 -----
 - added ``options.cls``

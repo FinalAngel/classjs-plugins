@@ -507,7 +507,7 @@ var Cl = window.Cl || {};
 
 			// enable key navigation
 			if(this.options.keys) {
-				$(document).on('keydown', function (e) {
+				$(document).on('keydown.'+this.options.prefix+'-lightbox', function (e) {
 					if(($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keyCodes.close) >= 0) && that.options.modalClosable) that.close();
 					if($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keyCodes.next) >= 0) that.next();
 					if($.inArray(parseInt(e.charCode) || parseInt(e.keyCode), that.options.keyCodes.previous) >= 0) that.previous();
