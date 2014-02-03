@@ -5,6 +5,7 @@ Cl.Lightbox
 1.2.1
 -----
 - fixed an issue with keydown on documentbody not having a namespace
+- fixed a typo on lang.errorMessage
 
 1.2.0
 -----

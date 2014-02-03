@@ -52,7 +52,7 @@ var Cl = window.Cl || {};
 			'lang': {
 				'close': 'Close lightbox',
 				'errorMessage': '<p><strong>The requested element could not be loaded.</strong><br />' +
-					'Plase contact us if this error occurs again.</p>',
+					'Please contact us if this error occurs again.</p>',
 				'next': 'Next',
 				'previous': 'Previous',
 				'status': 'Slide {current} of {total}.'

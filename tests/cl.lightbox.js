@@ -36,7 +36,7 @@ test('Options', function() {
 	var lang = lightbox.options.lang;
 	equal(lang.close, 'Close lightbox', 'close is availalbe');
 	equal(lang.errorMessage, '<p><strong>The requested element could not be loaded.</strong><br />' +
-		'Plase contact us if this error occurs again.</p>', 'errorMessage is availalbe');
+		'Please contact us if this error occurs again.</p>', 'errorMessage is availalbe');
 	equal(lang.next, 'Next', 'next is availalbe');
 	equal(lang.previous, 'Previous', 'previous is availalbe');
 	equal(lang.status, 'Slide {current} of {total}.', 'status is availalbe');
