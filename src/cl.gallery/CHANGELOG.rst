@@ -2,6 +2,10 @@
 Cl.Gallery
 ==========
 
+2.0.5
+-----
+- fixed a small issue with initialization (that/this)
+
 2.0.4
 -----
 - remove navigation and triggers if gallery only contains one entry
