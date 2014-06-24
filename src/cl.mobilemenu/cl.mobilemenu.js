@@ -71,6 +71,7 @@ var Cl = window.Cl || {};
 			// attach resize event for hiding mobile menu
 			$(window).on('resize.menu', function () {
 				if(that.visible && $(window).width() >= that.options.bound) that.hide(0);
+				if (that.visible) that.resize();
 				that.menu.height('min-height', that._setHeight());
 			});
 		},
@@ -140,6 +141,18 @@ var Cl = window.Cl || {};
 
 			// trigger callback
 			this._fire('hide');
+		},
+
+		resize: function() {
+			// depending on current window width
+			this.width = ($(window).width() * this.options.ratio);
+			this.html.css({
+				'margin-left': this.width
+			});
+			this.menu.css({
+				'width': this.width,
+				'left': -this.width + this.options.offset.left
+			});
 		},
 
 		_validate: function () {

@@ -2,6 +2,10 @@
 Cl.MobileMenu
 =============
 
+1.1.4
+-----
+- added resize calculations
+
 1.1.3
 -----
 - rename ``MobileMenu`` to ``Mobilemenu``
