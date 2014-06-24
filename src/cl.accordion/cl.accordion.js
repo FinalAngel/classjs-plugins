@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.1.5
+ * @version     1.1.6
  */
 
 // ensure namespace is defined
@@ -77,11 +77,13 @@ var Cl = window.Cl || {};
 			}
 
 			// setup initial states
-			if(this.options.expanded || this.container.data('expanded')) {
-				this.show(undefined, true);
-			} else {
-				// trigger event
-				this.hide(undefined, true);
+			for (var i = 0; i < this.triggers.length; i++) {
+				if (this.options.expanded || this.container.data('expanded') || this.triggers.eq(i).data('expanded')) {
+					this.show(i, true);
+				}
+				else {
+					this.hide(i, true);
+				}
 			}
 
 			// set first item

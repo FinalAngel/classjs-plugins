@@ -2,6 +2,10 @@
 Cl.Accordion
 ============
 
+1.1.6
+-----
+- added data attributes for each element
+
 1.1.5
 -----
 - removed chrome window.load fix
