@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.2.0
+ * @version     1.2.2
  */
 
 // ensure namespace is defined
@@ -412,6 +412,9 @@ var Cl = window.Cl || {};
 			if(state) this._resize('css', this.options.dimensions.initialWidth, this.options.dimensions.initialHeight);
 			// hide controls
 			this._hideControls();
+
+			// disable scrolling
+			$('body').addClass('cl-lightbox-noscroll');
 		},
 
 		_hide: function () {
@@ -421,6 +424,9 @@ var Cl = window.Cl || {};
 			this._accessibility(false);
 			// hide instance frame
 			this.frame.hide();
+
+			// enable scrolling
+			$('body').removeClass('cl-lightbox-noscroll');
 		},
 
 		_extract: function (url) {
@@ -429,7 +435,7 @@ var Cl = window.Cl || {};
 				'images': /(\.(gif|png|jpe?g|bmp|ico)((#|\?|\&).*)?)$/i,
 				'flash': /(\.(swf)((#|\?|\&).*)?)$/i,
 				'ajax': /(\.(htm?l|txt)((#|\?|\&).*)?)$/i,
-				'inline': /(#[\w'-]+?)$/i
+				'inline': /(#[\w'-:\\]+?)$/i
 			};
 
 			// handle extractors

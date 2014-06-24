@@ -2,6 +2,11 @@
 Cl.Lightbox
 ===========
 
+1.2.2
+-----
+- change regex for inline elements
+- added ``cl-lightbox-noscroll`` class to body when lightbox is enabled
+
 1.2.1
 -----
 - fixed an issue with keydown on documentbody not having a namespace
