@@ -2,6 +2,13 @@
 Cl.Uniform
 ==========
 
+1.0.4
+-----
+- remove auto height calculation
+- change file tpl to be a label instead of span
+- fixed propagation issues
+- fixed issues on aria definitions
+
 1.0.3
 -----
 - fixed an issue with updated
