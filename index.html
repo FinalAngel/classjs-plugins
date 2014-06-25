@@ -31,30 +31,30 @@ experimental_plugins:
 
 <h2>Introduction</h2>
 <p>Class.js is a JavaScript library for building class based object-oriented applications using JavaScript's
-	prototypal inheritance. It strives to mimic classical class inheritance provided by other languages such
-	as Python, Java or PHP. Its syntax is heavily inspired by MooTools's class implementation.</p>
+    prototypal inheritance. It strives to mimic classical class inheritance provided by other languages such
+    as Python, Java or PHP. Its syntax is heavily inspired by MooTools's class implementation.</p>
 
 <div class="spacer"></div>
 
 <table>
-	<colgroup>
-		<col style="width:25%;" />
-		<col style="width:15%;" />
-		<col style="width:60%;" />
-	</colgroup>
-	<tbody>
-	<tr>
-		<th>class.js</th>
-		<td><small>v{{ page.classjs }}</small></td>
-		<td class="align-right">
-			<span class="buttons">
-				<a href="//classjs.readthedocs.org/" class="btn btn-highlight"><strong>Docs</strong></a>
-				<a href="//finalangel.github.com/classjs/tests/" class="btn btn-highlight"><strong>Tests</strong></a>
-				<a href="//raw.github.com/FinalAngel/classjs/master/src/class.min.js" class="btn btn-highlight"><strong>Download</strong></a>
-			</span>
-			<span class="buttons buttons-icon"><a href="//github.com/finalangel/classjs/" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
+    <colgroup>
+        <col style="width:25%;" />
+        <col style="width:15%;" />
+        <col style="width:60%;" />
+    </colgroup>
+    <tbody>
+    <tr>
+        <th>class.js</th>
+        <td><small>v{{ page.classjs }}</small></td>
+        <td class="align-right">
+            <span class="buttons">
+                <a href="//classjs.readthedocs.org/" class="btn btn-highlight"><strong>Docs</strong></a>
+                <a href="//finalangel.github.com/classjs/tests/" class="btn btn-highlight"><strong>Tests</strong></a>
+                <a href="//raw.github.com/FinalAngel/classjs/master/src/class.min.js" class="btn btn-highlight"><strong>Download</strong></a>
+            </span>
+            <span class="buttons buttons-icon"><a href="//github.com/finalangel/classjs/" class="icon-github"><strong>GitHub</strong></a></span>
+        </td>
+    </tr>
 </table>
 
 <div class="spacer"></div>
@@ -62,88 +62,88 @@ experimental_plugins:
 <h2>Plugins</h2>
 
 <p>These plugins are aimed for professionals with extensive JavaScript knowledge. Each plugin follows a simplistic and a modular approach.
-	All plugins have demos, tests and documentation regarding their options, methods and callbacks.</p>
+    All plugins have demos, tests and documentation regarding their options, methods and callbacks.</p>
 
 <div class="spacer"></div>
 
 <h3>Stable Plugins</h3>
 <table>
-	<colgroup>
-		<col style="width:25%;" />
-		<col style="width:15%;" />
-		<col style="width:60%;" />
-	</colgroup>
-	<tbody>
-	{% for plugin in page.stable_plugins %}
-	<tr>
-		<th>Cl.{{ plugin.name | capitalize }}</th>
-		<td><small>v{{ plugin.version }}</small></td>
-		<td class="align-right tbl-buttons">
-			<span class="buttons"><a href="examples/cl.{{ plugin.name }}" class="btn btn-dark"><strong>Demo</strong></a></span>
-			<span class="buttons">
-				<a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.{{ plugin.name }}.html" class="btn">Docs</a>
-				<a href="tests/?cl.{{ plugin.name }}.js" class="btn">Tests</a>
-				<a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.{{ plugin.name }}/cl.{{ plugin.name }}.min.js" class="btn">Download</a>
-			</span>
-			<span class="buttons buttons-icon"><a href="//github.com/finalangel/classjs-plugins/tree/master/src/cl.{{ plugin.name }}" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
-	{% endfor %}
-	</tbody>
+    <colgroup>
+        <col style="width:25%;" />
+        <col style="width:15%;" />
+        <col style="width:60%;" />
+    </colgroup>
+    <tbody>
+    {% for plugin in page.stable_plugins %}
+    <tr>
+        <th>Cl.{{ plugin.name | capitalize }}</th>
+        <td><small>v{{ plugin.version }}</small></td>
+        <td class="align-right tbl-buttons">
+            <span class="buttons"><a href="examples/cl.{{ plugin.name }}" class="btn btn-dark"><strong>Demo</strong></a></span>
+            <span class="buttons">
+                <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.{{ plugin.name }}.html" class="btn">Docs</a>
+                <a href="tests/?cl.{{ plugin.name }}.js" class="btn">Tests</a>
+                <a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.{{ plugin.name }}/cl.{{ plugin.name }}.min.js" class="btn">Download</a>
+            </span>
+            <span class="buttons buttons-icon"><a href="//github.com/finalangel/classjs-plugins/tree/master/src/cl.{{ plugin.name }}" class="icon-github"><strong>GitHub</strong></a></span>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
 </table>
 
 <div class="spacer"></div>
 
 <h3>Experimental Plugins</h3>
 <table>
-	<colgroup>
-		<col style="width:25%;" />
-		<col style="width:15%;" />
-		<col style="width:60%;" />
-	</colgroup>
-	<tbody>
-	{% for plugin in page.experimental_plugins %}
-	<tr>
-		<th>Cl.{{ plugin.name | capitalize }}</th>
-		<td><small>v{{ plugin.version }}</small></td>
-		<td class="align-right">
-			{% if plugin.demo %}<span class="buttons"><a href="examples/cl.{{ plugin.name }}" class="btn btn-dark"><strong>Demo</strong></a></span>{% endif %}
-			<span class="buttons"><a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.{{ plugin.name }}/cl.{{ plugin.name }}.js" class="btn">Download</a></span>
-			<span class="buttons buttons-icon"><a href="//github.com/finalangel/classjs-plugins/tree/master/src/cl.{{ plugin.name }}" class="icon-github"><strong>GitHub</strong></a></span>
-		</td>
-	</tr>
-	{% endfor %}
-	</tbody>
+    <colgroup>
+        <col style="width:25%;" />
+        <col style="width:15%;" />
+        <col style="width:60%;" />
+    </colgroup>
+    <tbody>
+    {% for plugin in page.experimental_plugins %}
+    <tr>
+        <th>Cl.{{ plugin.name | capitalize }}</th>
+        <td><small>v{{ plugin.version }}</small></td>
+        <td class="align-right">
+            {% if plugin.demo %}<span class="buttons"><a href="examples/cl.{{ plugin.name }}" class="btn btn-dark"><strong>Demo</strong></a></span>{% endif %}
+            <span class="buttons"><a href="//raw.github.com/FinalAngel/classjs-plugins/master/src/cl.{{ plugin.name }}/cl.{{ plugin.name }}.js" class="btn">Download</a></span>
+            <span class="buttons buttons-icon"><a href="//github.com/finalangel/classjs-plugins/tree/master/src/cl.{{ plugin.name }}" class="icon-github"><strong>GitHub</strong></a></span>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
 </table>
 
 <div class="spacer"></div>
 
 <p>The plugins are compatible with Firefox, Chrome, Safari and IE7+. We also support iOS, Android and Windows Phone to
-	insure correct responsive behaviour with full accessible support according to the WCAG 2.0 standards.
-	Each plugin requires at least class.js 1.0+ and jQuery 1.7+.</p>
+    insure correct responsive behaviour with full accessible support according to the WCAG 2.0 standards.
+    Each plugin requires at least class.js 1.0+ and jQuery 1.7+.</p>
 
 <div class="spacer"></div>
 
 <h2>Contribute</h2>
 <p>Use the <a href="//github.com/finalangel/classjs-plugins/issues">GitHub issue</a> tracker to submit bug fixes or feature proposals.<br />
-	A detailed guide is available within the <a href="//classjs.readthedocs.org/en/latest/src/contributing/guide.html">classjs documentation</a>.</p>
+    A detailed guide is available within the <a href="//classjs.readthedocs.org/en/latest/src/contributing/guide.html">classjs documentation</a>.</p>
 
 <div class="spacer"></div>
 
 <h2>FAQ</h2>
 <p><strong>How do I compile the css?</strong><br />
-	To compile the css, navigate to the examples/cl.{plugin} folder and run:<br /><code>compass watch</code>.</p>
+    To compile the css, navigate to the examples/cl.{plugin} folder and run:<br /><code>compass watch</code>.</p>
 <p><strong>How do I compile the documentation?</strong><br />
-	To compile the documentation, navigate to the docs folder and run:<br /><code>make html</code>.</p>
+    To compile the documentation, navigate to the docs folder and run:<br /><code>make html</code>.</p>
 <p><strong>How do I puplish the changes to the branch gh-pages?</strong><br />
-	To auto-commit, excecute the following two lines within the repository:<br />
-	<code class="nowrap">git config --add remote.origin.push +refs/heads/master:refs/heads/gh-pages</code><br />
-	<code class="nowrap">git config --add remote.origin.push +refs/heads/master:refs/heads/master</code></p>
+    To auto-commit, excecute the following two lines within the repository:<br />
+    <code class="nowrap">git config --add remote.origin.push +refs/heads/master:refs/heads/gh-pages</code><br />
+    <code class="nowrap">git config --add remote.origin.push +refs/heads/master:refs/heads/master</code></p>
 <p><strong>How to run the example?</strong><br />
-	To run the project, install <a href="http://jekyllrb.com/" target="_blank">jekyll</a> and run the command
-	<code>jekyll serve --watch</code> inside the project folder. The server runs on <code>localhost:4000</code> per default.</p>
+    To run the project, install <a href="http://jekyllrb.com/" target="_blank">jekyll</a> and run the command
+    <code>jekyll serve --watch</code> inside the project folder. The server runs on <code>localhost:4000</code> per default.</p>
 <p><strong>How to run automated tests?</strong><br />
-	To run the tests, install nodejs/npm and run:<br />
-	<code class="nowrap">npm install</code><br />
-	<code class="nowrap">grunt</code><br />
-	within the project.</p>
+    To run the tests, install nodejs/npm and run:<br />
+    <code class="nowrap">npm install</code><br />
+    <code class="nowrap">grunt</code><br />
+    within the project.</p>

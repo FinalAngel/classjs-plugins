@@ -5,9 +5,9 @@ layout: default
 <h2>Introduction</h2>
 
 <p>Released under the <strong>BSD License</strong>.
-	The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/tree/master/src/cl.{{ page.title }}">GitHub</a>.<br />
-	Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.{{ page.title }}.html">Documentation</a> or
-	<a href="//github.com/finalangel/classjs-plugins/tree/master/src/cl.{{ page.title }}/CHANGELOG.rst">Changelog</a> for detailed information.</p>
+    The latest source can be found on <a href="//github.com/finalangel/classjs-plugins/tree/master/src/cl.{{ page.title }}">GitHub</a>.<br />
+    Check out the <a href="//classjs-plugins.readthedocs.org/en/latest/src/cl.{{ page.title }}.html">Documentation</a> or
+    <a href="//github.com/finalangel/classjs-plugins/tree/master/src/cl.{{ page.title }}/CHANGELOG.rst">Changelog</a> for detailed information.</p>
 <p>Use the <a href="//github.com/finalangel/classjs-plugins/issues">GitHub issue</a> tracker to submit bug fixes or feature proposals.</p>
 
 <div class="spacer"></div>
@@ -21,36 +21,36 @@ layout: default
 <div class="spacer"></div>
 
 <div class="col-two">
-	<h3>Options</h3>
-	<p>— Options can be set on initialisation</p>
-	<p>
-	{% for option in page.options %}
-		&raquo; {% if option.example %}<a href="#" class="{{ page.title }}-{{ option.name }}">{% endif %}
-			<code>{{ option.name }}: {{ option.default }}</code>{% if option.example %}</a>{% endif %}<br />
-	{% endfor %}
-	</p>
+    <h3>Options</h3>
+    <p>— Options can be set on initialisation</p>
+    <p>
+    {% for option in page.options %}
+        &raquo; {% if option.example %}<a href="#" class="{{ page.title }}-{{ option.name }}">{% endif %}
+            <code>{{ option.name }}: {{ option.default }}</code>{% if option.example %}</a>{% endif %}<br />
+    {% endfor %}
+    </p>
 </div>
 <div class="col-two">
-	<h3>Methods</h3>
-	<p>— Methods can be called on an instance</p>
-	<p>
-	{% for method in page.methods %}
-		{% if method.text %}
-		&raquo; {{ method.name }}
-		{% else %}
-		&raquo; <a href="#" onclick="my.{{ page.title }}.{{ method.name }}({{ method.argument }}); return false;">
-			<code>{{ page.title }}.{{ method.name }}({{ method.argument }});</code></a><br />
-		{% endif %}
-	{% endfor %}
-	</p>
-	<div class="spacer"></div>
-	<h3>Callbacks</h3>
-	<p>— Callbacks can be called on an instance</p>
-	<p>
-	{% for callback in page.callbacks %}
-		&raquo; <code>callbacks.{{ callback.name }}</code><br />
-	{% endfor %}
-	</p>
+    <h3>Methods</h3>
+    <p>— Methods can be called on an instance</p>
+    <p>
+    {% for method in page.methods %}
+        {% if method.text %}
+        &raquo; {{ method.name }}
+        {% else %}
+        &raquo; <a href="#" onclick="my.{{ page.title }}.{{ method.name }}({{ method.argument }}); return false;">
+            <code>{{ page.title }}.{{ method.name }}({{ method.argument }});</code></a><br />
+        {% endif %}
+    {% endfor %}
+    </p>
+    <div class="spacer"></div>
+    <h3>Callbacks</h3>
+    <p>— Callbacks can be called on an instance</p>
+    <p>
+    {% for callback in page.callbacks %}
+        &raquo; <code>callbacks.{{ callback.name }}</code><br />
+    {% endfor %}
+    </p>
 </div>
 <div class="clear"></div>
 
@@ -59,33 +59,33 @@ layout: default
 var my = {};
 
 jQuery(document).ready(function ($) {
-	// grouped lightbox
-	{% if page.is_lightbox %}
-	new Cl.Lightbox('.lightbox-groups');
-	var lightbox = my.lightbox = new Cl.Lightbox();
-	$('.lightbox').on('click', function (e) { e.preventDefault();
-		lightbox.open(this);
-	});
-	{% else %}
-	var {{ page.title }} = my.{{ page.title }} = new Cl.{{ page.title | capitalize }}('.{{ page.title }}');
-	{% endif %}
+    // grouped lightbox
+    {% if page.is_lightbox %}
+    new Cl.Lightbox('.lightbox-groups');
+    var lightbox = my.lightbox = new Cl.Lightbox();
+    $('.lightbox').on('click', function (e) { e.preventDefault();
+        lightbox.open(this);
+    });
+    {% else %}
+    var {{ page.title }} = my.{{ page.title }} = new Cl.{{ page.title | capitalize }}('.{{ page.title }}');
+    {% endif %}
 
-	// debugging methods
-	var methods = [{% for method in page.methods %}{% if method.text %}{% else %}'{{ method.name }}'{% if forloop.last %}{% else %},{% endif %}{% endif %}{% endfor %}];
-	$.each(methods, function (index, api) {
-		{{ page.title }}.callbacks[api] = function (scope) {
-			if(window.console && window.console.log) console.log('trigger callback: ' + api);
-		};
-	});
+    // debugging methods
+    var methods = [{% for method in page.methods %}{% if method.text %}{% else %}'{{ method.name }}'{% if forloop.last %}{% else %},{% endif %}{% endif %}{% endfor %}];
+    $.each(methods, function (index, api) {
+        {{ page.title }}.callbacks[api] = function (scope) {
+            if(window.console && window.console.log) console.log('trigger callback: ' + api);
+        };
+    });
 
-	// add click events
-	{% for option in page.options %}
-		{% if option.example == true %}
-		$('.{{ page.title }}-{{ option.name }}').on('click', function (e) {
-			e.preventDefault();
-			my.{{ page.title }}.options.{{ option.name }} = {{ option.default }};
-		});
-		{% endif %}
-	{% endfor %}
+    // add click events
+    {% for option in page.options %}
+        {% if option.example == true %}
+        $('.{{ page.title }}-{{ option.name }}').on('click', function (e) {
+            e.preventDefault();
+            my.{{ page.title }}.options.{{ option.name }} = {{ option.default }};
+        });
+        {% endif %}
+    {% endfor %}
 });
 </script>

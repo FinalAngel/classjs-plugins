@@ -1,25 +1,25 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.name }}{% if page.is_root %} - class based inheritance{% endif %}</title>
-	<link rel="icon" href="{% if page.is_root %}examples/{% else %}../{% endif %}static/favicon.png">
-	<link rel="stylesheet" href="{% if page.is_root %}examples/{% else %}../{% endif %}static/css/base.css">
-	<script src="{% if page.is_root %}examples/{% else %}../{% endif %}static/js/base.js"></script>
-	{% if page.is_root %}{% else %}<!-- required files -->
-	<script src="../../src/cl.{{ page.title }}/cl.{{ page.title }}.js"></script>
-	{% if page.stylesheet != false %}<link rel="stylesheet" href="../cl.{{ page.title }}/cl.{{ page.title }}.css" />{% endif %}{% endif %}
+    <meta charset="utf-8">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.name }}{% if page.is_root %} - class based inheritance{% endif %}</title>
+    <link rel="icon" href="{% if page.is_root %}examples/{% else %}../{% endif %}static/favicon.png">
+    <link rel="stylesheet" href="{% if page.is_root %}examples/{% else %}../{% endif %}static/css/base.css">
+    <script src="{% if page.is_root %}examples/{% else %}../{% endif %}static/js/base.js"></script>
+    {% if page.is_root %}{% else %}<!-- required files -->
+    <script src="../../src/cl.{{ page.title }}/cl.{{ page.title }}.js"></script>
+    {% if page.stylesheet != false %}<link rel="stylesheet" href="../cl.{{ page.title }}/cl.{{ page.title }}.css" />{% endif %}{% endif %}
 </head>
 <body>
 
 <header>
-	<h1><a href="{% if page.is_root %}./{% else %}../{% endif %}" class="logo">class<span class="dot">.</span><span class="ext">js</span></a> {% if page.title %}{{ page.title }}{% else %}class based inheritance{% endif %}</h1>
+    <h1><a href="{% if page.is_root %}./{% else %}../{% endif %}" class="logo">class<span class="dot">.</span><span class="ext">js</span></a> {% if page.title %}{{ page.title }}{% else %}class based inheritance{% endif %}</h1>
 </header>
 
 <section>
-	<div class="inner">
-		{{ content }}
-	</div>
+    <div class="inner">
+        {{ content }}
+    </div>
 </section>
 
 <footer><p>&copy; Divio AG. All rights reserved. Distributed under the BSD License.</p></footer>

@@ -1,7 +1,7 @@
 @charset "utf-8";
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
- * @copyright	Distributed under the BSD License.
+ * @copyright   Distributed under the BSD License.
  */
 
 // sass imports
@@ -12,46 +12,46 @@
 
 // customm styles
 @media screen and (max-width: 539px) {
-	body { position:relative; }
-	// mainnav is hidden here per default
-	.mainnav { position:absolute; left:-9999px; top:0; z-index:1000; overflow:auto;
-		padding:0; margin:0;
-		@include box-shadow(inset -1.5em 0 1.5em -0.75em rgba(black, 0.25));
+    body { position:relative; }
+    // mainnav is hidden here per default
+    .mainnav { position:absolute; left:-9999px; top:0; z-index:1000; overflow:auto;
+        padding:0; margin:0;
+        @include box-shadow(inset -1.5em 0 1.5em -0.75em rgba(black, 0.25));
 
-		// set some basic styles
-		ul, li { list-style-type:none; padding:0; margin:0; }
+        // set some basic styles
+        ul, li { list-style-type:none; padding:0; margin:0; }
 
-		ul { border-bottom:1px solid #444; }
-		li { border-top:1px solid #444; }
+        ul { border-bottom:1px solid #444; }
+        li { border-top:1px solid #444; }
 
-		li a { display:block; color:#ccc; padding:10px 20px; }
-		li a:hover { color:#fff; text-decoration:none; background:#474747; }
+        li a { display:block; color:#ccc; padding:10px 20px; }
+        li a:hover { color:#fff; text-decoration:none; background:#474747; }
 
-		.title { color:white; font-size:18px; padding:20px 20px; }
-	}
+        .title { color:white; font-size:18px; padding:20px 20px; }
+    }
 
-	// style for the knob
-	.mainnav-knob { cursor:pointer; width:30px; height:29px; margin:0 0 20px; border-radius:5px;
-		background:#39c url('../static/img/mainnav-mobile.png') no-repeat left top;
-		&:hover, &:active, &:focus { background-color:#0f3e62; background-position:left -30px; } }
+    // style for the knob
+    .mainnav-knob { cursor:pointer; width:30px; height:29px; margin:0 0 20px; border-radius:5px;
+        background:#39c url('../static/img/mainnav-mobile.png') no-repeat left top;
+        &:hover, &:active, &:focus { background-color:#0f3e62; background-position:left -30px; } }
 }
 
 @media screen and (min-width: 540px) {
-	// mainnav is shown here
-	.mainnav {
-		display:block; @include clearfix(); margin:0 0 20px;
+    // mainnav is shown here
+    .mainnav {
+        display:block; @include clearfix(); margin:0 0 20px;
 
-		ul { list-style-type:none; padding:0; margin:0; }
-		li { padding:0; float:left; }
-		a { float:left; color:white; background:#39c; @include border-radius(5px);
-			padding:4px 15px; margin-right:10px;
-			&:hover, &:active, &:focus { background:#0f3e62; } }
+        ul { list-style-type:none; padding:0; margin:0; }
+        li { padding:0; float:left; }
+        a { float:left; color:white; background:#39c; @include border-radius(5px);
+            padding:4px 15px; margin-right:10px;
+            &:hover, &:active, &:focus { background:#0f3e62; } }
 
-		.title { display:none; }
-	}
-	// knob should be hidden on desktop
-	.mainnav-knob { display:none; }
+        .title { display:none; }
+    }
+    // knob should be hidden on desktop
+    .mainnav-knob { display:none; }
 }
 
 .mainnav-overlay { position:fixed; top:0; right:0; z-index:9999;
-	width:30%; height:100%; background:transparent; }
+    width:30%; height:100%; background:transparent; }

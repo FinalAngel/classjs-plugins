@@ -1,6 +1,6 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
- * @copyright	Distributed under the BSD License.
+ * @copyright   Distributed under the BSD License.
  * @version     1.0.beta1
  */
 
@@ -8,85 +8,85 @@
 var Cl = window.Cl || {};
 
 (function($){
-	'use strict';
+    'use strict';
 
-	// creating class
-	Cl.Parallax = new Class({
+    // creating class
+    Cl.Parallax = new Class({
 
-		options: {
-			'event': 'scroll', // scroll or mouse
-			'axis': ['top'],
-			'steps': 5, // pixel step thats taken
-			'inverted': false, // inverts animation direction
-			'duration': 100,
-			'transition': 'linear'
-		},
+        options: {
+            'event': 'scroll', // scroll or mouse
+            'axis': ['top'],
+            'steps': 5, // pixel step thats taken
+            'inverted': false, // inverts animation direction
+            'duration': 100,
+            'transition': 'linear'
+        },
 
-		initialize: function (elements, options) {
-			this.elements = $(elements);
-			this.options = $.extend(true, {}, this.options, options);
+        initialize: function (elements, options) {
+            this.elements = $(elements);
+            this.options = $.extend(true, {}, this.options, options);
 
-			this._setup();
-		},
+            this._setup();
+        },
 
-		_setup: function () {
-			var that = this;
+        _setup: function () {
+            var that = this;
 
-			// loop through the elements and set settings
-			this.elements.each(function (index, item) {
-				item = $(item);
+            // loop through the elements and set settings
+            this.elements.each(function (index, item) {
+                item = $(item);
 
-				// this parallax script uses relative/absolute positioned elements
-				var position = {
-					'top': parseInt(item.css('top')) || 0,
-					'right': parseInt(item.css('right')) || 0,
-					'bottom': parseInt(item.css('bottom')) || 0,
-					'left': parseInt(item.css('left')) || 0
-				};
-				item.data('position', position);
-			});
+                // this parallax script uses relative/absolute positioned elements
+                var position = {
+                    'top': parseInt(item.css('top')) || 0,
+                    'right': parseInt(item.css('right')) || 0,
+                    'bottom': parseInt(item.css('bottom')) || 0,
+                    'left': parseInt(item.css('left')) || 0
+                };
+                item.data('position', position);
+            });
 
-			// attach the event if scroll
-			if(this.options.event === 'scroll') {
-				$(window).bind('scroll', function () {
-					that.elements.each(function (index, item) {
-						that._parallax.scroll.call(that, $(item));
-					});
-				});
-			}
-		},
+            // attach the event if scroll
+            if(this.options.event === 'scroll') {
+                $(window).bind('scroll', function () {
+                    that.elements.each(function (index, item) {
+                        that._parallax.scroll.call(that, $(item));
+                    });
+                });
+            }
+        },
 
-		// parallax events
-		_parallax: {
+        // parallax events
+        _parallax: {
 
-			'scroll': function (el) {
-				// check if element is visible
-				var that = this;
-				var top = el.data('position').top;
-				var elPos = el.offset().top;
-				var scrollPos = $(window).scrollTop();
-				var windowHeight = $(window).height();
+            'scroll': function (el) {
+                // check if element is visible
+                var that = this;
+                var top = el.data('position').top;
+                var elPos = el.offset().top;
+                var scrollPos = $(window).scrollTop();
+                var windowHeight = $(window).height();
 
-				// this checks only if its visible from the top
-				var isVisible = (elPos - scrollPos - windowHeight + el.height() <= 0) ? true : false;
+                // this checks only if its visible from the top
+                var isVisible = (elPos - scrollPos - windowHeight + el.height() <= 0) ? true : false;
 
-				// animate if visible
-				if(isVisible) {
-					$(this.options.axis).each(function () {
-						var pos = -(top - scrollPos + el.height());
-						pos = pos / that.options.steps;
+                // animate if visible
+                if(isVisible) {
+                    $(this.options.axis).each(function () {
+                        var pos = -(top - scrollPos + el.height());
+                        pos = pos / that.options.steps;
 
-						el.stop().animate({
-							'top': (that.options.inverted) ? (top - pos) : (top + pos)
-						}, that.options.duration, that.options.transition);
-					});
-				}
-			},
+                        el.stop().animate({
+                            'top': (that.options.inverted) ? (top - pos) : (top + pos)
+                        }, that.options.duration, that.options.transition);
+                    });
+                }
+            },
 
-			'mouse': function () {}
+            'mouse': function () {}
 
-		}
+        }
 
-	});
+    });
 
 })(jQuery);
