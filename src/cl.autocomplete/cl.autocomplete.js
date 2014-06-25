@@ -30,7 +30,7 @@ var Cl = window.Cl || {};
                 'results': '.autocomplete-results',
                 'filtering': '.autocomplete-filtering',
                 'item': '.autocomplete-item',
-                'close': '.autocomplete-close, .close',
+                'close': '.autocomplete-close',
                 'focus': '.autocomplete-focus',
                 'submit': '.autocomplete-submit',
                 'icon': '.autocomplete-icon',
@@ -121,7 +121,7 @@ var Cl = window.Cl || {};
             this.field.attr(this.options.attr.value, initial);
 
             // clear on click
-            this.field.on('click', function(e) {
+            this.field.on('click', function() {
                 if(that.options.cls.highlightFieldOnClick){ that.field.select(); }
                 if(that.options.cls.clearFieldOnClick){ that.field.val(''); }
                 if(that.options.cls.openAllOnClick){
@@ -246,7 +246,7 @@ var Cl = window.Cl || {};
 
         _request: function(showAll) {
             var that = this;
-            var data = "";
+            var data = '';
 
             showAll = showAll || false;
 

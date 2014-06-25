@@ -12,8 +12,8 @@ var autocomplete = new Cl.Autocomplete();
 module('cl.autocomplete.js');
 
 test('Options', function() {
-    var options = ['url', 'minLength', 'easing', 'duration', 'delay', 'fx', 'closeOnBlur'];
-    var defaults = [false, 3, 'swing', 300, 300, 'slide', false];
+    var options = ['url', 'minLength', 'easing', 'duration', 'delay', 'fx', 'closeOnBlur', 'showEmpty', 'dropdown'];
+    var defaults = [false, 3, 'swing', 300, 30, 'slide', true, false, false];
     // tests
     $.each(options, function (index, option) {
         deepEqual(autocomplete.options[option], defaults[index], option + ' is available');
@@ -32,13 +32,13 @@ test('Options', function() {
     equal(lang.empty, 'No results.');
 
     var clsLength = getLength(autocomplete.options.cls);
-    ok(clsLength === 5, 'there are ' + clsLength + ' cls options');
+    ok(clsLength === 12, 'there are ' + clsLength + ' cls options');
 
     var langLength = getLength(autocomplete.options.lang);
     ok(langLength === 2, 'there are ' + langLength + ' lang options');
 
     var length = getLength(autocomplete.options);
-    ok(length === 9, 'there are ' + length + ' options');
+    ok(length === 12, 'there are ' + length + ' options');
 });
 
 test('Methods', function() {
