@@ -2,6 +2,10 @@
 Cl.MobileMenu
 =============
 
+1.1.5
+-----
+- added fixedRatio option
+
 1.1.4
 -----
 - added resize calculations
