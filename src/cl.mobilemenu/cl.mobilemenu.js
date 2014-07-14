@@ -18,6 +18,7 @@ var Cl = window.Cl || {};
             'duration': 300,
             'bound': 539,
             'ratio': 70 / 100,
+            'fixedRatio': null,
             'offset': {
                 'left': 0,
                 'top': 0
@@ -96,6 +97,8 @@ var Cl = window.Cl || {};
 
             // calculate width, use original if once calculated
             if(!this.visible) this.width = ($(window).width() * this.options.ratio);
+            // if fixedRatio is defined overwrite ratio
+            if(this.options.fixedRatio) this.width = this.options.fixedRatio;
 
             // fix html size and animate
             this.html.animate({
@@ -146,6 +149,9 @@ var Cl = window.Cl || {};
         resize: function() {
             // depending on current window width
             this.width = ($(window).width() * this.options.ratio);
+            // if fixedRatio is defined overwrite ratio
+            if(this.options.fixedRatio) this.width = this.options.fixedRatio;
+            
             this.html.css({
                 'margin-left': this.width
             });

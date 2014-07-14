@@ -23,6 +23,7 @@ easing             'swing'      the jquery easing method for all animations.
 duration           300          the jquery duration speed for all animations.
 bound              539          the bound used when the mobilemenu should show up.
 ratio              70 / 100     the ratio used for how much the menu is taking from the viewport.
+fixedRatio         null         same as ratio just in pixel instead of multiplicator.
 offset             object       offsets to left or top of the menu.
 cls                object       the available css class getters and setters.
 overlay            ''           the generated overlay.
