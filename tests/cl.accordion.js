@@ -39,7 +39,7 @@ test('Options', function() {
     ok(langLength === 2, 'there are ' + langLength + ' options');
 
     var length = getLength(accordion.options);
-    ok(length === 11, 'there are ' + length + ' options');
+    ok(length === 12, 'there are ' + length + ' options');
 });
 
 test('Methods', function() {

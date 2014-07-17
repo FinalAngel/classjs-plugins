@@ -2,6 +2,10 @@
 Cl.Accordion
 ============
 
+1.1.7
+-----
+- added callback object within the options
+
 1.1.6
 -----
 - added data attributes for each element

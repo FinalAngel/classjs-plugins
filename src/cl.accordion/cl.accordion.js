@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.1.6
+ * @version     1.1.7
  */
 
 // ensure namespace is defined
@@ -149,7 +149,7 @@ var Cl = window.Cl || {};
                         .find(this.options.cls.text).html(this.options.lang.expanded);
             } else {
                 var callback = null;
-                if(!fast) callback = this.callbacks['complete'];
+                if(!fast) callback = this.callbacks.complete;
                 this.containers.eq(index)
                     .slideDown({
                         duration:this.options.duration,
