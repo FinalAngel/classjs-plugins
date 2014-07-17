@@ -38,7 +38,8 @@ var Cl = window.Cl || {};
             'lang': {
                 'expanded': 'Expanded ',
                 'collapsed': 'Collapsed '
-            }
+            },
+            'callbacks': {}
         },
 
         initialize: function (container, options) {
@@ -48,7 +49,7 @@ var Cl = window.Cl || {};
             this.triggers = this.container.find(this.options.cls.trigger);
             this.containers = this.container.find(this.options.cls.container);
             this.index = null;
-            this.callbacks = {};
+            this.callbacks = this.options.callbacks;
 
             // cancel if triggers and containers are not even
             if(this.triggers.length !== this.containers.length) return false;
@@ -131,7 +132,10 @@ var Cl = window.Cl || {};
             if(this.options.grouping && !fast) this.hide();
 
             if(index === undefined) {
-                if(!fast) this.containers.slideDown(this.options.duration, this.options.easing);
+                if(!fast) this.containers.slideDown({
+                    duration:this.options.duration,
+                    easing: this.options.easing
+                });
                 if(fast) this.containers.show();
 
                 this.containers
@@ -144,8 +148,14 @@ var Cl = window.Cl || {};
                     .attr('aria-expanded', true)
                         .find(this.options.cls.text).html(this.options.lang.expanded);
             } else {
+                var callback = null;
+                if(!fast) callback = this.callbacks['complete'];
                 this.containers.eq(index)
-                    .slideDown(this.options.duration, this.options.easing)
+                    .slideDown({
+                        duration:this.options.duration,
+                        easing: this.options.easing,
+                        complete: callback
+                    })
                     .attr('aria-hidden', false);
 
                 this.triggers.eq(index)
