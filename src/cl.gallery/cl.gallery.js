@@ -34,7 +34,8 @@ var Cl = window.Cl || {};
                 'next': '.trigger-next a',
                 'previous': '.trigger-previous a',
                 'navigation': 'nav a'
-            }
+            },
+			'callbacks': {}
         },
 
         initialize: function (container, options) {
@@ -57,7 +58,14 @@ var Cl = window.Cl || {};
             this.queue = false;
             this.autoplay = false;
             this.timer = function () {};
-            this.callbacks = {};
+            this.callbacks = this.options.callbacks;
+            // this is the default implementation of this callback
+            if(!this.callbacks.syncNavigation) {
+                this.callbacks.syncNavigation = function(gallery) {
+                    gallery.navigation.removeClass(gallery.options.cls.active);
+                    gallery.navigation.eq(gallery.index).addClass(gallery.options.cls.active);
+                };
+            }
 
             // this fixes chromes jQuery(window).load issue
             if(this.elements.length > 0) this._setup();
@@ -155,9 +163,8 @@ var Cl = window.Cl || {};
             // add accessibility
             this._accessibility();
 
-            // change active navigation
-            this.navigation.removeClass(this.options.cls.active);
-            this.navigation.eq(this.index).addClass(this.options.cls.active);
+            // change active navigation using callback
+            this._fire('syncNavigation');
 
             // start the engine
             this.engine[this.options.engine].call(this);

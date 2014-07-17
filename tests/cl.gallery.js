@@ -33,7 +33,7 @@ test('Options', function() {
     ok(clsLength === 7, 'there are ' + clsLength + ' cls options');
 
     var length = getLength(gallery.options);
-    ok(length === 9, 'there are ' + length + ' options');
+    ok(length === 10, 'there are ' + length + ' options');
 });
 
 test('Methods', function() {
