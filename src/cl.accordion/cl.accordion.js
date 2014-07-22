@@ -155,7 +155,7 @@ var Cl = window.Cl || {};
                         complete: this.callbacks.complete
                     })
                     .attr('aria-hidden', false);
-                if(fast) this.containers.show();
+                this.containers.eq(index).show();
 
                 this.triggers.eq(index)
                     .addClass(this.options.cls.expanded)
@@ -189,7 +189,7 @@ var Cl = window.Cl || {};
                 if(!fast) this.containers.eq(index)
                     .slideUp(this.options.duration, this.options.easing)
                     .attr('aria-hidden', true);
-                if(fast) this.containers.hide();
+                if(fast) this.containers.eq(index).hide();
 
                 this.triggers.eq(index)
                     .addClass(this.options.cls.collapsed)
