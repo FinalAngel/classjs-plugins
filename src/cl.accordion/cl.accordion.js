@@ -94,7 +94,7 @@ var Cl = window.Cl || {};
             var hash = window.location.hash;
             if(!this.options.expanded && hash !== undefined) {
                 var el = this.container.find('a[href="'+hash+'"]');
-                if(el.length) el.trigger('click');
+                if(el.length) el.trigger(this.options.event);
             }
         },
 
@@ -148,15 +148,14 @@ var Cl = window.Cl || {};
                     .attr('aria-expanded', true)
                         .find(this.options.cls.text).html(this.options.lang.expanded);
             } else {
-                var callback = null;
-                if(!fast) callback = this.callbacks.complete;
-                this.containers.eq(index)
+                if(!fast) this.containers.eq(index)
                     .slideDown({
                         duration:this.options.duration,
                         easing: this.options.easing,
-                        complete: callback
+                        complete: this.callbacks.complete
                     })
                     .attr('aria-hidden', false);
+                if(fast) this.containers.show();
 
                 this.triggers.eq(index)
                     .addClass(this.options.cls.expanded)
@@ -187,9 +186,10 @@ var Cl = window.Cl || {};
                     .attr('aria-expanded', false)
                         .find(this.options.cls.text).html(this.options.lang.collapsed);
             } else {
-                this.containers.eq(index)
+                if(!fast) this.containers.eq(index)
                     .slideUp(this.options.duration, this.options.easing)
                     .attr('aria-hidden', true);
+                if(fast) this.containers.hide();
 
                 this.triggers.eq(index)
                     .addClass(this.options.cls.collapsed)
