@@ -90,8 +90,8 @@ You can interact with callbacks as follows::
 .. js:data:: toggle
     is called when triggering method ``toggle``.
 
-.. js:data:: open
-    is called when triggering method ``open``.
+.. js:data:: show
+    is called when triggering method ``show``.
 
-.. js:data:: close
-    is called when triggering method ``close``.
+.. js:data:: hide
+    is called when triggering method ``hide``.
