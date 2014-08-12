@@ -1,7 +1,6 @@
-@charset "utf-8";
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
- * @copyright	Distributed under the BSD License.
+ * @copyright   Distributed under the BSD License.
  */
 .uniform {
   cursor: pointer;
@@ -10,11 +9,10 @@
 .uniform-checkbox, .uniform-radio,
 .uniform-file, .uniform-select {
   position: relative;
-  display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
-  zoom: 1;
+  *zoom: 1;
   *display: inline;
   cursor: pointer;
 }
@@ -23,45 +21,40 @@
 .uniform select {
   position: absolute;
   z-index: 100;
-}
-
-.uniform-radio > span, .uniform-checkbox > span {
-  position: relative;
+  margin: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
 }
 
 .uniform-radio, .uniform-checkbox {
   line-height: 0;
   width: 12px;
   height: 12px;
-  -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
+  -webkit-border-radius: 2px;
   border-radius: 2px;
   border: 1px solid #e5e5e5;
 }
 
 .uniform-radio > span, .uniform-checkbox > span {
-  display: block;
+  position: relative;
+  display: none;
   margin: 3px 0 0 3px;
+  float: left;
   width: 6px;
   height: 6px;
   background: #39c;
 }
 
 .uniform-radio {
-  -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  -o-border-radius: 100%;
+  -webkit-border-radius: 100%;
   border-radius: 100%;
 }
 
 .uniform-radio span {
-  -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  -o-border-radius: 100%;
+  -webkit-border-radius: 100%;
   border-radius: 100%;
 }
 
@@ -128,11 +121,10 @@
 .uniform-radio:hover, .uniform-checkbox:hover,
 .uniform-file:hover, .uniform-select:hover {
   border-color: #ccc;
-  -webkit-box-shadow: 0 0 3px #e5e5e5;
   -moz-box-shadow: 0 0 3px #e5e5e5;
+  -webkit-box-shadow: 0 0 3px #e5e5e5;
   box-shadow: 0 0 3px #e5e5e5;
-  -webkit-transition: border, 200ms;
   -moz-transition: border, 200ms;
-  -o-transition: border, 200ms;
+  -webkit-transition: border, 200ms;
   transition: border, 200ms;
 }

@@ -2,6 +2,13 @@
 Cl.Uniform
 ==========
 
+1.0.5
+-----
+- trigger focus when click on checkbox directly
+- new template for checkbox and radios
+- trigger uniform on change and on click
+- optimizations group radios
+
 1.0.4
 -----
 - remove auto height calculation

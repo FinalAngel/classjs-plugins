@@ -52,6 +52,7 @@ Option ``tpl`` strings:
 ==========    ============
 Option        Default
 ==========    ============
+knob          dom element (string)
 radio         dom element (string)
 checkbox      dom element (string)
 file          dom element (string)
