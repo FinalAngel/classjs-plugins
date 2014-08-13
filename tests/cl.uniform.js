@@ -9,7 +9,7 @@
 
 var uniform = new Cl.Uniform();
 
-module('cl.carousel.js');
+module('cl.uniform.js');
 
 test('Options', function() {
     var options = ['offset'];
