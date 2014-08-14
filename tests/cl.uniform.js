@@ -87,6 +87,18 @@ test('Test Uniform File Upload', function() {
 test('Test Uniform Radio button', function() {
     var fixture = $('#qunit-fixture');
     var radio = fixture.find('input[type="radio"]');
+    var fakeClick = function (el) {
+        var ev = document.createEvent('MouseEvent');
+        ev.initMouseEvent(
+            'click',
+            true /* bubble */, true /* cancelable */,
+            window, null,
+            0, 0, 0, 0, /* coordinates */
+            false, false, false, false, /* modifier keys */
+            0 /*left*/, null
+        );
+        el.dispatchEvent(ev);
+    };
 
     // Basic Test if HTML is available
     ok(radio.length === 4, 'all four radio fields are available.');
@@ -116,7 +128,8 @@ test('Test Uniform Radio button', function() {
     ok(radio.eq(2).siblings().is(':visible') === false, 'inital state changed after click on a radio.');
 
     // click on label
-    radio.eq(0).parents('label').trigger('click');
+    // radio.eq(0).parents('label').trigger('click');
+    fakeClick(radio.eq(0).parents('label')[0]); // trigger fake click because phantomjs does not bubble down to radio
     ok(radio.eq(0).siblings().is(':visible') === true, 'knob changed to visible after click on label.');
 
     // radio trigger change
