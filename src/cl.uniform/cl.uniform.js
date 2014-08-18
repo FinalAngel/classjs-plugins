@@ -1,8 +1,8 @@
 /*!
- * @author         Angelo Dini - github.com/finalangel/classjs-plugins
- * @copyright      Distributed under the BSD License.
- * @version        1.0.5
- * @contributors   Vanessa Hänni, Vadim Sikora
+ * @author      Angelo Dini - github.com/finalangel/classjs-plugins
+ * @copyright   Distributed under the BSD License.
+ * @version     1.0.5
+ * @contributer Vanessa Hänni, Vadim Sikora
  */
 
 // insure namespace is defined
@@ -131,7 +131,12 @@ var Cl = window.Cl || {};
                 if (type === 'checkbox') {
                     // we need to check if we should activate or deactivate the checkbox
                     enabled = input.is(':checked');
-                    knob.toggle(enabled);
+                    // don't use toggle, jQuery UI bug: http://bugs.jqueryui.com/ticket/10557
+                    if (enabled) {
+                        knob.show();
+                    } else {
+                        knob.hide();
+                    }
 
                     // accessibility
                     parent.attr('aria-checked', enabled);
