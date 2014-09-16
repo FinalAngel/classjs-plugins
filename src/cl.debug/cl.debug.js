@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.2.2
+ * @version     1.2.3
  */
 
 // ensure namespace is defined
@@ -139,14 +139,11 @@ var Cl = window.Cl || {};
             'links': function () {
                 var template = '';
                 var links = [
-                    { 'name': 'jQuery', 'url': 'http://docs.jquery.com/Main_Page' },
-                    { 'name': 'class.js', 'url': 'http://finalangel.github.com/classjs/' },
-                    { 'name': 'compass', 'url': 'http://compass-style.org/index/mixins/' },
-                    { 'name': 'django templates', 'url': 'http://docs.djangoproject.com/en/dev/ref/templates/builtins/' }
+                    { 'name': 'DevDocs', 'url': 'http://devdocs.io/' }
                 ];
                 // loop through the array
                 $(links).each(function (index, item) {
-                    template += '<li><a href="' + item.url + '" target="_blank"><span>&raquo;</span> <strong>Docs</strong> ' + item.name + '</a></li>';
+                    template += '<li><a href="' + item.url + '" target="_blank"><span>&raquo;</span> <strong>Goto</strong> ' + item.name + '</a></li>';
                 });
                 // attach links to body
                 this.body.append(template);
