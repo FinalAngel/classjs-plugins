@@ -9,7 +9,7 @@
 
 var uniform = new Cl.Uniform();
 
-module('cl.carousel.js');
+module('cl.uniform.js');
 
 test('Options', function() {
     var options = ['offset'];
@@ -40,7 +40,7 @@ test('Options', function() {
     ok(langLength === 2, 'there are ' + clsLength + ' lang options');
 
     var tplLength = getLength(uniform.options.tpl);
-    ok(tplLength === 4, 'there are ' + tplLength + ' tpl options');
+    ok(tplLength === 5, 'there are ' + tplLength + ' tpl options');
 
     var length = getLength(uniform.options);
     ok(length === 4, 'there are ' + length + ' options');

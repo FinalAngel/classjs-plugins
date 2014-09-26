@@ -1,7 +1,8 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.0.4
+ * @version     1.1.0
+ * @contributer Vanessa Hänni, Vadim Sikora
  */
 
 // insure namespace is defined
@@ -29,8 +30,9 @@ var Cl = window.Cl || {};
                 'fileStatus': 'Please select a file...'
             },
             'tpl': {
-                'radio': '<span class="{cls}" role="radio"><span class="{knob}"><!-- radio --></span></span>',
-                'checkbox': '<span class="{cls}" role="checkbox"><span class="{knob}"><!-- checkbox --></span></span>',
+                'knob': '<span class="{knob}"></span>',
+                'radio': '<span class="{cls}" role="radio"><!-- radio --></span>',
+                'checkbox': '<span class="{cls}" role="checkbox"><!-- checkbox --></span>',
                 'file': '<label class="{cls}"><span class="{input}"><!-- file --></span><span class="{btn}" aria-hidden="true">{btntext}</span><span class="{status}" aria-hidden="true">{statustext}</span></label>',
                 'select': '<span class="{cls}"><span class="{input}"><!-- select --></span><span class="{status}" aria-hidden="true"></span><span class="{arrow}"></span></span>'
             }
@@ -71,10 +73,20 @@ var Cl = window.Cl || {};
 
             this.elements.each(function (index, item) {
                 var input = $(item);
-                input.parent().siblings('span').remove();
-                input.unwrap()
-                    .unwrap()
-                    .removeAttr('style')
+                // console.log(input);
+
+                //FIXME will break if you do custom templates
+                //      also doesn't remove comment nodes
+                if (input.is('select') || input.is('[type=file]')) {
+                    input.unwrap();
+                    input.siblings('span').remove();
+                    input.unwrap();
+                } else {
+                    input.siblings('span').remove();
+                    input.unwrap();
+                }
+
+                input.removeAttr('style')
                     .off('click.' + cls.prefix)
                     .off('change.' + cls.prefix)
                     .off('focus.' + cls.prefix)
@@ -88,7 +100,7 @@ var Cl = window.Cl || {};
 
         _scan: function (field) {
             // validate if uniform is already attached
-            if(field.data('ready')) return false;
+            if (field.data('ready')) return false;
 
             // delegate form elements to their responsive setup handlers
             switch(field.attr('type')) {
@@ -102,7 +114,7 @@ var Cl = window.Cl || {};
                     this._setupFile(field);
                     break;
                 case undefined:
-                    if(field.prop('tagName') === 'SELECT' && field.attr('multiple') === undefined) this._setupSelect(field);
+                    if (field.prop('tagName') === 'SELECT' && field.attr('multiple') === undefined) this._setupSelect(field);
                     break;
                 default:
                     break;
@@ -110,58 +122,86 @@ var Cl = window.Cl || {};
         },
 
         _setupRadioCheck: function (field, type) {
-            var that = this;
             var cls = this.options.cls;
             var clsTpl = cls.prefix + ' ' + cls.prefix + '-' + cls[type];
             var clsKnob = cls.prefix + '-' + cls[type] + '-knob';
 
-            var tpl = $(this.options.tpl[type]
-                .replace('{cls}', clsTpl)
-                .replace('{knob}', clsKnob));
+            var tpl = $(this.options.tpl[type].replace('{cls}', clsTpl));
+            var tplKnob = $(this.options.tpl.knob.replace('{knob}', clsKnob));
 
             // inject element
-            field.wrap(tpl).css('left', this.options.offset);
+            field.wrap(tpl).parent().append(tplKnob);
+
+            // start attaching events
+            var parent = field.parents('.' + cls.prefix);
+
+            var _changeVisualState = function (input, type) {
+                var knob = input.siblings('.' + clsKnob);
+                var enabled = false;
+
+                if (type === 'checkbox') {
+                    // we need to check if we should activate or deactivate the checkbox
+                    enabled = input.is(':checked');
+                    // don't use toggle, jQuery UI bug: http://bugs.jqueryui.com/ticket/10557
+                    if (enabled) {
+                        knob.show();
+                    } else {
+                        knob.hide();
+                    }
+
+                    // accessibility
+                    parent.attr('aria-checked', enabled);
+
+                } else { // radio
+                    // we need to determine the radio group and trigger/enable them at once
+                    var group = $('input[type="radio"][name="' + input.attr('name') + '"]');
+                    group.siblings('.' + clsKnob).hide();
+                    //does it make sense to uncheck the whole group which is the native behaviour?
+                    group.not(input).attr('checked', false);
+                    knob.show();
+
+                    // accessibility
+                    group.parents('.' + cls.prefix).attr('aria-checked', false);
+                    parent.attr('aria-checked',true);
+                }
+            };
+
             field.on('click.' + cls.prefix, function (e) {
                 // prevent event bubbling
                 e.stopPropagation();
 
                 // getting vars
                 var input = $(this);
-                var knob = $(this).parents('.' + clsKnob);
+                var enabled = false;
 
                 // cancel event if element is disabled
-                if(input.is(':disabled')) return false;
+                if (input.is(':disabled')) return false;
 
-                if(type === 'checkbox') {
+                _changeVisualState(input, type);
+
+                if (type === 'checkbox') {
                     // we need to check if we should activate or deactivate the checkbox
-                    var enabled = parseInt(knob.css('left'), 10) === 0 || knob.css('left') === 'auto';
-                    if(enabled) {
-                        knob.css('left', that.options.offset);
-                    } else {
-                        knob.css('left', 0);
-                    }
-
-                    // accessibility
-                    parent.attr('aria-checked', !enabled);
-
+                    enabled = input.is(':checked');
                 } else { // radio
-                    // we need to determine the radio group and trigger/enable them at once
-                    var group = input.closest('form').find('input[type="radio"][name="' + input.attr('name') + '"]');
-                    group.parents('.' + clsKnob)
-                        .css('left', that.options.offset);
-                    knob.css('left', 0);
-
-                    // accessibility
-                    group.parents('.' + cls.prefix).attr('aria-checked', false);
-                    parent.attr('aria-checked',true);
+                   enabled = true;
                 }
+
+                // set focus and checked to current element
+                // setting the attribute fixes the issue for form submits
+                input.trigger('focus');
+                //we need to explicitly set in case there are no label and the input is unclickable
+                input.attr('checked', enabled);
 
                 // api call
                 input.trigger(cls.prefix + 'change');
+            }).on('change.' + cls.prefix, function (e) {
+                e.stopPropagation();
+
+                // getting vars
+                var input = $(this);
+                _changeVisualState(input, type);
             });
 
-            // start attaching events
-            var parent = field.parents('.' + cls.prefix);
             parent.on('click.' + cls.prefix, function (e) {
                 // prevent event bubbling
                 e.preventDefault();
@@ -173,14 +213,14 @@ var Cl = window.Cl || {};
             });
 
             // set initial accessibility labels
-            if(field.is(':checked')) {
+            if (field.is(':checked')) {
                 parent.attr('aria-checked', true);
             } else {
                 parent.attr('aria-checked', false);
             }
 
             // initial state
-            if(!field.is(':checked')) field.parents('.' + cls.prefix).children().css('left', this.options.offset);
+            if (field.is(':checked')) field.siblings('span').show();
 
             // add common elements
             this._common(field);
@@ -238,8 +278,12 @@ var Cl = window.Cl || {};
                 .replace('{arrow}', clsArrow));
 
             // auto calculate sizes
+            var width = field.css('width');
+            if (field.is('.input-auto')) { //FIXME ZKB only
+                width = (parseInt(width, 10) + 20) + 'px';
+            }
             tpl.css({
-                'width': field.css('width'),
+                'width': width,
                 'padding': field.css('padding'),
                 'margin': field.css('margin')
             });
@@ -259,6 +303,11 @@ var Cl = window.Cl || {};
             // set correct value
             text.text(field.find('option:selected').text());
 
+            // we need to set width again if no tpl was provided
+            // https://github.com/divio/zkb-project/issues/184#issuecomment-53871473
+            field.css('width', width);
+            field.closest('.uniform.uniform-select').css('width', width);
+
             // we need to set a fixed with if field is 100%
             field.css('width', tpl.outerWidth(true));
 
@@ -275,7 +324,7 @@ var Cl = window.Cl || {};
                 var wrap = $(this).parents('.' + cls.prefix);
                 var wrapCls = cls.prefix + '-' + cls.focus;
 
-                if(e.type === 'focus') {
+                if (e.type === 'focus') {
                     wrap.addClass(wrapCls);
                 } else {
                     wrap.removeClass(wrapCls);
@@ -283,10 +332,10 @@ var Cl = window.Cl || {};
             });
 
             // add classes depending on the state
-            if(field.is(':disabled')) parent.addClass(cls.prefix + '-' + cls.disabled);
+            if (field.is(':disabled')) parent.addClass(cls.prefix + '-' + cls.disabled);
 
             // set initial accessibility labels
-            if(field.attr('required')) parent.attr('aria-required', true);
+            if (field.attr('required')) parent.attr('aria-required', true);
 
             // add initialized class
             field.data('ready', true);
@@ -297,7 +346,7 @@ var Cl = window.Cl || {};
 
         _fire: function (keyword) {
             // cancel if there is no callback found
-            if(this.callbacks[keyword] === undefined) return false;
+            if (this.callbacks[keyword] === undefined) return false;
             // excecute callback
             this.callbacks[keyword](this);
         }

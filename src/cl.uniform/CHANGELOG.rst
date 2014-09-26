@@ -2,6 +2,12 @@
 Cl.Uniform
 ==========
 
+1.1.0
+-----
+- changed preset templates for checkboxes and radios
+- fixed destroy method
+- several behaviour changes
+
 1.0.4
 -----
 - remove auto height calculation
