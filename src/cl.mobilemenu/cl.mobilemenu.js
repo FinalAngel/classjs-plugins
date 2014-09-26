@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.1.5
+ * @version     1.1.6
  */
 
 // ensure namespace is defined
@@ -28,13 +28,14 @@ var Cl = window.Cl || {};
                 'inner': '> ul',
                 'knob': '.mainnav-knob'
             },
-            'overlay': '<div class="mainnav-overlay"></div>'
+            'heightCalc': true,
+            'overlay': '<div class="mainnav-overlay"></div>',
+            'overlayContainer': 'body'
         },
 
         initialize: function (options) {
             this.options = $.extend(true, {}, this.options, options);
 
-            this.html = $('html');
             this.body = $('body');
 
             this.menu = $(this.options.cls.menu);
@@ -81,7 +82,7 @@ var Cl = window.Cl || {};
             if(this.visible) { this.hide(); } else { this.show(); }
 
             // if not initialized, inject overlay
-            if(!this.initialized) this.body.append(this.overlay);
+            if(!this.initialized) $(this.options.overlayContainer).append(this.overlay);
             this.initialized = true;
 
             // trigger callback
@@ -101,11 +102,9 @@ var Cl = window.Cl || {};
             if(this.options.fixedRatio) this.width = this.options.fixedRatio;
 
             // fix html size and animate
-            this.html.animate({
+            this.body.animate({
                 'margin-left': this.width
-            }, (speed !== undefined) ? speed : this.options.duration, this.options.easing)
-                .css('width', $(window).width())
-                .css('overflow-x', 'hidden');
+            }, (speed !== undefined) ? speed : this.options.duration, this.options.easing);
             // set correct menu css
             this.menu.css({
                 'width': this.width,
@@ -130,11 +129,11 @@ var Cl = window.Cl || {};
             this.menu.attr('aria-expanded', false);
 
             // animate back and remove attributes
-            this.html.animate({
+            this.body.animate({
                 'margin-left': 0
             }, (speed !== undefined) ? speed : this.options.duration, this.options.easing, function () {
                 that.menu.removeAttr('style');
-                that.html.removeAttr('style');
+                that.body.removeAttr('style');
             });
             // hide overlay
             this.overlay.hide();
@@ -152,7 +151,7 @@ var Cl = window.Cl || {};
             // if fixedRatio is defined overwrite ratio
             if(this.options.fixedRatio) this.width = this.options.fixedRatio;
             
-            this.html.css({
+            this.body.css({
                 'margin-left': this.width
             });
             this.menu.css({
@@ -166,6 +165,8 @@ var Cl = window.Cl || {};
         },
 
         _setHeight: function () {
+            if(!this.options.heightCalc) return 0;
+
             var height = ($(window).height() > this.body.height()) ? $(window).height() : this.body.height();
 
             if(this.height > height) height = this.height;

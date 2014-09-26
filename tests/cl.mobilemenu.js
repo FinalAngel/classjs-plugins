@@ -12,8 +12,8 @@ var mobilemenu = new Cl.Mobilemenu();
 module('cl.mobilemenu.js');
 
 test('Options', function() {
-    var options = ['easing', 'duration', 'bound', 'ratio', 'fixedRatio', 'offset', 'overlay'];
-    var defaults = ['swing', 300, 539, (70/100), null, { 'left':0, 'top':0 }, '<div class="mainnav-overlay"></div>'];
+    var options = ['easing', 'duration', 'bound', 'ratio', 'fixedRatio', 'offset', 'heightCalc', 'overlay', 'overlayContainer'];
+    var defaults = ['swing', 300, 539, (70/100), null, { 'left':0, 'top':0 }, true, '<div class="mainnav-overlay"></div>', 'body'];
     // tests
     $.each(options, function (index, option) {
         deepEqual(mobilemenu.options[option], defaults[index], option + ' is available');
@@ -29,7 +29,7 @@ test('Options', function() {
     ok(clsLength === 3, 'there are ' + clsLength + ' cls options');
 
     var length = getLength(mobilemenu.options);
-    ok(length === 8, 'there are ' + length + ' options');
+    ok(length === 10, 'there are ' + length + ' options');
 });
 
 test('Methods', function() {

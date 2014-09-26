@@ -2,6 +2,13 @@
 Cl.MobileMenu
 =============
 
+1.1.6
+-----
+- added option ``heightCalc``
+- added option ``overlayContainer``
+- removed bindings to html in favor of the body
+- removed not required css bindings on body
+
 1.1.5
 -----
 - added fixedRatio option
