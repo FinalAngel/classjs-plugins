@@ -6,3 +6,4 @@ env/
 codekit-config.json
 /node_modules/
 npm-debug.log
+docs/_build
