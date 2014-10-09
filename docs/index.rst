@@ -19,6 +19,14 @@ Each plugin requires at least class.js 1.0+ and jQuery 1.7+.
 The latest stable versions are available on github - https://github.com/finalangel/classjs-plugins
 
 
+############
+Requirements
+############
+
+For additional information on how to run documentation or the examples locally, consult
+the docs/README.rst or the demo page's FAQ section: http://finalangel.github.io/classjs-plugins/
+
+
 #######
 Plugins
 #######
