@@ -134,9 +134,10 @@ doctest:
 VENV = env/bin/activate
 PIP = . $(VENV); env/bin/pip
 BRANCH = master
+PORT = 8000
 # CORE COMMANDS
 run:
-	. $(VENV); sphinx-autobuild . _build/html
+	. $(VENV); sphinx-autobuild --port $(PORT) . _build/html
 
 init:
 	##### setup virtualenv
