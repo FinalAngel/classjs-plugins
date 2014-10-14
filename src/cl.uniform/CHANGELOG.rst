@@ -1,6 +1,9 @@
 ==========
 Cl.Uniform
 ==========
+1.2.0
+-----
+- added ``ready`` class option
 
 1.1.0
 -----

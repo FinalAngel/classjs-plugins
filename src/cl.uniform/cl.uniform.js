@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.1.0
+ * @version     1.2.0
  * @contributer Vanessa Hänni, Vadim Sikora
  */
 
@@ -23,7 +23,8 @@ var Cl = window.Cl || {};
                 'file': 'file',
                 'select': 'select',
                 'disabled': 'disabled',
-                'focus': 'focus'
+                'focus': 'focus',
+                'ready': 'ready'
             },
             'lang': {
                 'fileBtn': 'Upload',
@@ -86,7 +87,7 @@ var Cl = window.Cl || {};
                     input.unwrap();
                 }
 
-                input.removeAttr('style')
+                input.removeAttr('style').removeClass(cls.prefix + '-' + cls.ready)
                     .off('click.' + cls.prefix)
                     .off('change.' + cls.prefix)
                     .off('focus.' + cls.prefix)
@@ -278,10 +279,8 @@ var Cl = window.Cl || {};
                 .replace('{arrow}', clsArrow));
 
             // auto calculate sizes
-            var width = field.css('width');
-            if (field.is('.input-auto')) { //FIXME ZKB only
-                width = (parseInt(width, 10) + 20) + 'px';
-            }
+            var width = field.outerWidth();
+
             tpl.css({
                 'width': width,
                 'padding': field.css('padding'),
@@ -304,7 +303,6 @@ var Cl = window.Cl || {};
             text.text(field.find('option:selected').text());
 
             // we need to set width again if no tpl was provided
-            // https://github.com/divio/zkb-project/issues/184#issuecomment-53871473
             field.css('width', width);
             field.closest('.uniform.uniform-select').css('width', width);
 
@@ -336,6 +334,8 @@ var Cl = window.Cl || {};
 
             // set initial accessibility labels
             if (field.attr('required')) parent.attr('aria-required', true);
+
+            field.addClass(cls.prefix + '-' + cls.ready);
 
             // add initialized class
             field.data('ready', true);
