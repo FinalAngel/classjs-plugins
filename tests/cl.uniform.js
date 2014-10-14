@@ -28,7 +28,7 @@ test('Options', function() {
     equal(cls.select, 'select', 'select is available');
     equal(cls.disabled, 'disabled', 'disabled is available');
     equal(cls.focus, 'focus', 'focus is available');
-    equal(cls.focus, 'focus', 'ready is available');
+    equal(cls.ready, 'ready', 'ready is available');
 
     var lang = uniform.options.lang;
     equal(lang.fileBtn, 'Upload', 'fileBtn is available');
