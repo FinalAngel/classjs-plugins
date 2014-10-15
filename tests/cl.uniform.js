@@ -21,20 +21,21 @@ test('Options', function() {
 
     // custom checks
     var cls = uniform.options.cls;
-    equal(cls.prefix, 'uniform', 'prefix is availalbe');
-    equal(cls.radio, 'radio', 'radio is availalbe');
-    equal(cls.checkbox, 'checkbox', 'checkbox is availalbe');
-    equal(cls.file, 'file', 'file is availalbe');
-    equal(cls.select, 'select', 'select is availalbe');
-    equal(cls.disabled, 'disabled', 'disabled is availalbe');
-    equal(cls.focus, 'focus', 'focus is availalbe');
+    equal(cls.prefix, 'uniform', 'prefix is available');
+    equal(cls.radio, 'radio', 'radio is available');
+    equal(cls.checkbox, 'checkbox', 'checkbox is available');
+    equal(cls.file, 'file', 'file is available');
+    equal(cls.select, 'select', 'select is available');
+    equal(cls.disabled, 'disabled', 'disabled is available');
+    equal(cls.focus, 'focus', 'focus is available');
+    equal(cls.ready, 'ready', 'ready is available');
 
     var lang = uniform.options.lang;
-    equal(lang.fileBtn, 'Upload', 'fileBtn is availalbe');
-    equal(lang.fileStatus, 'Please select a file...', 'fileStatus is availalbe');
+    equal(lang.fileBtn, 'Upload', 'fileBtn is available');
+    equal(lang.fileStatus, 'Please select a file...', 'fileStatus is available');
 
     var clsLength = getLength(uniform.options.cls);
-    ok(clsLength === 7, 'there are ' + clsLength + ' cls options');
+    ok(clsLength === 8, 'there are ' + clsLength + ' cls options');
 
     var langLength = getLength(uniform.options.lang);
     ok(langLength === 2, 'there are ' + clsLength + ' lang options');

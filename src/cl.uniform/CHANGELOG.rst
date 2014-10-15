@@ -2,6 +2,12 @@
 Cl.Uniform
 ==========
 
+1.2.0
+-----
+- added ``ready`` class option
+- removed comments
+- fixed typos
+
 1.1.0
 -----
 - changed preset templates for checkboxes and radios

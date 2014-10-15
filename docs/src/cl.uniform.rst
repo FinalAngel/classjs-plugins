@@ -4,7 +4,6 @@ Cl.Uniform
 
 This is a list of all relevant options, methods, events and callbacks.
 
-
 Options
 -------
 
@@ -16,13 +15,13 @@ Options are set on initializing the carousel::
 Option             Default      Description
 ==============     ========     ===========
 offset             -9999        the offset of the input related to the surrounding container.
-cls                object       the available css class getters and setters.
+cls                object       the available css class strings.
 lang               object       the available language configurations.
 tpl                object       the html template which will be used to replace the forms.
 ==============     ========     ===========
 
 
-Option ``cls`` setters and getters:
+Option ``cls`` strings:
 
 ==========     ============     ===========
 Option         Default          Description
@@ -34,6 +33,7 @@ file           'file'           will be used as the wrapper for file elements.
 select         'select'         will be used as the wrapper for select elements.
 disabled       'disabled'       will be added whenever the attribute ``disabled="disabled"`` is defined.
 focus          'focus'          will be added whenever ``focus`` is triggered on the element.
+ready          'ready'          will be added when the uniform is ready on this particular field.
 ==========     ============     ===========
 
 
