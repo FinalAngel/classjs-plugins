@@ -2,6 +2,11 @@
 Cl.Uniform
 ==========
 
+1.2.1
+-----
+- fixed issue with uniform unchecking all the radios with same name in the document, now relies on browser behaviour
+
+
 1.2.0
 -----
 - added ``ready`` class option
