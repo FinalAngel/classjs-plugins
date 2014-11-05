@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.2.0
+ * @version     1.2.1
  * @contributer Vanessa Hänni, Vadim Sikora
  */
 
@@ -74,7 +74,6 @@ var Cl = window.Cl || {};
 
             this.elements.each(function (index, item) {
                 var input = $(item);
-                // console.log(input);
 
                 //FIXME will break if you do custom templates
                 //      also doesn't remove comment nodes
@@ -137,33 +136,35 @@ var Cl = window.Cl || {};
             var parent = field.parents('.' + cls.prefix);
 
             var _changeVisualState = function (input, type) {
-                var knob = input.siblings('.' + clsKnob);
-                var enabled = false;
+                var checked = false;
+                var knob;
+                var group;
 
                 if (type === 'checkbox') {
                     // we need to check if we should activate or deactivate the checkbox
-                    enabled = input.is(':checked');
+                    checked = input.is(':checked');
+                    knob = input.siblings('.' + clsKnob);
                     // don't use toggle, jQuery UI bug: http://bugs.jqueryui.com/ticket/10557
-                    if (enabled) {
-                        knob.show();
-                    } else {
-                        knob.hide();
-                    }
+                    knob[checked ? 'show' : 'hide']();
 
                     // accessibility
-                    parent.attr('aria-checked', enabled);
+                    parent.attr('aria-checked', checked);
 
                 } else { // radio
-                    // we need to determine the radio group and trigger/enable them at once
-                    var group = $('input[type="radio"][name="' + input.attr('name') + '"]');
-                    group.siblings('.' + clsKnob).hide();
-                    //does it make sense to uncheck the whole group which is the native behaviour?
-                    group.not(input).attr('checked', false);
-                    knob.show();
+                    group = $(':radio[name="' + input.attr('name') + '"]');
+                    group.each(function () {
+                        // update current state for each radio button with same name
+                        // since the input state is already changed we can just change visual/accessibility
+                        // state based on current state of the input
+                        var input = $(this);
+                        var knob = input.siblings('.' + clsKnob);
+                        var parent = input.parents('.' + cls.prefix);
+                        var checked = input.is(':checked');
 
-                    // accessibility
-                    group.parents('.' + cls.prefix).attr('aria-checked', false);
-                    parent.attr('aria-checked',true);
+                        knob[checked ? 'show' : 'hide']();
+                        // accessibility
+                        parent.attr('aria-checked', checked);
+                    });
                 }
             };
 
@@ -178,20 +179,18 @@ var Cl = window.Cl || {};
                 // cancel event if element is disabled
                 if (input.is(':disabled')) return false;
 
-                _changeVisualState(input, type);
-
                 if (type === 'checkbox') {
                     // we need to check if we should activate or deactivate the checkbox
                     enabled = input.is(':checked');
                 } else { // radio
-                   enabled = true;
+                    enabled = true;
                 }
 
                 // set focus and checked to current element
                 // setting the attribute fixes the issue for form submits
                 input.trigger('focus');
                 //we need to explicitly set in case there are no label and the input is unclickable
-                input.attr('checked', enabled);
+                input.attr('checked', enabled).trigger('change');
 
                 // api call
                 input.trigger(cls.prefix + 'change');

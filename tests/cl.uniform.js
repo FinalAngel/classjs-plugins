@@ -9,7 +9,26 @@
 
 var uniform = new Cl.Uniform();
 
-module('cl.uniform.js');
+module('cl.uniform.js', {
+    setup: function () {
+        var fixture = $('#qunit-fixture');
+        fixture.append([
+            '<div class="uniformed">',
+                '<form class="form1" action="."><input type="radio" name="x" value="1" checked="checked" /><input type="radio" name="x" value="2" /></form>',
+                '<form class="form2" action="."><input type="radio" name="x" value="3" checked="checked" /><input type="radio" name="x" value="4" /></form>',
+                '<div class="not-a-form">',
+                    '<input type="radio" name="x" value="5" />',
+                    '<input type="radio" name="x" value="6" />',
+                    '<input type="radio" name="x" value="7" checked="checked" />',
+                    '<input type="radio" name="x" value="8" />',
+                '</div>',
+            '</div>'
+        ].join(''));
+
+        new Cl.Uniform('.uniformed input:radio');
+
+    }
+});
 
 test('Options', function() {
     var options = ['offset'];
@@ -69,4 +88,32 @@ test('Test for issue #41: Uniform Upload in IE', function() {
     var upload = fixture.find('input[type="file"]');
 
     ok(upload.length === 1, 'upload field is available.');
+});
+
+test('Test for issue #59: radios with same name across different forms', function () {
+    var fixture = $('#qunit-fixture');
+
+    equal(fixture.find('.form1').find('input:radio:checked').val(), '1', 'initial values are ok');
+    equal(fixture.find('.form2').find('input:radio:checked').val(), '3', 'initial values are ok');
+    // NOTE: these tests are commented because PhantomJS currently incorrectly handles radio groups that are injected/modified
+    // https://github.com/ariya/phantomjs/issues/12039
+    // equal(fixture.find('.not-a-form').find('input:radio:checked').val(), '7', 'initial values are ok');
+});
+
+test('Test for issue #59: radios with same name across different forms', function () {
+    var fixture = $('#qunit-fixture');
+    fixture.find('.form1').find('input:radio:last').prop('checked', true).trigger('change');
+
+    equal(fixture.find('.form1').find('input:radio:checked').val(), '2', 'change in the form affects only that form');
+    equal(fixture.find('.form2').find('input:radio:checked').val(), '3', 'change in the form affects only that form');
+    // equal(fixture.find('.not-a-form').find('input:radio:checked').val(), '7', 'change in the form affects only that form');
+});
+
+test('Test for issue #59: radios with same name across different forms', function () {
+    var fixture = $('#qunit-fixture');
+    fixture.find('.not-a-form').find('input:radio:first').prop('checked', true).trigger('change');
+
+    equal(fixture.find('.form1').find('input:radio:checked').val(), '1', 'change outside of the form affects only radios that are outside of forms');
+    equal(fixture.find('.form2').find('input:radio:checked').val(), '3', 'change outside of the form affects only radios that are outside of forms');
+    equal(fixture.find('.not-a-form').find('input:radio:checked').val(), '5', 'change outside of the form affects only radios that are outside of forms');
 });
