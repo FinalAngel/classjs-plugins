@@ -25,7 +25,38 @@ module('cl.uniform.js', {
             '</div>'
         ].join(''));
         fixture.append('<form action="." method="post" class="frm frm-upload-1"><input type="file" class="uniform" /></form>');
-        fixture.append('<form action="." method="post" class="frm frm-upload-2"><fieldset><h4>File field</h4><div><label>upload <input type="file" class="uniform" /></label></div><div><label>upload <input type="file" class="uniform" disabled="disabled" /></label></div></fieldset><fieldset><h4>Select field</h4><div><label>choose <select class="uniform"><option value="">Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div><div><label>choose <select class="uniform" disabled><option value="">Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div></fieldset><div class="col-two"><fieldset><h4>Radio field</h4><div><label><input type="radio" name="radiogroup1" class="uniform" /> radiogroup 1</label></div><div><input type="radio" name="radiogroup1" class="uniform" id="field-radiotest" required="required" /> <label for="field-radiotest">radiogroup 1</label></div><div><label><input type="radio" name="radiogroup1" class="uniform" checked="checked" /> radiogroup checked</label></div><div><label><input type="radio" name="radiogroup1" class="uniform" disabled="disabled" /> radiogroup disabled</label></div></fieldset></div><div class="col-two col-last"><fieldset><h4>Checkbox field</h4><div><label><input type="checkbox" name="check1" class="uniform" /> checkbox 1</label></div><div><input type="checkbox" name="check3" class="uniform" id="field-checktest" required="required" /> <label for="field-checktest">checkbox 3</label></div><div><label><input type="checkbox" name="check4" class="uniform" checked="checked" /> checkbox checked</label></div><div><label><input type="checkbox" name="check5" class="uniform" disabled="disabled" /> checkbox disabled</label></div></fieldset></div></form>');
+        fixture.append([
+            '<form action="." method="post" class="frm frm-upload-2">',
+                '<fieldset>',
+                    '<h4>File field</h4>',
+                    '<div><label>upload <input type="file" class="uniform" /></label></div>',
+                    '<div><label>upload <input type="file" class="uniform" disabled="disabled" /></label></div>',
+                '</fieldset>',
+                '<fieldset>',
+                    '<h4>Select field</h4>',
+                    '<div><label>choose <select class="uniform"><option value="">Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>',
+                    '<div><label>choose <select class="uniform" disabled><option value="">Select 1</option><option>Select 2</option><option>Select 3</option></select></label></div>',
+                '</fieldset>',
+                '<div class="col-two">',
+                    '<fieldset>',
+                        '<h4>Radio field</h4>',
+                        '<div><label><input type="radio" name="radiogroup1" class="uniform" /> radiogroup 1</label></div>',
+                        '<div><input type="radio" name="radiogroup1" class="uniform" id="field-radiotest" required="required" /> <label for="field-radiotest">radiogroup 1</label></div>',
+                        '<div><label><input type="radio" name="radiogroup1" class="uniform" checked="checked" /> radiogroup checked</label></div>',
+                        '<div><label><input type="radio" name="radiogroup1" class="uniform" disabled="disabled" /> radiogroup disabled</label></div>',
+                    '</fieldset>',
+                '</div>',
+                '<div class="col-two col-last">',
+                    '<fieldset>',
+                        '<h4>Checkbox field</h4>',
+                        '<div><label><input type="checkbox" name="check1" class="uniform" /> checkbox 1</label></div>',
+                        '<div><input type="checkbox" name="check3" class="uniform" id="field-checktest" required="required" /> <label for="field-checktest">checkbox 3</label></div>',
+                        '<div><label><input type="checkbox" name="check4" class="uniform" checked="checked" /> checkbox checked</label></div>',
+                        '<div><label><input type="checkbox" name="check5" class="uniform" disabled="disabled" /> checkbox disabled</label></div>',
+                    '</fieldset>',
+                '</div>',
+            '</form>'
+        ].join(''));
         fixture.find('form').on('submit', function (e) {
             e.preventDefault();
         });
