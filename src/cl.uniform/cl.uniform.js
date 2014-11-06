@@ -212,15 +212,14 @@ var Cl = window.Cl || {};
                 input.trigger('click');
             });
 
-            // set initial accessibility labels
+            // set initial accessibility labels and knob state
             if (field.is(':checked')) {
                 parent.attr('aria-checked', true);
+                field.siblings('.' + clsKnob).show();
             } else {
                 parent.attr('aria-checked', false);
+                field.siblings('.' + clsKnob).hide();
             }
-
-            // initial state
-            if (field.is(':checked')) field.siblings('span').show();
 
             // add common elements
             this._common(field);

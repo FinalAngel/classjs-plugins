@@ -5,7 +5,7 @@ Cl.Uniform
 1.2.1
 -----
 - fixed issue with uniform unchecking all the radios with same name in the document, now relies on browser behaviour
-
+- explicitly hide knob on initially unchecked radio/checkbox (was previously assumed from css)
 
 1.2.0
 -----
