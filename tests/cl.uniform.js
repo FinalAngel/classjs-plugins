@@ -167,6 +167,8 @@ test('Test Uniform Radio button', function() {
     ok(radio.eq(0).siblings().is(':visible') === false, 'knob is not visible when radio is not checked, inital state.');
     ok(radio.eq(2).siblings().is(':visible') === true, 'knob is visible when radio is checked, inital state.');
     ok(radio.eq(3).parent().hasClass('uniform-disabled') === true, 'parent gets class disabled when radio is disabled.');
+    ok(radio.eq(3).parent().hasClass('uniform-ready') === true, 'parent gets class ready when uniform is ready');
+    ok(radio.eq(3).hasClass('uniform-ready') === true, 'radio gets class ready when uniform is ready');
 
     // normal focus
     radio.eq(0).trigger('focus');
