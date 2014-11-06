@@ -187,7 +187,7 @@ test('Test Uniform Radio button', function() {
     ok(radio.eq(0).siblings().is(':visible') === true, 'knob changed to visible after click on label.');
 
     // radio trigger change
-    radio.eq(1).trigger('change');
+    radio.eq(1).prop('checked', true).trigger('change');
     ok(radio.eq(1).siblings().is(':visible') === true, 'knob changed to visible after trigger change on radio.');
 });
 
