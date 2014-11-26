@@ -8,6 +8,19 @@
  */
 
 var uniform = new Cl.Uniform();
+var fakeClick = function (el) {
+    var ev = document.createEvent('MouseEvent');
+    ev.initMouseEvent(
+        'click',
+        true /* bubble */, true /* cancelable */,
+        window, null,
+        0, 0, 0, 0, /* coordinates */
+        false, false, false, false, /* modifier keys */
+        0 /*left*/, null
+    );
+    el.dispatchEvent(ev);
+};
+
 
 module('cl.uniform.js', {
     setup: function () {
@@ -141,19 +154,6 @@ test('Test Uniform File Upload', function() {
 test('Test Uniform Radio button', function() {
     var fixture = $('#qunit-fixture');
     var radio = fixture.find('.frm-upload-2 input[type="radio"]');
-    var fakeClick = function (el) {
-        var ev = document.createEvent('MouseEvent');
-        ev.initMouseEvent(
-            'click',
-            true /* bubble */, true /* cancelable */,
-            window, null,
-            0, 0, 0, 0, /* coordinates */
-            false, false, false, false, /* modifier keys */
-            0 /*left*/, null
-        );
-        el.dispatchEvent(ev);
-    };
-
     // Basic Test if HTML is available
     ok(radio.length === 4, 'all four radio fields are available.');
     ok(radio.eq(1).prop('required') === true, 'second radio is required.');
@@ -219,4 +219,37 @@ test('Test for issue #59: radios with same name across different forms', functio
     equal(fixture.find('.form1').find('input:radio:checked').val(), '1', 'change outside of the form affects only radios that are outside of forms');
     equal(fixture.find('.form2').find('input:radio:checked').val(), '3', 'change outside of the form affects only radios that are outside of forms');
     equal(fixture.find('.not-a-form').find('input:radio:checked').val(), '5', 'change outside of the form affects only radios that are outside of forms');
+});
+
+test('change event triggered only once when click on radio wrapped in label', function () {
+    var fixture = $('#qunit-fixture');
+    var radio = fixture.find('.frm-upload-2 input[type="radio"]');
+    var counter = 0;
+    radio.eq(0).on('change', function () {
+        counter += 1;
+    });
+    fakeClick(radio.eq(0).parents('label')[0]); // trigger fake click because phantomjs does not bubble down to radio
+    equal(counter, 1, 'change triggered only once');
+});
+
+test('change event triggered only once when click on radio uniformed input, not on label', function () {
+    var fixture = $('#qunit-fixture');
+    var radio = fixture.find('.frm-upload-2 input[type="radio"]');
+    var counter = 0;
+    radio.eq(1).on('change', function () {
+        counter += 1;
+    });
+    fakeClick(radio.eq(1).closest('.uniform-radio')[0]); // trigger fake click because phantomjs does not bubble down to radio
+    equal(counter, 1, 'change triggered only once');
+});
+
+test('change event is not triggered if click happened on already checked radio', function () {
+    var fixture = $('#qunit-fixture');
+    var radio = fixture.find('.frm-upload-2 input[type="radio"]:checked');
+    var counter = 0;
+    radio.eq(0).on('change', function () {
+        counter += 1;
+    });
+    fakeClick(radio.eq(0).parents('.uniform-radio')[0]); // trigger fake click because phantomjs does not bubble down to radio
+    equal(counter, 0, 'change triggered only once');
 });
