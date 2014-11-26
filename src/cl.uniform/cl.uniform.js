@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.2.1
+ * @version     1.2.2
  * @contributer Vanessa Hänni, Vadim Sikora
  */
 
@@ -175,6 +175,7 @@ var Cl = window.Cl || {};
                 // getting vars
                 var input = $(this);
                 var enabled = false;
+                var currentState = this.checked;
 
                 // cancel event if element is disabled
                 if (input.is(':disabled')) return false;
@@ -189,8 +190,13 @@ var Cl = window.Cl || {};
                 // set focus and checked to current element
                 // setting the attribute fixes the issue for form submits
                 input.trigger('focus');
-                //we need to explicitly set in case there are no label and the input is unclickable
-                input.attr('checked', enabled).trigger('change');
+
+                // we need to explicitly set in case there are no label and the input is unclickable
+                // and since we force click on the field everytime we have to check if state actually
+                // changed
+                if (currentState !== enabled) {
+                    input.attr('checked', enabled).trigger('change');
+                }
 
                 // api call
                 input.trigger(cls.prefix + 'change');

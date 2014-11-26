@@ -2,6 +2,10 @@
 Cl.Uniform
 ==========
 
+1.2.2
+-----
+- fixed issue with uniform triggering extra change events on radio/checkboxes
+
 1.2.1
 -----
 - fixed issue with uniform unchecking all the radios with same name in the document, now relies on browser behaviour
