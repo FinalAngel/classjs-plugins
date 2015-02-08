@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.2.2
+ * @version     1.2.3
  * @contributer Vanessa Hänni, Vadim Sikora
  */
 
@@ -24,7 +24,8 @@ var Cl = window.Cl || {};
                 'select': 'select',
                 'disabled': 'disabled',
                 'focus': 'focus',
-                'ready': 'ready'
+                'ready': 'ready',
+                'checked': 'checked'
             },
             'lang': {
                 'fileBtn': 'Upload',
@@ -125,6 +126,7 @@ var Cl = window.Cl || {};
             var cls = this.options.cls;
             var clsTpl = cls.prefix + ' ' + cls.prefix + '-' + cls[type];
             var clsKnob = cls.prefix + '-' + cls[type] + '-knob';
+            var clsChecked = cls.prefix + '-' + cls.checked;
 
             var tpl = $(this.options.tpl[type].replace('{cls}', clsTpl));
             var tplKnob = $(this.options.tpl.knob.replace('{knob}', clsKnob));
@@ -147,6 +149,8 @@ var Cl = window.Cl || {};
                     // don't use toggle, jQuery UI bug: http://bugs.jqueryui.com/ticket/10557
                     knob[checked ? 'show' : 'hide']();
 
+                    parent[checked ? 'addClass' : 'removeClass'](clsChecked);
+
                     // accessibility
                     parent.attr('aria-checked', checked);
 
@@ -162,6 +166,7 @@ var Cl = window.Cl || {};
                         var checked = input.is(':checked');
 
                         knob[checked ? 'show' : 'hide']();
+                        parent[checked ? 'addClass' : 'removeClass'](clsChecked);
                         // accessibility
                         parent.attr('aria-checked', checked);
                     });
@@ -220,10 +225,10 @@ var Cl = window.Cl || {};
 
             // set initial accessibility labels and knob state
             if (field.is(':checked')) {
-                parent.attr('aria-checked', true);
+                parent.attr('aria-checked', true).addClass(clsChecked);
                 field.siblings('.' + clsKnob).show();
             } else {
-                parent.attr('aria-checked', false);
+                parent.attr('aria-checked', false).removeClass(clsChecked);
                 field.siblings('.' + clsKnob).hide();
             }
 
