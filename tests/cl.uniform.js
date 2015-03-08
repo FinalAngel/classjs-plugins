@@ -97,13 +97,14 @@ test('Options', function() {
     equal(cls.disabled, 'disabled', 'disabled is available');
     equal(cls.focus, 'focus', 'focus is available');
     equal(cls.ready, 'ready', 'ready is available');
+    equal(cls.checked, 'checked', 'checked is available');
 
     var lang = uniform.options.lang;
     equal(lang.fileBtn, 'Upload', 'fileBtn is available');
     equal(lang.fileStatus, 'Please select a file...', 'fileStatus is available');
 
     var clsLength = getLength(uniform.options.cls);
-    ok(clsLength === 8, 'there are ' + clsLength + ' cls options');
+    ok(clsLength === 9, 'there are ' + clsLength + ' cls options');
 
     var langLength = getLength(uniform.options.lang);
     ok(langLength === 2, 'there are ' + clsLength + ' lang options');
@@ -252,4 +253,38 @@ test('change event is not triggered if click happened on already checked radio',
     });
     fakeClick(radio.eq(0).parents('.uniform-radio')[0]); // trigger fake click because phantomjs does not bubble down to radio
     equal(counter, 0, 'change triggered only once');
+});
+
+test('checked class is set on initialization', function () {
+    var fixture = $('#qunit-fixture');
+    var uncheckedCheckbox = fixture.find('[name=check1]');
+    var checkedCheckbox = fixture.find('[name=check4]');
+    var uncheckedRadio = fixture.find('.not-a-form :radio:first');
+    var checkedRadio = fixture.find(':radio:checked:first');
+
+    equal(uncheckedCheckbox.parent().hasClass('uniform-checked'), false, 'unchecked checkbox has no class on init');
+    equal(checkedCheckbox.parent().hasClass('uniform-checked'), true, 'checked checkbox has class on init');
+    equal(uncheckedRadio.parent().hasClass('uniform-checked'), false, 'unchecked radio has no class on init');
+    equal(checkedRadio.parent().hasClass('uniform-checked'), true, 'checked radio has class on init');
+});
+
+test('checked class is set/unset when checkbox is selected', function () {
+    var fixture = $('#qunit-fixture');
+    var checkbox = fixture.find('[name=check1]');
+    checkbox.prop('checked', true).trigger('change');
+    equal(checkbox.parent().hasClass('uniform-checked'), true, 'checked class is set on change');
+    checkbox.prop('checked', false).trigger('change');
+    equal(checkbox.parent().hasClass('uniform-checked'), false, 'checked class is unset on change');
+});
+
+test('checked class is set/unset when radio is selected', function () {
+    var fixture = $('#qunit-fixture');
+    var radio1 = fixture.find('.form1 :radio').eq(0);
+    var radio2 = fixture.find('.form1 :radio').eq(1);
+    equal(radio1.is(':checked'), true, 'initially selected');
+    equal(radio2.is(':checked'), false, 'initially not selected');
+
+    radio2.prop('checked', true).trigger('change');
+    equal(radio1.parent().hasClass('uniform-checked'), false, 'no class on first radio after change');
+    equal(radio2.parent().hasClass('uniform-checked'), true, 'added class on second radio after change');
 });

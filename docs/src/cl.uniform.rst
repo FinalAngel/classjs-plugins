@@ -34,6 +34,7 @@ select         'select'         will be used as the wrapper for select elements.
 disabled       'disabled'       will be added whenever the attribute ``disabled="disabled"`` is defined.
 focus          'focus'          will be added whenever ``focus`` is triggered on the element.
 ready          'ready'          will be added when the uniform is ready on this particular field.
+checked        'checked'        will be added when checkbox/radio is checked/selected
 ==========     ============     ===========
 
 

@@ -2,6 +2,10 @@
 Cl.Uniform
 ==========
 
+1.2.3
+-----
+- added ``checked`` class option
+
 1.2.2
 -----
 - fixed issue with uniform triggering extra change events on radio/checkboxes
