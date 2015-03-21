@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.1.6
+ * @version     1.1.7
  */
 
 // ensure namespace is defined
@@ -81,15 +81,15 @@ var Cl = window.Cl || {};
         toggle: function () {
             if(this.visible) { this.hide(); } else { this.show(); }
 
-            // if not initialized, inject overlay
-            if(!this.initialized) $(this.options.overlayContainer).append(this.overlay);
-            this.initialized = true;
-
             // trigger callback
             this._fire('toggle');
         },
 
         show: function (speed) {
+            // if not initialized, inject overlay
+            if(!this.initialized) $(this.options.overlayContainer).append(this.overlay);
+            this.initialized = true;
+
             // validate if toolbar should be shown
             if(!this._validate()) return false;
 
