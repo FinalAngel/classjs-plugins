@@ -32,13 +32,13 @@ overlay            ''           the generated overlay.
 
 Option ``cls`` setters and getters:
 
-=========     ==============     ===========
+=========     ===============    ===========
 Option        Default            Description
-=========     ==============     ===========
+=========     ===============    ===========
 menu          '.mainnav'         will be added on the trigger when expanded
 inner         '> ul'             will be added on the trigger when collapsed
 knob          '.mainnav-knob'    the element which triggers ``toggle``
-=========     ==============     ===========
+=========     ===============    ===========
 
 
 Methods
