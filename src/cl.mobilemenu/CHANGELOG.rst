@@ -2,6 +2,10 @@
 Cl.MobileMenu
 =============
 
+1.1.7
+-----
+- moved overlay initialization from ``toggle`` to ``show``
+
 1.1.6
 -----
 - added option ``heightCalc``
