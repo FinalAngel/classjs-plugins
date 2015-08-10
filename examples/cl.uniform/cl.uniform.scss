@@ -21,6 +21,12 @@
 
 .uniform-radio > span, .uniform-checkbox > span { position:relative; }
 
+// hide blinking cursor on focused radio buttons and checkboxes
+.uniform-checkbox input,
+.uniform-radio input {
+    text-indent: -9999em;
+}
+
 // custom radio and checks
 .uniform-radio, .uniform-checkbox { line-height:0; width:12px; height:12px;
     @include border-radius(2px); border:1px solid #e5e5e5; }

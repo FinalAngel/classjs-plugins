@@ -2,10 +2,6 @@
 Cl.Uniform
 ==========
 
-1.2.4
------
-- fixed blinking cursor on focused radio buttons and checkboxes
-
 1.2.3
 -----
 - added ``checked`` class option
