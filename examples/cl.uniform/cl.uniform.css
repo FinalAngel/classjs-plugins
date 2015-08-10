@@ -29,6 +29,11 @@
   position: relative;
 }
 
+.uniform-checkbox input,
+.uniform-radio input {
+    text-indent: -9999em;
+}
+
 .uniform-radio, .uniform-checkbox {
   line-height: 0;
   width: 12px;
