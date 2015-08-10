@@ -1,8 +1,8 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright   Distributed under the BSD License.
- * @version     1.2.3
- * @contributer Vanessa Hänni, Vadim Sikora
+ * @version     1.2.4
+ * @contributer Vanessa Hänni, Vadim Sikora, Loriana Indelicato
  */
 
 // insure namespace is defined
@@ -194,7 +194,9 @@ var Cl = window.Cl || {};
 
                 // set focus and checked to current element
                 // setting the attribute fixes the issue for form submits
-                input.trigger('focus');
+                if (type !== 'checkbox' && type !== 'radio') {
+                    input.trigger('focus');
+                }
 
                 // we need to explicitly set in case there are no label and the input is unclickable
                 // and since we force click on the field everytime we have to check if state actually
