@@ -4,6 +4,7 @@ node_js:
 ruby:
   - "2.0.0"
 before_install:
+  - npm install ruby-dev
   - gem update --system
   - gem install jekyll
   - npm install -g grunt-cli
