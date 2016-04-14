@@ -1,7 +1,7 @@
 /*!
  * @author      Angelo Dini - github.com/finalangel/classjs-plugins
  * @copyright	Distributed under the BSD License.
- * @version     1.2.2
+ * @version     1.2.3
  */
 
 // ensure namespace is defined
@@ -588,19 +588,20 @@ var Cl = window.Cl || {};
             // top should never be negative
             if(top <= bound) top = bound;
 
-            // LEFT CALCULATIONS
-            // removing padding padding and margins from left and top alignments
-            var left = (windowWidth - width) / 2;
-            left = left - ((this.content.outerWidth(true) - this.content.width())/2);
+            // LEFT AND RIGHT CALCULATIONS
+            // removing padding padding and margins from left, right and top alignments
+            var leftRight = (windowWidth - width) / 2;
+            leftRight = leftRight - ((this.content.outerWidth(true) - this.content.width())/2);
 
             // ANIMATION HANDLING
             if(this.isFixed) {
                 this.frame.stop()[type]({
-                    'left': left
+                    'left': leftRight
                 }, this.options.duration, this.options.easing);
             } else {
                 this.frame.stop()[type]({
-                    'left': left,
+                    'left': leftRight,
+                    'right': leftRight,
                     'top': top - heightOffset
                 }, this.options.duration, this.options.easing);
             }

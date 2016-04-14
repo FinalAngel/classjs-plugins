@@ -2,6 +2,10 @@
 Cl.Lightbox
 ===========
 
+1.2.3 (unreleased)
+------------------
+- adds right position to make sure that lightbox is positioned center if description is too long
+
 1.2.2
 -----
 - change regex for inline elements
