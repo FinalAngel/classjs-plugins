@@ -1,10 +1,7 @@
 language: node_js
 node_js:
   - "0.10"
-ruby:
-  - "2.0.0"
 before_install:
-  - npm install ruby-dev
   - gem update --system
-  - gem install jekyll
+  - gem install jekyll -v '1.5.1'
   - npm install -g grunt-cli
