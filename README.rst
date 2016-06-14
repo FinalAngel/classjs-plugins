@@ -20,7 +20,7 @@ callbacks.
 Documentation
 -------------
 
-| Visit `classjs-plugins.rtfd.org <http://classjs-plugins.rtfd.org>`_ for a full documentation or go to the `demo page <http://divio.github.io/classjs-plugins/>`_ to view the examples.
+| Visit `classjs-plugins.rtfd.org <https://classjs-plugins.readthedocs.io>`_ for a full documentation or go to the `demo page <http://divio.github.io/classjs-plugins/>`_ to view the examples.
 | Please use github to report bugs or feature requests. Include a `jsfiddle <http://jsfiddle.net>`_ or equivalent example whenever possible.
 
 
